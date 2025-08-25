@@ -1,0 +1,23 @@
+<div class="garbage-management-ranking-garbage-drop-index">
+  <div class="garbage-management-ranking-garbage-drop-index-head button-group">
+    <div
+      class="button-bracket"
+      [class.selected]="index === Index.duration"
+      (click)="onchange(Index.duration)"
+    >
+      滞留时长
+    </div>
+    <div
+      class="button-bracket"
+      [class.selected]="index === Index.count"
+      (click)="onchange(Index.count)"
+    >
+      滞留数量
+    </div>
+  </div>
+  <div class="garbage-management-ranking-garbage-drop-index-body">
+    <howell-garbage-management-ranking
+      [datas]="datas"
+    ></howell-garbage-management-ranking>
+  </div>
+</div>

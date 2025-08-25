@@ -1,0 +1,17 @@
+<div class="garbage-management-chart-station-count-item">
+  <div class="garbage-management-chart-station-count-item-chart" #chart></div>
+  <div class="garbage-management-chart-station-count-item-value">
+    <div
+      [ngStyle]="{
+      color: 'rgba('+data.color.r+', '+data.color.g+', '+data.color.b+', 0.9)',
+    }"
+    >
+      {{ data.data.value }}
+    </div>
+    <div>/</div>
+    <div>{{ data.data.count }}</div>
+  </div>
+  <div class="garbage-management-chart-station-count-item-name">
+    {{ data.name }}
+  </div>
+</div>

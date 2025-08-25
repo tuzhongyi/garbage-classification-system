@@ -1,0 +1,27 @@
+.garbage-management-container {
+
+
+  &-map {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+
+
+    &-mask {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      box-shadow: 250px 100px 250px #180f66 inset,
+        -250px 100px 250px #180f66 inset;
+
+      z-index: 1;
+      pointer-events: none;
+    }
+  }
+}

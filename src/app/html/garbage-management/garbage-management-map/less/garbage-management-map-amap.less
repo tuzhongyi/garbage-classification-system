@@ -1,0 +1,58 @@
+.garbage-management-map {
+
+  &-container {
+
+    ::ng-deep {
+      .marker-content {
+        width: max-content;
+        height: 20px;
+        line-height: 20px;
+        background-image: linear-gradient(to right, rgba(30, 215, 196, 0.4), rgba(30, 215, 196, 0.3), rgba(0, 0, 0, 0.4));
+        border: 2px solid rgba(30, 215, 196, 0.9);
+        color: #fff;
+        border-radius: 8px;
+        text-align: center;
+        margin: 0;
+        padding: 0 20px;
+        box-sizing: border-box;
+      }
+
+      .amap-info-contentContainer.bottom-left,
+      .amap-info-contentContainer.bottom-center,
+      .amap-info-contentContainer.bottom-right {
+        margin-top: -38px;
+      }
+
+      .amap-info-contentContainer {
+        animation: anim-in 1s;
+      }
+
+      .amap-info-contentContainer .amap-info-content {
+        padding-right: 10px;
+        background-color: rgba(19, 34, 77, 0.7);
+      }
+
+      .amap-info-contentContainer .amap-info-outer {
+        text-align: center;
+        border: 1px #2d76ce solid;
+        box-shadow: #2d76ce99 0px 0px 10px inset;
+        border-radius: 2px;
+        color: white;
+      }
+
+      .amap-info-contentContainer.bottom-center .amap-info-sharp {
+        /* border-top: 8px solid #2d76ce; */
+        height: 38px;
+        width: 0px;
+        border: 1px solid #2d76ce;
+        bottom: auto;
+        margin-left: -1px;
+        margin-top: -20px;
+      }
+
+      .amap-info-close {
+        display: none;
+      }
+    }
+  }
+}

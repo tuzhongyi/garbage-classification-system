@@ -1,0 +1,53 @@
+<div class="garbage-management-chart-station-state">
+  <div class="garbage-management-chart-station-state-chart" #chart></div>
+  <div class="garbage-management-chart-station-state-info">
+    <div class="garbage-management-chart-station-state-info-item">
+      <div
+        class="garbage-management-chart-station-state-info-item-color normal"
+      ></div>
+      <div class="garbage-management-chart-station-state-info-item-name">
+        正常
+      </div>
+      <div
+        class="garbage-management-chart-station-state-info-item-value normal"
+      >
+        {{ data.normal }}
+      </div>
+    </div>
+    <div class="garbage-management-chart-station-state-info-item">
+      <div
+        class="garbage-management-chart-station-state-info-item-color error"
+      ></div>
+      <div class="garbage-management-chart-station-state-info-item-name">
+        异常
+      </div>
+      <div class="garbage-management-chart-station-state-info-item-value error">
+        {{ data.error }}
+      </div>
+    </div>
+    <div class="garbage-management-chart-station-state-info-item">
+      <div
+        class="garbage-management-chart-station-state-info-item-color full"
+      ></div>
+      <div class="garbage-management-chart-station-state-info-item-name">
+        满溢
+      </div>
+      <div class="garbage-management-chart-station-state-info-item-value full">
+        {{ data.full }}
+      </div>
+    </div>
+    <div class="garbage-management-chart-station-state-info-item">
+      <div
+        class="garbage-management-chart-station-state-info-item-color stayed"
+      ></div>
+      <div class="garbage-management-chart-station-state-info-item-name">
+        滞留
+      </div>
+      <div
+        class="garbage-management-chart-station-state-info-item-value stayed"
+      >
+        {{ data.stayed }}
+      </div>
+    </div>
+  </div>
+</div>

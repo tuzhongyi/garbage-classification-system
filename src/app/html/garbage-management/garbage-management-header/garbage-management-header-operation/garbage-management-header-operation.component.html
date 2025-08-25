@@ -1,0 +1,18 @@
+<div class="garbage-management-header-operation button-group">
+  <div class="button">
+    <div class="button-icon">
+      <i class="mdi mdi-account-circle"></i>
+    </div>
+    <div class="button-name">{{ user?.FirstName }} {{ user?.LastName }}</div>
+  </div>
+  <div class="button" (click)="on.help()">
+    <div class="button-icon">
+      <i class="mdi mdi-help-circle"></i>
+    </div>
+  </div>
+  <div class="button" (click)="on.setting()">
+    <div class="button-icon">
+      <i class="mdi mdi-settings"></i>
+    </div>
+  </div>
+</div>

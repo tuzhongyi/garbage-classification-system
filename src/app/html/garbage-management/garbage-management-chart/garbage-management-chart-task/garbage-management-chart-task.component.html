@@ -1,0 +1,45 @@
+<div class="garbage-management-chart-task">
+  <div class="garbage-management-chart-task-container">
+    <div class="garbage-management-chart-task-container-chart" #chart></div>
+    <div class="chart-task-label">
+      <div class="chart-task-label-item">
+        <div class="chart-task-label-text handle">
+          <div class="chart-task-label-text-value">
+            {{ data.ratio.handle }}
+          </div>
+          <div class="chart-task-label-text-sub">%</div>
+        </div>
+        <div class="chart-task-label-name">处理率</div>
+      </div>
+      <div class="chart-task-label-item">
+        <div class="chart-task-label-text timein">
+          <div class="chart-task-label-text-value">
+            {{ data.ratio.timein }}
+          </div>
+          <div class="chart-task-label-text-sub">%</div>
+        </div>
+        <div class="chart-task-label-name">达标率</div>
+      </div>
+    </div>
+  </div>
+  <div class="garbage-management-chart-task-info">
+    <div class="garbage-management-chart-task-info-item">
+      <div class="garbage-management-chart-task-info-item-name">全部任务</div>
+      <div class="garbage-management-chart-task-info-item-value all">
+        {{ data.all }}
+      </div>
+    </div>
+    <div class="garbage-management-chart-task-info-item">
+      <div class="garbage-management-chart-task-info-item-name">未完成任务</div>
+      <div class="garbage-management-chart-task-info-item-value unhandled">
+        {{ data.unhandled }}
+      </div>
+    </div>
+    <div class="garbage-management-chart-task-info-item">
+      <div class="garbage-management-chart-task-info-item-name">超时任务</div>
+      <div class="garbage-management-chart-task-info-item-value timeout">
+        {{ data.timeout }}
+      </div>
+    </div>
+  </div>
+</div>

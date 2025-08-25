@@ -1,0 +1,38 @@
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 1px calc(10px + 16px + 10px) 0px 10px;
+  box-sizing: border-box;
+  margin: 0;
+  outline: none;
+  border: 1px solid #2d76ce;
+  background-color: #060f2b;
+  color: #ddf4ff;
+  position: relative;
+  height: 36px;
+  width: 100%;
+  min-width: 50px;
+
+  background-image: url(../../image/select-arrow.png);
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+
+  option {
+    background-color: #060f2b;
+  }
+
+  &.select-white {
+    color: white;
+    background-image: url(../../image/select-arrow-white.png);
+  }
+
+  &.noborder {
+    border: none;
+    background-color: transparent;
+    padding: 2px 10px;
+    padding-right: calc(5px + 15px + 5px);
+    height: 36px;
+    line-height: 36px;
+  }
+}

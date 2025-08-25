@@ -1,0 +1,21 @@
+@import "./garbage-management-container-@.less";
+
+.garbage-management-container {
+
+
+  &-state {
+    position: fixed;
+    top: @top;
+    left: calc(@panel-width + @gap * 2);
+    width: 300px;
+    height: min-content;
+    transform: scale(0.7, 0.7);
+    transform-origin: top left;
+  }
+
+  @media (min-width: 2880px) {
+    .garbage-management-container-state {
+      transform: unset;
+    }
+  }
+}

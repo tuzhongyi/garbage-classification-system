@@ -1,0 +1,66 @@
+<div class="garbage-management-container">
+  <div class="garbage-management-container-head">
+    <howell-garbage-management-header></howell-garbage-management-header>
+  </div>
+  <div class="garbage-management-container-map">
+    <howell-garbage-management-map></howell-garbage-management-map>
+    <div class="garbage-management-container-map-mask"></div>
+  </div>
+
+  <div class="garbage-management-container-card-panel left">
+    <!-- <howell-garbage-management-card
+      class="garbage-management-container-card-item calendar"
+      [title]="card.calendar.title"
+    ></howell-garbage-management-card> -->
+    <howell-garbage-management-card
+      class="garbage-management-container-card-item"
+    >
+      <howell-garbage-management-chart-record-event-illegal-drop></howell-garbage-management-chart-record-event-illegal-drop>
+    </howell-garbage-management-card>
+    <howell-garbage-management-card
+      class="garbage-management-container-card-item"
+      [title]="card.ranking.record.title"
+    >
+      <howell-garbage-management-chart-record-event-mixed-into></howell-garbage-management-chart-record-event-mixed-into>
+    </howell-garbage-management-card>
+    <!-- <howell-garbage-management-card
+      class="garbage-management-container-card-item"
+      [title]="card.ranking.record.title"
+    >
+      <howell-garbage-management-ranking-record-event-index></howell-garbage-management-ranking-record-event-index>
+    </howell-garbage-management-card> -->
+    <howell-garbage-management-card
+      class="garbage-management-container-card-item"
+      [title]="card.ranking.record.title"
+    >
+      <howell-garbage-management-statistic-garbage></howell-garbage-management-statistic-garbage>
+    </howell-garbage-management-card>
+  </div>
+  <div class="garbage-management-container-card-panel right">
+    <!-- <howell-garbage-management-card
+      class="garbage-management-container-card-item"
+    >
+      <howell-garbage-management-ranking-garbage-drop-index></howell-garbage-management-ranking-garbage-drop-index>
+    </howell-garbage-management-card> -->
+
+    <howell-garbage-management-card
+      class="garbage-management-container-card-item"
+    >
+      <howell-garbage-management-chart-task></howell-garbage-management-chart-task>
+    </howell-garbage-management-card>
+
+    <howell-garbage-management-card
+      class="garbage-management-container-card-item"
+    >
+      <howell-garbage-management-chart-station-count></howell-garbage-management-chart-station-count>
+    </howell-garbage-management-card>
+    <howell-garbage-management-card
+      class="garbage-management-container-card-item"
+    >
+      <howell-garbage-management-chart-station-state></howell-garbage-management-chart-station-state>
+    </howell-garbage-management-card>
+  </div>
+  <div class="garbage-management-container-state">
+    <howell-garbage-management-statistic-record></howell-garbage-management-statistic-record>
+  </div>
+</div>

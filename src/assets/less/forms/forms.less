@@ -1,0 +1,91 @@
+@import "./form-input.less";
+@import "./form-button/form-button.less";
+@import "./form-button-group.less";
+@import "./form-select.less";
+@import "./form-switch.less";
+@import "./form-label.less";
+
+
+.form {
+
+  &s {
+    display: flex;
+    gap: 10px 20px;
+  }
+
+  &-item {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: space-between;
+
+    &-text {
+      flex-grow: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      white-space: nowrap;
+      position: relative;
+
+      &.disabled {
+        color: #999;
+      }
+
+      .must {
+        color: red;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        right: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      &.baseline {
+        align-self: baseline;
+
+        &+.form-item-value {
+          align-self: start;
+        }
+      }
+    }
+
+    &-value {
+      flex-grow: 1;
+      color: white;
+      display: flex;
+      align-items: center;
+
+      &.icon {
+        display: flex;
+        position: relative;
+      }
+
+      &.unit {
+        display: flex;
+        position: relative;
+
+        &>* {
+          &:first-child {
+            width: 100%;
+          }
+
+          &+i {
+            position: absolute;
+            height: 36px;
+            line-height: 36px;
+            font-size: 20px;
+            color: #2d76ce;
+            right: 10px;
+            text-align: center;
+            pointer-events: none;
+            white-space: nowrap;
+            font-style: normal;
+          }
+        }
+
+      }
+    }
+  }
+
+}

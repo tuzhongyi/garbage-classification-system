@@ -1,0 +1,19 @@
+<div
+  class="garbage-management-statistic-record-item"
+  [class]="classname.get(data.type)"
+>
+  <div class="garbage-management-statistic-record-item-info">
+    <div class="garbage-management-statistic-record-item-info-title">
+      {{ data.name }}
+    </div>
+    <div class="garbage-management-statistic-record-item-info-content">
+      <div class="garbage-management-statistic-record-item-info-content-value">
+        {{ data.value }}
+      </div>
+      /
+      <div class="garbage-management-statistic-record-item-info-content-unit">
+        起
+      </div>
+    </div>
+  </div>
+</div>

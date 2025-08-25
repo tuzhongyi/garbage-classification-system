@@ -1,0 +1,16 @@
+.garbage-management-container {
+  &-head {
+    height: @head-height;
+    width: 100%;
+    overflow: visible;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    &>* {
+      pointer-events: none;
+    }
+
+  }
+}

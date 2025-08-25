@@ -1,0 +1,23 @@
+<div class="garbage-management-ranking-record-event-index">
+  <div class="garbage-management-ranking-record-event-index-head button-group">
+    <div
+      class="button-bracket"
+      [class.selected]="type === Type.IllegalDrop"
+      (click)="onchange(Type.IllegalDrop)"
+    >
+      {{ Language.EventType(Type.IllegalDrop) }}
+    </div>
+    <div
+      class="button-bracket"
+      [class.selected]="type === Type.MixedInto"
+      (click)="onchange(Type.MixedInto)"
+    >
+      {{ Language.EventType(Type.MixedInto) }}
+    </div>
+  </div>
+  <div class="garbage-management-ranking-record-event-index-body">
+    <howell-garbage-management-ranking
+      [datas]="datas"
+    ></howell-garbage-management-ranking>
+  </div>
+</div>

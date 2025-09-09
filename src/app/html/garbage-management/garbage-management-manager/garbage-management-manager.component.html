@@ -1,0 +1,61 @@
+<div class="garbage-management-manager">
+  <div class="garbage-management-manager-head">
+    <howell-garbage-management-header></howell-garbage-management-header>
+  </div>
+  <div class="garbage-management-manager-map">
+    <howell-garbage-management-map
+      [stations]="data.stations"
+      [eventables]="data.eventables"
+    ></howell-garbage-management-map>
+    <div class="garbage-management-manager-map-mask"></div>
+  </div>
+
+  <div class="garbage-management-manager-card-panel left" #container_left>
+    <div
+      class="garbage-management-manager-card-item"
+      *ngFor="let item of card.left"
+      [class]="item.class"
+    ></div>
+  </div>
+  <div class="garbage-management-manager-card-panel right" #container_right>
+    <div
+      class="garbage-management-manager-card-item"
+      *ngFor="let item of card.right"
+      [class]="item.class"
+    ></div>
+  </div>
+  <div class="garbage-management-manager-state-usage">
+    <howell-garbage-management-statistic-station
+      [index]="navigation.index"
+      [stations]="data.source.stations"
+      [devices]="data.devices"
+    ></howell-garbage-management-statistic-station>
+  </div>
+  <div class="garbage-management-manager-state-station">
+    <howell-garbage-management-state-station
+      [index]="navigation.index"
+      [eventables]="data.eventables"
+      [stations]="data.source.stations"
+      (selectedChange)="data.on.state($event)"
+    ></howell-garbage-management-state-station>
+  </div>
+
+  <div class="garbage-management-manager-controls">
+    <howell-garbage-management-control-button-list
+      (home)="navigation.home()"
+      (mixedinto)="navigation.mixedinto()"
+      (garbagedrop)="navigation.garbagedrop()"
+      (vehicle)="navigation.vehicle()"
+      (street)="navigation.street()"
+    ></howell-garbage-management-control-button-list>
+  </div>
+
+  <howell-panel
+    *ngIf="window.settings.show"
+    [model]="window.settings"
+    [title]="window.settings.title"
+    [style]="window.settings.style"
+  >
+    <app-garbage-management-manager-settings></app-garbage-management-manager-settings>
+  </howell-panel>
+</div>

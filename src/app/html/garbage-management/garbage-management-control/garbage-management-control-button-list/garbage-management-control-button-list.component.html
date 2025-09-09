@@ -1,0 +1,10 @@
+<div class="garbage-management-control-button-list">
+  <howell-garbage-management-control-button
+    class="garbage-management-control-button-list-item"
+    *ngFor="let item of buttons"
+    [icon]="item.icon"
+    [name]="item.name"
+    [selected]="selected == item.icon"
+    (click)="on.change(item.icon)"
+  ></howell-garbage-management-control-button>
+</div>

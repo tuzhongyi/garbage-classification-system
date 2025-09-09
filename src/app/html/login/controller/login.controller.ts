@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthorizationStore } from '../../../common/network/request/auth/authorization.store';
-import { DivisionRequestService } from '../../../common/network/request/division/division-request.service';
-import { GarbageStationRequestService } from '../../../common/network/request/garbage-station/garbage-station-request.service';
+import { DivisionRequestService } from '../../../common/network/request/garbage/division/division-request.service';
+import { GarbageStationRequestService } from '../../../common/network/request/garbage/garbage-station/garbage-station-request.service';
 import { GlobalStorageService } from '../../../common/storage/global.storage';
 import { LocalStorageService } from '../../../common/storage/local.storage';
 import { SessionStorageService } from '../../../common/storage/session-storage.service';

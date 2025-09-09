@@ -1,5 +1,5 @@
-import { GetGarbageStationsParams } from '../../../../../../common/network/request/garbage-station/garbage-station-request.params';
-import { GarbageStationRequestService } from '../../../../../../common/network/request/garbage-station/garbage-station-request.service';
+import { GetGarbageStationsParams } from '../../../../../../common/network/request/garbage/garbage-station/garbage-station-request.params';
+import { GarbageStationRequestService } from '../../../../../../common/network/request/garbage/garbage-station/garbage-station-request.service';
 import { GarbageManagementChartStationCountConverter } from './garbage-management-chart-station-count.converter';
 
 export class GarbageManagementChartStationCountBusiness {

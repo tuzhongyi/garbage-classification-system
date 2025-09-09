@@ -1,6 +1,6 @@
 import { Transform, Type } from 'class-transformer';
 import { transformDateTime } from '../../transform.model';
-import { CameraImageUrl } from '../../url.model';
+import { CameraImageUrl } from '../../url-model/camera-image-url.model';
 import { EventRecordData } from './garbage-event-record.model';
 
 /**

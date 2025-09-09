@@ -5,9 +5,9 @@ import { StatisticTime } from './statistic-time.model';
 /** 网格比较数据 */
 export class GridCellNumberStatisticComparison extends IdNameModel {
   /**	String	区划ID	M */
-  Id!: string;
+  declare Id: string;
   /**	String	区划名称	M */
-  Name!: string;
+  declare Name: string;
   /**	StatisticTime	统计时间对象	M */
   Time!: StatisticTime;
   /**	EventNumberComparison[]	当日事件数量差量百分比±0%-1000%	O */

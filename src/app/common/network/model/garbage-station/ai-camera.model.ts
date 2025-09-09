@@ -4,7 +4,6 @@ import { CameraDeviceType } from '../../../enum/camera-device-type.enum';
 import { CameraState } from '../../../enum/camera-state.enum';
 import { CameraType } from '../../../enum/camera-type.enum';
 import { OnlineStatus } from '../../../enum/online-status.enum';
-import { transformDateTime } from '../transform.model';
 import { CameraAIModel } from './camera-ai.model';
 import { ICamera } from './camera.interface';
 import { Resource } from './resource.model';

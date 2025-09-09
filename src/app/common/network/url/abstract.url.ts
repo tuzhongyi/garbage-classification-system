@@ -1,5 +1,5 @@
 export abstract class AbstractUrl {
-  constructor(protected base: string) {}
+  constructor(private base: string) {}
   basic(): string {
     return this.base;
   }

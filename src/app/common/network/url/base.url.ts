@@ -35,6 +35,8 @@ export class HowellUrlNode {
   static http2tcp = 'http2tcp';
   static gcha = 'gcha';
   static devices = 'devices';
+  static ias_access = 'ias_access';
+  static medium = 'medium';
 }
 
 export class BaseUrl {
@@ -68,6 +70,14 @@ export class BaseUrl {
   }
   static get gcha() {
     return `/${HowellUrlNode.gcha}/${HowellUrlNode.devices}`;
+  }
+  /** /api/howell/ver10/aiop_service/ias_access/ */
+  static get ias_access() {
+    return `${this.aiop_service}/${HowellUrlNode.ias_access}`;
+  }
+  /** /howell/ver10/data_service/medium/ */
+  static get medium() {
+    return `${this.data_service}/${HowellUrlNode.medium}`;
   }
 }
 class GarbageBaseUrl {

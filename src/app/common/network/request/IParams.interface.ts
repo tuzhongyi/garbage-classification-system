@@ -1,5 +1,4 @@
 import { Transform } from 'class-transformer';
-
 import { transformDateTime } from '../model/transform.model';
 
 export interface IParams {}

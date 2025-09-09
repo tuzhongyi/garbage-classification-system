@@ -1,0 +1,12 @@
+<div class="garbage-management-card-ranking-record-event">
+  <howell-garbage-management-card>
+    <div ngProjectAs="card-header">
+      {{ title }}
+    </div>
+    <howell-garbage-management-ranking-record-event
+      [display]="display"
+      [index]="index"
+      (indexChange)="on.index($event)"
+    ></howell-garbage-management-ranking-record-event>
+  </howell-garbage-management-card>
+</div>

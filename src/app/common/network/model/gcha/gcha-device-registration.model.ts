@@ -1,6 +1,5 @@
 import { Transform } from 'class-transformer';
 import { IModel } from '../model.interface';
-import { transformDateTime } from '../transform.model';
 
 /**	DeviceRegistration  (设备注册信息)	*/
 export class GCHADeviceRegistration implements IModel {

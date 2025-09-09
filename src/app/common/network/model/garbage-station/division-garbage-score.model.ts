@@ -1,5 +1,4 @@
 import { Transform } from 'class-transformer';
-import { transformDateTime } from '../transform.model';
 import { GarbageScoreNumber } from './garbage-score-num.model';
 /**	区划垃圾评价	*/
 export class DivisionGarbageScore {

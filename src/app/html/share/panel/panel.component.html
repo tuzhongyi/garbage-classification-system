@@ -1,0 +1,19 @@
+<div class="howell-panel" [ngStyle]="style">
+  <div class="howell-panel-head">
+    <div class="howell-panel-head-title">
+      {{ title }}
+    </div>
+    <div class="howell-panel-head-shadow">
+      {{ title }}
+    </div>
+    <div class="howell-window-head-operation">
+      <ng-content select="window-head-operation"></ng-content>
+      <button (click)="on.close()" *ngIf="button">
+        <i class="howell-icon-Close"></i>
+      </button>
+    </div>
+  </div>
+  <div class="howell-panel-body">
+    <ng-content></ng-content>
+  </div>
+</div>

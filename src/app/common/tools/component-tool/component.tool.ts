@@ -13,7 +13,7 @@ export class ComponentTool {
     private injector: Injector,
     private appRef: ApplicationRef
   ) {}
-  public create<T>(component: any, inputs: Partial<T>): ComponentRef<T> {
+  public create<T>(component: any, inputs?: Partial<T>): ComponentRef<T> {
     // 创建组件
     const factory = this.cfr.resolveComponentFactory(component);
     const componentRef: ComponentRef<T> = factory.create(

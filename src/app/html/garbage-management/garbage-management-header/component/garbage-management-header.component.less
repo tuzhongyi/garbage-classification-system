@@ -11,6 +11,11 @@
   box-sizing: border-box;
   overflow: visible;
 
+  background-image: url(../../../../../assets/image/header/header-background.png);
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+
 
 
 
@@ -50,7 +55,7 @@
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-
+    z-index: 1;
 
 
     &-title {
@@ -77,18 +82,18 @@
     }
   }
 
-  &-background {
+  &-light {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 100% !important;
-    height: 255px;
+    left: 25%;
+    width: 700px !important;
+    height: 120px;
     pointer-events: none;
-    background-image: url(../../../../../assets/image/header/header-background.png);
+    z-index: 2;
+    background-image: url(../../../../../assets/image/header/header-background-light.png);
     background-position: top;
     background-repeat: no-repeat;
     background-size: cover;
-    z-index: 0;
 
 
     video {

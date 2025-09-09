@@ -1,6 +1,5 @@
 import { Transform } from 'class-transformer';
 import { IIdModel } from '../model.interface';
-import { transformDateTime } from '../transform.model';
 
 /**	RfidCardRecord (Rfid刷卡记录)	*/
 export class GCHARfidCardRecord implements IIdModel {

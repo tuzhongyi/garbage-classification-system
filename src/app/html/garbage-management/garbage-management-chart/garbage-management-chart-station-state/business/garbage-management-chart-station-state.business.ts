@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import {
   GetGarbageStationStatisticNumbersParams,
   GetGarbageStationsParams,
-} from '../../../../../common/network/request/garbage-station/garbage-station-request.params';
-import { GarbageStationRequestService } from '../../../../../common/network/request/garbage-station/garbage-station-request.service';
+} from '../../../../../common/network/request/garbage/garbage-station/garbage-station-request.params';
+import { GarbageStationRequestService } from '../../../../../common/network/request/garbage/garbage-station/garbage-station-request.service';
 import { GlobalStorageService } from '../../../../../common/storage/global.storage';
 import { GarbageManagementChartStationStateConverter } from '../garbage-management-chart-station-state.converter';
 

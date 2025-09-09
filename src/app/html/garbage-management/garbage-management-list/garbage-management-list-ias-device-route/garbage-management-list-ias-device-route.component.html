@@ -1,0 +1,24 @@
+<div class="garbage-management-list-ias-device-route">
+  <div
+    class="garbage-management-list-ias-device-route-item"
+    *ngFor="let item of datas"
+  >
+    <div class="garbage-management-list-ias-device-route-item-name">
+      {{ item.name }}
+    </div>
+    <div class="garbage-management-list-ias-device-route-item-time">
+      {{ item.moving }}
+    </div>
+    <div class="garbage-management-list-ias-device-route-item-time">
+      {{ item.stay }}
+    </div>
+    <div class="garbage-management-list-ias-device-route-item-time">
+      {{ item.totalmeters }}
+    </div>
+    <div class="garbage-management-list-ias-device-route-item-operation">
+      <button>
+        <i class="howell-icon-details"></i>
+      </button>
+    </div>
+  </div>
+</div>

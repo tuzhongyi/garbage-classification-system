@@ -10,7 +10,6 @@ import { VehicleEventType } from '../../../enum/event-type.enum';
 import { OnlineStatus } from '../../../enum/online-status.enum';
 import { VehicleResourceType } from '../../../enum/resource-type.enum';
 import { TrashCanType } from '../../../enum/trashcan-type.enum';
-import { transformDateTime } from '../transform.model';
 import { GisPoint } from './gis-point.model';
 
 function EventRecordDataTransformer(params: TransformFnParams) {

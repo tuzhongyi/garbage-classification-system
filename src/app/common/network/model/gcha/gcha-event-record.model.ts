@@ -1,6 +1,5 @@
 import { Transform } from 'class-transformer';
 import { IIdModel } from '../model.interface';
-import { transformDateTime } from '../transform.model';
 import { GCHAEventResource } from './gcha-event-resource.model';
 
 /**	EventRecord (垃圾事件)	*/

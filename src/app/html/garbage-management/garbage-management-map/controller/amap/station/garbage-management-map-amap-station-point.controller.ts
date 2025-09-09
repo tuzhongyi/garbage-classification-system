@@ -1,12 +1,15 @@
 import { EventEmitter } from '@angular/core';
+import { EventType } from '../../../../../../common/enum/event-type.enum';
 import { StationState } from '../../../../../../common/enum/station-state.enum';
-import { GarbageStation } from '../../../../../../common/network/model/garbage-station/garbage-station.model';
+import { ColorTool } from '../../../../../../common/tools/color-tool/color.tool';
 import { Flags } from '../../../../../../common/tools/flags';
-import { GarbageManagementMapAMapConfigController } from '../garbage-management-map-amap.config';
+import { GarbageStationViewModel } from '../../../../../../common/view-model/garbage-station.view-model';
+import { GarbageManagementMapAMapConfig } from '../garbage-management-map-amap.config';
 
 export class GarbageManagementMapAMapStationPointController {
-  hover = new EventEmitter<GarbageStation>();
+  hover = new EventEmitter<GarbageStationViewModel>();
   leave = new EventEmitter<void>();
+  eventables: EventType[] = [EventType.GarbageFull, EventType.GarbageDrop];
 
   constructor(private loca: Loca.Container) {
     this.layer = this.init();
@@ -15,21 +18,30 @@ export class GarbageManagementMapAMapStationPointController {
 
   private layer: Loca.PointLayer;
   private colors = ['red', 'green', 'yellow'];
-  private _hover?: GarbageStation;
+  private _hover?: GarbageStationViewModel;
   private handle?: NodeJS.Timeout;
   private style: Loca.PointLayerStyle = {
     radius: (i: number, feature: any) => {
       return 6;
     },
     color: (i: number, feature: any): any => {
-      let data = feature.properties as GarbageStation;
+      let data = feature.properties as GarbageStationViewModel;
       let flags = new Flags(data.StationState);
       if (flags.contains(StationState.Error)) {
-        return 'red';
-      } else if (flags.contains(StationState.Full)) {
-        return 'yellow';
+        return ColorTool.station.state.error;
+      } else if (
+        this.eventables.includes(EventType.GarbageDrop) &&
+        data.Statistic &&
+        data.Statistic.CurrentGarbageTime
+      ) {
+        return ColorTool.station.state.garbagedrop;
+      } else if (
+        this.eventables.includes(EventType.GarbageFull) &&
+        flags.contains(StationState.Full)
+      ) {
+        return ColorTool.station.state.garbagefull;
       } else {
-        return 'green';
+        return ColorTool.station.state.normal;
       }
     },
     borderWidth: 0,
@@ -41,15 +53,14 @@ export class GarbageManagementMapAMapStationPointController {
   private init() {
     let layer = new Loca.PointLayer({
       blend: 'normal',
+      zooms: GarbageManagementMapAMapConfig.zoom.point,
     });
     return layer;
   }
   private regist() {
-    GarbageManagementMapAMapConfigController.event.mousemoving.subscribe(
-      (position) => {
-        this.moving(position);
-      }
-    );
+    GarbageManagementMapAMapConfig.event.mousemoving.subscribe((position) => {
+      this.moving(position);
+    });
   }
 
   private animation() {
@@ -67,7 +78,7 @@ export class GarbageManagementMapAMapStationPointController {
     }
     let item = this.layer.queryFeature(position);
     if (item) {
-      this._hover = item.properties as GarbageStation;
+      this._hover = item.properties as GarbageStationViewModel;
       this.hover.emit(this._hover);
     }
   }
@@ -77,5 +88,9 @@ export class GarbageManagementMapAMapStationPointController {
     this.layer.setStyle(this.style);
     this.loca.add(this.layer);
     // this.animation();
+  }
+
+  clear() {
+    this.layer.remove();
   }
 }

@@ -3,11 +3,7 @@ import { IIdModel } from '../model.interface';
 
 import { PagedList } from '../page_list.model';
 import { Schedule } from '../schedule.model';
-import {
-  transformArraySort,
-  transformDateTime,
-  transformVersion,
-} from '../transform.model';
+import { Transformer } from '../transform.model';
 import { AIGarbageCamera } from './camera.model';
 import { AIGarbageDropWindow } from './drop-window.model';
 import { AIGarbageDeviceCapabilities } from './garbage-device-capabilities.model';
@@ -30,13 +26,13 @@ export class AIGarbageDevice implements IIdModel {
   /**	String	设备型号	O	*/
   Model?: string;
   /**	Int32	软件版本号；高1字节为主版本号，第二个2字节为次版本号。如0x01010000即1.1版本	O	*/
-  @Transform(transformVersion)
+  @Transform(Transformer.version)
   SoftwareVersion?: string;
   /**	Int32	硬件版本号高1字节为主版本号，第二个2字节为次版本号。如0x01010000即1.1版本	O	*/
-  @Transform(transformVersion)
+  @Transform(Transformer.version)
   HardwareVersion?: string;
   /**	Int32	协议版本号，如0x01000000即1.0	O	*/
-  @Transform(transformVersion)
+  @Transform(Transformer.version)
   ProtoVersion?: string;
   /**	Boolean	是否需要升级，true：需要 使用UpgradeAddress地址下载升级包	O	*/
   NeedUpgrade?: boolean;
@@ -55,7 +51,7 @@ export class AIGarbageDevice implements IIdModel {
   CameraNumber?: number;
   /**	Camera[]	摄像机信息	O	*/
   @Type(() => AIGarbageCamera)
-  @Transform(transformArraySort)
+  @Transform(Transformer.sort)
   Cameras?: AIGarbageCamera[];
   /**	DeviceCapabilities	设备能力	O	*/
   @Type(() => AIGarbageDeviceCapabilities)
@@ -79,5 +75,5 @@ export class AIGarbageDevice implements IIdModel {
 }
 export class PagedListAIGarbageDevice extends PagedList<AIGarbageDevice> {
   @Type(() => AIGarbageDevice)
-  Data!: AIGarbageDevice[];
+  declare Data: AIGarbageDevice[];
 }

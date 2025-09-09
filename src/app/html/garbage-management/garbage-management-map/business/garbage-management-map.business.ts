@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { GarbageManagementMapDataBusiness } from './garbage-management-map-data.business';
-import { GarbageManagementMapStationBusiness } from './garbage-management-map-station.business';
+import { GarbageManagementMapDivisionBusiness } from './garbage-management-map-division.business';
+import { GarbageManagementMapGridBusiness } from './garbage-management-map-grid.business';
 
 @Injectable()
 export class GarbageManagementMapBusiness {
   constructor(
     public map: GarbageManagementMapDataBusiness,
-    public station: GarbageManagementMapStationBusiness
+    public division: GarbageManagementMapDivisionBusiness,
+    public grid: GarbageManagementMapGridBusiness
   ) {}
 }

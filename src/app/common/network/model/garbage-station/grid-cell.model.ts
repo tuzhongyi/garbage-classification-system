@@ -8,9 +8,9 @@ import { GisPoint } from './gis-point.model';
 /** 网格单元信息 */
 export class GridCell extends IdNameModel {
   /**	String	网格单元ID街道区划编号+3位社区顺序码+2位单元网格顺序码，如果是社区网格，最后两位为00	M */
-  Id!: string;
+  declare Id: string;
   /**	String	网格单元名称	M */
-  Name!: string;
+  declare Name: string;
   /**	String	父网格单元ID，如果是根网格单元节点，则该ID为空	O */
   ParentId?: string;
   /**	Boolean	是否为叶节点的区域	M */

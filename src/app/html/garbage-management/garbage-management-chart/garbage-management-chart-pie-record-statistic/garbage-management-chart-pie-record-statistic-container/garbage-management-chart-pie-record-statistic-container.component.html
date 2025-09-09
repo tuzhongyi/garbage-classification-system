@@ -1,0 +1,31 @@
+<div class="garbage-management-chart-pie-record-statistic-container">
+  <div class="garbage-management-chart-pie-record-statistic-container-content">
+    <howell-garbage-management-chart-pie-record-statistic
+      [datas]="datas"
+    ></howell-garbage-management-chart-pie-record-statistic>
+    <div
+      class="garbage-management-chart-pie-record-statistic-container-content-count"
+    >
+      <div
+        class="garbage-management-chart-pie-record-statistic-container-content-count-value"
+      >
+        {{ count }}
+      </div>
+      <div
+        class="garbage-management-chart-pie-record-statistic-container-content-count-unit"
+      >
+        起
+      </div>
+    </div>
+  </div>
+  <div class="garbage-management-chart-pie-record-statistic-container-info">
+    <div class="info-item" *ngFor="let item of datas">
+      <div
+        class="info-item-color"
+        [style.backgroundColor]="colors.get(item.id)"
+      ></div>
+      <div class="info-item-name">{{ item.name }}</div>
+      <div class="info-item-value">{{ item.value }}&nbsp;<span>起</span></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="garbage-management-state-station">
+  <ng-container *ngFor="let item of datas">
+    <howell-garbage-management-state-item
+      [ngClass]="{
+        selected: selected.includes(item.state)
+      }"
+      *ngIf="item.show"
+      [data]="item"
+      (click)="on.select(item.state)"
+    ></howell-garbage-management-state-item>
+  </ng-container>
+</div>

@@ -1,7 +1,6 @@
 import { Transform } from 'class-transformer';
 
 import { ResourceType } from '../../../enum/resource-type.enum';
-import { transformDateTime } from '../transform.model';
 import { GisPoint } from './gis-point.model';
 import { PlatformAssociation } from './platform-association.model';
 import { ResourceLabel } from './resource-label.model';

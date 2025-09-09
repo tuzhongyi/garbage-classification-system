@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'howell-garbage-management-card',
@@ -6,6 +6,4 @@ import { Component, Input } from '@angular/core';
   templateUrl: './garbage-management-card.component.html',
   styleUrl: './garbage-management-card.component.less',
 })
-export class GarbageManagementCardComponent {
-  @Input() title = '';
-}
+export class GarbageManagementCardComponent {}

@@ -2,7 +2,7 @@ import { Transform, Type } from 'class-transformer';
 import 'reflect-metadata';
 import { IModel } from '../../model.interface';
 import { transformDateTime } from '../../transform.model';
-import { CameraImageUrl } from '../../url.model';
+import { CameraImageUrl } from '../../url-model/camera-image-url.model';
 import { GarbageDropFeedback } from '../garbage-drop-feedback.model';
 import { GarbageDropSuperVisionData } from '../garbage-drop-super-vision-data.model';
 import { GisPoint } from '../gis-point.model';

@@ -1,0 +1,18 @@
+<div class="garbage-management-list-record-event-ias">
+  <div
+    class="garbage-management-list-record-event-ias-item"
+    *ngFor="let item of datas"
+  >
+    <div class="garbage-management-list-record-event-ias-item-name">
+      {{ item.DivisionName }}
+    </div>
+    <div class="garbage-management-list-record-event-ias-item-time">
+      {{ item.EventTime | date : "MM-dd HH:mm:ss" }}
+    </div>
+    <div class="garbage-management-list-record-event-ias-item-operation">
+      <button>
+        <i class="howell-icon-details"></i>
+      </button>
+    </div>
+  </div>
+</div>

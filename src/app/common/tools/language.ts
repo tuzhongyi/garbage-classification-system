@@ -51,7 +51,6 @@ import {
   SuperviseResult,
   SupervisedState,
 } from '../network/model/garbage-station/garbage-drop-super-vision-data.model';
-import { Time } from '../network/model/time.model';
 import { DateTimeTool } from './date-time-tool/datetime.tool';
 import { Flags } from './flags';
 import * as language from './language.json';
@@ -266,6 +265,8 @@ export class Language {
         return Language.json.EventType.GarbageDropTimeout;
       case EventType.GarbageDropHandle:
         return Language.json.EventType.GarbageDropHandle;
+      case EventType.IllegalVehicle:
+        return '非法清运';
       default:
         return Language.json.EventType.Default;
     }
@@ -368,44 +369,74 @@ export class Language {
     }
   }
 
-  static Time(time: Date | number | Time, full = true) {
-    let result = '';
-    if (typeof time === 'number') {
-      const hours = parseInt((Math.round(time) / 60).toString());
-      const minutes = parseInt((Math.round(time) % 60).toString());
-
-      result = hours ? hours + Language.json.Time.hour : '';
-
-      if (full || !result) {
-        result += minutes ? minutes + Language.json.Time.minute : '';
-      }
-    } else if (time instanceof Time) {
-      let hour = time.hour.toString().padStart(2, '0');
-      let minute = time.minute.toString().padStart(2, '0');
-      let second = time.second.toString().padStart(2, '0');
-      return `${hour}:${minute}:${second}`;
+  static Time(time: number = 0, unit: 'second' | 'minute' = 'second') {
+    if (time === 0) return '';
+    if (unit === 'second') {
+      return this.TimeFromSecond(time);
     } else {
-      let t = new Date(time.getTime());
-      let offset = t.getTimezoneOffset() / 60;
-      t.setHours(t.getHours() + offset);
+      return this.TimeFromMinute(time);
+    }
+  }
 
-      if (t.getHours() > 0) {
-        result = `${t.getHours()}${Language.json.Time.hour}${result}`;
-      }
-      if (full || !result) {
-        let minutes = t.getMinutes();
-        if (t.getSeconds() > 0) {
-          minutes++;
-        }
-        if (minutes > 0) {
-          result = `${result}${minutes}${Language.json.Time.minute}`;
-        }
-      }
+  private static TimeFromSecond(time?: number) {
+    if (time === undefined) return undefined;
+    let day = Math.floor(time / 60 / 60 / 24);
+    let _time = time - day * 60 * 60 * 24;
+    let hour = Math.floor(_time / 60 / 60);
+    _time -= hour * 60 * 60;
+    let minute = Math.floor(_time / 60);
+    _time -= minute * 60;
+    let second = Math.floor(_time);
+    if (time < 60) {
+      return second.toString().padStart(2, '0') + '秒';
     }
-    if (!result) {
-      result = `0${Language.json.Time.minute}`;
+    if (time < 60 * 60) {
+      return (
+        minute.toString().padStart(2, '0') +
+        '分钟' +
+        (second ? second.toString().padStart(2, '0') + '秒' : '')
+      );
     }
-    return result;
+    if (time < 60 * 60 * 24) {
+      return (
+        hour.toString().padStart(2, '0') +
+        '小时' +
+        (minute ? minute.toString().padStart(2, '0') + '分钟' : '') +
+        (second ? second.toString().padStart(2, '0') + '秒' : '')
+      );
+    }
+    return (
+      day +
+      '天' +
+      (hour ? hour.toString().padStart(2, '0') + '小时' : '') +
+      (minute ? minute.toString().padStart(2, '0') + '分钟' : '') +
+      (second ? second.toString().padStart(2, '0') + '秒' : '')
+    );
+  }
+
+  private static TimeFromMinute(time?: number) {
+    if (time === undefined) return undefined;
+    let day = Math.floor(time / 60 / 24);
+    let _time = time - day * 60 * 24;
+    let hour = Math.floor(_time / 60);
+    _time -= hour * 60;
+    let minute = Math.ceil(_time);
+    if (time < 60) {
+      return minute + '分钟';
+    }
+    if (time < 60 * 24) {
+      return hour + '小时' + (minute ? minute + '分钟' : '');
+    }
+    return (
+      day + '天' + (hour ? hour + '小时' : '') + (minute ? minute + '分钟' : '')
+    );
+  }
+
+  static meter(value: number = 0) {
+    if (value >= 1000) {
+      return `${value / 1000}公里`;
+    }
+    return `${value}米`;
   }
 
   static RetentionType(type: RetentionType, def = Language.json.Unknow) {

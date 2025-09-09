@@ -1,5 +1,4 @@
 import { Transform } from 'class-transformer';
-import { transformDateTime } from '../transform.model';
 import { CollectionGarbageWeight } from './garbage-weight.model';
 /**	区划垃圾重量	*/
 export class DivisionGarbageWeight {

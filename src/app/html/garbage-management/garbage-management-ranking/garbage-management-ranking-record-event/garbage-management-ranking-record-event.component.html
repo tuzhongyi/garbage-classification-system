@@ -1,0 +1,61 @@
+<div class="garbage-management-ranking-record-event">
+  <div
+    class="garbage-management-ranking-record-event-head button-group"
+    *ngIf="display.length > 1"
+  >
+    <div
+      *ngIf="display.includes(Index.illegaldrop)"
+      class="button-bracket"
+      [class.selected]="index === Index.illegaldrop"
+      (click)="on.change(Index.illegaldrop)"
+    >
+      垃圾乱投
+    </div>
+    <div
+      *ngIf="display.includes(Index.garbagedropduration)"
+      class="button-bracket"
+      [class.selected]="index === Index.garbagedropduration"
+      (click)="on.change(Index.garbagedropduration)"
+    >
+      滞留时长
+    </div>
+    <div
+      *ngIf="display.includes(Index.garbagedropcount)"
+      class="button-bracket"
+      [class.selected]="index === Index.garbagedropcount"
+      (click)="on.change(Index.garbagedropcount)"
+    >
+      滞留数量
+    </div>
+    <div
+      *ngIf="display.includes(Index.mixedinto)"
+      class="button-bracket"
+      [class.selected]="index === Index.mixedinto"
+      (click)="on.change(Index.mixedinto)"
+    >
+      混合投放
+    </div>
+    <div
+      *ngIf="display.includes(Index.garbagefull)"
+      class="button-bracket"
+      [class.selected]="index === Index.garbagefull"
+      (click)="on.change(Index.garbagefull)"
+    >
+      垃圾满溢
+    </div>
+
+    <div
+      *ngIf="display.includes(Index.illegalvehicle)"
+      class="button-bracket"
+      [class.selected]="index === Index.illegalvehicle"
+      (click)="on.change(Index.illegalvehicle)"
+    >
+      非法清运
+    </div>
+  </div>
+  <div class="garbage-management-ranking-record-event-body">
+    <howell-garbage-management-ranking
+      [datas]="datas"
+    ></howell-garbage-management-ranking>
+  </div>
+</div>

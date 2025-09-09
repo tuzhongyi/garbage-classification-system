@@ -4,7 +4,7 @@ import { StatisticInnerUrl } from './inner/statistic.url';
 
 export class GridCellUrl {
   static basic() {
-    return `${BaseUrl.garbage.garbage_management}/GridCell`;
+    return `${BaseUrl.garbage.garbage_management}/GridCells`;
   }
   static item(id: string) {
     return `${this.basic()}/${id}`;

@@ -61,6 +61,19 @@ class EventRecordSewageUrl extends AbstractUrl {
   constructor(base: string) {
     super(`${base}/Sewage`);
   }
+
+  process(id: string) {
+    return `${this.item(id)}/Process`;
+  }
+}
+class EventRecordIllegalVehicleUrl extends AbstractUrl {
+  constructor(base: string) {
+    super(`${base}/IllegalVehicle`);
+  }
+
+  process(id: string) {
+    return `${this.item(id)}/Process`;
+  }
 }
 class EventRecordUrl extends AbstractUrl {
   constructor(base: string) {
@@ -71,4 +84,5 @@ class EventRecordUrl extends AbstractUrl {
   garbagefull = new EventRecordGarbageFullUrl(this.basic());
   garbagedrop = new EventRecordGarbageDropUrl(this.basic());
   sewage = new EventRecordSewageUrl(this.basic());
+  illegalvehicle = new EventRecordIllegalVehicleUrl(this.basic());
 }

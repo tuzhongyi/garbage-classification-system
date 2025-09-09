@@ -4,9 +4,9 @@ import { EventNumber } from './event-number.model';
 /** 网格单元的数量统计信息 */
 export class GridCellNumberStatistic extends IdNameModel {
   /**	String	网格单元ID	M */
-  Id!: string;
+  declare Id: string;
   /**	String	网格单元名称	M */
-  Name!: string;
+  declare Name: string;
   /**	Int32	垃圾房数量	M */
   StationNumber!: number;
   /**	Int32	摄像机数量	M */

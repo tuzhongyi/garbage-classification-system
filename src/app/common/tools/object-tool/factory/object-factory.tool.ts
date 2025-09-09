@@ -2,8 +2,16 @@ type Constructor<T> = new (...args: any[]) => T;
 export class ObjectFactoryTool {
   private classMap: Record<string, Constructor<any>> = {};
   // 注册类
-  register<T>(name: string, ctor: Constructor<T>) {
+  regist<T>(name: string, ctor: Constructor<T>) {
     this.classMap[name] = ctor;
+  }
+
+  register() {
+    let values = [];
+    for (let key in this.classMap) {
+      values.push(this.classMap[key]);
+    }
+    return values;
   }
 
   // 根据类名创建实例

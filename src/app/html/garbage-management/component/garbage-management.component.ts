@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -7,4 +7,10 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './garbage-management.component.html',
   styleUrl: './garbage-management.component.less',
 })
-export class GarbageManagementComponent {}
+export class GarbageManagementComponent implements OnInit {
+  ngOnInit(): void {
+    this.regist();
+  }
+
+  private regist() {}
+}

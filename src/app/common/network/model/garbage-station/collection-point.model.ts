@@ -1,7 +1,6 @@
 import { Transform } from 'class-transformer';
 
 import { CollectionPointClassification } from '../../../enum/collection-point-classification.enum';
-import { transformDateTime } from '../transform.model';
 import { GisPoint } from './gis-point.model';
 import { CollectionTrashCan } from './trash-can.model';
 

@@ -5,9 +5,9 @@ import { StatisticTime } from './statistic-time.model';
 /** 网格单元的数量统计信息 */
 export class GridCellNumberStatisticV2 extends IdNameModel {
   /**	String	网格单元ID	M */
-  Id!: string;
+  declare Id: string;
   /**	String	网格单元名称	M */
-  Name!: string;
+  declare Name: string;
   /**	StatisticTime	统计时间对象	M */
   Time!: StatisticTime;
   /**	EventNumber[]	当日事件数量	O */

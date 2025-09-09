@@ -3,21 +3,16 @@
     class="garbage-management-ranking-item"
     *ngFor="let item of datas; let index = index"
   >
-    <div class="garbage-management-ranking-item-content">
-      <div
-        class="garbage-management-ranking-item-content-index"
-        [class.top]="index < 3"
-      >
-        <div class="garbage-management-ranking-item-content-index-text">
-          {{ index + 1 }}
-        </div>
+    <div class="garbage-management-ranking-item-index" [class.top]="index < 3">
+      <div class="garbage-management-ranking-item-index-text">
+        {{ index + 1 }}
       </div>
-      <div class="garbage-management-ranking-item-content-name">
-        {{ item.name }}
-      </div>
-      <div class="garbage-management-ranking-item-content-count">
-        {{ item.language }}{{ item.unit }}
-      </div>
+    </div>
+    <div class="garbage-management-ranking-item-name">
+      {{ item.name }}
+    </div>
+    <div class="garbage-management-ranking-item-count">
+      {{ item.language }} {{ item.unit }}
     </div>
   </div>
 </div>

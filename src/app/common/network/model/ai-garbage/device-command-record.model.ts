@@ -2,7 +2,6 @@ import { Transform, Type } from 'class-transformer';
 import { IIdModel } from '../model.interface';
 
 import { PagedList } from '../page_list.model';
-import { transformDateTime } from '../transform.model';
 
 export class AIGarbageDeviceCommandRecord implements IIdModel {
   Id!: string;

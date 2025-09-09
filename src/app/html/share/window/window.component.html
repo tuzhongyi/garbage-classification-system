@@ -1,0 +1,18 @@
+<app-window [Model]="model" [style]="style" [CloseButton]="button">
+  <div class="howell-window">
+    <div class="howell-window-head">
+      <div class="howell-window-head-title">
+        {{ title }}
+      </div>
+      <div class="howell-window-head-shadow">
+        {{ title }}
+      </div>
+      <div class="howell-window-head-operation">
+        <ng-content select="window-head-operation"></ng-content>
+      </div>
+    </div>
+    <div class="howell-window-body">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</app-window>

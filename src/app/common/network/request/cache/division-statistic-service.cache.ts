@@ -1,6 +1,6 @@
 import { DivisionNumberStatistic } from '../../model/garbage-station/division-number-statistic.model';
 import { PagedList } from '../../model/page_list.model';
-import { GetDivisionStatisticNumbersParams } from '../division/division-request.params';
+import { GetDivisionStatisticNumbersParams } from '../garbage/division/division-request.params';
 import { IService } from './cache.interface';
 import { ServiceCache } from './service.cache';
 

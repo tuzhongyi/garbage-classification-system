@@ -6,8 +6,8 @@ export class RoleInnerUrl extends AbstractUrl {
   constructor(base: string) {
     super(`${base}/Roles`);
   }
-  override basic(params?: PagedParams) {
+  query(params?: PagedParams) {
     let query = UrlHelper.toQueryString(params);
-    return `${this.base}/Roles${query}`;
+    return `${this.basic()}${query}`;
   }
 }

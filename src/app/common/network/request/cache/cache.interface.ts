@@ -1,3 +1,4 @@
+import { ServiceTool } from '../../../tools/service-tool/service.tool';
 import { IIdModel } from '../../model/model.interface';
 import { PagedList } from '../../model/page_list.model';
 import { IParams, PagedParams } from '../IParams.interface';
@@ -10,27 +11,26 @@ export interface IData {
 export interface IService<T extends IIdModel> {
   cache: ServiceCache<T>;
   list: (params?: IParams, ...args: any[]) => Promise<PagedList<T>>;
-  all: <P extends IParams>(params?: P, ...args: any[]) => Promise<T[]>;
+  all: <P extends PagedParams>(params?: P, ...args: any[]) => Promise<T[]>;
   get: (id: string, ...args: any[]) => Promise<T>;
 }
 export abstract class AbstractService<T extends IIdModel>
   implements IService<T>
 {
+  all<P extends PagedParams>(
+    params = new PagedParams(),
+    ...args: any[]
+  ): Promise<T[]> {
+    return ServiceTool.all<P, T>(
+      (_params, _args) => {
+        return this.list(_params, _args);
+      },
+      params as P,
+      args
+    );
+  }
   abstract list(params?: IParams, ...args: any[]): Promise<PagedList<T>>;
   abstract get(id: string, ...args: any[]): Promise<T>;
-
-  async all(params: IParams = new PagedParams()) {
-    let data: T[] = [];
-    let index = 1;
-    let paged: PagedList<T>;
-    do {
-      (params as PagedParams).PageIndex = index;
-      paged = await this.list(params);
-      data = data.concat(paged.Data);
-      index++;
-    } while (index <= paged.Page.PageCount);
-    return data;
-  }
 }
 export interface AbstractService<T extends IIdModel> {
   cache: ServiceCache<T>;

@@ -1,10 +1,8 @@
-import { MediumUrl } from "../medium.url";
+import { MediumUrl } from '../medium.url';
 
 export abstract class PicturesUrl extends MediumUrl {
-
-  protected static get basic(): string {
+  protected static override get basic(): string {
     return `${super.basic}/Pictures`;
-
   }
   static create() {
     return this.basic;
@@ -25,5 +23,4 @@ export abstract class PicturesUrl extends MediumUrl {
   static jpg(id: string) {
     return `${this.basic}/${id}.jpg`;
   }
-
 }

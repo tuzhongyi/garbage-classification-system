@@ -1,10 +1,10 @@
-import { GarbageStation } from '../../../../../common/network/model/garbage-station/garbage-station.model';
 import { MapDivision } from '../../../../../common/network/request/map/map-division.model';
+import { GarbageStationViewModel } from '../../../../../common/view-model/garbage-station.view-model';
 
 export class GarbageManagementMapAMapConverter {
   constructor() {}
 
-  geo = {
+  static geo = {
     line: {
       item: (data: MapDivision) => {
         let geo: any = {
@@ -49,7 +49,7 @@ export class GarbageManagementMapAMapConverter {
       },
     },
     point: {
-      item: (data: GarbageStation) => {
+      item: (data: GarbageStationViewModel) => {
         let point = data.GisPoint!;
         let geo = {
           type: 'Feature',
@@ -61,7 +61,7 @@ export class GarbageManagementMapAMapConverter {
         };
         return geo;
       },
-      array: (datas: GarbageStation[]) => {
+      array: (datas: GarbageStationViewModel[]) => {
         let geo: any = {
           type: 'FeatureCollection',
           features: datas

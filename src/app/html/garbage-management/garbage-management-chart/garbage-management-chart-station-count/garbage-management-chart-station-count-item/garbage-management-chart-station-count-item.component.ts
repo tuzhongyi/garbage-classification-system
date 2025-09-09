@@ -49,7 +49,7 @@ export class GarbageManagementChartStationCountItemComponent
   }
 
   private set(data: GarbageManagementChartStationCountItem) {
-    let value = 100;
+    let value = data.data.count === 0 ? 100 : 0;
     if (data.data.value > 0) {
       value = Math.round((data.data.value / data.data.count) * 100);
     }

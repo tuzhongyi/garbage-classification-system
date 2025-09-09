@@ -1,11 +1,11 @@
 {
   "EventType": {
     "None": "未知",
-    "IllegalDrop": "垃圾落地",
+    "IllegalDrop": "垃圾乱投",
     "MixedInto": "混合投放",
     "GarbageVolume": "垃圾容量",
     "GarbageFull": "垃圾满溢",
-    "GarbageDrop": "小包垃圾待处置",
+    "GarbageDrop": "垃圾滞留",
     "GarbageDropTimeout": "小包垃圾超时待处置",
     "GarbageDropSuperTimeout": "小包垃圾超时待处置",
     "GarbageDropHandle": "小包垃圾已处置",

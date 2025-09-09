@@ -7,18 +7,27 @@ export class GarbageManagementMapAMapDivisionController {
   constructor(private loca: Loca.Container) {
     this.polygon = new GarbageManagementMapAMapDivisionPolygonController(loca);
     this.border = new GarbageManagementMapAMapDivisionBorderController(loca);
+    this.regist();
   }
 
   // items: GarbageManagementMapAMapDivisionItemController[] = [];
 
-  private converter = new GarbageManagementMapAMapConverter();
   private polygon: GarbageManagementMapAMapDivisionPolygonController;
   private border: GarbageManagementMapAMapDivisionBorderController;
 
+  private regist() {
+    this.polygon.event.over.subscribe((id) => {
+      this.border.over(id);
+    });
+    this.polygon.event.out.subscribe(() => {
+      this.border.out();
+    });
+  }
+
   load(datas: MapDivision[]) {
     let geo = {
-      line: this.converter.geo.line.array(datas),
-      polygon: this.converter.geo.polygon.array(datas),
+      line: GarbageManagementMapAMapConverter.geo.line.array(datas),
+      polygon: GarbageManagementMapAMapConverter.geo.polygon.array(datas),
     };
 
     let source = {

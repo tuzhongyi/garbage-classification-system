@@ -3,69 +3,69 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  overflow: auto;
+  gap: 5px;
+  overflow: scroll;
 
   &-item {
     width: 100%;
-    height: 40px;
+    height: 35px;
     background: linear-gradient(to right, rgba(40, 108, 241, 0.02), rgba(40, 108, 241, 0.1));
 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
 
 
-    &-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 40px;
-      width: 100%;
-      gap: 10px;
-
-      &-index {
-        height: 100px;
-        background-image: url(../../../../../assets/image/cards/ranking/card-ranking-item.png);
-        background-repeat: no-repeat;
-        background-size: auto;
-        background-position: center center;
-        height: 100%;
-        width: 50px;
-
-        &-text {
-          width: 30px;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #0e072c;
-          font-weight: bold;
-          font-size: 12px;
-
-        }
 
 
-        &.top {
-          background-image: url(../../../../../assets/image/cards/ranking/card-ranking-top.png);
-        }
-      }
+    &-index {
+      height: 100px;
+      background-image: url(../../../../../assets/image/cards/ranking/card-ranking-item.png);
+      background-repeat: no-repeat;
+      background-size: auto;
+      background-position: center center;
+      height: 100%;
+      width: 50px;
 
-      &-name {
-        flex-grow: 1;
-        width: calc(100% - 57px - 100px);
+      &-text {
+        width: 30px;
         height: 100%;
         display: flex;
         align-items: center;
-        color: #80aaff;
+        justify-content: center;
+        color: #0e072c;
+        font-weight: bold;
+        font-size: 12px;
+
       }
 
-      &-count {
-        width: 150px;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        padding: 0 10px;
-        color: #bdd3ff;
+
+      &.top {
+        background-image: url(../../../../../assets/image/cards/ranking/card-ranking-top.png);
       }
     }
+
+    &-name {
+      flex-grow: 1;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      color: #80aaff;
+
+      white-space: nowrap;
+    }
+
+    &-count {
+      white-space: nowrap;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 10px;
+      color: #bdd3ff;
+    }
+
   }
 }

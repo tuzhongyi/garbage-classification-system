@@ -10,7 +10,7 @@ import { VehicleState } from '../../../../enum/vehicle-state.enum';
 import { VehicleType } from '../../../../enum/vehicle-type.enum';
 import { Flags } from '../../../../tools/flags';
 import { IdNameModel } from '../../model.interface';
-import { transformDateTime, transformFlags } from '../../transform.model';
+import { Transformer } from '../../transform.model';
 import { GisPoint } from '../gis-point.model';
 import { VehicleCamera } from './vehicle-camera.model';
 export class GarbageVehicleParameter {
@@ -44,7 +44,7 @@ export class GarbageVehicle extends IdNameModel {
   /**	String	唯一编号	M	*/
   No!: string;
   /**	Int32	状态	O	*/
-  @Transform(transformFlags)
+  @Transform(Transformer.flags)
   State?: Flags<VehicleState>;
   /**	Int32	心跳间隔，单位：秒，默认5秒	O	*/
   HeartbeatInterval?: number;

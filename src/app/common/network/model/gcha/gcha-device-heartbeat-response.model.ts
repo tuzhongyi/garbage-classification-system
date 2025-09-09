@@ -1,6 +1,5 @@
 import { Transform } from 'class-transformer';
 import { IModel } from '../model.interface';
-import { transformDateTime } from '../transform.model';
 import { GCHADeviceCommand } from './gcha-device-command.model';
 
 /**	DeviceHeartbeatResponse (设备心跳应答)	*/

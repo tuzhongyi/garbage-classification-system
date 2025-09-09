@@ -1,0 +1,28 @@
+@import "../garbage-management-manager-@.less";
+
+.garbage-management-manager {
+
+
+  &-card {
+
+    &-item {
+      flex-grow: 1;
+      height: calc((100% - @gap * 2) / 3);
+
+      &-2 {
+        height: calc((100% - @gap) / 3 * 2);
+      }
+
+      &.span-2 {
+        height: calc((100% - @gap) / 3 * 2);
+      }
+
+
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px !important;
+      height: 5px;
+    }
+  }
+}

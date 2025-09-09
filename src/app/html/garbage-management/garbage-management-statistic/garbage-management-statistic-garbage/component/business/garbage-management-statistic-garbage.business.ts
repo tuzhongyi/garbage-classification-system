@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DivisionRequestService } from '../../../../../../common/network/request/division/division-request.service';
+import { DivisionRequestService } from '../../../../../../common/network/request/garbage/division/division-request.service';
 import { GlobalStorageService } from '../../../../../../common/storage/global.storage';
 import { GarbageManagementStatisticGarbageConverter } from './garbage-management-statistic-garbage.converter';
 import { GarbageManagementStatisticGarbageService } from './garbage-management-statistic-garbage.service';

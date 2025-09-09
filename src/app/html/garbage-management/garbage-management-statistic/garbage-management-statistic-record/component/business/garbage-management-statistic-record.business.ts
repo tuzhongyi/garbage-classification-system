@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EventType } from '../../../../../../common/enum/event-type.enum';
-import { DivisionRequestService } from '../../../../../../common/network/request/division/division-request.service';
+import { DivisionRequestService } from '../../../../../../common/network/request/garbage/division/division-request.service';
 import { GlobalStorageService } from '../../../../../../common/storage/global.storage';
 import { GarbageManagementStatisticRecordConverter } from './garbage-management-statistic-record.converter';
 import { GarbageManagementStatisticRecordService } from './garbage-management-statistic-record.service';

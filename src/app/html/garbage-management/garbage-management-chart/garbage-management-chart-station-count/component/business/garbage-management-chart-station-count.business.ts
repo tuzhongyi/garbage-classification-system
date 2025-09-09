@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { DivisionRequestService } from '../../../../../../common/network/request/division/division-request.service';
-import { GarbageStationRequestService } from '../../../../../../common/network/request/garbage-station/garbage-station-request.service';
+import { DivisionRequestService } from '../../../../../../common/network/request/garbage/division/division-request.service';
+import { GarbageStationRequestService } from '../../../../../../common/network/request/garbage/garbage-station/garbage-station-request.service';
 import { GlobalStorageService } from '../../../../../../common/storage/global.storage';
 import { GarbageManagementChartStationCountBusiness } from './garbage-management-chart-station-count-station.business';
 import { GarbageManagementChartStationCountConverter } from './garbage-management-chart-station-count.converter';

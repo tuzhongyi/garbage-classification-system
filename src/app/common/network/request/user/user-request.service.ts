@@ -130,7 +130,7 @@ class RolesService {
   constructor(private basic: BaseRequestService) {}
 
   list(userId: string, params?: PagedParams): Promise<PagedList<Role>> {
-    let url = UserUrl.role(userId).basic(params);
+    let url = UserUrl.role(userId).query(params);
     return this.basic.get(url, PagedList<Role>);
   }
 

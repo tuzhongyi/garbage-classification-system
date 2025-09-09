@@ -1,4 +1,4 @@
-import { DivisionRequestService } from '../../../../../../common/network/request/division/division-request.service';
+import { DivisionRequestService } from '../../../../../../common/network/request/garbage/division/division-request.service';
 
 export class GarbageManagementStatisticRecordService {
   constructor(private service: DivisionRequestService) {}

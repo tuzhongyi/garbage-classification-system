@@ -1,0 +1,37 @@
+<div class="garbage-management-manager-settings">
+  <div class="garbage-management-manager-settings-components panel">
+    <div class="card-list" #container>
+      <div
+        class="card-item"
+        cdkDrag
+        draggable="true"
+        (dragstart)="on.drag(element.get(item))"
+        *ngFor="let item of ctors"
+      ></div>
+    </div>
+  </div>
+  <div class="garbage-management-manager-settings-content panel">
+    <div class="content-list">
+      <div class="content-item">
+        <howell-garbage-management-card></howell-garbage-management-card>
+      </div>
+      <div class="content-item">
+        <howell-garbage-management-card></howell-garbage-management-card>
+      </div>
+      <div class="content-item">
+        <howell-garbage-management-card></howell-garbage-management-card>
+      </div>
+    </div>
+    <div class="content-list">
+      <div class="content-item">
+        <howell-garbage-management-card></howell-garbage-management-card>
+      </div>
+      <div class="content-item">
+        <howell-garbage-management-card></howell-garbage-management-card>
+      </div>
+      <div class="content-item">
+        <howell-garbage-management-card></howell-garbage-management-card>
+      </div>
+    </div>
+  </div>
+</div>

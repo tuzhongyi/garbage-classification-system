@@ -1,7 +1,6 @@
 import { Transform } from 'class-transformer';
 import { ResourceType } from '../../../enum/resource-type.enum';
 import { IIdModel } from '../model.interface';
-import { transformDateTime } from '../transform.model';
 
 export class ResourceOnlineStatusRecord implements IIdModel {
   /**	String	唯一标识符	M	*/ Id!: string;

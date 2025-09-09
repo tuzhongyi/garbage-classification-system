@@ -1,7 +1,7 @@
 import { plainToInstance } from 'class-transformer';
 import { Division } from '../../model/garbage-station/division.model';
 import { PagedList } from '../../model/page_list.model';
-import { GetDivisionsParams } from '../division/division-request.params';
+import { GetDivisionsParams } from '../garbage/division/division-request.params';
 import { IService } from './cache.interface';
 import { ServiceCache } from './service.cache';
 

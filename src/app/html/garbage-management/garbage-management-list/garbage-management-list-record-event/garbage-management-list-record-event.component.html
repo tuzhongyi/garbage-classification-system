@@ -1,0 +1,24 @@
+<div class="garbage-management-list-record-event">
+  <div
+    class="garbage-management-list-record-event-item"
+    *ngFor="let item of datas"
+  >
+    <div class="garbage-management-list-record-event-item-name">
+      {{ item.name }}
+    </div>
+    <div
+      class="garbage-management-list-record-event-item-type"
+      [style.color]="item.color"
+    >
+      {{ item.type }}
+    </div>
+    <div class="garbage-management-list-record-event-item-time">
+      {{ item.time | date : "HH:mm:ss" }}
+    </div>
+    <div class="garbage-management-list-record-event-item-operation">
+      <button>
+        <i class="howell-icon-details"></i>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="garbage-management-statistic-station">
+  <ng-container *ngFor="let item of datas | keyvalue">
+    <div
+      *ngIf="item.value.show"
+      class="garbage-management-statistic-station-item"
+    >
+      <howell-garbage-management-statistic-station-item
+        [data]="item.value"
+      ></howell-garbage-management-statistic-station-item>
+    </div>
+  </ng-container>
+</div>

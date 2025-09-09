@@ -1,7 +1,7 @@
 import { Transform } from 'class-transformer';
 import { IdNameModel } from '../model.interface';
 import { transformDateTime } from '../transform.model';
-import { CameraImageUrl } from '../url.model';
+import { CameraImageUrl } from '../url-model/camera-image-url.model';
 
 /** 垃圾任务 */
 export class GarbageTask extends IdNameModel {

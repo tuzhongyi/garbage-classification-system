@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { instanceToPlain } from 'class-transformer';
+import { ServiceTool } from '../../../tools/service-tool/service.tool';
 import { BatchRequest } from '../../model/garbage-station/batch-request.model';
 import { BatchResult } from '../../model/garbage-station/batch-result.model';
 import { EventNumberStatistic } from '../../model/garbage-station/event-number-statistic.model';
@@ -17,10 +18,10 @@ import {
 import { HowellAuthHttpService } from '../howell-auth-http.service';
 import {
   GetGridCellEventNumbersParams,
-  GetGridCellsParams,
   GetGridCellStatisticComparisonParams,
   GetGridCellStatisticNumbersParams,
   GetGridCellStatisticNumbersParamsV2,
+  GetGridCellsParams,
 } from './grid-cell-request.params';
 
 @Injectable({
@@ -53,6 +54,11 @@ export class GridCellRequestService {
     let url = GridCellUrl.list();
     let data = instanceToPlain(params);
     return this.type.paged(url, data);
+  }
+  all(params = new GetGridCellsParams()) {
+    return ServiceTool.all((p) => {
+      return this.list(p);
+    }, params);
   }
 
   garbageStations(id: string, request: BatchRequest): Promise<BatchResult> {

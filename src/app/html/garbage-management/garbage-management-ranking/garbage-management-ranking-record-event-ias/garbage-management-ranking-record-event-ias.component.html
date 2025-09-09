@@ -1,0 +1,23 @@
+<div class="garbage-management-ranking-record-event-ias">
+  <div class="garbage-management-ranking-record-event-ias-head button-group">
+    <div
+      class="button-bracket"
+      [class.selected]="index === Index.grid"
+      (click)="on.change(Index.grid)"
+    >
+      网格
+    </div>
+    <div
+      class="button-bracket"
+      [class.selected]="index === Index.division"
+      (click)="on.change(Index.division)"
+    >
+      居委会
+    </div>
+  </div>
+  <div class="garbage-management-ranking-record-event-ias-body">
+    <howell-garbage-management-ranking
+      [datas]="datas"
+    ></howell-garbage-management-ranking>
+  </div>
+</div>

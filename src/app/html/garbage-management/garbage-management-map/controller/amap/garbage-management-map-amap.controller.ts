@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MapHelper } from '../../../../../common/helper/map/map.helper';
 import { PromiseValue } from '../../../../../common/view-models/value.promise';
 import { GarbageManagementMapAMapDivisionController } from './division/garbage-management-map-amap-division.controller';
-import { GarbageManagementMapAMapConfigController } from './garbage-management-map-amap.config';
+import { GarbageManagementMapAMapConfig } from './garbage-management-map-amap.config';
 import { GarbageManagementMapAMapRootController } from './root/garbage-management-map-amap-root.controller';
 import { GarbageManagementMapAMapStationController } from './station/garbage-management-map-amap-station.controller';
 
@@ -43,7 +43,7 @@ export class GarbageManagementMapAMapController {
   private regist(map: AMap.Map) {
     map.on('mousemove', (e) => {
       let position = e.pixel.toArray();
-      GarbageManagementMapAMapConfigController.event.mousemoving.emit(position);
+      GarbageManagementMapAMapConfig.event.mousemoving.emit(position);
     });
   }
 
@@ -52,9 +52,9 @@ export class GarbageManagementMapAMapController {
       x.setCenter(position);
     });
   }
-  fit() {
+  fit(datas?: any) {
     this.map.get().then((x) => {
-      x.setFitView();
+      x.setFitView(datas, true);
     });
   }
 }

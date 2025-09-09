@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { IDivision } from '../../../../common/network/model/garbage-station/division.model';
-import { DivisionRequestService } from '../../../../common/network/request/division/division-request.service';
+import { IIdModel } from '../../../../common/network/model/model.interface';
+import { DivisionRequestService } from '../../../../common/network/request/garbage/division/division-request.service';
+import { GridCellRequestService } from '../../../../common/network/request/grid-cell/grid-cell-request.service';
 import { MapDivision } from '../../../../common/network/request/map/map-division.model';
 import { MapRequestService } from '../../../../common/network/request/map/map-request.service';
 import { GlobalStorageService } from '../../../../common/storage/global.storage';
@@ -11,7 +13,8 @@ export class GarbageManagementMapDataBusiness {
   constructor(
     private service: MapRequestService,
     private global: GlobalStorageService,
-    private division: DivisionRequestService
+    private division: DivisionRequestService,
+    private grid: GridCellRequestService
   ) {
     this.init();
   }
@@ -42,29 +45,25 @@ export class GarbageManagementMapDataBusiness {
     return result;
   }
 
-  private load() {
-    return new Promise<MapDivision[]>((resolve) => {
-      if (this.datas.exists()) {
-        resolve(this.datas.get());
-        return;
-      } else {
-        this.default.get().then((x) => {
-          this.division.cache.all().then((divisions) => {
-            this.service.division.array(x.Id).then((y) => {
-              y = this.conditions(y, divisions, (a, b) => a.id === b.Id);
-              this.datas.set(y);
-              resolve(y);
-            });
-          });
-        });
-      }
-    });
+  private async load() {
+    if (this.datas.exists()) {
+      return this.datas.get();
+    }
+
+    let _default = await this.default.get();
+    let divisions = await this.division.cache.all();
+    let grids = await this.grid.all();
+    let ids: IIdModel[] = [...divisions, ...grids];
+    let _divisions = await this.service.division.array(_default.Id);
+    _divisions = this.conditions(_divisions, ids, (a, b) => a.id === b.Id);
+    this.datas.set(_divisions);
+    return _divisions;
   }
 
   async current() {
     let _default = await this.default.get();
     let datas = await this.load();
-    return datas.find((x) => x.id === _default.Id);
+    return datas.find((x) => x.id === _default.Id)!;
   }
 
   async children() {
@@ -76,5 +75,10 @@ export class GarbageManagementMapDataBusiness {
   async get(id: string) {
     let datas = await this.load();
     return datas.find((x) => x.id === id);
+  }
+
+  async array(ids: string[]) {
+    let datas = await this.load();
+    return datas.filter((x) => ids.includes(x.id));
   }
 }

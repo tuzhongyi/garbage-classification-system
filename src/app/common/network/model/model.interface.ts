@@ -33,3 +33,7 @@ export interface PagedArgs<T = any> {
 export interface ImagePagedArgs<T = any> extends PagedArgs<T> {
   index: number;
 }
+export interface INameValueModel<T> {
+  Name: string;
+  Value: T;
+}

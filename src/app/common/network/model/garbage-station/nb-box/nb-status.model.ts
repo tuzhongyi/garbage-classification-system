@@ -1,6 +1,6 @@
 import { Transform } from 'class-transformer';
 import { IIdModel } from '../../model.interface';
-import { transformDateTime, transformRound } from '../../transform.model';
+import { Transformer } from '../../transform.model';
 
 /**	NBStatus (NB电源箱状态)	*/
 export class NBStatus implements IIdModel {
@@ -9,7 +9,7 @@ export class NBStatus implements IIdModel {
   /**	Int32	信号强度，0-无信号，[0-100]数值越大信号越强	O	*/
   Signal?: number;
   /**	Double	温度（无效）	O	*/
-  @Transform((value) => transformRound(value, 1))
+  @Transform((value) => Transformer.round(value, 1))
   Temperature?: number;
   /**
    *  Int32

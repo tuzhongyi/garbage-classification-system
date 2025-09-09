@@ -6,7 +6,7 @@ import {
 import { ObjectFactoryTool } from './factory/object-factory.tool';
 
 export class ObjectTool {
-  factory = new ObjectFactoryTool();
+  static factory = new ObjectFactoryTool();
   static keys(obj: Object, opts: 'porperty' | 'value' | 'all' = 'all') {
     let keys: string[];
     if (opts === 'porperty') {

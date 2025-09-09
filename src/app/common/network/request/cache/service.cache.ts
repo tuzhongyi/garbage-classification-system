@@ -1,5 +1,6 @@
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 
+import { wait } from '../../../tools/tools';
 import { PagedList } from '../../model/page_list.model';
 import { IParams, PagedParams } from '../IParams.interface';
 import { AppCache, IData, IService } from './cache.interface';
@@ -109,26 +110,31 @@ export class ServiceCache<T extends IData> implements IServiceCache {
   }
 
   async all(params?: IParams): Promise<T[]> {
-    this.loading = true;
-    let datas = this.load();
-    if (datas && datas.length > 0) {
-      try {
-        if (params) {
-          return this.filter(datas, params);
+    return new Promise<T[]>((resolve) => {
+      wait(
+        () => {
+          return this.loading === false;
+        },
+        () => {
+          this.loading = true;
+          let datas = this.load();
+          if (datas && datas.length > 0) {
+            if (params) {
+              datas = this.filter(datas, params);
+            }
+            resolve(datas);
+            this.loading = false;
+            return;
+          }
+          this.service.all().then((x) => {
+            this.save(x);
+            this.loaded = true;
+            let datas = this.all(params);
+            resolve(datas);
+            this.loading = false;
+          });
         }
-        return datas;
-      } finally {
-        this.loading = false;
-      }
-    }
-    return this.service.all().then((x) => {
-      try {
-        this.save(x);
-      } finally {
-        this.loaded = true;
-        this.loading = false;
-      }
-      return this.all(params);
+      );
     });
   }
 

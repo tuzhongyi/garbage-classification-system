@@ -7,6 +7,11 @@ export enum StationType {
   Smart = 2,
   /** 精品厢房 */
   Plus = 3,
+
+  /** 垃圾偷倒 */
+  GarbageDrop = 10,
+  /** 车辆监控 */
+  VehicleWatching = 11,
   /** 核酸检测点 */
   NucleicAcid = 99,
 }

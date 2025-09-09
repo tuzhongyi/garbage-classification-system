@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { GarbageManagementComponent } from './component/garbage-management.component';
-import { GarbageManagementContainerComponent } from './garbage-management-container/garbage-management-container.component';
+import { GarbageManagementManagerComponent } from './garbage-management-manager/garbage-management-manager.component';
 
 const routes: Routes = [
   {
@@ -16,7 +16,7 @@ const routes: Routes = [
       },
       {
         path: 'index',
-        component: GarbageManagementContainerComponent,
+        component: GarbageManagementManagerComponent,
       },
     ],
   },

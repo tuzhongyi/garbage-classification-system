@@ -1,3 +1,5 @@
+import { EventType } from '../../../../common/enum/event-type.enum';
+
 export interface IGarbageManagementRankingData {
   name: string;
   value: number;
@@ -6,5 +8,5 @@ export interface IGarbageManagementRankingData {
 }
 
 export interface IGarbageManagementRankingConverter<T = any> {
-  convert(source: T): IGarbageManagementRankingData;
+  convert(source: T, type?: EventType): IGarbageManagementRankingData;
 }

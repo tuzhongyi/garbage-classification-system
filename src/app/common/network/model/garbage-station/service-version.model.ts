@@ -1,6 +1,5 @@
 import { Transform } from 'class-transformer';
 import { IModel } from '../model.interface';
-import { transformDateTime } from '../transform.model';
 
 /** 服务版本信息 */
 export class ServiceVersion implements IModel {

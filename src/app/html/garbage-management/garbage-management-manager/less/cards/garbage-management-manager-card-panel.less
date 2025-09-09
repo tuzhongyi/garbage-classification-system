@@ -1,0 +1,18 @@
+@import "./garbage-management-manager-card-panel-left.less";
+@import "./garbage-management-manager-card-panel-right.less";
+@import "../garbage-management-manager-@.less";
+
+.garbage-management-manager {
+  &-card {
+    &-panel {
+      position: absolute;
+      z-index: 1;
+      top: @top;
+      height: @panel-height;
+      width: @panel-width;
+      display: flex;
+      flex-direction: column;
+      gap: @gap;
+    }
+  }
+}

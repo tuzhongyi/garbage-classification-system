@@ -1,0 +1,20 @@
+<div class="garbage-management-list-record-event-illegal-vehicle">
+  <div
+    class="garbage-management-list-record-event-illegal-vehicle-item"
+    *ngFor="let item of datas"
+  >
+    <div class="garbage-management-list-record-event-illegal-vehicle-item-name">
+      {{ item.Data.PlateNo }}
+    </div>
+    <div class="garbage-management-list-record-event-illegal-vehicle-item-time">
+      {{ item.EventTime | date : "MM-dd HH:mm:ss" }}
+    </div>
+    <div
+      class="garbage-management-list-record-event-illegal-vehicle-item-operation"
+    >
+      <button>
+        <i class="howell-icon-details"></i>
+      </button>
+    </div>
+  </div>
+</div>

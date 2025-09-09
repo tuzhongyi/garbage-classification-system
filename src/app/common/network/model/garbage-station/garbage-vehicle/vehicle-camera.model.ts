@@ -3,7 +3,6 @@ import { CameraUsage } from '../../../../enum/camera-usage.enum';
 import { OnlineStatus } from '../../../../enum/online-status.enum';
 import { VehiclePositionNo } from '../../../../enum/position-no.enum';
 import { IModel } from '../../model.interface';
-import { transformDateTime } from '../../transform.model';
 import { ICamera } from '../camera.interface';
 import { GisPoint } from '../gis-point.model';
 /**	摄像机	*/

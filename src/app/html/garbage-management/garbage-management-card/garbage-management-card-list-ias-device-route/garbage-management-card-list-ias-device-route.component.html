@@ -1,0 +1,12 @@
+<div class="garbage-management-card-list-ias-device-route">
+  <howell-garbage-management-card>
+    <div ngProjectAs="card-header">
+      {{ title }}
+    </div>
+    <howell-garbage-management-list-ias-device-route
+      *ngIf="loading || count > 0"
+      (loaded)="on.loaded($event)"
+    ></howell-garbage-management-list-ias-device-route>
+    <div *ngIf="!loading && count === 0" class="no-data">无记录</div>
+  </howell-garbage-management-card>
+</div>

@@ -32,6 +32,10 @@ export enum EventType {
   DeviceStatus = 15,
   /**	水渍报警 */
   Sewage = 16,
+  /**	没有可以更换的垃圾桶	17 */
+  NoReplacement = 17,
+  /**	违规车辆作业	18 */
+  IllegalVehicle = 18,
   /**	街道系统督办 */
   Supervision1 = 20,
   /**	区系统督办 */

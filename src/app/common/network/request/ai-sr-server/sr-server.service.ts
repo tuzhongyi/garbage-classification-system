@@ -4,7 +4,7 @@ import { instanceToPlain } from 'class-transformer';
 import { StreamType } from '../../../enum/stream-type.enum';
 import { Duration } from '../../model/garbage-station/duration.model';
 import { SRServer } from '../../model/garbage-station/sr-server';
-import { VideoUrl } from '../../model/url.model';
+import { VideoUrl } from '../../model/url-model/camera-picture-url.model';
 import { SRServersURL } from '../../url/aiop/sr-servers/sr-servers.url';
 import { SRServiceUrl } from '../../url/garbage/sr-server.url';
 import {

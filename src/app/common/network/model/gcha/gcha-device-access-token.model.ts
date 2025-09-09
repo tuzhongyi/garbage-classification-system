@@ -1,6 +1,5 @@
 import { Transform } from 'class-transformer';
 import { IModel } from '../model.interface';
-import { transformDateTime } from '../transform.model';
 
 /**	DeviceAccessToken (设备接入Token信息)	*/
 export class GCHADeviceAccessToken implements IModel {

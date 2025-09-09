@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { GarbageStation } from '../../../../common/network/model/garbage-station/garbage-station.model';
+import { EventType } from '../../../../common/enum/event-type.enum';
 import { MapDivision } from '../../../../common/network/request/map/map-division.model';
+import { GarbageStationViewModel } from '../../../../common/view-model/garbage-station.view-model';
 import { GarbageManagementMapAMapController } from './amap/garbage-management-map-amap.controller';
 
 @Injectable()
@@ -11,24 +12,39 @@ export class GarbageManagementMapController {
     this.amap.move(center);
   }
 
-  fit() {
-    this.amap.fit();
+  fit(datas?: any) {
+    this.amap.fit(datas);
   }
 
-  load = {
-    root: (data: MapDivision) => {
+  root = {
+    load: async (root: MapDivision, datas: MapDivision[]) => {
       this.amap.root.get().then((x) => {
-        x.load(data);
+        x.load(root, datas);
       });
     },
-    division: (datas: MapDivision[]) => {
+  };
+  division = {
+    load: (datas: MapDivision[]) => {
       this.amap.division.get().then((x) => {
         x.load(datas);
       });
     },
-    station: (datas: GarbageStation[]) => {
+  };
+  station = {
+    load: (datas: GarbageStationViewModel[]) => {
       this.amap.station.get().then((x) => {
+        x.clear();
         x.load(datas);
+      });
+    },
+    clear: () => {
+      this.amap.station.get().then((x) => {
+        x.clear();
+      });
+    },
+    eventable: (types: EventType[]) => {
+      this.amap.station.get().then((x) => {
+        x.set.eventable(types);
       });
     },
   };

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { EventType } from '../../../../common/enum/event-type.enum';
 import { TimeUnit } from '../../../../common/enum/time-unit.enum';
 import { DivisionNumberStatisticV2 } from '../../../../common/network/model/garbage-station/division-number-statistic-v2.model';
-import { GetDivisionStatisticNumbersParamsV2 } from '../../../../common/network/request/division/division-request.params';
-import { DivisionRequestService } from '../../../../common/network/request/division/division-request.service';
+import { GetDivisionStatisticNumbersParamsV2 } from '../../../../common/network/request/garbage/division/division-request.params';
+import { DivisionRequestService } from '../../../../common/network/request/garbage/division/division-request.service';
 import { GlobalStorageService } from '../../../../common/storage/global.storage';
 import { DateTimeTool } from '../../../../common/tools/date-time-tool/datetime.tool';
 import { GarbageManagementChartTaskData } from './garbage-management-chart-task.model';
@@ -29,7 +29,7 @@ export class GarbageManagementChartTaskBusiness {
     params.EndTime = duration.end;
     params.TimeUnit = TimeUnit.Hour;
     params.DivisionIds = [divisionId];
-    return this.service.statistic.number.history.list(params);
+    return this.service.statistic.number.history.array(params);
   }
 
   convert(datas: DivisionNumberStatisticV2[]) {

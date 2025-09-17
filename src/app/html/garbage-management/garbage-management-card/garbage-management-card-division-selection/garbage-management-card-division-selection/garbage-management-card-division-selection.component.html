@@ -1,0 +1,17 @@
+<div class="garbage-management-card-division-selection">
+  <howell-garbage-management-card>
+    <div ngProjectAs="card-header" class="card-head">
+      <div class="card-head-title" (click)="on.select(root)">
+        {{ root?.Name }}
+      </div>
+    </div>
+    <div class="garbage-management-card-division-selection-body">
+      <howell-garbage-management-card-division-selection-item
+        *ngFor="let item of datas"
+        [name]="item.Name"
+        [selected]="item.Id === selected?.Id"
+        (click)="on.select(item)"
+      ></howell-garbage-management-card-division-selection-item>
+    </div>
+  </howell-garbage-management-card>
+</div>

@@ -8,9 +8,10 @@
   </div>
   <div class="garbage-management-chart-record-event-ias-body">
     <howell-garbage-management-chart-record-event
-      [datas]="datas"
+      *ngIf="data"
+      [unit]="unit"
+      [data]="data"
       [xAxis]="xAxis"
-      [color]="color"
     ></howell-garbage-management-chart-record-event>
   </div>
 </div>

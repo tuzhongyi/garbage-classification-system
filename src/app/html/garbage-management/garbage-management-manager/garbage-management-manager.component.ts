@@ -1,5 +1,15 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { IDivision } from '../../../common/network/model/garbage-station/division.model';
+import { GlobalStorageService } from '../../../common/storage/global.storage';
 import { wait } from '../../../common/tools/tools';
+import { GarbageManagementStationManagerComponent } from '../garbage-management-container/garbage-management-station/garbage-management-station-manager/garbage-management-station-manager.component';
 import { GarbageManagementManagerController } from './controller/garbage-management-manager.controller';
 import { GarbageManagementManagerImports } from './garbage-management-manager.import';
 import { GarbageManagementManagerProviders } from './garbage-management-manager.provider';
@@ -10,13 +20,13 @@ import { GarbageManagementManagerWindow } from './window/garbage-management-mana
   selector: 'howell-garbage-management-manager',
   templateUrl: './garbage-management-manager.component.html',
   styleUrl: './garbage-management-manager.component.less',
-  imports: [...GarbageManagementManagerImports],
+  imports: [
+    ...GarbageManagementManagerImports,
+    GarbageManagementStationManagerComponent,
+  ],
   providers: [...GarbageManagementManagerProviders],
 })
-export class GarbageManagementManagerComponent implements OnInit {
-  constructor(private controller: GarbageManagementManagerController) {}
-
-  window = new GarbageManagementManagerWindow();
+export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
   get card() {
     return this.controller.card;
   }
@@ -26,33 +36,47 @@ export class GarbageManagementManagerComponent implements OnInit {
   get data() {
     return this.controller.data;
   }
+  get statistic() {
+    return this.controller.statistic;
+  }
 
+  constructor(
+    public window: GarbageManagementManagerWindow,
+    private controller: GarbageManagementManagerController,
+
+    private global: GlobalStorageService
+  ) {}
+
+  private destroyed = false;
   private element = {
     left: undefined as ElementRef<HTMLElement> | undefined,
     right: undefined as ElementRef<HTMLElement> | undefined,
   };
-  get left() {
+  private get left() {
     return this.element.left;
   }
   @ViewChild('container_left')
-  set left(value: ElementRef<HTMLElement> | undefined) {
+  private set left(value: ElementRef<HTMLElement> | undefined) {
     this.element.left = value;
     if (value) {
       this.load.left(value.nativeElement);
     }
   }
-  get right() {
+  private get right() {
     return this.element.right;
   }
   @ViewChild('container_right')
-  set right(value: ElementRef<HTMLElement> | undefined) {
+  private set right(value: ElementRef<HTMLElement> | undefined) {
     this.element.right = value;
     if (value) {
       this.load.right(value.nativeElement);
     }
   }
-
-  ngOnInit(): void {
+  private regist() {
+    this.global.division.change.subscribe((x) => {
+      this.card.load.event.emit();
+      this.map.select.emit(x);
+    });
     this.controller.navigation.change.subscribe((x) => {
       this.card.on.index(x);
       if (this.left) {
@@ -63,8 +87,23 @@ export class GarbageManagementManagerComponent implements OnInit {
       }
       this.data.on.index(x);
     });
+    wait(
+      () => {
+        this.card.load.event.emit();
+        return this.destroyed;
+      },
+      () => {},
+      60 * 1000
+    );
+  }
+
+  ngOnInit(): void {
+    this.regist();
     this.controller.navigation.home();
     this.data.load();
+  }
+  ngOnDestroy(): void {
+    this.destroyed = true;
   }
 
   load = {
@@ -100,5 +139,10 @@ export class GarbageManagementManagerComponent implements OnInit {
         }
       );
     },
+  };
+
+  map = {
+    select: new EventEmitter<IDivision>(),
+    load: new EventEmitter<void>(),
   };
 }

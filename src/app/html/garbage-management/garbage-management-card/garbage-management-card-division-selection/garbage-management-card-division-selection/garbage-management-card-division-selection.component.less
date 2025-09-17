@@ -1,0 +1,47 @@
+.garbage-management-card-division-selection {
+  width: 100%;
+  height: 100%;
+
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+
+    &-title {
+      cursor: pointer;
+
+      &:hover {
+        color: white;
+        text-shadow: #fff 0px 0 10px;
+      }
+    }
+
+    &-operation {
+      select {
+        color: #7d8caf;
+        padding-right: 35px;
+      }
+    }
+  }
+
+  &-body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+
+    @gap: 5px;
+    gap: @gap;
+
+    &>* {
+      width: calc((100% - @gap * 2) / 3);
+      height: calc((100% - @gap * 4) / 5);
+    }
+  }
+
+
+}

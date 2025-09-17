@@ -1,14 +1,28 @@
+import { EventEmitter } from '@angular/core';
 import { ComponentTool } from '../../../../../../common/tools/component-tool/component.tool';
 import { IGarbageManagementManagerCardController } from '../../../garbage-management-manager.model';
+import { GarbageManagementManagerCardCommonController } from '../common/garbage-management-manager-card-common.controller';
 import { GarbageManagementManagerCardVehicleLeftController } from './garbage-management-manager-card-vehicle-left.controller';
 import { GarbageManagementManagerCardVehicleRightController } from './garbage-management-manager-card-vehicle-right.controller';
 
 export class GarbageManagementManagerCardVehicleController
   implements IGarbageManagementManagerCardController
 {
-  constructor(tool: ComponentTool) {
-    this.left = new GarbageManagementManagerCardVehicleLeftController(tool);
-    this.right = new GarbageManagementManagerCardVehicleRightController(tool);
+  constructor(
+    common: GarbageManagementManagerCardCommonController,
+    tool: ComponentTool,
+    load: EventEmitter<void>
+  ) {
+    this.left = new GarbageManagementManagerCardVehicleLeftController(
+      common,
+      tool,
+      load
+    );
+    this.right = new GarbageManagementManagerCardVehicleRightController(
+      common,
+      tool,
+      load
+    );
   }
 
   left: GarbageManagementManagerCardVehicleLeftController;

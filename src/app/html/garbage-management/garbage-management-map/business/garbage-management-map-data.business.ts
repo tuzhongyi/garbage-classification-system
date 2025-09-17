@@ -11,13 +11,20 @@ import { PromiseValue } from '../../../../common/view-models/value.promise';
 @Injectable()
 export class GarbageManagementMapDataBusiness {
   constructor(
-    private service: MapRequestService,
-    private global: GlobalStorageService,
-    private division: DivisionRequestService,
-    private grid: GridCellRequestService
+    map: MapRequestService,
+    division: DivisionRequestService,
+    grid: GridCellRequestService,
+    private global: GlobalStorageService
   ) {
+    this.service = { map, division, grid };
     this.init();
   }
+
+  private service: {
+    map: MapRequestService;
+    division: DivisionRequestService;
+    grid: GridCellRequestService;
+  };
 
   datas = new PromiseValue<MapDivision[]>();
   default = new PromiseValue<IDivision>();
@@ -51,10 +58,11 @@ export class GarbageManagementMapDataBusiness {
     }
 
     let _default = await this.default.get();
-    let divisions = await this.division.cache.all();
-    let grids = await this.grid.all();
-    let ids: IIdModel[] = [...divisions, ...grids];
-    let _divisions = await this.service.division.array(_default.Id);
+    let divisions = await this.service.division.cache.all();
+    let grids = await this.service.grid.all();
+
+    let ids: IIdModel[] = [_default, ...divisions, ...grids];
+    let _divisions = await this.service.map.division.array(_default.Id);
     _divisions = this.conditions(_divisions, ids, (a, b) => a.id === b.Id);
     this.datas.set(_divisions);
     return _divisions;
@@ -66,10 +74,17 @@ export class GarbageManagementMapDataBusiness {
     return datas.find((x) => x.id === _default.Id)!;
   }
 
-  async children() {
-    let _default = await this.default.get();
+  async division() {
     let datas = await this.load();
-    return datas.filter((x) => x.parentId === _default.Id);
+    let divisions = await this.service.division.cache.all();
+    let ids = divisions.map((x) => x.Id);
+    return datas.filter((x) => ids.includes(x.id));
+  }
+  async grid() {
+    let datas = await this.load();
+    let grids = await this.service.grid.all();
+    let ids = grids.map((x) => x.Id);
+    return datas.filter((x) => ids.includes(x.id));
   }
 
   async get(id: string) {

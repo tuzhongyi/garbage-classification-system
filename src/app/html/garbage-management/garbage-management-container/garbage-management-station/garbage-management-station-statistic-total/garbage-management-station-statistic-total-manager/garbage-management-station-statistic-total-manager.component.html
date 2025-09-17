@@ -1,0 +1,43 @@
+<div class="garbage-management-station-statistic-total-manager">
+  <div class="garbage-management-station-statistic-total-manager-head">
+    <div class="forms">
+      <div class="form-item">
+        <div class="form-item-name">时间</div>
+        <div class="form-item-value">
+          <date-time-control [(date)]="table.args.date"></date-time-control>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-item-name">行政区</div>
+        <div class="form-item-value">
+          <hw-select [(selected)]="table.args.divisionId" [nullable]="true">
+            <howell-division-select
+              [(selectedId)]="table.args.divisionId"
+            ></howell-division-select>
+          </hw-select>
+        </div>
+      </div>
+      <div class="form-item submit">
+        <div class="button-group">
+          <button class="button-border-blue" (click)="on.search()">
+            <i class="mdi mdi-magnify"></i> 查询
+          </button>
+          <button class="button-border-blue" (click)="on.export()">
+            <i class="howell-icon-export"></i> 导出
+          </button>
+          <button class="button-border-blue" (click)="on.export()">
+            <i class="howell-icon-export"></i> CSV
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="garbage-management-station-statistic-total-manager-body">
+    <howell-garbage-management-station-statistic-total-table
+      [unit]="table.args.unit"
+      [date]="table.args.date"
+      [divisionId]="table.args.divisionId"
+      [load]="table.load"
+    ></howell-garbage-management-station-statistic-total-table>
+  </div>
+</div>

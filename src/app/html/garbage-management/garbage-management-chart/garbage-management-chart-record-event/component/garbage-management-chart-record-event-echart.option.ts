@@ -28,7 +28,7 @@ export const GarbageManagementChartRecordEventEChartOption: echarts.EChartsOptio
         },
       },
       axisLabel: {
-        color: 'rgba(255,255,255,0.3)',
+        color: 'rgba(255,255,255,0.7)',
         fontFamily: 'howell light',
         interval: 3, //5,
       },
@@ -46,7 +46,7 @@ export const GarbageManagementChartRecordEventEChartOption: echarts.EChartsOptio
       },
       splitNumber: 3,
       axisLabel: {
-        color: 'rgba(255,255,255,0.3)',
+        color: 'rgba(255,255,255,0.7)',
         fontFamily: 'howell light',
       },
     },

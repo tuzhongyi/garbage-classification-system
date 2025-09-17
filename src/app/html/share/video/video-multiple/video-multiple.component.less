@@ -1,0 +1,42 @@
+.video-multiple {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  @gap: 10px;
+  gap: @gap;
+
+  &-item {
+    border: 1px solid #286cf1;
+    box-sizing: border-box;
+    background-color: black;
+
+    &:hover {
+      border-color: #80aaff;
+    }
+
+    &.nodata {
+      pointer-events: none;
+    }
+
+    &._1 {
+      width: 100%;
+      height: 100%;
+    }
+
+    &._4 {
+      width: calc((100% - @gap * 1) / 2);
+      height: calc((100% - @gap * 1) / 2);
+    }
+
+    &._9 {
+      width: calc((100% - @gap * 2) / 3);
+      height: calc((100% - @gap * 2) / 3);
+    }
+
+    &._16 {
+      width: calc((100% - @gap * 3) / 4);
+      height: calc((100% - @gap * 3) / 4);
+    }
+  }
+}

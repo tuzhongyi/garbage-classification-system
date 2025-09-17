@@ -15,12 +15,12 @@ export class GarbageManagementChartPieRecordStatisticContainerIasService {
     let params = new GetIasEventsParams();
     params.BeginTime = duration.begin;
     params.EndTime = duration.end;
-    params.EmergencyType = 3;
+    params.EmergencyType = 103;
     params.DivisionIds = [divisionId];
 
     params.PageIndex = 1;
     params.PageSize = 1;
-    return this.service.event.list(params).catch((x) => {
+    return this.service.event.cache.list(params).catch((x) => {
       let paged = new PagedList<IasEventRecord>();
       paged.Page = Page.create(1, 0);
       paged.Data = [];

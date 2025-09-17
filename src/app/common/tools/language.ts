@@ -32,7 +32,6 @@ import { RetentionType } from '../enum/retention-type.enum';
 import { SearchConditionKey } from '../enum/search-condition.enum';
 import { StationState } from '../enum/station-state.enum';
 import { StationType } from '../enum/station-type.enum';
-import { StatisticType } from '../enum/statistic-type.enum';
 import { TimeUnit } from '../enum/time-unit.enum';
 import { TrashCanType } from '../enum/trashcan-type.enum';
 import { UserLogRecordMessageType } from '../enum/user-log-record-message-type.enum';
@@ -97,24 +96,6 @@ export class Language {
         return Language.json.error;
       default:
         return Language.json.normal;
-    }
-  }
-
-  static StatisticType(type: StatisticType) {
-    switch (type) {
-      case StatisticType.avgGarbageTime:
-        return Language.json.StatisticType.AvgGarbageTime;
-      case StatisticType.maxGarbageTime:
-        return Language.json.StatisticType.MaxGarbageTime;
-      case StatisticType.garbageDuration:
-        return Language.json.StatisticType.GarbageDuration;
-      case StatisticType.illegalDrop:
-        return Language.EventType(EventType.IllegalDrop);
-      case StatisticType.mixedInto:
-        return Language.EventType(EventType.MixedInto);
-      case StatisticType.garde:
-      default:
-        return Language.json.StatisticType.Garde;
     }
   }
 
@@ -340,7 +321,7 @@ export class Language {
         return Language.json.Unknow;
     }
   }
-  static StationType(type: StationType) {
+  static StationType(type?: StationType) {
     switch (type) {
       case StationType.Garbage:
         return '垃圾投放点';
@@ -350,6 +331,10 @@ export class Language {
         return '智能垃圾厢房';
       case StationType.Plus:
         return '精品厢房';
+      case StationType.GarbageDrop:
+        return '垃圾偷倒';
+      case StationType.VehicleWatching:
+        return '';
       default:
         return Language.json.Unknow;
     }

@@ -1,0 +1,9 @@
+<div class="garbage-management-station-statistic-details-container">
+  <howell-garbage-management-chart-record-event-multiple
+    *ngIf="datas.length > 0"
+    [datas]="datas"
+    [xAxis]="xAxis"
+    [unit]="args.unit"
+    [type]="type"
+  ></howell-garbage-management-chart-record-event-multiple>
+</div>

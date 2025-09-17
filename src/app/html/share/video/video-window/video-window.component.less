@@ -1,0 +1,47 @@
+.video-window {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &-operation {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .button {
+      color: #80aaff;
+
+      &.close {
+        color: #bdd3ff;
+      }
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+
+  &-head {
+    height: 36px;
+
+    .forms {
+      .form-item {
+        &-value {
+          &.time {
+            display: flex;
+            gap: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  &-body {
+    height: calc(100% - 10px - 36px);
+
+    flex-grow: 1;
+
+  }
+}

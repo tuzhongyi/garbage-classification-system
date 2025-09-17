@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EventType } from '../../../../common/enum/event-type.enum';
+import { IasDevice } from '../../../../common/network/model/ias/ias-device.model';
 import { MapDivision } from '../../../../common/network/request/map/map-division.model';
 import { GarbageStationViewModel } from '../../../../common/view-model/garbage-station.view-model';
 import { GarbageManagementMapAMapController } from './amap/garbage-management-map-amap.controller';
@@ -29,6 +30,11 @@ export class GarbageManagementMapController {
         x.load(datas);
       });
     },
+    select: (id: string) => {
+      this.amap.division.get().then((x) => {
+        x.select(id);
+      });
+    },
   };
   station = {
     load: (datas: GarbageStationViewModel[]) => {
@@ -45,6 +51,14 @@ export class GarbageManagementMapController {
     eventable: (types: EventType[]) => {
       this.amap.station.get().then((x) => {
         x.set.eventable(types);
+      });
+    },
+  };
+  device = {
+    load: (datas: IasDevice[]) => {
+      this.amap.device.get().then((x) => {
+        x.clear();
+        x.load(datas);
       });
     },
   };

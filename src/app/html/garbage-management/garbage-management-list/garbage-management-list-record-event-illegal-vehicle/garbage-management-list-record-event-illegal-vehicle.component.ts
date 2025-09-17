@@ -1,7 +1,15 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { TimeUnit } from '../../../../common/enum/time-unit.enum';
 
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 import { IllegalVehicleEventRecord } from '../../../../common/network/model/garbage-station/event-record/illegal-vehicle-event-record.model';
 import { GarbageManagementListRecordEventIllegalVehicleBusiness } from './garbage-management-list-record-event-illegal-vehicle.business';
 
@@ -14,7 +22,10 @@ import { GarbageManagementListRecordEventIllegalVehicleBusiness } from './garbag
     './garbage-management-list-record-event-illegal-vehicle.component.less',
   providers: [GarbageManagementListRecordEventIllegalVehicleBusiness],
 })
-export class GarbageManagementListRecordEventIllegalVehicleComponent {
+export class GarbageManagementListRecordEventIllegalVehicleComponent
+  implements OnInit, OnDestroy
+{
+  @Input('load') _load?: EventEmitter<void>;
   @Input() unit = TimeUnit.Day;
   @Output() loaded = new EventEmitter<IllegalVehicleEventRecord[]>();
   constructor(
@@ -22,9 +33,22 @@ export class GarbageManagementListRecordEventIllegalVehicleComponent {
   ) {}
 
   datas: IllegalVehicleEventRecord[] = [];
+  private subscription = new Subscription();
+  private regist() {
+    if (this._load) {
+      let sub = this._load.subscribe(() => {
+        this.load();
+      });
+      this.subscription.add(sub);
+    }
+  }
 
   ngOnInit(): void {
+    this.regist();
     this.load();
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   private load() {

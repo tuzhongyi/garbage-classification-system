@@ -12,7 +12,10 @@ import {
 } from '@angular/core';
 import { TimeUnit } from '../../../../../common/enum/time-unit.enum';
 import { GarbageManagementChartAbstract } from '../../garbage-management-chart.abstract';
-import { IGarbageManagementChartRecordEventColor } from '../garbage-management-chart-record-event.model';
+import {
+  IGarbageManagementChartRecordEventColor,
+  IGarbageManagementChartRecordEventData,
+} from '../garbage-management-chart-record-event.model';
 import { GarbageManagementChartRecordEventEChartOption } from './garbage-management-chart-record-event-echart.option';
 
 @Component({
@@ -30,9 +33,8 @@ export class GarbageManagementChartRecordEventComponent
     {},
     GarbageManagementChartRecordEventEChartOption
   );
-  @Input() color?: IGarbageManagementChartRecordEventColor;
+  @Input() data?: IGarbageManagementChartRecordEventData;
   @Input() unit = TimeUnit.Day;
-  @Input() datas: number[] = [40, 60, 55, 50, 55, 65, 45];
   @Input() xAxis: string[] = [
     '00:00',
     '04:00',
@@ -46,8 +48,6 @@ export class GarbageManagementChartRecordEventComponent
   constructor() {
     super();
   }
-
-  count = 0;
   @ViewChild('chart') element?: ElementRef;
 
   ngOnInit(): void {
@@ -101,14 +101,14 @@ export class GarbageManagementChartRecordEventComponent
 
   private load() {
     this.chart.get().then((chart) => {
+      if (!this.data) return;
       (this.option.xAxis as any).data = [...this.xAxis];
       let sery = (this.option.series as any)[0];
-      sery.data = [...this.datas];
-      if (this.color) {
-        this.set.color(this.color);
+      sery.data = [...this.data.datas.map((x) => x.value)];
+      if (this.data.color) {
+        this.set.color(this.data.color);
       }
       this.set.unit(this.unit);
-      this.count = this.datas.reduce((a, b) => a + b, 0);
       chart.setOption(this.option);
     });
   }

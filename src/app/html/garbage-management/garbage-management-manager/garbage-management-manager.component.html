@@ -5,7 +5,9 @@
   <div class="garbage-management-manager-map">
     <howell-garbage-management-map
       [stations]="data.stations"
+      [devices]="data.devices"
       [eventables]="data.eventables"
+      [select]="map.select"
     ></howell-garbage-management-map>
     <div class="garbage-management-manager-map-mask"></div>
   </div>
@@ -29,6 +31,8 @@
       [index]="navigation.index"
       [stations]="data.source.stations"
       [devices]="data.devices"
+      (openstations)="statistic.station.open($event)"
+      (opendevices)="statistic.device.open()"
     ></howell-garbage-management-statistic-station>
   </div>
   <div class="garbage-management-manager-state-station">
@@ -56,6 +60,22 @@
     [title]="window.settings.title"
     [style]="window.settings.style"
   >
-    <app-garbage-management-manager-settings></app-garbage-management-manager-settings>
+    <howell-garbage-management-manager-settings></howell-garbage-management-manager-settings>
+  </howell-panel>
+  <howell-panel
+    *ngIf="window.station.show"
+    [model]="window.station"
+    [title]="window.station.title"
+    [style]="window.station.style"
+  >
+    <howell-garbage-management-station-manager></howell-garbage-management-station-manager>
+  </howell-panel>
+  <howell-panel
+    *ngIf="window.street.show"
+    [model]="window.street"
+    [title]="window.street.title"
+    [style]="window.street.style"
+  >
+    <howell-garbage-management-street-device-manager></howell-garbage-management-street-device-manager>
   </howell-panel>
 </div>

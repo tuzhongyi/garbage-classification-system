@@ -5,7 +5,7 @@ import { ObjectTool } from '../../../common/tools/object-tool/object.tool';
 import { GarbageManagementCardComponent } from '../garbage-management-card/component/garbage-management-card.component';
 
 @Component({
-  selector: 'app-garbage-management-manager-settings',
+  selector: 'howell-garbage-management-manager-settings',
   imports: [CommonModule, GarbageManagementCardComponent],
   templateUrl: './garbage-management-manager-settings.component.html',
   styleUrl: './garbage-management-manager-settings.component.less',

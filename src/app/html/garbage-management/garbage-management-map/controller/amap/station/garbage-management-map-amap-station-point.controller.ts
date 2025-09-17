@@ -17,7 +17,6 @@ export class GarbageManagementMapAMapStationPointController {
   }
 
   private layer: Loca.PointLayer;
-  private colors = ['red', 'green', 'yellow'];
   private _hover?: GarbageStationViewModel;
   private handle?: NodeJS.Timeout;
   private style: Loca.PointLayerStyle = {

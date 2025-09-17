@@ -2,11 +2,18 @@ import { ComponentTool } from '../../../../../common/tools/component-tool/compon
 import { wait } from '../../../../../common/tools/tools';
 import {
   GarbageManagementManagerCardItem,
+  IGarbageManagementManagerCard,
   IGarbageManagementManagerCardElement,
 } from '../../garbage-management-manager.model';
+import { GarbageManagementManagerCardCommonController } from './common/garbage-management-manager-card-common.controller';
 
-export abstract class GarbageManagementManagerCardAbstract {
-  constructor(private tool: ComponentTool) {
+export abstract class GarbageManagementManagerCardAbstract
+  implements IGarbageManagementManagerCard
+{
+  constructor(
+    private common: GarbageManagementManagerCardCommonController,
+    private tool: ComponentTool
+  ) {
     this.html = this.init();
   }
   protected abstract ctors: Array<GarbageManagementManagerCardItem>;
@@ -18,7 +25,7 @@ export abstract class GarbageManagementManagerCardAbstract {
     return element;
   }
 
-  init() {
+  private init() {
     return new Promise<IGarbageManagementManagerCardElement[]>((resolve) => {
       wait(
         () => {
@@ -28,7 +35,18 @@ export abstract class GarbageManagementManagerCardAbstract {
           let elements = [];
           for (let i = 0; i < this.ctors.length; i++) {
             const ctor = this.ctors[i];
-            let element = this.create(ctor);
+            let element: HTMLElement;
+            if (ctor.single) {
+              if (this.common.elements.has(ctor.component.name)) {
+                element = this.common.elements.get(ctor.component.name)!;
+              } else {
+                element = this.create(ctor);
+                this.common.elements.set(ctor.component.name, element);
+              }
+            } else {
+              element = this.create(ctor);
+            }
+
             elements.push({
               element: element,
               class: ctor.class,

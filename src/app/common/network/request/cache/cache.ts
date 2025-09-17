@@ -5,12 +5,14 @@ import { Division } from '../../model/garbage-station/division.model';
 import { GarbageStationNumberStatisticV2 } from '../../model/garbage-station/garbage-station-number-statistic-v2.model';
 import { GarbageStationNumberStatistic } from '../../model/garbage-station/garbage-station-number-statistic.model';
 import { GarbageStation } from '../../model/garbage-station/garbage-station.model';
+import { IasEventRecord } from '../../model/ias/ias-event-record.model';
 import { DivisionServiceCache } from './division-service.cache';
 import { DivisionStatisticServiceCache } from './division-statistic-service.cache';
 import { DivisionStatisticV2ServiceCache } from './division-statistic-v2-service.cache';
 import { GarbageStationServiceCache } from './garbage-station-service.cache';
 import { GarbageStationStatisticServiceCache } from './garbage-station-statistic-service.cache';
 import { GarbageStationStatisticV2ServiceCache } from './garbage-station-statistic-v2-service.cache';
+import { IasEventServiceCache } from './ias-event-service.cache';
 import { ServiceCache } from './service.cache';
 
 export function Cache<T>(key: string, type?: ClassConstructor<T>) {
@@ -46,6 +48,9 @@ export function Cache<T>(key: string, type?: ClassConstructor<T>) {
                     key,
                     this
                   );
+                  break;
+                case IasEventRecord.name:
+                  this._cache = new IasEventServiceCache(key, this);
                   break;
                 default:
                   this._cache = new ServiceCache(key, this);

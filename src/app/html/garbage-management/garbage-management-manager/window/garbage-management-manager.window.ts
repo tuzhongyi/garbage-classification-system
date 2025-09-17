@@ -1,16 +1,11 @@
-import { WindowViewModel } from '../../../../common/components/window/window.model';
+import { Injectable } from '@angular/core';
+import { GarbageManagementManagerSettingsWindow } from './garbage-management-manager-settings.window';
+import { GarbageManagementManagerStationWindow } from './garbage-management-manager-station.window';
+import { GarbageManagementManagerStreetWindow } from './garbage-management-manager-street.window';
 
+@Injectable()
 export class GarbageManagementManagerWindow {
-  settings = new SettingsWindow();
-}
-
-class SettingsWindow extends WindowViewModel {
-  style = {
-    height: 'calc(100% - 85px)',
-    width: '100%',
-    transform: 'translate(0,0)',
-    top: '85px',
-    zIndex: '1',
-  };
-  title = '设置';
+  settings = new GarbageManagementManagerSettingsWindow();
+  station = new GarbageManagementManagerStationWindow();
+  street = new GarbageManagementManagerStreetWindow();
 }

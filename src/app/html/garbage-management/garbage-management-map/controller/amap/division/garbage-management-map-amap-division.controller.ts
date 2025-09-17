@@ -37,4 +37,10 @@ export class GarbageManagementMapAMapDivisionController {
     this.polygon.load(source.polygon);
     this.border.load(source.line);
   }
+
+  select(id: string) {
+    this.border.out();
+    this.border.over(id);
+    this.polygon.select(id);
+  }
 }

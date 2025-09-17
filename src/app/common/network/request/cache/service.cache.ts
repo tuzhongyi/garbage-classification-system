@@ -126,10 +126,12 @@ export class ServiceCache<T extends IData> implements IServiceCache {
             this.loading = false;
             return;
           }
-          this.service.all().then((x) => {
-            this.save(x);
+          this.service.all(params as PagedParams).then((datas) => {
+            this.save([...datas]);
             this.loaded = true;
-            let datas = this.all(params);
+            if (params) {
+              datas = this.filter([...datas], params);
+            }
             resolve(datas);
             this.loading = false;
           });

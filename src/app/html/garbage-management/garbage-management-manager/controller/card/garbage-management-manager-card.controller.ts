@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { ComponentTool } from '../../../../../common/tools/component-tool/component.tool';
 import {
   GarbageManagementManagerIndex,
   IGarbageManagementManagerCardController,
   IGarbageManagementManagerCardElement,
 } from '../../garbage-management-manager.model';
+import { GarbageManagementManagerCardCommonController } from './common/garbage-management-manager-card-common.controller';
 import { GarbageManagementManagerCardHomeController } from './home/garbage-management-manager-card-home.controller';
 import { GarbageManagementManagerCardIllegalDropController } from './illegaldrop/garbage-management-manager-card-illegaldrop.controller';
 import { GarbageManagementManagerCardMixedIntoController } from './mixedinto/garbage-management-manager-card-mixedinto.controller';
@@ -28,23 +29,44 @@ export class GarbageManagementManagerCardController {
   right: Array<IGarbageManagementManagerCardElement> = [];
 
   private async init() {
-    let home = new GarbageManagementManagerCardHomeController(this.tool);
+    let common = new GarbageManagementManagerCardCommonController();
+    let home = new GarbageManagementManagerCardHomeController(
+      common,
+      this.tool,
+      this.load.event
+    );
     this.controller.set(GarbageManagementManagerIndex.home, home);
     this.controller.set(
       GarbageManagementManagerIndex.mixedinto,
-      new GarbageManagementManagerCardMixedIntoController(this.tool)
+      new GarbageManagementManagerCardMixedIntoController(
+        common,
+        this.tool,
+        this.load.event
+      )
     );
     this.controller.set(
       GarbageManagementManagerIndex.garbagedrop,
-      new GarbageManagementManagerCardIllegalDropController(this.tool)
+      new GarbageManagementManagerCardIllegalDropController(
+        common,
+        this.tool,
+        this.load.event
+      )
     );
     this.controller.set(
       GarbageManagementManagerIndex.vehicle,
-      new GarbageManagementManagerCardVehicleController(this.tool)
+      new GarbageManagementManagerCardVehicleController(
+        common,
+        this.tool,
+        this.load.event
+      )
     );
     this.controller.set(
       GarbageManagementManagerIndex.street,
-      new GarbageManagementManagerCardStreetController(this.tool)
+      new GarbageManagementManagerCardStreetController(
+        common,
+        this.tool,
+        this.load.event
+      )
     );
 
     this.left = await home.left.html;
@@ -65,15 +87,16 @@ export class GarbageManagementManagerCardController {
   };
 
   load = {
-    left: async (containers: NodeListOf<Element>) => {
-      let ctor = await this.left;
+    event: new EventEmitter<void>(),
+    left: (containers: NodeListOf<Element>) => {
+      let ctor = this.left;
       for (let i = 0; i < containers.length; i++) {
         let container = containers.item(i);
         this.append(container, ctor[i].element);
       }
     },
-    right: async (containers: NodeListOf<Element>) => {
-      let ctor = await this.right;
+    right: (containers: NodeListOf<Element>) => {
+      let ctor = this.right;
       for (let i = 0; i < containers.length; i++) {
         let container = containers.item(i);
         this.append(container, ctor[i].element);

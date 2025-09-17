@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { Subscription } from 'rxjs';
 import { EventType } from '../../../../../common/enum/event-type.enum';
 import { ColorTool } from '../../../../../common/tools/color-tool/color.tool';
 import { ChartItem } from '../../garbage-management-chart.abstract';
@@ -21,14 +28,28 @@ import { GarbageManagementChartPieRecordStatisticContainerService } from './busi
   ],
 })
 export class GarbageManagementChartPieRecordStatisticContainerComponent
-  implements OnInit
+  implements OnInit, OnDestroy
 {
+  @Input('load') _load?: EventEmitter<void>;
   constructor(
     private business: GarbageManagementChartPieRecordStatisticContainerBusiness
   ) {}
+  private subscription = new Subscription();
+  private regist() {
+    if (this._load) {
+      let sub = this._load.subscribe((x) => {
+        this.load();
+      });
+      this.subscription.add(sub);
+    }
+  }
   ngOnInit(): void {
+    this.regist();
     this.init();
     this.load();
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   args = new GarbageManagementChartPieRecordStatisticContainerArgs();

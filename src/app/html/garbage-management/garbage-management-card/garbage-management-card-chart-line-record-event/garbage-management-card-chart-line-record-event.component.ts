@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EventType } from '../../../../common/enum/event-type.enum';
 import { TimeUnit } from '../../../../common/enum/time-unit.enum';
@@ -21,6 +21,7 @@ import { GarbageManagementCardComponent } from '../component/garbage-management-
   styleUrl: './garbage-management-card-chart-line-record-event.component.less',
 })
 export class GarbageManagementCardChartLineRecordEventComponent {
+  @Input() load?: EventEmitter<void>;
   @Input() type = EventType.MixedInto;
   @Input() color?: IGarbageManagementChartRecordEventColor;
 

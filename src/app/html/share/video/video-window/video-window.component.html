@@ -1,0 +1,73 @@
+<howell-window
+  [model]="Model"
+  [title]="title ?? ''"
+  [style]="style"
+  [button]="false"
+>
+  <div
+    ngProjectAs="window-head-operation"
+    class="video-window-operation button-group"
+  >
+    <div class="button" *ngIf="datetime.show" (click)="on.preview()">
+      <i class="howell-icon-video"></i>
+    </div>
+    <div class="button" *ngIf="!datetime.show" (click)="on.playback()">
+      <i class="howell-icon-video-playback1"></i>
+    </div>
+    <div class="button close" (click)="on.close()">
+      <i class="howell-icon-Close"></i>
+    </div>
+  </div>
+
+  <div class="video-window">
+    <div
+      class="video-window-head"
+      *ngIf="datetime.show && this.video.playback.args"
+    >
+      <div class="forms">
+        <div class="form-item">
+          <div class="form-item-name">日期：</div>
+          <div class="form-item-value">
+            <date-time-control
+              [(date)]="datetime.date"
+              (dateChange)="datetime.change()"
+            ></date-time-control>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-item-name">时间：</div>
+          <div class="form-item-value time">
+            <app-time-control
+              [(time)]="datetime.time.begin"
+              [end]="datetime.time.end"
+              (timeChange)="datetime.change()"
+            ></app-time-control>
+            <span>-</span>
+            <app-time-control
+              [(time)]="datetime.time.end"
+              [begin]="datetime.time.begin"
+              (timeChange)="datetime.change()"
+            ></app-time-control>
+          </div>
+        </div>
+        <div class="form-item submit">
+          <button
+            class="button-normal"
+            (click)="video.playback.play(video.playback.args)"
+          >
+            开始回放
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="video-window-body">
+      <howell-video
+        [playback]="playback"
+        [preview]="preview"
+        [playing]="playing"
+        (playingChange)="on.playing($event)"
+        (opened)="on.opened()"
+      ></howell-video>
+    </div>
+  </div>
+</howell-window>

@@ -10,23 +10,57 @@
   align-items: center;
 
   box-sizing: border-box;
+  cursor: pointer;
+
+  &:hover {
+
+
+    .garbage-management-statistic-record-item-info {
+      color: white;
+      // text-shadow: #fff 0px 0 10px;
+
+      // &-content {
+      //   &-value {
+      //     text-shadow: 0px 0px 10px #82A3FE,
+      //       0px 0px 20px #82A3FE,
+      //       0px 0px 30px #82A3FE;
+      //   }
+      // }
+    }
+
+    .garbage-management-statistic-record-item-info-content-value {}
+  }
 
   &.mixedinto {
     background-image: url(../../../../../../assets/image/statistic/statistic-item-background.png), url(../../../../../../assets/image/statistic/station/statistic-station-mixed-into.png);
     background-size: 100% 100%, contain;
     background-position: center, 12% center;
+
+    &:hover {
+      filter: drop-shadow(0 0 10px #00f6ff);
+    }
   }
 
   &.illegaldrop {
     background-image: url(../../../../../../assets/image/statistic/statistic-item-background.png), url(../../../../../../assets/image/statistic/station/statistic-station-illegal-drop.png);
     background-size: 100% 100%, contain;
     background-position: center, 12% center;
+
+
+    &:hover {
+      filter: drop-shadow(0 0 10px darkorange);
+    }
   }
 
   &.illegalvehicle {
     background-image: url(../../../../../../assets/image/statistic/statistic-item-background.png), url(../../../../../../assets/image/statistic/station/illegal-statistic-station-vehicle.png);
     background-size: 100% 100%, contain;
     background-position: center, 12% center;
+
+    &:hover {
+      filter: drop-shadow(0 0 10px #f73d3d);
+    }
+
   }
 
 
@@ -34,6 +68,11 @@
     background-image: url(../../../../../../assets/image/statistic/statistic-item-background.png), url(../../../../../../assets/image/statistic/station/statistic-station-bicycle.png);
     background-size: 100% 100%, contain;
     background-position: center, 12% center;
+
+
+    &:hover {
+      filter: drop-shadow(0 0 10px #00b3ff);
+    }
   }
 
 

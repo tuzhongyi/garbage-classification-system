@@ -1,0 +1,38 @@
+<div class="garbage-management-station-manager">
+  <div class="garbage-management-station-manager-head">
+    <div class="button-group">
+      <div
+        class="button-bracket"
+        [class.selected]="index == Index.list"
+        (click)="on.index(Index.list)"
+      >
+        列表
+      </div>
+      <div
+        class="button-bracket"
+        [class.selected]="index == Index.total"
+        (click)="on.index(Index.total)"
+      >
+        总图表
+      </div>
+      <div
+        class="button-bracket"
+        [class.selected]="index == Index.details"
+        (click)="on.index(Index.details)"
+      >
+        细分图表
+      </div>
+    </div>
+  </div>
+  <div class="garbage-management-station-manager-body">
+    <howell-garbage-management-station-list-manager
+      *ngIf="index == Index.list"
+    ></howell-garbage-management-station-list-manager>
+    <howell-garbage-management-station-statistic-total-manager
+      *ngIf="index == Index.total"
+    ></howell-garbage-management-station-statistic-total-manager>
+    <howell-garbage-management-station-statistic-details-manager
+      *ngIf="index == Index.details"
+    ></howell-garbage-management-station-statistic-details-manager>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<div class="garbage-management-station-statistic-details-manager">
+  <div class="garbage-management-station-statistic-details-manager-head">
+    <div class="forms">
+      <div class="form-item">
+        <div class="form-item-name">选择时间</div>
+        <div class="form-item-value date">
+          <date-time-control
+            [week]="date.week"
+            [format]="date.format"
+            [minView]="date.view.min"
+            [startView]="date.view.min"
+            [(date)]="chart.args.date"
+          ></date-time-control>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-item-name">类型</div>
+        <div class="form-item-value">
+          <select [(ngModel)]="chart.args.type">
+            <option *ngFor="let item of source.types" [ngValue]="item.Id">
+              {{ item.Name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-item-name">投放点</div>
+        <div class="form-item-value stations">
+          <howell-select-multiple
+            [datas]="source.stations"
+            (selectedsChange)="on.stations($event)"
+          ></howell-select-multiple>
+        </div>
+      </div>
+      <div class="form-item submit">
+        <button class="button-border-blue" (click)="on.search()">查询</button>
+      </div>
+    </div>
+    <div class="forms">
+      <div class="form-item">
+        <select [(ngModel)]="chart.args.unit" (change)="on.unit()">
+          <option *ngFor="let item of source.units" [ngValue]="item.Id">
+            {{ item.Name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-item">
+        <select [(ngModel)]="chart.type">
+          <option [ngValue]="ChartType.bar">柱状图</option>
+          <option [ngValue]="ChartType.line">折线图</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="garbage-management-station-statistic-details-manager-body">
+    <howell-garbage-management-station-statistic-details-container
+      [args]="chart.args"
+      [load]="chart.load"
+      [type]="chart.type"
+    ></howell-garbage-management-station-statistic-details-container>
+  </div>
+</div>

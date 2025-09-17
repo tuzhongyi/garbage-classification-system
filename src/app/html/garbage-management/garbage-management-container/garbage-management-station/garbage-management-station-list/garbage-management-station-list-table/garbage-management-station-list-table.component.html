@@ -1,0 +1,120 @@
+<div class="garbage-management-station-list-table">
+  <div class="garbage-management-station-list-table-body table-page">
+    <table border="0" cellpadding="0" cellspacing="0">
+      <colgroup>
+        <col [ngStyle]="{ width: width }" *ngFor="let width of widths" />
+      </colgroup>
+      <thead>
+        <tr>
+          <!-- <td >序号</td> -->
+          <td>图片</td>
+          <td>投放点</td>
+          <td>社区</td>
+          <td>街道</td>
+          <td>居委会</td>
+          <td>类型</td>
+          <td>干垃圾重量</td>
+          <td>湿垃圾重量</td>
+          <td class="center">状态</td>
+          <td class="center"><div>操作</div></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let item of datas; let i = index"
+          [style.height]="100 / page.PageSize + '%'"
+          [ngClass]="{
+            selected: selected === item,
+            nodata: !item,
+            nohover: !item
+          }"
+          (click)="on.select(item)"
+        >
+          <!-- <td >{{ i + 1 }}</td> -->
+          <td>
+            <div class="img-list" *ngIf="item">
+              <div
+                image
+                class="img"
+                *ngFor="let url of item.urls | async; let index = index"
+                (click)="on.image($event, item, index)"
+                [url]="url"
+              ></div>
+            </div>
+          </td>
+          <td>
+            @if(item){
+            {{ item?.GarbageStation?.Name }}
+            } @else{ &nbsp; }
+          </td>
+          <td>
+            @if(item){
+            {{ item.GarbageStation.CommunityName ?? "-" }}
+            }
+          </td>
+          <td>
+            @if(item){
+            {{ ((item.Division | async)?.Parent | async)?.Name ?? "-" }}
+            }
+          </td>
+          <td>
+            @if(item){
+            {{ (item.Division | async)?.Name ?? "-" }}
+            }
+          </td>
+          <td>
+            @if(item){
+            {{ Language.StationType(item.GarbageStation.StationType) }}
+            }
+          </td>
+          <td>
+            @if(item){
+            {{ item?.GarbageStation?.DryVolume ?? 0 }} KG }
+          </td>
+          <td>
+            @if(item){
+            {{ item?.GarbageStation?.WetVolume ?? 0 }} KG }
+          </td>
+          <td class="center">
+            <ng-container *ngFor="let state of item?.states; let i = index">
+              {{ i > 0 ? "/" : "" }}
+              <span
+                [ngClass]="{
+                  'text-green': state === StationState.Normal,
+                  'text-orange': state === StationState.Full,
+                  'text-gray': state === StationState.Error
+                }"
+              >
+                {{ Language.StationState(state) }}
+              </span>
+            </ng-container>
+          </td>
+          <td class="center">
+            @if(item){
+            <div class="operation">
+              <button (click)="on.position(item)">
+                <i class="glyphicon glyphicon-map-marker"></i>
+              </button>
+            </div>
+            }
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="garbage-management-station-list-table-foot foot" *ngIf="page">
+    <div class="foot-info">
+      <div class="info-item">当前数量: {{ page && page.RecordCount }}</div>
+      <div class="info-item">总数量: {{ page && page.TotalRecordCount }}</div>
+    </div>
+
+    <paginator
+      [page]="page"
+      [gapable]="page.PageCount > 6"
+      (change)="on.page($event)"
+    >
+    </paginator>
+  </div>
+
+  <div class="loading" *ngIf="loading"></div>
+</div>

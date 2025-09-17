@@ -65,8 +65,8 @@ export class GarbageManagementRankingRecordEventComponent
     },
   };
   ngOnInit(): void {
-    this.load();
     this.regist();
+    this.load();
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.change.unit(changes['unit']);

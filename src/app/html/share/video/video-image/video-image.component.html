@@ -1,0 +1,16 @@
+<div class="video-image">
+  <div class="video-image-video">
+    <howell-video
+      [preview]="preview"
+      [playback]="playback"
+      (opened)="on.open()"
+      [(playing)]="playing"
+    ></howell-video>
+  </div>
+  <div class="video-image-image" *ngIf="!playing">
+    <app-picture [id]="image"></app-picture>
+  </div>
+  <div class="video-image-icon" *ngIf="!playing" (click)="on.play()">
+    <div class="howell-icon-play"></div>
+  </div>
+</div>

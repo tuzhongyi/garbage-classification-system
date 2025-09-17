@@ -1,9 +1,6 @@
 import { EventEmitter } from '@angular/core';
 import { MapDivision } from '../../../../../../common/network/request/map/map-division.model';
-import {
-  GarbageManagementMapAMapConfig as Config,
-  GarbageManagementMapAMapConfig,
-} from '../garbage-management-map-amap.config';
+import { GarbageManagementMapAMapConfig as Config } from '../garbage-management-map-amap.config';
 
 export class GarbageManagementMapAMapDivisionPolygonController {
   event = {
@@ -17,17 +14,17 @@ export class GarbageManagementMapAMapDivisionPolygonController {
   }
 
   private layer: Loca.PolygonLayer;
-  private hover?: MapDivision;
+  private selected?: string;
   private handle?: NodeJS.Timeout;
 
   private style = {
     topColor: (index: number, feature: any) => {
-      if (this.hover) {
-        if (this.hover.id === feature.properties.id) {
-          return 'rgba(40, 108, 241, 0.3)';
+      if (this.selected) {
+        if (this.selected === feature.properties.id) {
+          return 'rgba(56, 186, 255, 0.5)';
         }
       }
-      return 'rgba(40, 108, 241, 0.1)';
+      return 'rgba(56, 186, 255, 0.1)';
     },
     sideTopColor: 'rgba(40, 108, 241, 1)',
     sideBottomColor: 'rgba(40, 108, 241, 1)',
@@ -49,9 +46,9 @@ export class GarbageManagementMapAMapDivisionPolygonController {
   }
 
   private regist() {
-    GarbageManagementMapAMapConfig.event.mousemoving.subscribe((position) => {
-      this.moving(position);
-    });
+    // GarbageManagementMapAMapConfig.event.mousemoving.subscribe((position) => {
+    //   this.moving(position);
+    // });
   }
 
   private animation() {
@@ -66,16 +63,16 @@ export class GarbageManagementMapAMapDivisionPolygonController {
     let item = this.layer.queryFeature(position);
     if (item) {
       let division = item.properties as MapDivision;
-      if (this.hover) {
-        if (this.hover.id != division.id) {
+      if (this.selected) {
+        if (this.selected != division.id) {
           this.event.out.emit();
         }
       }
-      this.hover = division;
-      this.event.over.emit(this.hover.id);
-    } else if (this.hover) {
+      this.selected = division.id;
+      this.event.over.emit(this.selected);
+    } else if (this.selected) {
       this.event.out.emit();
-      this.hover = undefined;
+      this.selected = undefined;
     }
   }
 
@@ -84,5 +81,9 @@ export class GarbageManagementMapAMapDivisionPolygonController {
     this.layer.setStyle(this.style);
     this.loca.add(this.layer);
     this.animation();
+  }
+
+  select(id: string) {
+    this.selected = id;
   }
 }

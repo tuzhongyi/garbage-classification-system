@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TimeUnit } from '../../../../common/enum/time-unit.enum';
 import { GarbageManagementChartRecordEventIasComponent } from '../../garbage-management-chart/garbage-management-chart-record-event/garbage-management-chart-record-event-ias/garbage-management-chart-record-event-ias.component';
@@ -20,6 +20,7 @@ import { GarbageManagementCardComponent } from '../component/garbage-management-
     './garbage-management-card-chart-line-record-event-ias.component.less',
 })
 export class GarbageManagementCardChartLineRecordEventIasComponent {
+  @Input() load?: EventEmitter<void>;
   @Input() color?: IGarbageManagementChartRecordEventColor;
 
   unit = TimeUnit.Day;

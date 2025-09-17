@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input } from '@angular/core';
 import { TimeUnit } from '../../../../common/enum/time-unit.enum';
 import { GarbageManagementRankingRecordEventComponent } from '../../garbage-management-ranking/garbage-management-ranking-record-event/garbage-management-ranking-record-event.component';
 import { GarbageManagementRankingRecordEventIndex } from '../../garbage-management-ranking/garbage-management-ranking-record-event/garbage-management-ranking-record-event.model';
@@ -16,6 +16,7 @@ import { GarbageManagementCardComponent } from '../component/garbage-management-
   styleUrl: './garbage-management-card-ranking-record-event.component.less',
 })
 export class GarbageManagementCardRankingRecordEventComponent {
+  @Input() load?: EventEmitter<void>;
   @Input() display = [
     GarbageManagementRankingRecordEventIndex.illegaldrop,
     GarbageManagementRankingRecordEventIndex.garbagedropduration,

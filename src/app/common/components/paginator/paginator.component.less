@@ -1,0 +1,51 @@
+.paginator {
+  box-sizing: border-box;
+  text-align: center;
+  display: flex;
+  justify-content: flex-end;
+  cursor: default;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  align-items: center;
+
+  &.gapable {
+    gap: 10px;
+  }
+
+  ::ng-deep {
+
+    button {
+      cursor: pointer;
+      min-width: 25px;
+      height: auto;
+      white-space: nowrap;
+      background-color: rgba(40, 108, 241, 0.3);
+      color: #bdd3ff;
+      aspect-ratio: 1;
+      box-sizing: border-box;
+
+      &.current {
+        background-color: #4a8eff;
+        color: #FFF
+      }
+    }
+
+    .jumpText {
+      width: 40px;
+      height: 24px;
+      box-sizing: border-box;
+
+      border: 1px #286cf1 solid;
+
+      background-color: rgba(14, 7, 44, 0.3);
+    }
+
+    #jumpButton {
+      padding: 3px 5px;
+      aspect-ratio: auto;
+    }
+
+
+  }
+
+}

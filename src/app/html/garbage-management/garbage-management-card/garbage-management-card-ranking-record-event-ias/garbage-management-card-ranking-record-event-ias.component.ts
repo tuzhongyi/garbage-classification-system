@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TimeUnit } from '../../../../common/enum/time-unit.enum';
 import { IasRecordEventStatisticType } from '../../garbage-management-ranking/garbage-management-ranking-record-event-ias/business/garbage-management-ranking-record-event-ias.model';
@@ -19,6 +19,7 @@ import { GarbageManagementCardComponent } from '../component/garbage-management-
   styleUrl: './garbage-management-card-ranking-record-event-ias.component.less',
 })
 export class GarbageManagementCardRankingRecordEventIasComponent {
+  @Input() load?: EventEmitter<void>;
   @Input() unit = TimeUnit.Day;
   @Input() index = IasRecordEventStatisticType.grid;
 

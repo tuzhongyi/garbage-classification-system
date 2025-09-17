@@ -43,10 +43,12 @@ class AppCacheData {
 export class AppCache {
   constructor(public timeout: number) {}
   private static data = new AppCacheData();
+  private handle?: NodeJS.Timeout;
 
   private countdown(key: string, timeout: number) {
-    setTimeout(() => {
+    return setTimeout(() => {
       this.del(key);
+      this.handle = undefined;
     }, timeout);
   }
 
@@ -66,7 +68,11 @@ export class AppCache {
   }
   set(key: string, value: any, timeout: number) {
     AppCache.data[key] = value;
-    this.countdown(key, timeout);
+    if (this.handle) {
+      clearTimeout(this.handle);
+      this.handle = undefined;
+    }
+    this.handle = this.countdown(key, timeout);
   }
   del(key: string) {
     delete AppCache.data[key];

@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
@@ -9,6 +10,7 @@ import {
 } from '@angular/core';
 import * as echarts from 'echarts';
 import 'echarts-liquidfill';
+import { Subscription } from 'rxjs';
 import { GarbageManagementChartAbstract } from '../garbage-management-chart.abstract';
 import { GarbageManagementChartTaskEChartOption } from './garbage-management-chart-task-echart.option';
 import { GarbageManagementChartTaskBusiness } from './garbage-management-chart-task.business';
@@ -24,6 +26,7 @@ export class GarbageManagementChartTaskComponent
   extends GarbageManagementChartAbstract
   implements OnInit, AfterViewInit, OnDestroy
 {
+  @Input('load') _load?: EventEmitter<void>;
   @Input() option: echarts.EChartsOption =
     GarbageManagementChartTaskEChartOption;
 
@@ -34,8 +37,18 @@ export class GarbageManagementChartTaskComponent
   @ViewChild('chart') element?: ElementRef;
   date = new Date();
   data = new GarbageManagementChartTaskData();
+  private subscription = new Subscription();
+  private regist() {
+    if (this._load) {
+      let sub = this._load.subscribe(() => {
+        this.load();
+      });
+      this.subscription.add(sub);
+    }
+  }
 
   ngOnInit(): void {
+    this.regist();
     this.load();
     this.init();
   }
@@ -46,6 +59,7 @@ export class GarbageManagementChartTaskComponent
 
   ngOnDestroy() {
     this.destroy();
+    this.subscription.unsubscribe();
   }
 
   private load() {

@@ -1,3 +1,4 @@
+import { ObjectTool } from '../../../../../../common/tools/object-tool/object.tool';
 import { GarbageStationViewModel } from '../../../../../../common/view-model/garbage-station.view-model';
 import { MapPointEvent } from '../../../garbage-management-map.model';
 import { GarbageManagementMapAMapConfig } from '../garbage-management-map-amap.config';
@@ -24,11 +25,11 @@ export class GarbageManagementMapAMapStationMarkerLayerController {
     return layer;
   }
 
-  async load(datas: GarbageStationViewModel[]) {
+  load(datas: GarbageStationViewModel[]) {
     let markers = [];
     for (let i = 0; i < datas.length; i++) {
       const data = datas[i];
-      if (data.GisPoint) {
+      if (ObjectTool.model.GisPoint.valid(data.GisPoint)) {
         let icon = new GarbageManagementMapAMapStationMarkerIconController(
           data
         );
@@ -37,7 +38,7 @@ export class GarbageManagementMapAMapStationMarkerLayerController {
           icon
         );
         this.regist(point);
-        let marker = await point.marker;
+        let marker = point.marker;
         markers.push(marker);
         this.points.push(point);
       }

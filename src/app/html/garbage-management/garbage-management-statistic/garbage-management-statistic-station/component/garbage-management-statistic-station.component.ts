@@ -1,12 +1,15 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
+import { EventType } from '../../../../../common/enum/event-type.enum';
 import { GarbageStation } from '../../../../../common/network/model/garbage-station/garbage-station.model';
 import { IasDevice } from '../../../../../common/network/model/ias/ias-device.model';
 import { GarbageManagementManagerIndex } from '../../../garbage-management-manager/garbage-management-manager.model';
@@ -30,6 +33,9 @@ export class GarbageManagementStatisticStationComponent
   @Input() index = GarbageManagementManagerIndex.home;
   @Input() stations: GarbageStation[] = [];
   @Input() devices: IasDevice[] = [];
+
+  @Output() openstations = new EventEmitter<EventType[]>();
+  @Output() opendevices = new EventEmitter<void>();
 
   constructor(private business: GarbageManagementStatisticStationBusiness) {}
 
@@ -104,4 +110,28 @@ export class GarbageManagementStatisticStationComponent
       }
     });
   }
+
+  on = {
+    click: (item: GarbageManagementStatisticStationItem) => {
+      switch (item.icon) {
+        case GarbageManagementStatisticRecordIcon.illegaldrop:
+          this.openstations.emit([
+            EventType.IllegalDrop,
+            EventType.GarbageDrop,
+          ]);
+          break;
+        case GarbageManagementStatisticRecordIcon.mixedinto:
+          this.openstations.emit([EventType.MixedInto, EventType.GarbageFull]);
+          break;
+        case GarbageManagementStatisticRecordIcon.illegalvehicle:
+          this.openstations.emit([EventType.IllegalVehicle]);
+          break;
+        case GarbageManagementStatisticRecordIcon.street:
+          this.opendevices.emit();
+          break;
+        default:
+          break;
+      }
+    },
+  };
 }

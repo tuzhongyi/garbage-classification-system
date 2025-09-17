@@ -6,12 +6,12 @@ export class GarbageManagementMapAMapDivisionBorderController {
   }
 
   private layer: Loca.LineLayer;
-  hover?: string;
+  selected?: string;
   private style = {
     color: (index: number, feature: any) => {
-      if (this.hover) {
-        if (this.hover === feature.properties.id) {
-          return 'rgba(40, 108, 241, 0.3)';
+      if (this.selected) {
+        if (this.selected === feature.properties.id) {
+          return 'rgba(56, 186, 255, 1)';
         }
       }
       return '#80aaff';
@@ -19,8 +19,8 @@ export class GarbageManagementMapAMapDivisionBorderController {
     borderColor: Config.color.border.division,
     borderWidth: 0,
     lineWidth: (index: number, feature: any) => {
-      if (this.hover) {
-        if (this.hover === feature.properties.id) {
+      if (this.selected) {
+        if (this.selected === feature.properties.id) {
           return 5;
         }
       }
@@ -41,11 +41,11 @@ export class GarbageManagementMapAMapDivisionBorderController {
   }
 
   over(id: string) {
-    this.hover = id;
+    this.selected = id;
     this.layer.setStyle(this.style);
   }
   out() {
-    this.hover = undefined;
+    this.selected = undefined;
     this.layer.setStyle(this.style);
   }
 }

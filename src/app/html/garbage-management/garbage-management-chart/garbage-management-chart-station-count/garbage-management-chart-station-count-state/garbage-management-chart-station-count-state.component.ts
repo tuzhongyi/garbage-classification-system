@@ -1,5 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { Subscription } from 'rxjs';
 import { PromiseValue } from '../../../../../common/view-models/value.promise';
 import { GarbageManagementChartStationCountItemComponent } from '../garbage-management-chart-station-count-item/garbage-management-chart-station-count-item.component';
 import { GarbageManagementChartStationCountItem } from '../garbage-management-chart-station-count-item/garbage-management-chart-station-count-item.model';
@@ -13,8 +22,9 @@ import { GarbageManagementChartStationCountStateBusiness } from './business/garb
   providers: [GarbageManagementChartStationCountStateBusiness],
 })
 export class GarbageManagementChartStationCountStateComponent
-  implements OnInit
+  implements OnInit, OnDestroy
 {
+  @Input('load') _load?: EventEmitter<void>;
   constructor(
     private business: GarbageManagementChartStationCountStateBusiness
   ) {}
@@ -23,14 +33,26 @@ export class GarbageManagementChartStationCountStateComponent
   private chart = new PromiseValue<echarts.ECharts>();
 
   datas: GarbageManagementChartStationCountItem[] = [];
-
-  ngOnInit(): void {
-    this.load();
+  private subscription = new Subscription();
+  private regist() {
+    if (this._load) {
+      let sub = this._load.subscribe(() => {
+        this.load();
+      });
+      this.subscription.add(sub);
+    }
   }
-
-  load() {
+  private load() {
     this.business.load().then((x) => {
       this.datas = x;
     });
+  }
+
+  ngOnInit(): void {
+    this.regist();
+    this.load();
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

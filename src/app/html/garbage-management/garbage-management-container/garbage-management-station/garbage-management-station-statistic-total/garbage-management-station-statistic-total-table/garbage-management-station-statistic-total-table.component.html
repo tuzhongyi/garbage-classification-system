@@ -1,0 +1,163 @@
+<div class="garbage-station-statistic-table">
+  <div class="garbage-station-statistic-table-body table-sticky">
+    <table
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      TableSorter
+      (sort)="sortData($event)"
+    >
+      <colgroup>
+        <col [ngStyle]="{ width: width }" *ngFor="let width of widths" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th sort="Name">名称</th>
+          <th>居委会</th>
+          <th>社区名称</th>
+          <th>街道</th>
+          <th sort="GarbageRatio" colspan="3" class="center">达标率</th>
+          <th sort="AvgGarbageTime" colspan="3" class="center">平均滞留时长</th>
+          <th sort="MaxGarbageTime" colspan="3" class="center">最大滞留时长</th>
+          <th sort="GarbageDuration" colspan="3" class="center">总滞留时长</th>
+          <th sort="IllegalDrop" colspan="3" class="center">垃圾落地</th>
+          <th sort="MixedInto" colspan="3" class="center">混合投放</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of datas">
+          <th [title]="item.Name">
+            {{ item.Name }}
+          </th>
+          <th [title]="(item.Committees | async)?.Name">
+            {{ (item.Committees | async)?.Name }}
+          </th>
+          <th [title]="(item.GarbageStation | async)?.CommunityName">
+            {{ (item.GarbageStation | async)?.CommunityName }}
+          </th>
+          <th [title]="(item.County | async)?.Name">
+            {{ (item.County | async)?.Name }}
+          </th>
+          <th class="current" [title]="item.GarbageRatioTd.format">
+            {{ item.GarbageRatioTd.format }}
+          </th>
+          <th class="signal">
+            <i
+              class="mdi"
+              [ngClass]="{
+                'mdi-arrow-up-bold': item.GarbageRatioTd.differ > 0,
+                'text-red': item.GarbageRatioTd.differ > 0,
+                'mdi-arrow-down-bold': item.GarbageRatioTd.differ < 0,
+                'text-green': item.GarbageRatioTd.differ < 0
+              }"
+              [style.color]=""
+            ></i>
+          </th>
+          <th class="differ">
+            <div *ngIf="item.GarbageRatioTd.differ != 0">
+              {{ Math.abs(item.GarbageRatioTd.differ).toFixed(2) }}
+            </div>
+          </th>
+          <th class="current" [title]="item.AvgGarbageTimeTd.format">
+            {{ item.AvgGarbageTimeTd.format }}
+          </th>
+          <th class="signal">
+            <i
+              class="mdi"
+              [ngClass]="{
+                'mdi-arrow-up-bold': item.AvgGarbageTimeTd.differ > 0,
+                'text-red': item.AvgGarbageTimeTd.differ > 0,
+                'mdi-arrow-down-bold': item.AvgGarbageTimeTd.differ < 0,
+                'text-green': item.AvgGarbageTimeTd.differ < 0
+              }"
+            ></i>
+          </th>
+          <th class="differ">
+            <span>{{ Math.abs(item.AvgGarbageTimeTd.differ).toFixed(2) }}</span
+            >%
+          </th>
+          <th class="current" [title]="item.MaxGarbageTimeTd.format">
+            {{ item.MaxGarbageTimeTd.format }}
+          </th>
+          <th class="signal">
+            <i
+              class="mdi"
+              [ngClass]="{
+                'mdi-arrow-up-bold': item.MaxGarbageTimeTd.differ > 0,
+                'text-red': item.MaxGarbageTimeTd.differ > 0,
+                'mdi-arrow-down-bold': item.MaxGarbageTimeTd.differ < 0,
+                'text-green': item.MaxGarbageTimeTd.differ < 0
+              }"
+            ></i>
+          </th>
+          <th class="differ">
+            <span>{{ Math.abs(item.MaxGarbageTimeTd.differ).toFixed(2) }}</span
+            >%
+          </th>
+          <th class="current" [title]="item.GarbageDurationTd.format">
+            {{ item.GarbageDurationTd.format }}
+          </th>
+          <th class="signal">
+            <i
+              class="mdi"
+              [ngClass]="{
+                'mdi-arrow-up-bold': item.GarbageDurationTd.differ > 0,
+                'text-red': item.GarbageDurationTd.differ > 0,
+                'mdi-arrow-down-bold': item.GarbageDurationTd.differ < 0,
+                'text-green': item.GarbageDurationTd.differ < 0
+              }"
+            ></i>
+          </th>
+          <th class="differ">
+            <span>{{ Math.abs(item.GarbageDurationTd.differ).toFixed(2) }}</span
+            >%
+          </th>
+          <th class="current">
+            {{ item.IllegalDropTd.value }}
+          </th>
+          <th class="signal">
+            <i
+              class="mdi"
+              [ngClass]="{
+                'mdi-arrow-up-bold': item.IllegalDropTd.differ > 0,
+                'text-red': item.IllegalDropTd.differ > 0,
+                'mdi-arrow-down-bold': item.IllegalDropTd.differ < 0,
+                'text-green': item.IllegalDropTd.differ < 0
+              }"
+            ></i>
+          </th>
+          <th class="differ number">
+            <div *ngIf="item.IllegalDropTd.differ != 0">
+              <div>
+                {{ Math.abs(item.IllegalDropTd.differ).toFixed(0) }}
+              </div>
+            </div>
+          </th>
+          <th class="current">
+            {{ item.MixedIntoTd.value }}
+          </th>
+          <th class="signal">
+            <i
+              class="mdi"
+              [ngClass]="{
+                'mdi-arrow-up-bold': item.MixedIntoTd.differ > 0,
+                'text-red': item.MixedIntoTd.differ > 0,
+                'mdi-arrow-down-bold': item.MixedIntoTd.differ < 0,
+                'text-green': item.MixedIntoTd.differ < 0
+              }"
+            ></i>
+          </th>
+          <th class="differ number">
+            <div *ngIf="item.MixedIntoTd.differ != 0">
+              <div>
+                {{ Math.abs(item.MixedIntoTd.differ).toFixed(0) }}
+              </div>
+            </div>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="loading" *ngIf="loading"></div>
+</div>

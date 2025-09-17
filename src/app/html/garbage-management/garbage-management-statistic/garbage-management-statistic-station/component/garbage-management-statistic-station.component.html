@@ -3,6 +3,7 @@
     <div
       *ngIf="item.value.show"
       class="garbage-management-statistic-station-item"
+      (click)="on.click(item.value)"
     >
       <howell-garbage-management-statistic-station-item
         [data]="item.value"

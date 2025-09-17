@@ -16,18 +16,27 @@ import "./jquery.page.css";
         totalNum: true,
         totalList: true,
         jump: true,
+      },
+      text: {
+        first: '首页',
+        last: '尾页',
+        prev: '上一页',
+        next: '下一页',
       }
     };
     if (options.display) {
       if (options.display.totalNum === false) {
-        this.options.display = options.display.totalNum;
+        this.options.display.totalNum = options.display.totalNum;
       }
       if (options.display.totalList === false) {
-        this.options.display = options.display.totalNum;
+        this.options.display.totalList = options.display.totalList;
       }
       if (options.display.jump === false) {
-        this.options.display = options.display.totalNum;
+        this.options.display = options.display.jump;
       }
+    }
+    this.options.text = {
+      ...options.text
     }
     this.init();
   }
@@ -43,7 +52,7 @@ import "./jquery.page.css";
       var pageNum = me.options.pageNum;
       var totalNum = me.options.totalNum;
       var totalList = me.options.totalList;
-      content.push("<button type='button' id='firstPage'>首页</button><button type='button' id='prePage'>上一页</button>");
+      content.push(`<button type='button' id='firstPage'>${me.options.text.first}</button><button type='button' id='prePage'>${me.options.text.prev}</button>`);
       // 总页数大于6必显示省略号
       if (totalNum > 6) {
         // 1、当前页码小于5且总页码大于6 省略号显示后面+总页码
@@ -93,7 +102,7 @@ import "./jquery.page.css";
           }
         }
       }
-      content.push("<button type='button' id='nextPage'>下一页</button><button type='button' id='lastPage'>尾页</button>");
+      content.push(`<button type='button' id='nextPage'>${me.options.text.next}</button><button type='button' id='lastPage'>${me.options.text.last}</button>`);
       if (me.options.display.jump) {
         content.push("<span name='jump'>跳至</span><input  name='jump' type='text' id='jumpText' class='jumpText'><span  name='jump'>页</span><button  name='jump' type='button' id='jumpButton'>确定</button>");
       }
@@ -117,7 +126,8 @@ import "./jquery.page.css";
       // 委托新生成的dom监听事件
       me.element.on('click', 'button', function () {
         var id = $(this).attr('id');
-        var num = parseInt($(this).html());
+        let html = $(this).html();
+        var num = parseInt(html);
         var pageNum = me.options.pageNum;
         if (id === 'prePage') {
           if (pageNum !== 1) {
@@ -157,6 +167,9 @@ import "./jquery.page.css";
         me.element.children('#lastPage, #nextPage').prop('disabled', true);
 
         me.element.children("[name='jump']").css('display', "none");
+      }
+      if (pageNum >= totalNum) {
+        me.element.children('#lastPage, #nextPage').prop('disabled', true);
       }
     }
   };

@@ -15,3 +15,8 @@ export enum StationType {
   /** 核酸检测点 */
   NucleicAcid = 99,
 }
+export enum GarbageStationType {
+  Construction,
+  FullMixedInto,
+  IllegalDrop,
+}

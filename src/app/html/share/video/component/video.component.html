@@ -1,0 +1,9 @@
+<div class="video">
+  <app-video-player
+    *ngIf="video.src"
+    [url]="video.src"
+    [stop]="video.stop"
+    (onPlaying)="on.playing()"
+    (onStoping)="on.stoping()"
+  ></app-video-player>
+</div>

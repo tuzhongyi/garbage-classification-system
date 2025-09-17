@@ -21,4 +21,7 @@ export class MapMarkerPath {
   get unknow() {
     return `${this.basic}-unknow.png`;
   }
+  get patrol() {
+    return `${this.basic}-patrol.png`;
+  }
 }

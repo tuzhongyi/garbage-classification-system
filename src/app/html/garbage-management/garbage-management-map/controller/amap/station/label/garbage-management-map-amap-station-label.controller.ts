@@ -1,3 +1,5 @@
+import { GarbageManagementMapAMapConfig } from '../../garbage-management-map-amap.config';
+
 export class GarbageManagementMapAMapStationLabelController {
   constructor(private map: AMap.Map) {
     this.info = this.init();
@@ -6,7 +8,11 @@ export class GarbageManagementMapAMapStationLabelController {
   private info: AMap.InfoWindow;
 
   private init() {
-    let info = new AMap.InfoWindow({ anchor: 'bottom-center', content: '' });
+    let info = new AMap.InfoWindow({
+      anchor: 'bottom-center',
+      content: '',
+      zooms: GarbageManagementMapAMapConfig.zoom.point,
+    });
     return info;
   }
 

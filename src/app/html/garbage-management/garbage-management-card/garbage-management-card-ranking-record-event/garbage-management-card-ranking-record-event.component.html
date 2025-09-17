@@ -4,6 +4,7 @@
       {{ title }}
     </div>
     <howell-garbage-management-ranking-record-event
+      [load]="load"
       [display]="display"
       [index]="index"
       (indexChange)="on.index($event)"

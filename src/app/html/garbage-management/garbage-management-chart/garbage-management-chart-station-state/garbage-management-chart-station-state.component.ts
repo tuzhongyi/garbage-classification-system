@@ -2,12 +2,14 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
 import * as echarts from 'echarts';
+import { Subscription } from 'rxjs';
 import { GarbageManagementChartAbstract } from '../garbage-management-chart.abstract';
 import { GarbageManagementChartStationStateBusiness } from './business/garbage-management-chart-station-state.business';
 import { GarbageManagementChartStationStateEChartOption } from './garbage-management-chart-station-state-echart.option';
@@ -24,6 +26,7 @@ export class GarbageManagementChartStationStateComponent
   extends GarbageManagementChartAbstract
   implements OnInit, AfterViewInit, OnDestroy
 {
+  @Input('load') _load?: EventEmitter<void>;
   @Input() option: echarts.EChartsOption =
     GarbageManagementChartStationStateEChartOption;
 
@@ -33,8 +36,18 @@ export class GarbageManagementChartStationStateComponent
 
   @ViewChild('chart') element?: ElementRef;
   data = new GarbageManagementChartStationStateData();
+  private subscription = new Subscription();
+  private regist() {
+    if (this._load) {
+      let sub = this._load.subscribe(() => {
+        this.load();
+      });
+      this.subscription.add(sub);
+    }
+  }
 
   ngOnInit(): void {
+    this.regist();
     this.load();
     this.init();
   }
@@ -44,6 +57,7 @@ export class GarbageManagementChartStationStateComponent
 
   ngOnDestroy() {
     this.destroy();
+    this.subscription.unsubscribe();
   }
 
   private load() {

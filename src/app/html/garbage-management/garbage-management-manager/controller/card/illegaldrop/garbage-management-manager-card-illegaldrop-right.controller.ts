@@ -1,63 +1,44 @@
-import * as echarts from 'echarts';
+import { EventEmitter } from '@angular/core';
 import { EventType } from '../../../../../../common/enum/event-type.enum';
+import { ColorTool } from '../../../../../../common/tools/color-tool/color.tool';
 import { ComponentTool } from '../../../../../../common/tools/component-tool/component.tool';
 import { GarbageManagementCardChartLineRecordEventComponent } from '../../../../garbage-management-card/garbage-management-card-chart-line-record-event/garbage-management-card-chart-line-record-event.component';
-import { GarbageManagementCardChartStationCountStateComponent } from '../../../../garbage-management-card/garbage-management-card-chart-station-count-state/garbage-management-card-chart-station-count-state.component';
+import { GarbageManagementCardDivisionSelectionComponent } from '../../../../garbage-management-card/garbage-management-card-division-selection/garbage-management-card-division-selection/garbage-management-card-division-selection.component';
 import { GarbageManagementManagerCardItem } from '../../../garbage-management-manager.model';
+import { GarbageManagementManagerCardCommonController } from '../common/garbage-management-manager-card-common.controller';
 import { GarbageManagementManagerCardAbstract } from '../garbage-management-manager-card.abstract';
 
 export class GarbageManagementManagerCardIllegalDropRightController extends GarbageManagementManagerCardAbstract {
-  constructor(tool: ComponentTool) {
-    super(tool);
+  constructor(
+    common: GarbageManagementManagerCardCommonController,
+    tool: ComponentTool,
+    load: EventEmitter<void>
+  ) {
+    super(common, tool);
+    load.subscribe(() => {
+      this.load.emit();
+    });
   }
+  private load = new EventEmitter<void>();
   protected override ctors: Array<GarbageManagementManagerCardItem> = [
     {
-      component: GarbageManagementCardChartStationCountStateComponent,
+      component: GarbageManagementCardDivisionSelectionComponent,
+      single: true,
     },
     {
       component: GarbageManagementCardChartLineRecordEventComponent,
       args: {
+        load: this.load,
         type: EventType.IllegalDrop,
-        color: {
-          area: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            {
-              offset: 0,
-              color: 'rgba(255, 140, 0, 0.7)',
-            },
-            {
-              offset: 1,
-              color: 'rgba(255, 140, 0, 0)',
-            },
-          ]),
-          line: '#ff8c00',
-          point: {
-            border: '#ff8c00',
-            background: '#18164f',
-          },
-        },
+        color: ColorTool.chart.line.get(255, 140, 0),
       },
     },
     {
       component: GarbageManagementCardChartLineRecordEventComponent,
       args: {
+        load: this.load,
         type: EventType.GarbageDrop,
-        color: {
-          area: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            {
-              offset: 0,
-              color: 'rgba(255, 255, 0, 0.7)',
-            },
-            {
-              offset: 1,
-              color: 'rgba(255, 255, 0, 0)',
-            },
-          ]),
-          line: '#ffff00',
-          point: {
-            border: '#ffff00',
-            background: '#000',
-          },
-        },
+        color: ColorTool.chart.line.get(255, 255, 0),
       },
     },
   ];

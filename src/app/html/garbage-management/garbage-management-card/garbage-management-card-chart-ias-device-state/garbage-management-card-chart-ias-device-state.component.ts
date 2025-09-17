@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input } from '@angular/core';
 import { GarbageManagementChartIasDeviceStateComponent } from '../../garbage-management-chart/garbage-management-chart-ias-device-state/garbage-management-chart-ias-device-state.component';
 import { GarbageManagementCardComponent } from '../component/garbage-management-card.component';
 
@@ -15,5 +15,6 @@ import { GarbageManagementCardComponent } from '../component/garbage-management-
   styleUrl: './garbage-management-card-chart-ias-device-state.component.less',
 })
 export class GarbageManagementCardChartIasDeviceStateComponent {
+  @Input() load?: EventEmitter<void>;
   title = '车辆状态';
 }

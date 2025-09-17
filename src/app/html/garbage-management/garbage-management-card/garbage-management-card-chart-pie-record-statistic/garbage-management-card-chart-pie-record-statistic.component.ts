@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input } from '@angular/core';
 import { GarbageManagementChartPieRecordStatisticContainerComponent } from '../../garbage-management-chart/garbage-management-chart-pie-record-statistic/garbage-management-chart-pie-record-statistic-container/garbage-management-chart-pie-record-statistic-container.component';
 import { GarbageManagementCardComponent } from '../component/garbage-management-card.component';
 
@@ -16,5 +16,6 @@ import { GarbageManagementCardComponent } from '../component/garbage-management-
     './garbage-management-card-chart-pie-record-statistic.component.less',
 })
 export class GarbageManagementCardChartPieRecordStatisticComponent {
+  @Input() load?: EventEmitter<void>;
   title = '今日事件统计';
 }

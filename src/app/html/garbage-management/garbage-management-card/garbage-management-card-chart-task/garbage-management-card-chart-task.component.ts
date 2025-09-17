@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input } from '@angular/core';
 import { GarbageManagementChartTaskComponent } from '../../garbage-management-chart/garbage-management-chart-task/garbage-management-chart-task.component';
 import { GarbageManagementCardComponent } from '../component/garbage-management-card.component';
 
@@ -14,5 +14,6 @@ import { GarbageManagementCardComponent } from '../component/garbage-management-
   styleUrl: './garbage-management-card-chart-task.component.less',
 })
 export class GarbageManagementCardChartTaskComponent {
+  @Input() load?: EventEmitter<void>;
   title = '今日垃圾滞留任务';
 }

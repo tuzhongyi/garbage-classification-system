@@ -5,10 +5,8 @@ import { Flags } from '../../../../common/tools/flags';
 import { GarbageStationViewModel } from '../../../../common/view-model/garbage-station.view-model';
 import { GarbageManagementManagerDataFilterController } from '../../garbage-management-manager/controller/data/garbage-management-manager-data-filter.controller';
 import { GarbageManagementManagerIndex } from '../../garbage-management-manager/garbage-management-manager.model';
-import {
-  GarbageManagementStateItem,
-  GarbageManagementStateItemColor,
-} from '../garbage-management-state-item/garbage-management-state-item.model';
+import { GarbageManagementStateItemColor } from '../garbage-management-state-item/garbage-management-state-item.model';
+import { GarbageManagementStationStateItem } from './garbage-management-state-station.model';
 
 @Injectable()
 export class GarbageManagementStateStationBusiness {
@@ -85,7 +83,7 @@ export class GarbageManagementStateStationBusiness {
     state: StationState,
     color: GarbageManagementStateItemColor
   ) {
-    let item = new GarbageManagementStateItem();
+    let item = new GarbageManagementStationStateItem();
     item.color = color;
     item.name = name;
     item.state = state;

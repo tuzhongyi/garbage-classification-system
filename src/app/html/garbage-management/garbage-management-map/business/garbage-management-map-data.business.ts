@@ -53,7 +53,7 @@ export class GarbageManagementMapDataBusiness {
   }
 
   private async load() {
-    if (this.datas.exists()) {
+    if (this.datas.exists) {
       return this.datas.get();
     }
 

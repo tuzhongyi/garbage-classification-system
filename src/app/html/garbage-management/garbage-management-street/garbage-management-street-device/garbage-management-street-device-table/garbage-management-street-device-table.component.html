@@ -60,12 +60,12 @@
           <td
             class="center"
             [ngClass]="{
-              'text-green': item && item.OnlineStatus == 1,
-              'text-red': item && item.OnlineStatus != 1
+              'text-green': item && item.OnlineStatus == 0,
+              'text-red': item && item.OnlineStatus != 0
             }"
           >
             @if(item){
-            {{ item.OnlineStatus == 1 ? "在线" : "离线" }}
+            {{ item.OnlineStatus == 0 ? "在线" : "离线" }}
             }
           </td>
 
@@ -88,12 +88,7 @@
       <div class="info-item">总数量: {{ page && page.TotalRecordCount }}</div>
     </div>
 
-    <paginator
-      [page]="page"
-      [gapable]="page.PageCount > 6"
-      (change)="on.page($event)"
-    >
-    </paginator>
+    <paginator [page]="page" (change)="on.page($event)"> </paginator>
   </div>
 
   <div class="loading" *ngIf="loading"></div>

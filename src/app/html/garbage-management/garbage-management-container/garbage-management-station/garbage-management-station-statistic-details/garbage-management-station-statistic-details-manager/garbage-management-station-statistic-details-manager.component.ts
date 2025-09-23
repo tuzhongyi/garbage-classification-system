@@ -45,7 +45,7 @@ export class GarbageManagementStationStatisticDetailsManagerComponent
     format: Language.YearMonthDay,
     week: true,
     view: {
-      min: DateTimePickerView.day,
+      min: DateTimePickerView.month,
     },
   };
 
@@ -87,13 +87,16 @@ export class GarbageManagementStationStatisticDetailsManagerComponent
       switch (this.chart.args.unit) {
         case TimeUnit.Month:
           this.date.view.min = DateTimePickerView.year;
+          this.date.format = Language.YearMonth;
           break;
         case TimeUnit.Year:
           this.date.view.min = DateTimePickerView.decade;
+          this.date.format = Language.Year;
           break;
 
         default:
           this.date.view.min = DateTimePickerView.month;
+          this.date.format = Language.YearMonthDay;
           break;
       }
     },

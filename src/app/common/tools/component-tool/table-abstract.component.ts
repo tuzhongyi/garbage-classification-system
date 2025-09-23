@@ -2,6 +2,10 @@ import { EventEmitter } from '@angular/core';
 import { Page } from '../../network/model/page_list.model';
 import { Language } from '../language';
 
+export interface IPagedTableArgs {
+  first?: boolean;
+}
+
 export abstract class PagedTableAbstractComponent<T> {
   constructor(sticky: boolean = false) {
     this.sticky = sticky;

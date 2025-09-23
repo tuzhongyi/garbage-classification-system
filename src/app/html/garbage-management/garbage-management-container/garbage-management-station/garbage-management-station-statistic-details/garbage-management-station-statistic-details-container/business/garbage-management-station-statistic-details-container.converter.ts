@@ -3,7 +3,7 @@ import { GarbageStationNumberStatisticV2 } from '../../../../../../../common/net
 import { StatisticTime } from '../../../../../../../common/network/model/garbage-station/statistic-time.model';
 import { ArrayTool } from '../../../../../../../common/tools/array-tool/array.tool';
 import { ColorTool } from '../../../../../../../common/tools/color-tool/color.tool';
-import { IGarbageManagementChartRecordEventData } from '../../../../../garbage-management-chart/garbage-management-chart-record-event/garbage-management-chart-record-event.model';
+import { IGarbageManagementChartData } from '../../../../../garbage-management-chart/garbage-management-chart-line/garbage-management-chart-line.model';
 import {
   GarbageStationNumberStatisticV2Group,
   StatisticType,
@@ -17,7 +17,7 @@ export class GarbageManagementStationStatisticDetailsContainerConverter {
   Convert(
     source: GarbageStationNumberStatisticV2[],
     type: StatisticType
-  ): IGarbageManagementChartRecordEventData<number>[] {
+  ): IGarbageManagementChartData<number>[] {
     let groups = this.converter.group.Convert(source);
     let models = groups.map((x) => {
       return this.converter.item.Convert(x, type);
@@ -65,7 +65,7 @@ class GarbageStationWindowDetailsGroupConverter {
   Convert(
     source: GarbageStationNumberStatisticV2Group,
     type: StatisticType
-  ): IGarbageManagementChartRecordEventData<number> {
+  ): IGarbageManagementChartData<number> {
     switch (type) {
       case StatisticType.garde:
         return this.fromGarbageRatio(source);
@@ -86,7 +86,7 @@ class GarbageStationWindowDetailsGroupConverter {
 
   fromGarbageRatio(
     source: GarbageStationNumberStatisticV2Group
-  ): IGarbageManagementChartRecordEventData<number> {
+  ): IGarbageManagementChartData<number> {
     return {
       Id: source.Id,
       Name: source.Name,
@@ -100,7 +100,7 @@ class GarbageStationWindowDetailsGroupConverter {
   }
   fromAvgDropDuration(
     source: GarbageStationNumberStatisticV2Group
-  ): IGarbageManagementChartRecordEventData<number> {
+  ): IGarbageManagementChartData<number> {
     return {
       Id: source.Id,
       Name: source.Name,

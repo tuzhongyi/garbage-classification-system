@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { EventType } from '../../../../../common/enum/event-type.enum';
 import { StationState } from '../../../../../common/enum/station-state.enum';
 import { IasDevice } from '../../../../../common/network/model/ias/ias-device.model';
+import { IasEventRecord } from '../../../../../common/network/model/ias/ias-event-record.model';
 import { Flags } from '../../../../../common/tools/flags';
 import { GarbageStationViewModel } from '../../../../../common/view-model/garbage-station.view-model';
 import { GarbageManagementManagerBusiness } from '../../business/garbage-management-manager.business';
@@ -13,6 +14,7 @@ import { GarbageManagementManagerDataLoaderController } from './garbage-manageme
 export class GarbageManagementManagerDataController {
   stations: GarbageStationViewModel[] = [];
   devices: IasDevice[] = [];
+  records: IasEventRecord[] = [];
   source = {
     stations: [] as GarbageStationViewModel[],
   };
@@ -30,6 +32,9 @@ export class GarbageManagementManagerDataController {
     this.loader.device.load().then((x) => {
       this.devices = x;
     });
+    // this.loader.record.load().then((x) => {
+    //   this.records = x;
+    // });
   }
 
   private filter = {
@@ -146,6 +151,13 @@ export class GarbageManagementManagerDataController {
 
   on = {
     index: (index: GarbageManagementManagerIndex) => {
+      if (index === GarbageManagementManagerIndex.street) {
+        this.loader.record.load().then((x) => {
+          this.records = x;
+        });
+      } else {
+        this.records = [];
+      }
       this.filter.data.index = index;
       this.filter.eventables.index(index);
       this.filter.device.index(index);

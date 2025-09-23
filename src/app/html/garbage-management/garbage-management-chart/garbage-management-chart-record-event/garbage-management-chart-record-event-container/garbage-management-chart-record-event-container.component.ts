@@ -14,17 +14,17 @@ import { EventType } from '../../../../../common/enum/event-type.enum';
 import { TimeUnit } from '../../../../../common/enum/time-unit.enum';
 import { ChartTool } from '../../../../../common/tools/chart-tool/chart.tool';
 import { Language } from '../../../../../common/tools/language';
-import { GarbageManagementChartRecordEventComponent } from '../component/garbage-management-chart-record-event.component';
+import { GarbageManagementChartLineComponent } from '../../garbage-management-chart-line/garbage-management-chart-line.component';
 import {
-  IGarbageManagementChartRecordEventColor,
-  IGarbageManagementChartRecordEventData,
-} from '../garbage-management-chart-record-event.model';
+  IGarbageManagementChartColor,
+  IGarbageManagementChartData,
+} from '../../garbage-management-chart-line/garbage-management-chart-line.model';
 import { GarbageManagementChartRecordEventBusiness } from './business/garbage-management-chart-record-event-container.business';
 import { GarbageManagementChartRecordEventService } from './business/garbage-management-chart-record-event-container.service';
 
 @Component({
   selector: 'howell-garbage-management-chart-record-event-container',
-  imports: [CommonModule, GarbageManagementChartRecordEventComponent],
+  imports: [CommonModule, GarbageManagementChartLineComponent],
   templateUrl:
     './garbage-management-chart-record-event-container.component.html',
   styleUrl: './garbage-management-chart-record-event-container.component.less',
@@ -39,7 +39,7 @@ export class GarbageManagementChartRecordEventContainerComponent
   @Input('load') _load?: EventEmitter<void>;
   @Input() date = new Date();
   @Input() unit = TimeUnit.Day;
-  @Input() color?: IGarbageManagementChartRecordEventColor;
+  @Input() color?: IGarbageManagementChartColor;
   @Input() type = EventType.GarbageFull;
   @Output() loaded = new EventEmitter<number[]>();
 
@@ -50,7 +50,8 @@ export class GarbageManagementChartRecordEventContainerComponent
       return Language.TimeUnit(this.unit);
     },
   };
-  data?: IGarbageManagementChartRecordEventData;
+  interval = 0;
+  data?: IGarbageManagementChartData;
   xAxis = ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'];
   private subscription = new Subscription();
   private regist() {
@@ -100,6 +101,18 @@ export class GarbageManagementChartRecordEventContainerComponent
         date: date,
         first: 1,
       });
+      switch (unit) {
+        case TimeUnit.Day:
+          this.interval = 3;
+          break;
+        case TimeUnit.Month:
+          this.interval = 1;
+          break;
+
+        default:
+          this.interval = 0;
+          break;
+      }
     });
   }
 }

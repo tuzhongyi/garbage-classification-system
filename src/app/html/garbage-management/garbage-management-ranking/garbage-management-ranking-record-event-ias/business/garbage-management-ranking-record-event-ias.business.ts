@@ -4,6 +4,7 @@ import { TimeUnit } from '../../../../../common/enum/time-unit.enum';
 import { Division } from '../../../../../common/network/model/garbage-station/division.model';
 import { EventNumberStatistic } from '../../../../../common/network/model/garbage-station/event-number-statistic.model';
 import { GridCell } from '../../../../../common/network/model/garbage-station/grid-cell.model';
+import { LocaleCompare } from '../../../../../common/tools/locale-compare';
 import { GarbageManagementRankingRecordEventIasDivisionBusiness } from './division/garbage-management-ranking-record-event-ias-division.business';
 import { GarbageManagementRankingRecordEventIasConverter } from './garbage-management-ranking-record-event-ias.converter';
 import { IasRecordEventStatisticType } from './garbage-management-ranking-record-event-ias.model';
@@ -36,7 +37,11 @@ export class GarbageManagementRankingRecordEventIasBusiness {
       default:
         return [];
     }
-    let models = datas.map((x) => this.converter.convert(x.key, x.value));
+    let models = datas
+      .map((x) => this.converter.convert(x.key, x.value))
+      .sort((a, b) => {
+        return LocaleCompare.compare(a.value, b.value, false);
+      });
     return models;
   }
 }

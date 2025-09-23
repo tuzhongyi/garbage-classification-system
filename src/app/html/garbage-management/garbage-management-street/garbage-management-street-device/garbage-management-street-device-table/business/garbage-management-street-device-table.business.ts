@@ -22,7 +22,7 @@ export class GarbageManagementStreetDeviceTableBusiness {
       params.Name = args.name;
     }
     if (args.online != undefined) {
-      params.OnlineStatus = args.online ? 1 : 0;
+      params.OnlineStatus = args.online ? 0 : 1;
     }
 
     return this.service.device.list(params);

@@ -1,0 +1,49 @@
+<div class="garbage-management-record-event-ias-task-info">
+  <div class="forms" *ngIf="data">
+    <div class="form-item">
+      <div class="form-item-text" text-space-between>报警时间</div>
+      <div class="form-item-value">
+        {{ data.EventTime | date : Language.YearMonthDayHHmmss }}
+      </div>
+    </div>
+    <div class="form-item">
+      <div class="form-item-text" text-space-between>设备名称</div>
+      <div class="form-item-value">
+        {{ data.DeviceName ?? "-" }}
+      </div>
+    </div>
+    <div class="form-item">
+      <div class="form-item-text" text-space-between>事件状态</div>
+      <div class="form-item-value">
+        <div
+          *ngIf="!data.Assignment || !data.Assignment.Assigned"
+          class="text-yellow"
+        >
+          待处置
+        </div>
+      </div>
+    </div>
+    <div class="form-item">
+      <div class="form-item-text" text-space-between>事件类型</div>
+      <div class="form-item-value">暴露垃圾</div>
+    </div>
+    <div class="form-item">
+      <div class="form-item-text" text-space-between>处置员</div>
+      <div class="form-item-value">{{ data.Assignment?.Handler ?? "-" }}</div>
+    </div>
+    <div class="form-item">
+      <div class="form-item-text" text-space-between>处置时间</div>
+      <div class="form-item-value">
+        {{
+          (data.Assignment?.HandledTime | date : Language.YearMonthDayHHmmss) ??
+            "-"
+        }}
+      </div>
+    </div>
+
+    <div class="form-item full">
+      <div class="form-item-text baseline" text-space-between>事件描述</div>
+      <div class="form-item-value">{{ data.Description ?? "-" }}</div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IGarbageManagementRankingData } from './garbage-management-ranking.model';
 
 @Component({
@@ -10,4 +10,11 @@ import { IGarbageManagementRankingData } from './garbage-management-ranking.mode
 })
 export class GarbageManagementRankingComponent {
   @Input() datas: IGarbageManagementRankingData[] = [];
+  @Output() itemclick = new EventEmitter<IGarbageManagementRankingData>();
+
+  on = {
+    click: (item: IGarbageManagementRankingData) => {
+      this.itemclick.emit(item);
+    },
+  };
 }

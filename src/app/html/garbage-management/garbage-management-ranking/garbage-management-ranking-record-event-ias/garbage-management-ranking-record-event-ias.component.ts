@@ -33,6 +33,7 @@ export class GarbageManagementRankingRecordEventIasComponent
   @Input() date = new Date();
   @Input() index = IasRecordEventStatisticType.grid;
   @Output() indexChange = new EventEmitter<IasRecordEventStatisticType>();
+  @Output() itemclick = new EventEmitter<IGarbageManagementRankingData>();
   constructor(
     private business: GarbageManagementRankingRecordEventIasBusiness
   ) {}
@@ -77,6 +78,9 @@ export class GarbageManagementRankingRecordEventIasComponent
       this.index = index;
       this.indexChange.emit(index);
       this.load();
+    },
+    item: (item: IGarbageManagementRankingData) => {
+      this.itemclick.emit(item);
     },
   };
 }

@@ -52,4 +52,12 @@ export class IasEventRecord implements IIdModel {
   EmergencyType?: number;
   /**	String	突发情况描述	O	*/
   EmergencyDescription?: string;
+  /**	String	地址	O */
+  Address?: string;
+  /**	String	网格ID	O */
+  GridCellId?: string;
+  /**	String	网格名称	O */
+  GridCellName?: string;
+  /**	String	设备名称	O */
+  DeviceName?: string;
 }

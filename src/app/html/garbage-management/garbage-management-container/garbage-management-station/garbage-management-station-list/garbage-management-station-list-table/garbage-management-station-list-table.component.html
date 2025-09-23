@@ -108,12 +108,7 @@
       <div class="info-item">总数量: {{ page && page.TotalRecordCount }}</div>
     </div>
 
-    <paginator
-      [page]="page"
-      [gapable]="page.PageCount > 6"
-      (change)="on.page($event)"
-    >
-    </paginator>
+    <paginator [page]="page" (change)="on.page($event)"> </paginator>
   </div>
 
   <div class="loading" *ngIf="loading"></div>

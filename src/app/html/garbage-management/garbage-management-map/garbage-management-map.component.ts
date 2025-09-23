@@ -5,6 +5,7 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
+  Output,
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
@@ -12,6 +13,7 @@ import { Subscription } from 'rxjs';
 import { EventType } from '../../../common/enum/event-type.enum';
 import { IDivision } from '../../../common/network/model/garbage-station/division.model';
 import { IasDevice } from '../../../common/network/model/ias/ias-device.model';
+import { IasEventRecord } from '../../../common/network/model/ias/ias-event-record.model';
 import { GarbageStationViewModel } from '../../../common/view-model/garbage-station.view-model';
 import { GarbageManagementMapBusiness } from './business/garbage-management-map.business';
 import { GarbageManagementMapController } from './controller/garbage-management-map.controller';
@@ -29,33 +31,43 @@ export class GarbageManagementMapComponent
 {
   @Input() devices: IasDevice[] = [];
   @Input() stations: GarbageStationViewModel[] = [];
+  @Input() records: IasEventRecord[] = [];
   @Input() eventables = [EventType.GarbageFull, EventType.GarbageDrop];
   @Input() select?: EventEmitter<IDivision>;
+  @Output() recorddblclick = new EventEmitter<IasEventRecord>();
   constructor(
     public controller: GarbageManagementMapController,
     private business: GarbageManagementMapBusiness
   ) {}
   private subscription = new Subscription();
-  private regist() {
-    if (this.select) {
-      let sub = this.select.subscribe((division) => {
-        this.controller.division.select(division.Id);
+  private regist = {
+    input: () => {
+      if (this.select) {
+        let sub = this.select.subscribe((division) => {
+          this.controller.division.select(division.Id);
 
-        this.business.map.default.get().then((x) => {
-          if (x.Id === division.Id) {
-            this.controller.fit();
-          } else {
-            this.business.map.get(division.Id).then((x) => {
-              if (x) {
-                this.controller.move([x.center.lon, x.center.lat]);
-              }
-            });
-          }
+          this.business.map.default.get().then((x) => {
+            if (x.Id === division.Id) {
+              this.controller.fit();
+            } else {
+              this.business.map.get(division.Id).then((x) => {
+                if (x) {
+                  this.controller.move([x.center.lon, x.center.lat]);
+                }
+              });
+            }
+          });
         });
+        this.subscription.add(sub);
+      }
+    },
+    output: () => {
+      this.controller.record.event.dblclick.subscribe((data) => {
+        this.recorddblclick.emit(data);
       });
-      this.subscription.add(sub);
-    }
-  }
+    },
+  };
+
   private change = {
     stations: (simple: SimpleChange) => {
       if (simple && !simple.firstChange) {
@@ -65,6 +77,11 @@ export class GarbageManagementMapComponent
     devices: (simple: SimpleChange) => {
       if (simple && !simple.firstChange) {
         this.load.device(this.devices);
+      }
+    },
+    records: (simple: SimpleChange) => {
+      if (simple && !simple.firstChange) {
+        this.load.record(this.records);
       }
     },
     eventables: (simple: SimpleChange) => {
@@ -103,14 +120,19 @@ export class GarbageManagementMapComponent
     device: (datas: IasDevice[]) => {
       this.controller.device.load(datas);
     },
+    record: (datas: IasEventRecord[]) => {
+      this.controller.record.load(datas);
+    },
   };
   ngOnChanges(changes: SimpleChanges): void {
     this.change.eventables(changes['eventables']);
     this.change.stations(changes['stations']);
     this.change.devices(changes['devices']);
+    this.change.records(changes['records']);
   }
   ngOnInit(): void {
-    this.regist();
+    this.regist.input();
+    this.regist.output();
     this.load.division();
   }
   ngOnDestroy(): void {

@@ -77,7 +77,7 @@ export class BaseUrl {
   }
   /** /howell/ver10/data_service/medium/ */
   static get medium() {
-    return `${this.data_service}/${HowellUrlNode.medium}`;
+    return `${HowellUrlNode.api}/${HowellUrlNode.howell}/${HowellUrlNode.ver10}/${HowellUrlNode.aiop_service}/${HowellUrlNode.medium}`;
   }
 }
 class GarbageBaseUrl {

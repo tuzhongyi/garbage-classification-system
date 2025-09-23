@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { EventType } from '../../../../common/enum/event-type.enum';
 import { TimeUnit } from '../../../../common/enum/time-unit.enum';
 import { Language } from '../../../../common/tools/language';
+import { IGarbageManagementChartColor } from '../../garbage-management-chart/garbage-management-chart-line/garbage-management-chart-line.model';
 import { GarbageManagementChartRecordEventContainerComponent } from '../../garbage-management-chart/garbage-management-chart-record-event/garbage-management-chart-record-event-container/garbage-management-chart-record-event-container.component';
-import { IGarbageManagementChartRecordEventColor } from '../../garbage-management-chart/garbage-management-chart-record-event/garbage-management-chart-record-event.model';
 import { GarbageManagementCardComponent } from '../component/garbage-management-card.component';
 
 @Component({
@@ -23,7 +23,7 @@ import { GarbageManagementCardComponent } from '../component/garbage-management-
 export class GarbageManagementCardChartLineRecordEventComponent {
   @Input() load?: EventEmitter<void>;
   @Input() type = EventType.MixedInto;
-  @Input() color?: IGarbageManagementChartRecordEventColor;
+  @Input() color?: IGarbageManagementChartColor;
 
   unit = TimeUnit.Day;
   count = 0;

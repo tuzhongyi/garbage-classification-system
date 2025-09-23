@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { EventType } from '../../../../../common/enum/event-type.enum';
-import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
+import { GarbageManagementManagerPanel } from '../../panel/garbage-management-manager.panel';
 
 @Injectable()
 export class GarbageManagementManagerStatisticController {
-  constructor(private window: GarbageManagementManagerWindow) {}
+  constructor(private panel: GarbageManagementManagerPanel) {}
 
   station = {
     open: (eventables: EventType[]) => {
-      this.window.station.show = true;
+      this.panel.station.show = true;
     },
   };
   device = {
     open: () => {
-      this.window.street.show = true;
+      this.panel.street.clear();
+      this.panel.street.show = true;
     },
   };
 }

@@ -16,8 +16,8 @@
         <div class="form-item-value">
           <hw-select [(selected)]="table.args.online" [nullable]="true">
             <select [(ngModel)]="table.args.online">
-              <option [ngValue]="1">在线</option>
-              <option [ngValue]="0">离线</option>
+              <option [ngValue]="true">在线</option>
+              <option [ngValue]="false">离线</option>
             </select>
           </hw-select>
         </div>

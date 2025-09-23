@@ -24,4 +24,7 @@ export class MapMarkerPath {
   get patrol() {
     return `${this.basic}-patrol.png`;
   }
+  get ias() {
+    return `${this.basic}-ias-record.png`;
+  }
 }

@@ -1,0 +1,10 @@
+<div class="garbage-management-state-record-ias">
+  <howell-garbage-management-state-item
+    [ngClass]="{
+      selected: selected
+    }"
+    *ngIf="data.show"
+    [data]="data"
+    (click)="on.click()"
+  ></howell-garbage-management-state-item>
+</div>

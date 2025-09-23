@@ -4,6 +4,7 @@ import { PromiseValue } from '../../../../../common/view-models/value.promise';
 import { GarbageManagementMapAMapDeviceController } from './device/garbage-management-map-amap-device.controller';
 import { GarbageManagementMapAMapDivisionController } from './division/garbage-management-map-amap-division.controller';
 import { GarbageManagementMapAMapConfig } from './garbage-management-map-amap.config';
+import { GarbageManagementMapAMapRecordController } from './record/garbage-management-map-amap-record.controller';
 import { GarbageManagementMapAMapRootController } from './root/garbage-management-map-amap-root.controller';
 import { GarbageManagementMapAMapStationController } from './station/garbage-management-map-amap-station.controller';
 
@@ -13,7 +14,7 @@ export class GarbageManagementMapAMapController {
   division = new PromiseValue<GarbageManagementMapAMapDivisionController>();
   station = new PromiseValue<GarbageManagementMapAMapStationController>();
   device = new PromiseValue<GarbageManagementMapAMapDeviceController>();
-
+  record = new PromiseValue<GarbageManagementMapAMapRecordController>();
   constructor() {
     MapHelper.amap
       .get('map-container', { showBuildingBlock: false, showLabel: false })
@@ -40,6 +41,9 @@ export class GarbageManagementMapAMapController {
 
         let device = new GarbageManagementMapAMapDeviceController(map);
         this.device.set(device);
+
+        let record = new GarbageManagementMapAMapRecordController(map);
+        this.record.set(record);
       });
   }
 

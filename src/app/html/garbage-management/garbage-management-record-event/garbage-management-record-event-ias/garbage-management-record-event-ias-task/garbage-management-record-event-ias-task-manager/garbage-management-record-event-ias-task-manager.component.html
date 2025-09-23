@@ -1,0 +1,63 @@
+<div class="garbage-management-record-event-ias-task-manager">
+  <div class="garbage-management-record-event-ias-task-manager-process">
+    <howell-garbage-management-record-event-ias-task-progress
+      [data]="data"
+    ></howell-garbage-management-record-event-ias-task-progress>
+  </div>
+  <div class="hr"></div>
+  <div class="garbage-management-record-event-ias-task-manager-info">
+    <howell-garbage-management-record-event-ias-task-info
+      [data]="data"
+    ></howell-garbage-management-record-event-ias-task-info>
+  </div>
+  <div class="hr"></div>
+  <div class="garbage-management-record-event-ias-task-manager-picture">
+    <div class="garbage-management-record-event-ias-task-manager-picture-item">
+      <div
+        class="garbage-management-record-event-ias-task-manager-picture-item-head"
+      >
+        <div
+          class="garbage-management-record-event-ias-task-manager-picture-item-head-title"
+        >
+          处置前
+        </div>
+        <howell-paginator-point
+          [count]="picture.task.count"
+          [(index)]="picture.task.index"
+          (change)="picture.task.on.change($event)"
+        ></howell-paginator-point>
+      </div>
+      <div
+        class="garbage-management-record-event-ias-task-manager-picture-item-body panel"
+      >
+        <div
+          class="garbage-management-record-event-ias-task-manager-picture-item-body-content"
+        >
+          <app-picture [id]="picture.task.src"></app-picture>
+        </div>
+      </div>
+    </div>
+    <div class="garbage-management-record-event-ias-task-manager-picture-item">
+      <div
+        class="garbage-management-record-event-ias-task-manager-picture-item-head"
+      >
+        <div
+          class="garbage-management-record-event-ias-task-manager-picture-item-head-title"
+        >
+          处置后
+        </div>
+
+        <howell-paginator-point
+          [count]="picture.handle.count"
+          [(index)]="picture.handle.index"
+          (change)="picture.handle.on.change($event)"
+        ></howell-paginator-point>
+      </div>
+      <div
+        class="garbage-management-record-event-ias-task-manager-picture-item-body panel"
+      >
+        <app-picture [id]="picture.handle.src"></app-picture>
+      </div>
+    </div>
+  </div>
+</div>

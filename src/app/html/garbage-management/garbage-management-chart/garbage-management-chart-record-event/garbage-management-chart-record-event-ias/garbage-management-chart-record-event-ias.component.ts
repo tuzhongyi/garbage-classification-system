@@ -3,35 +3,38 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
+  SimpleChange,
+  SimpleChanges,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TimeUnit } from '../../../../../common/enum/time-unit.enum';
 import { ChartTool } from '../../../../../common/tools/chart-tool/chart.tool';
 import { Language } from '../../../../../common/tools/language';
-import { GarbageManagementChartRecordEventComponent } from '../component/garbage-management-chart-record-event.component';
+import { GarbageManagementChartLineComponent } from '../../garbage-management-chart-line/garbage-management-chart-line.component';
 import {
-  IGarbageManagementChartRecordEventColor,
-  IGarbageManagementChartRecordEventData,
+  IGarbageManagementChartColor,
+  IGarbageManagementChartData,
   ITimeData,
-} from '../garbage-management-chart-record-event.model';
+} from '../../garbage-management-chart-line/garbage-management-chart-line.model';
 import { GarbageManagementChartRecordEventIasBusiness } from './garbage-management-chart-record-event-ias.business';
 
 @Component({
   selector: 'howell-garbage-management-chart-record-event-ias',
-  imports: [CommonModule, GarbageManagementChartRecordEventComponent],
+  imports: [CommonModule, GarbageManagementChartLineComponent],
   templateUrl: './garbage-management-chart-record-event-ias.component.html',
   styleUrl: './garbage-management-chart-record-event-ias.component.less',
   providers: [GarbageManagementChartRecordEventIasBusiness],
 })
 export class GarbageManagementChartRecordEventIasComponent
-  implements OnInit, OnDestroy
+  implements OnInit, OnChanges, OnDestroy
 {
   @Input('load') _load?: EventEmitter<void>;
   @Input() unit = TimeUnit.Day;
-  @Input() color?: IGarbageManagementChartRecordEventColor;
+  @Input() color?: IGarbageManagementChartColor;
   @Output() loaded = new EventEmitter<number[]>();
 
   constructor(private business: GarbageManagementChartRecordEventIasBusiness) {}
@@ -42,7 +45,8 @@ export class GarbageManagementChartRecordEventIasComponent
       return Language.TimeUnit(this.unit);
     },
   };
-  data?: IGarbageManagementChartRecordEventData;
+  data?: IGarbageManagementChartData;
+  interval = 0;
   xAxis = ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'];
 
   private subscription = new Subscription();
@@ -75,12 +79,33 @@ export class GarbageManagementChartRecordEventIasComponent
         date: date,
         first: 1,
       });
+      switch (unit) {
+        case TimeUnit.Day:
+          this.interval = 3;
+          break;
+        case TimeUnit.Month:
+          this.interval = 1;
+          break;
+        default:
+          this.interval = 0;
+          break;
+      }
     });
   }
+  private change = {
+    unit: (simple: SimpleChange) => {
+      if (simple && !simple.firstChange) {
+        this.load(this.unit, this.date);
+      }
+    },
+  };
 
   ngOnInit(): void {
     this.regist();
     this.load(this.unit, this.date);
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.change.unit(changes['unit']);
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

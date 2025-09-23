@@ -1,0 +1,8 @@
+<div class="paginator-point" *ngIf="count > 1">
+  <div
+    class="paginator-point-item"
+    *ngFor="let item of items"
+    [class.selected]="item === index"
+    (click)="on.change(item)"
+  ></div>
+</div>

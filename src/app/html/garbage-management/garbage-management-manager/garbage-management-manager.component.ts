@@ -12,7 +12,9 @@ import { wait } from '../../../common/tools/tools';
 import { GarbageManagementStationManagerComponent } from '../garbage-management-container/garbage-management-station/garbage-management-station-manager/garbage-management-station-manager.component';
 import { GarbageManagementManagerController } from './controller/garbage-management-manager.controller';
 import { GarbageManagementManagerImports } from './garbage-management-manager.import';
+import { GarbageManagementManagerIndex } from './garbage-management-manager.model';
 import { GarbageManagementManagerProviders } from './garbage-management-manager.provider';
+import { GarbageManagementManagerPanel } from './panel/garbage-management-manager.panel';
 import { GarbageManagementManagerWindow } from './window/garbage-management-manager.window';
 
 // GarbageManagementMapComponent,
@@ -41,12 +43,13 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
   }
 
   constructor(
+    public panel: GarbageManagementManagerPanel,
     public window: GarbageManagementManagerWindow,
     private controller: GarbageManagementManagerController,
 
     private global: GlobalStorageService
   ) {}
-
+  Index = GarbageManagementManagerIndex;
   private destroyed = false;
   private element = {
     left: undefined as ElementRef<HTMLElement> | undefined,

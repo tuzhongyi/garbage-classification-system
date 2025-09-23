@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GarbageManagementChartIasDeviceStateBusiness } from './garbage-management-chart-ias-device-state.business';
 
@@ -12,6 +12,7 @@ import { GarbageManagementChartIasDeviceStateBusiness } from './garbage-manageme
 })
 export class GarbageManagementChartIasDeviceStateComponent {
   @Input('load') _load?: EventEmitter<void>;
+  @Output() itemclick = new EventEmitter<boolean>();
   constructor(private business: GarbageManagementChartIasDeviceStateBusiness) {}
 
   value = {
@@ -53,4 +54,10 @@ export class GarbageManagementChartIasDeviceStateComponent {
       });
     });
   }
+
+  on = {
+    click: (online: boolean) => {
+      this.itemclick.emit(online);
+    },
+  };
 }

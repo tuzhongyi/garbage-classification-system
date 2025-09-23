@@ -1,0 +1,24 @@
+<div
+  class="garbage-management-record-event-ias-statistic-route-chart-container"
+  *ngIf="loaded"
+>
+  <howell-garbage-management-record-event-ias-statistic-route-chart
+    class="garbage-management-record-event-ias-statistic-route-chart-container-item panel"
+    [datas]="datas"
+    [args]="args"
+    [statistictype]="RouteStatisticType.Meter"
+  ></howell-garbage-management-record-event-ias-statistic-route-chart>
+  <howell-garbage-management-record-event-ias-statistic-route-chart
+    class="garbage-management-record-event-ias-statistic-route-chart-container-item panel"
+    [datas]="datas"
+    [args]="args"
+    [statistictype]="RouteStatisticType.Speed"
+  ></howell-garbage-management-record-event-ias-statistic-route-chart>
+  <howell-garbage-management-record-event-ias-statistic-route-chart
+    class="garbage-management-record-event-ias-statistic-route-chart-container-item panel"
+    [datas]="datas"
+    [args]="args"
+    [statistictype]="RouteStatisticType.Time"
+  ></howell-garbage-management-record-event-ias-statistic-route-chart>
+  <div class="loading" *ngIf="loading"></div>
+</div>

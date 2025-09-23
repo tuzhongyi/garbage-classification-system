@@ -1,0 +1,64 @@
+<div class="garbage-management-record-event-ias-task-progress" *ngIf="data">
+  <div class="garbage-management-record-event-ias-task-progress-item did">
+    <div class="garbage-management-record-event-ias-task-progress-item-name">
+      事件报警
+    </div>
+    <div class="garbage-management-record-event-ias-task-progress-item-time">
+      {{ data.EventTime | date : Language.MMddHHmmss }}
+    </div>
+  </div>
+  <div
+    class="garbage-management-record-event-ias-task-progress-to"
+    [ngClass]="{
+      did: data.Assignment && data.Assignment.AssignmentTime
+    }"
+  ></div>
+  <div
+    class="garbage-management-record-event-ias-task-progress-item"
+    [ngClass]="{
+      did: data.Assignment && data.Assignment.AssignmentTime
+    }"
+  >
+    <div class="garbage-management-record-event-ias-task-progress-item-name">
+      派单时间
+    </div>
+    <div class="garbage-management-record-event-ias-task-progress-item-time">
+      {{
+        (data.Assignment?.AssignmentTime | date : Language.MMddHHmmss) ?? "-"
+      }}
+    </div>
+  </div>
+  <div
+    class="garbage-management-record-event-ias-task-progress-to"
+    [ngClass]="{
+      did: data.Assignment && data.Assignment.HandledTime
+    }"
+  ></div>
+  <div class="garbage-management-record-event-ias-task-progress-item">
+    <div class="garbage-management-record-event-ias-task-progress-item-name">
+      接单处置
+    </div>
+    <div class="garbage-management-record-event-ias-task-progress-item-time">
+      {{ (data.Assignment?.HandledTime | date : Language.MMddHHmmss) ?? "-" }}
+    </div>
+  </div>
+  <div
+    class="garbage-management-record-event-ias-task-progress-to"
+    [ngClass]="{
+      did: data.Assignment && data.Assignment.HandledTime
+    }"
+  ></div>
+  <div
+    class="garbage-management-record-event-ias-task-progress-item"
+    [ngClass]="{
+      did: data.Assignment && data.Assignment.HandledTime
+    }"
+  >
+    <div class="garbage-management-record-event-ias-task-progress-item-name">
+      自动闭环
+    </div>
+    <div class="garbage-management-record-event-ias-task-progress-item-time">
+      {{ (data.Assignment?.HandledTime | date : Language.MMddHHmmss) ?? "-" }}
+    </div>
+  </div>
+</div>

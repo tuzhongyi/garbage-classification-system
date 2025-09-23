@@ -6,6 +6,9 @@ import { GarbageManagementControlButtonListComponent } from '../garbage-manageme
 import { GarbageManagementHeaderComponent } from '../garbage-management-header/component/garbage-management-header.component';
 import { GarbageManagementManagerSettingsComponent } from '../garbage-management-manager-settings/garbage-management-manager-settings.component';
 import { GarbageManagementMapComponent } from '../garbage-management-map/garbage-management-map.component';
+import { GarbageManagementRecordEventIasManagerComponent } from '../garbage-management-record-event/garbage-management-record-event-ias/garbage-management-record-event-ias-manager/garbage-management-record-event-ias-manager.component';
+import { GarbageManagementRecordEventIasTaskManagerComponent } from '../garbage-management-record-event/garbage-management-record-event-ias/garbage-management-record-event-ias-task/garbage-management-record-event-ias-task-manager/garbage-management-record-event-ias-task-manager.component';
+import { GarbageManagementStateRecordIasComponent } from '../garbage-management-state/garbage-management-state-record-ias/garbage-management-state-record-ias.component';
 import { GarbageManagementStateStationComponent } from '../garbage-management-state/garbage-management-state-station/garbage-management-state-station.component';
 import { GarbageManagementStatisticStationComponent } from '../garbage-management-statistic/garbage-management-statistic-station/component/garbage-management-statistic-station.component';
 import { GarbageManagementStreetDeviceManagerComponent } from '../garbage-management-street/garbage-management-street-device/garbage-management-street-device-manager/garbage-management-street-device-manager.component';
@@ -20,6 +23,9 @@ export const GarbageManagementManagerImports = [
   GarbageManagementManagerSettingsComponent,
   GarbageManagementControlButtonListComponent,
   GarbageManagementStateStationComponent,
+  GarbageManagementStateRecordIasComponent,
   GarbageManagementStationManagerComponent,
   GarbageManagementStreetDeviceManagerComponent,
+  GarbageManagementRecordEventIasManagerComponent,
+  GarbageManagementRecordEventIasTaskManagerComponent,
 ];

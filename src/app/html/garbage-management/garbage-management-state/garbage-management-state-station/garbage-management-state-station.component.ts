@@ -13,11 +13,9 @@ import { StationState } from '../../../../common/enum/station-state.enum';
 import { GarbageStationViewModel } from '../../../../common/view-model/garbage-station.view-model';
 import { GarbageManagementManagerIndex } from '../../garbage-management-manager/garbage-management-manager.model';
 import { GarbageManagementStateItemComponent } from '../garbage-management-state-item/garbage-management-state-item.component';
-import {
-  GarbageManagementStateItem,
-  GarbageManagementStateItemColor,
-} from '../garbage-management-state-item/garbage-management-state-item.model';
+import { GarbageManagementStateItemColor } from '../garbage-management-state-item/garbage-management-state-item.model';
 import { GarbageManagementStateStationBusiness } from './garbage-management-state-station.business';
+import { GarbageManagementStationStateItem } from './garbage-management-state-station.model';
 
 @Component({
   selector: 'howell-garbage-management-state-station',
@@ -36,7 +34,7 @@ export class GarbageManagementStateStationComponent implements OnChanges {
 
   constructor(private business: GarbageManagementStateStationBusiness) {}
 
-  datas: GarbageManagementStateItem[] = [];
+  datas: GarbageManagementStationStateItem[] = [];
 
   ngOnChanges(changes: SimpleChanges): void {
     this.change.index(changes['index']);

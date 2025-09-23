@@ -4,7 +4,7 @@ import { GarbageStationNumberStatisticV2 } from '../../../../../../../common/net
 import { GetGarbageStationStatisticNumbersParamsV2 } from '../../../../../../../common/network/request/garbage/garbage-station/garbage-station-request.params';
 import { GarbageStationRequestService } from '../../../../../../../common/network/request/garbage/garbage-station/garbage-station-request.service';
 import { DateTimeTool } from '../../../../../../../common/tools/date-time-tool/datetime.tool';
-import { IGarbageManagementChartRecordEventData } from '../../../../../garbage-management-chart/garbage-management-chart-record-event/garbage-management-chart-record-event.model';
+import { IGarbageManagementChartData } from '../../../../../garbage-management-chart/garbage-management-chart-line/garbage-management-chart-line.model';
 import { GarbageManagementStationStatisticDetailsArgs } from '../../garbage-management-station-statistic-details.model';
 import { GarbageManagementStationStatisticDetailsContainerConverter } from './garbage-management-station-statistic-details-container.converter';
 
@@ -17,7 +17,7 @@ export class GarbageManagementStationStatisticDetailsContainerBusiness {
 
   async load(
     opts: GarbageManagementStationStatisticDetailsArgs
-  ): Promise<IGarbageManagementChartRecordEventData[]> {
+  ): Promise<IGarbageManagementChartData[]> {
     let data = await this.getData(opts);
     let model = this.converter.Convert(data, opts.type);
     return model;

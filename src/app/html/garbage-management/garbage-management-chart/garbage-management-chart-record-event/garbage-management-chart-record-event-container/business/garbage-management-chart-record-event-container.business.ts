@@ -3,7 +3,7 @@ import { EventType } from '../../../../../../common/enum/event-type.enum';
 import { TimeUnit } from '../../../../../../common/enum/time-unit.enum';
 import { EventNumberStatistic } from '../../../../../../common/network/model/garbage-station/event-number-statistic.model';
 import { GlobalStorageService } from '../../../../../../common/storage/global.storage';
-import { IGarbageManagementChartRecordEventSource } from '../../garbage-management-chart-record-event.model';
+import { IGarbageManagementChartSource } from '../../../garbage-management-chart-line/garbage-management-chart-line.model';
 import { GarbageManagementChartRecordEventService } from './garbage-management-chart-record-event-container.service';
 
 @Injectable()
@@ -23,8 +23,8 @@ export class GarbageManagementChartRecordEventBusiness {
   private convert(
     source: EventNumberStatistic[],
     type: EventType
-  ): IGarbageManagementChartRecordEventSource[] {
-    let datas = source.map<IGarbageManagementChartRecordEventSource>((data) => {
+  ): IGarbageManagementChartSource[] {
+    let datas = source.map<IGarbageManagementChartSource>((data) => {
       let event = data.EventNumbers.find((x) => x.EventType === type);
       let value = event?.DeltaNumber;
       return {

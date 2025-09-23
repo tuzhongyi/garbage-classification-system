@@ -9,14 +9,14 @@ import {
 import { Subscription } from 'rxjs';
 import { ChartType } from '../../../../../../common/enum/chart-type.enum copy';
 import { ChartTool } from '../../../../../../common/tools/chart-tool/chart.tool';
-import { GarbageManagementChartRecordEventMultipleComponent } from '../../../../garbage-management-chart/garbage-management-chart-record-event/garbage-management-chart-record-event-multiple/garbage-management-chart-record-event-multiple.component';
-import { IGarbageManagementChartRecordEventData } from '../../../../garbage-management-chart/garbage-management-chart-record-event/garbage-management-chart-record-event.model';
+import { IGarbageManagementChartData } from '../../../../garbage-management-chart/garbage-management-chart-line/garbage-management-chart-line.model';
+import { GarbageManagementChartMultipleComponent } from '../../../../garbage-management-chart/garbage-management-chart-multiple/garbage-management-chart-multiple.component';
 import { GarbageManagementStationStatisticDetailsArgs } from '../garbage-management-station-statistic-details.model';
 import { GarbageManagementStationStatisticDetailsContainerBusiness } from './business/garbage-management-station-statistic-details-container.business';
 
 @Component({
   selector: 'howell-garbage-management-station-statistic-details-container',
-  imports: [CommonModule, GarbageManagementChartRecordEventMultipleComponent],
+  imports: [CommonModule, GarbageManagementChartMultipleComponent],
   templateUrl:
     './garbage-management-station-statistic-details-container.component.html',
   styleUrl:
@@ -35,8 +35,9 @@ export class GarbageManagementStationStatisticDetailsContainerComponent
     private business: GarbageManagementStationStatisticDetailsContainerBusiness
   ) {}
 
-  datas: IGarbageManagementChartRecordEventData[] = [];
+  datas: IGarbageManagementChartData[] = [];
   xAxis = ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'];
+  interval = 0;
   private subscription = new Subscription();
   private regist() {
     if (this._load) {

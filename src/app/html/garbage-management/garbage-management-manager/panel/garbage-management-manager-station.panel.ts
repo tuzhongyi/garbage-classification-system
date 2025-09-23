@@ -1,6 +1,6 @@
 import { WindowViewModel } from '../../../../common/components/window/window.model';
 
-export class GarbageManagementManagerSettingsWindow extends WindowViewModel {
+export class GarbageManagementManagerStationPanel extends WindowViewModel {
   style = {
     height: 'calc(100% - 85px)',
     width: '100%',
@@ -8,5 +8,5 @@ export class GarbageManagementManagerSettingsWindow extends WindowViewModel {
     top: '85px',
     zIndex: '1',
   };
-  title = '设置';
+  title = '投放点';
 }

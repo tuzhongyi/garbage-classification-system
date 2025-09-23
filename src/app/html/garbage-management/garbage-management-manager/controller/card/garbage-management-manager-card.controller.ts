@@ -5,6 +5,8 @@ import {
   IGarbageManagementManagerCardController,
   IGarbageManagementManagerCardElement,
 } from '../../garbage-management-manager.model';
+import { GarbageManagementManagerPanel } from '../../panel/garbage-management-manager.panel';
+import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
 import { GarbageManagementManagerCardCommonController } from './common/garbage-management-manager-card-common.controller';
 import { GarbageManagementManagerCardHomeController } from './home/garbage-management-manager-card-home.controller';
 import { GarbageManagementManagerCardIllegalDropController } from './illegaldrop/garbage-management-manager-card-illegaldrop.controller';
@@ -14,7 +16,11 @@ import { GarbageManagementManagerCardVehicleController } from './vehicle/garbage
 
 @Injectable()
 export class GarbageManagementManagerCardController {
-  constructor(private tool: ComponentTool) {
+  constructor(
+    private tool: ComponentTool,
+    private panel: GarbageManagementManagerPanel,
+    private window: GarbageManagementManagerWindow
+  ) {
     this.init();
   }
 
@@ -65,7 +71,9 @@ export class GarbageManagementManagerCardController {
       new GarbageManagementManagerCardStreetController(
         common,
         this.tool,
-        this.load.event
+        this.load.event,
+        this.panel,
+        this.window
       )
     );
 

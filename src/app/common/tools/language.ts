@@ -63,16 +63,23 @@ export class Language {
   static ss = 'ss';
 
   static yyyyMMdd = `${this.yyyy}-${this.MM}-${this.dd}`;
+
   static HHmm = `${this.HH}:${this.mm}`;
   static HHmmss = `${this.HH}:${this.mm}:${this.ss}`;
   static yyyyMMddHHmmss = `${this.yyyyMMdd} ${this.HHmmss}`;
+
   static yyyyMMddHHmm = 'yyyy-MM-dd HH:mm';
-  static YearMonthDay = 'yyyy年MM月dd日';
+  static Year = 'yyyy年';
+  static YearMonth = `${this.Year}MM月`;
+  static YearMonthDay = `${this.YearMonth}dd日`;
   static YearMonthDayHHmmss = 'yyyy年MM月dd日 HH:mm:ss';
   static MonthDayHHmmss = 'MM月dd日 HH:mm:ss';
   static HHmm_ = "HH:mm'";
   static EEEE = 'EEEE';
   static YearMonthDayWeek = `${this.YearMonthDay} ${this.EEEE}`;
+
+  static MMdd = `${this.MM}-${this.dd}`;
+  static MMddHHmmss = `${this.MMdd} ${this.HHmmss}`;
 
   static GarbageType(type: GarbageType): string {
     switch (type) {

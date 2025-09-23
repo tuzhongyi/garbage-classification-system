@@ -2,6 +2,7 @@
   <div
     class="garbage-management-ranking-item"
     *ngFor="let item of datas; let index = index"
+    (click)="on.click(item)"
   >
     <div class="garbage-management-ranking-item-index" [class.top]="index < 3">
       <div class="garbage-management-ranking-item-index-text">

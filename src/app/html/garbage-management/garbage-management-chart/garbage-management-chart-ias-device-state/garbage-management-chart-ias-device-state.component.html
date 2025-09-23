@@ -1,5 +1,8 @@
 <div class="garbage-management-chart-ias-device-state">
-  <div class="garbage-management-chart-ias-device-state-item online">
+  <div
+    class="garbage-management-chart-ias-device-state-item online"
+    (click)="on.click(true)"
+  >
     <div class="garbage-management-chart-ias-device-state-item-info">
       <div class="garbage-management-chart-ias-device-state-item-info-name">
         在线
@@ -18,7 +21,10 @@
       ></div>
     </div>
   </div>
-  <div class="garbage-management-chart-ias-device-state-item offline">
+  <div
+    class="garbage-management-chart-ias-device-state-item offline"
+    (click)="on.click(false)"
+  >
     <div class="garbage-management-chart-ias-device-state-item-info">
       <div class="garbage-management-chart-ias-device-state-item-info-value">
         {{ value.offline }}

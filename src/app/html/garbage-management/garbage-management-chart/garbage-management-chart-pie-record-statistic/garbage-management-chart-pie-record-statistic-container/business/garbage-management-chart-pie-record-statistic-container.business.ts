@@ -75,7 +75,7 @@ export class GarbageManagementChartPieRecordStatisticContainerBusiness {
     ias: (data: PagedList<IasEventRecord>) => {
       let item: ChartItem = {
         id: 0,
-        name: '垃圾暴露',
+        name: '暴露垃圾',
         value: data.Page.TotalRecordCount || 0,
       };
       return item;

@@ -21,4 +21,6 @@ export class GetIasEventNumbersParams extends DurationParams {
   DivisionId?: string;
   /**	Int32[]	统计的事件类型，参见3.2.15	M	*/
   IasEventTypes!: number[];
+  /**	String	设备ID	O	*/
+  DeviceId?: string;
 }

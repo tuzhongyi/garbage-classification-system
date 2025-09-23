@@ -4,14 +4,14 @@
     *ngFor="let item of datas"
   >
     <div class="garbage-management-list-record-event-ias-item-name">
-      {{ item.DivisionName }}
+      {{ item.GridCellName }}
     </div>
     <div class="garbage-management-list-record-event-ias-item-time">
       {{ item.EventTime | date : "MM-dd HH:mm:ss" }}
     </div>
     <div class="garbage-management-list-record-event-ias-item-operation">
-      <button>
-        <i class="howell-icon-details"></i>
+      <button (click)="on.task(item)">
+        <i class="howell-icon-task_misson"></i>
       </button>
     </div>
   </div>

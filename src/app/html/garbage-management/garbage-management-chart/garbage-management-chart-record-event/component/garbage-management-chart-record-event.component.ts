@@ -10,12 +10,11 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { TimeUnit } from '../../../../../common/enum/time-unit.enum';
-import { GarbageManagementChartAbstract } from '../../garbage-management-chart.abstract';
 import {
-  IGarbageManagementChartRecordEventColor,
-  IGarbageManagementChartRecordEventData,
-} from '../garbage-management-chart-record-event.model';
+  IGarbageManagementChartColor,
+  IGarbageManagementChartData,
+} from '../../garbage-management-chart-line/garbage-management-chart-line.model';
+import { GarbageManagementChartAbstract } from '../../garbage-management-chart.abstract';
 import { GarbageManagementChartRecordEventEChartOption } from './garbage-management-chart-record-event-echart.option';
 
 @Component({
@@ -33,8 +32,8 @@ export class GarbageManagementChartRecordEventComponent
     {},
     GarbageManagementChartRecordEventEChartOption
   );
-  @Input() data?: IGarbageManagementChartRecordEventData;
-  @Input() unit = TimeUnit.Day;
+  @Input() data?: IGarbageManagementChartData;
+  @Input() interval = 0;
   @Input() xAxis: string[] = [
     '00:00',
     '04:00',
@@ -66,7 +65,7 @@ export class GarbageManagementChartRecordEventComponent
   }
 
   private set = {
-    color: (color: IGarbageManagementChartRecordEventColor) => {
+    color: (color: IGarbageManagementChartColor) => {
       let sery = (this.option.series as any)[0];
       if (color.area) {
         sery.areaStyle.color = color.area;
@@ -83,19 +82,8 @@ export class GarbageManagementChartRecordEventComponent
         }
       }
     },
-    unit: (unit: TimeUnit) => {
-      switch (unit) {
-        case TimeUnit.Day:
-          (this.option.xAxis as any).axisLabel.interval = 3;
-          break;
-        case TimeUnit.Month:
-          (this.option.xAxis as any).axisLabel.interval = 1;
-          break;
-
-        default:
-          (this.option.xAxis as any).axisLabel.interval = 0;
-          break;
-      }
+    interval: (value: number) => {
+      (this.option.xAxis as any).axisLabel.interval = value;
     },
   };
 
@@ -108,7 +96,7 @@ export class GarbageManagementChartRecordEventComponent
       if (this.data.color) {
         this.set.color(this.data.color);
       }
-      this.set.unit(this.unit);
+      this.set.interval(this.interval);
       chart.setOption(this.option);
     });
   }

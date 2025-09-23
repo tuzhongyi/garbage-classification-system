@@ -26,7 +26,7 @@ export class PaginatorComponent implements AfterViewInit, OnChanges {
   @Input() page = Page.create(1, 50);
   @Input() jump = true;
   @Input() total = false;
-  @Input() gapable = false;
+  @Input() gapable = true;
   @Input() first = true;
   @Input() last = true;
 

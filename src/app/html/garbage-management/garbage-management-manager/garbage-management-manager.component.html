@@ -6,8 +6,10 @@
     <howell-garbage-management-map
       [stations]="data.stations"
       [devices]="data.devices"
+      [records]="data.records"
       [eventables]="data.eventables"
       [select]="map.select"
+      (recorddblclick)="window.record.ias.open($event)"
     ></howell-garbage-management-map>
     <div class="garbage-management-manager-map-mask"></div>
   </div>
@@ -35,13 +37,24 @@
       (opendevices)="statistic.device.open()"
     ></howell-garbage-management-statistic-station>
   </div>
-  <div class="garbage-management-manager-state-station">
+  <div
+    class="garbage-management-manager-state-station"
+    *ngIf="navigation.index != Index.street"
+  >
     <howell-garbage-management-state-station
       [index]="navigation.index"
       [eventables]="data.eventables"
       [stations]="data.source.stations"
       (selectedChange)="data.on.state($event)"
     ></howell-garbage-management-state-station>
+  </div>
+  <div
+    class="garbage-management-manager-state-record-ias"
+    *ngIf="navigation.index == Index.street"
+  >
+    <howell-garbage-management-state-record-ias
+      [count]="data.records.length"
+    ></howell-garbage-management-state-record-ias>
   </div>
 
   <div class="garbage-management-manager-controls">
@@ -55,27 +68,49 @@
   </div>
 
   <howell-panel
-    *ngIf="window.settings.show"
-    [model]="window.settings"
-    [title]="window.settings.title"
-    [style]="window.settings.style"
+    *ngIf="panel.settings.show"
+    [model]="panel.settings"
+    [title]="panel.settings.title"
+    [style]="panel.settings.style"
   >
     <howell-garbage-management-manager-settings></howell-garbage-management-manager-settings>
   </howell-panel>
   <howell-panel
-    *ngIf="window.station.show"
-    [model]="window.station"
-    [title]="window.station.title"
-    [style]="window.station.style"
+    *ngIf="panel.station.show"
+    [model]="panel.station"
+    [title]="panel.station.title"
+    [style]="panel.station.style"
   >
     <howell-garbage-management-station-manager></howell-garbage-management-station-manager>
   </howell-panel>
   <howell-panel
-    *ngIf="window.street.show"
-    [model]="window.street"
-    [title]="window.street.title"
-    [style]="window.street.style"
+    *ngIf="panel.street.show"
+    [model]="panel.street"
+    [title]="panel.street.title"
+    [style]="panel.street.style"
   >
-    <howell-garbage-management-street-device-manager></howell-garbage-management-street-device-manager>
+    <howell-garbage-management-street-device-manager
+      [online]="panel.street.online"
+    ></howell-garbage-management-street-device-manager>
   </howell-panel>
+  <howell-panel
+    *ngIf="panel.record.ias.show"
+    [model]="panel.record.ias"
+    [title]="panel.record.ias.title"
+    [style]="panel.record.ias.style"
+  >
+    <howell-garbage-management-record-event-ias-manager
+      (task)="panel.record.ias.on.task($event)"
+    ></howell-garbage-management-record-event-ias-manager>
+  </howell-panel>
+  <howell-window
+    *ngIf="window.record.ias.show"
+    [model]="window.record.ias"
+    [title]="window.record.ias.title"
+    [style]="window.record.ias.style"
+  >
+    <howell-garbage-management-record-event-ias-task-manager
+      [data]="window.record.ias.data"
+    ></howell-garbage-management-record-event-ias-task-manager>
+  </howell-window>
 </div>

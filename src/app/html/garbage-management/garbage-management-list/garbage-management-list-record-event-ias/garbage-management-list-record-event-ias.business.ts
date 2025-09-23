@@ -19,6 +19,8 @@ export class GarbageManagementListRecordEventIasBusiness {
     params.BeginTime = duration.begin;
     params.EndTime = duration.end;
     params.DivisionIds = [division.Id];
+    params.EventType = 103;
+    params.Desc = 'EventTime';
     return this.service.event.cache.all(params);
   }
 }

@@ -44,7 +44,10 @@ export class GarbageManagementStreetDeviceTableComponent
     if (this.load) {
       this.load.subscribe((x) => {
         this.args = x;
-        this.loadData(1, this.page.PageSize);
+        this.loadData(
+          this.args.first ? 1 : this.page.PageIndex,
+          this.page.PageSize
+        );
       });
     }
   }

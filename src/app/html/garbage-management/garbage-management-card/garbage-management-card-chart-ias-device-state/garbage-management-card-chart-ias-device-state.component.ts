@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { GarbageManagementChartIasDeviceStateComponent } from '../../garbage-management-chart/garbage-management-chart-ias-device-state/garbage-management-chart-ias-device-state.component';
 import { GarbageManagementCardComponent } from '../component/garbage-management-card.component';
 
@@ -16,5 +16,14 @@ import { GarbageManagementCardComponent } from '../component/garbage-management-
 })
 export class GarbageManagementCardChartIasDeviceStateComponent {
   @Input() load?: EventEmitter<void>;
+  @Output() itemclick = new EventEmitter<boolean>();
   title = '车辆状态';
+
+  on = {
+    item: {
+      click: (online: boolean) => {
+        this.itemclick.emit(online);
+      },
+    },
+  };
 }

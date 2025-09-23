@@ -12,12 +12,14 @@ import { GarbageManagementMapAMapStationLabelController } from './label/garbage-
 export class GarbageManagementMapAMapStationController {
   constructor(map: AMap.Map, loca: Loca.Container) {
     this.point = new GarbageManagementMapAMapStationPointController(loca);
-    this.label = new GarbageManagementMapAMapStationLabelController(map);
-    this.marker = new GarbageManagementMapAMapStationMarkerLayerController(map);
-    this.info = new GarbageManagementMapAMapInfoController(
+    this.label = new GarbageManagementMapAMapStationLabelController(
       map,
-      GarbageManagementMapAMapConfig.zoom.marker
+      GarbageManagementMapAMapConfig.zoom.point
     );
+    this.marker = new GarbageManagementMapAMapStationMarkerLayerController(map);
+    this.info = new GarbageManagementMapAMapInfoController(map, {
+      zooms: GarbageManagementMapAMapConfig.zoom.marker,
+    });
     this.regist();
   }
 

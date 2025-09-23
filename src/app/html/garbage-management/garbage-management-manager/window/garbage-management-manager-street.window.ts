@@ -9,4 +9,8 @@ export class GarbageManagementManagerStreetWindow extends WindowViewModel {
     zIndex: '1',
   };
   title = '巡逻车辆';
+  online?: boolean = undefined;
+  clear() {
+    this.online = undefined;
+  }
 }

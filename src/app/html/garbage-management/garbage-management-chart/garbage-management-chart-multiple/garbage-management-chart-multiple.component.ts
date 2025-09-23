@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -10,30 +9,28 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { ChartType } from '../../../../../common/enum/chart-type.enum copy';
-import { TimeUnit } from '../../../../../common/enum/time-unit.enum';
-import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
-import { GarbageManagementChartAbstract } from '../../garbage-management-chart.abstract';
-import { GarbageManagementChartRecordEventEChartOption } from '../component/garbage-management-chart-record-event-echart.option';
+import { ChartType } from '../../../../common/enum/chart-type.enum copy';
+import { ObjectTool } from '../../../../common/tools/object-tool/object.tool';
+import { GarbageManagementChartLineEChartOption } from '../garbage-management-chart-line/garbage-management-chart-line-echart.option';
 import {
-  IGarbageManagementChartRecordEventColor,
-  IGarbageManagementChartRecordEventData,
-} from '../garbage-management-chart-record-event.model';
+  IGarbageManagementChartColor,
+  IGarbageManagementChartData,
+} from '../garbage-management-chart-line/garbage-management-chart-line.model';
+import { GarbageManagementChartAbstract } from '../garbage-management-chart.abstract';
 
 @Component({
-  selector: 'howell-garbage-management-chart-record-event-multiple',
-  imports: [CommonModule],
-  templateUrl:
-    './garbage-management-chart-record-event-multiple.component.html',
-  styleUrl: './garbage-management-chart-record-event-multiple.component.less',
+  selector: 'howell-garbage-management-chart-multiple',
+  imports: [],
+  templateUrl: './garbage-management-chart-multiple.component.html',
+  styleUrl: './garbage-management-chart-multiple.component.less',
 })
-export class GarbageManagementChartRecordEventMultipleComponent
+export class GarbageManagementChartMultipleComponent
   extends GarbageManagementChartAbstract
   implements OnInit, OnChanges, AfterViewInit, OnDestroy
 {
-  @Input() datas: IGarbageManagementChartRecordEventData[] = [];
-  @Input() unit = TimeUnit.Day;
+  @Input() datas: IGarbageManagementChartData[] = [];
   @Input() type = ChartType.bar;
+  @Input() interval = 0;
   @Input() xAxis: string[] = [
     '00:00',
     '04:00',
@@ -43,10 +40,7 @@ export class GarbageManagementChartRecordEventMultipleComponent
     '20:00',
     '24:00',
   ];
-  @Input() option = Object.assign(
-    {},
-    GarbageManagementChartRecordEventEChartOption
-  );
+  @Input() option = Object.assign({}, GarbageManagementChartLineEChartOption);
   private sery = (this.option.series as any)[0];
 
   constructor() {
@@ -71,7 +65,8 @@ export class GarbageManagementChartRecordEventMultipleComponent
   }
 
   private set = {
-    data: (datas: IGarbageManagementChartRecordEventData[]) => {
+    data: (datas: IGarbageManagementChartData[]) => {
+      this.option.color = [];
       this.option.series = [];
       for (let i = 0; i < datas.length; i++) {
         const data = datas[i];
@@ -83,11 +78,20 @@ export class GarbageManagementChartRecordEventMultipleComponent
           case ChartType.line:
             if (data.color) {
               this.set.color.line(sery, data.color);
+              this.option.color.push(data.color.line);
+              // sery.markPoint.label = {
+              //   formatter: (params: any) => {
+              //     console.log(params);
+              //     return params.data.value;
+              //   },
+              // };
+              sery.markPoint = {};
             }
             break;
           case ChartType.bar:
             if (data.color) {
               this.set.color.bar(sery, data.color);
+              this.option.color.push(data.color.line);
             }
             sery.markPoint = {};
             break;
@@ -99,7 +103,7 @@ export class GarbageManagementChartRecordEventMultipleComponent
       }
     },
     color: {
-      line: (sery: any, color: IGarbageManagementChartRecordEventColor) => {
+      line: (sery: any, color: IGarbageManagementChartColor) => {
         if (color.area) {
           sery.areaStyle.color = color.area;
         }
@@ -115,7 +119,7 @@ export class GarbageManagementChartRecordEventMultipleComponent
           }
         }
       },
-      bar: (sery: any, color: IGarbageManagementChartRecordEventColor) => {
+      bar: (sery: any, color: IGarbageManagementChartColor) => {
         if (color.area) {
           if (!sery.itemStyle) {
             sery.itemStyle = {};
@@ -124,19 +128,36 @@ export class GarbageManagementChartRecordEventMultipleComponent
         }
       },
     },
-    unit: (unit: TimeUnit) => {
-      switch (unit) {
-        case TimeUnit.Day:
-          (this.option.xAxis as any).axisLabel.interval = 3;
-          break;
-        case TimeUnit.Month:
-          (this.option.xAxis as any).axisLabel.interval = 0;
-          break;
 
-        default:
-          (this.option.xAxis as any).axisLabel.interval = 0;
-          break;
-      }
+    interval: (value: number) => {
+      (this.option.xAxis as any).axisLabel.interval = value;
+    },
+    tooltip: () => {
+      this.option.tooltip = {
+        trigger: 'axis',
+        formatter: (params: any) => {
+          let result = `${params[0].axisValue}<br />`;
+
+          for (let i = 0; i < params.length; i++) {
+            const item = params[i];
+            let index = item.axisIndex;
+            let value = `${item.data}`;
+            if (this.datas.length > index) {
+              let data = this.datas[index];
+              value = `${item.data}${data.unit}`;
+              if (data.format) {
+                value = data.format(item.data);
+              }
+            }
+            result += `${item.marker}${item.seriesName} ${value}<br />`;
+          }
+
+          return result;
+        },
+        axisPointer: {
+          show: false,
+        },
+      };
     },
   };
 
@@ -144,13 +165,8 @@ export class GarbageManagementChartRecordEventMultipleComponent
     this.chart.get().then((chart) => {
       (this.option.xAxis as any).data = [...this.xAxis];
       this.set.data(this.datas);
-      this.set.unit(this.unit);
-      this.option.tooltip = {
-        trigger: 'axis',
-        axisPointer: {
-          show: false,
-        },
-      };
+      this.set.interval(this.interval);
+      this.set.tooltip();
       this.option.legend = {
         data: this.datas.map((x) => x.Name),
         right: 0,

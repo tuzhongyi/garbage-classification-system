@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TimeUnit } from '../../../../common/enum/time-unit.enum';
+import { IGarbageManagementChartColor } from '../../garbage-management-chart/garbage-management-chart-line/garbage-management-chart-line.model';
 import { GarbageManagementChartRecordEventIasComponent } from '../../garbage-management-chart/garbage-management-chart-record-event/garbage-management-chart-record-event-ias/garbage-management-chart-record-event-ias.component';
-import { IGarbageManagementChartRecordEventColor } from '../../garbage-management-chart/garbage-management-chart-record-event/garbage-management-chart-record-event.model';
 import { GarbageManagementCardComponent } from '../component/garbage-management-card.component';
 
 @Component({
@@ -21,7 +21,7 @@ import { GarbageManagementCardComponent } from '../component/garbage-management-
 })
 export class GarbageManagementCardChartLineRecordEventIasComponent {
   @Input() load?: EventEmitter<void>;
-  @Input() color?: IGarbageManagementChartRecordEventColor;
+  @Input() color?: IGarbageManagementChartColor;
 
   unit = TimeUnit.Day;
   count = 0;
@@ -29,7 +29,7 @@ export class GarbageManagementCardChartLineRecordEventIasComponent {
   TimeUnit = TimeUnit;
 
   get title() {
-    return `${this.language.unit()}垃圾暴露 <span class="count">${
+    return `${this.language.unit()}暴露垃圾 <span class="count">${
       this.count
     }</span> 起`;
   }

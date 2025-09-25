@@ -18,6 +18,6 @@ export class GarbageManagementRankingGarbageDropDurationConverter
     let name = source.Name;
     let value = source.CurrentGarbageTime ?? 0;
     let language = Language.Time(value, 'minute') ?? '';
-    return { name, value, language, unit: '' };
+    return { name, value, language, unit: '', data: source };
   }
 }

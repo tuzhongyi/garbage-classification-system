@@ -9,13 +9,14 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgForOf } from '../../../../../../node_modules/@angular/common/common_module.d-NEF7UaHr';
+
+import { CommonModule } from '@angular/common';
 import { GarbageStation } from '../../../../common/network/model/garbage-station/garbage-station.model';
 import { SelectGarbageStationBusiness } from './select-garbage-station.business';
 
 @Component({
   selector: 'howell-garbage-station-select',
-  imports: [FormsModule, NgForOf],
+  imports: [CommonModule, FormsModule],
   templateUrl: './select-garbage-station.component.html',
   styleUrl: './select-garbage-station.component.less',
   providers: [SelectGarbageStationBusiness],

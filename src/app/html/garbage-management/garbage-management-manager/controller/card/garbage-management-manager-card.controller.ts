@@ -39,7 +39,8 @@ export class GarbageManagementManagerCardController {
     let home = new GarbageManagementManagerCardHomeController(
       common,
       this.tool,
-      this.load.event
+      this.load.event,
+      this.panel
     );
     this.controller.set(GarbageManagementManagerIndex.home, home);
     this.controller.set(

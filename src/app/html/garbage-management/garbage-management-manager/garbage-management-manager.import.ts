@@ -6,8 +6,15 @@ import { GarbageManagementControlButtonListComponent } from '../garbage-manageme
 import { GarbageManagementHeaderComponent } from '../garbage-management-header/component/garbage-management-header.component';
 import { GarbageManagementManagerSettingsComponent } from '../garbage-management-manager-settings/garbage-management-manager-settings.component';
 import { GarbageManagementMapComponent } from '../garbage-management-map/garbage-management-map.component';
-import { GarbageManagementRecordEventIasManagerComponent } from '../garbage-management-record-event/garbage-management-record-event-ias/garbage-management-record-event-ias-manager/garbage-management-record-event-ias-manager.component';
-import { GarbageManagementRecordEventIasTaskManagerComponent } from '../garbage-management-record-event/garbage-management-record-event-ias/garbage-management-record-event-ias-task/garbage-management-record-event-ias-task-manager/garbage-management-record-event-ias-task-manager.component';
+
+import { PictureListComponent } from '../../../common/components/picture/picture-list/picture-list.component';
+import { VideoWindowComponent } from '../../share/video/video-window/video-window.component';
+import { GarbageManagementRecordEventGarbageDropManagerComponent } from '../garbage-management-container/garbage-management-record-event-garbage-drop/garbage-management-record-event-garbage-drop-manager/garbage-management-record-event-garbage-drop-manager.component';
+import { GarbageManagementRecordEventGarbageFullManagerComponent } from '../garbage-management-container/garbage-management-record-event-garbage-full/garbage-management-record-event-garbage-full-manager/garbage-management-record-event-garbage-full-manager.component';
+import { GarbageManagementRecordEventIasManagerComponent } from '../garbage-management-container/garbage-management-record-event-ias/garbage-management-record-event-ias-manager/garbage-management-record-event-ias-manager.component';
+import { GarbageManagementRecordEventIasTaskManagerComponent } from '../garbage-management-container/garbage-management-record-event-ias/garbage-management-record-event-ias-task/garbage-management-record-event-ias-task-manager/garbage-management-record-event-ias-task-manager.component';
+import { GarbageManagementRecordEventIllegalDropManagerComponent } from '../garbage-management-container/garbage-management-record-event-illegal-drop/garbage-management-record-event-illegal-drop-manager/garbage-management-record-event-illegal-drop-manager.component';
+import { GarbageManagementRecordEventMixedIntoManagerComponent } from '../garbage-management-container/garbage-management-record-event-mixed-into/garbage-management-record-event-mixed-into-manager/garbage-management-record-event-mixed-into-manager.component';
 import { GarbageManagementStateRecordIasComponent } from '../garbage-management-state/garbage-management-state-record-ias/garbage-management-state-record-ias.component';
 import { GarbageManagementStateStationComponent } from '../garbage-management-state/garbage-management-state-station/garbage-management-state-station.component';
 import { GarbageManagementStatisticStationComponent } from '../garbage-management-statistic/garbage-management-statistic-station/component/garbage-management-statistic-station.component';
@@ -20,6 +27,8 @@ export const GarbageManagementManagerImports = [
   GarbageManagementStatisticStationComponent,
   HowellWindowComponent,
   HowellPanelComponent,
+  PictureListComponent,
+  VideoWindowComponent,
   GarbageManagementManagerSettingsComponent,
   GarbageManagementControlButtonListComponent,
   GarbageManagementStateStationComponent,
@@ -28,4 +37,9 @@ export const GarbageManagementManagerImports = [
   GarbageManagementStreetDeviceManagerComponent,
   GarbageManagementRecordEventIasManagerComponent,
   GarbageManagementRecordEventIasTaskManagerComponent,
+
+  GarbageManagementRecordEventGarbageFullManagerComponent,
+  GarbageManagementRecordEventIllegalDropManagerComponent,
+  GarbageManagementRecordEventGarbageDropManagerComponent,
+  GarbageManagementRecordEventMixedIntoManagerComponent,
 ];

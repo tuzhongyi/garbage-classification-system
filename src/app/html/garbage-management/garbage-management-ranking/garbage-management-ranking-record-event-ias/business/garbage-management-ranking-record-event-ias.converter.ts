@@ -4,12 +4,13 @@ import { GridCell } from '../../../../../common/network/model/garbage-station/gr
 import { IGarbageManagementRankingData } from '../../component/garbage-management-ranking.model';
 
 export class GarbageManagementRankingRecordEventIasConverter {
-  convert(division: Division | GridCell, datas: EventNumberStatistic[]) {
+  convert(source: Division | GridCell, datas: EventNumberStatistic[]) {
     let data: IGarbageManagementRankingData = {
-      name: division.Name,
+      name: source.Name,
       language: '0',
       unit: '起',
       value: 0,
+      data: source,
     };
     datas.forEach((day) => {
       let number = day.EventNumbers.find(

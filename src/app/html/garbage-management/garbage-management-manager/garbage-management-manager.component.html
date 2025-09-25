@@ -94,13 +94,51 @@
     ></howell-garbage-management-street-device-manager>
   </howell-panel>
   <howell-panel
+    *ngIf="panel.record.mixedinto.show"
+    [model]="panel.record.mixedinto"
+    [title]="panel.record.mixedinto.title"
+    [style]="panel.record.mixedinto.style"
+  >
+    <howell-garbage-management-record-event-mixed-into-manager
+      (image)="panel.record.mixedinto.on.image($event)"
+      (video)="panel.record.mixedinto.on.video($event)"
+    ></howell-garbage-management-record-event-mixed-into-manager>
+  </howell-panel>
+  <howell-panel
+    *ngIf="panel.record.garbagefull.show"
+    [model]="panel.record.garbagefull"
+    [title]="panel.record.garbagefull.title"
+    [style]="panel.record.garbagefull.style"
+  >
+    <howell-garbage-management-record-event-garbage-full-manager></howell-garbage-management-record-event-garbage-full-manager>
+  </howell-panel>
+  <howell-panel
+    *ngIf="panel.record.illegaldrop.show"
+    [model]="panel.record.illegaldrop"
+    [title]="panel.record.illegaldrop.title"
+    [style]="panel.record.illegaldrop.style"
+  >
+    <howell-garbage-management-record-event-illegal-drop-manager
+      (image)="panel.record.illegaldrop.on.image($event)"
+      (video)="panel.record.illegaldrop.on.video($event)"
+    ></howell-garbage-management-record-event-illegal-drop-manager>
+  </howell-panel>
+  <howell-panel
+    *ngIf="panel.record.garbagedrop.show"
+    [model]="panel.record.garbagedrop"
+    [title]="panel.record.garbagedrop.title"
+    [style]="panel.record.garbagedrop.style"
+  >
+    <howell-garbage-management-record-event-garbage-drop-manager></howell-garbage-management-record-event-garbage-drop-manager>
+  </howell-panel>
+  <howell-panel
     *ngIf="panel.record.ias.show"
     [model]="panel.record.ias"
     [title]="panel.record.ias.title"
     [style]="panel.record.ias.style"
   >
     <howell-garbage-management-record-event-ias-manager
-      (task)="panel.record.ias.on.task($event)"
+      (task)="window.record.ias.open($event)"
     ></howell-garbage-management-record-event-ias-manager>
   </howell-panel>
   <howell-window
@@ -113,4 +151,26 @@
       [data]="window.record.ias.data"
     ></howell-garbage-management-record-event-ias-task-manager>
   </howell-window>
+  <howell-window
+    [model]="window.picture"
+    *ngIf="window.picture.show && window.picture.args"
+    [style]="window.picture.style"
+    [title]="window.picture.title"
+  >
+    <app-picture-list
+      [id]="window.picture.args.id"
+      [page]="window.picture.page"
+      (pageChange)="window.picture.on.page.change($event)"
+    ></app-picture-list>
+  </howell-window>
+  <howell-video-window
+    *ngIf="window.video.show"
+    [Model]="window.video"
+    [title]="window.video.title"
+    [style]="window.video.style"
+    [playback]="video.playback"
+    [preview]="video.preview"
+    (opened)="video.play()"
+  >
+  </howell-video-window>
 </div>

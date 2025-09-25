@@ -1,0 +1,164 @@
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { PaginatorComponent } from '../../../../../../common/components/paginator/paginator.component';
+import { ImageDirective } from '../../../../../../common/directives/image/image.directive';
+import { WheelHorizontalScrollDirective } from '../../../../../../common/directives/wheel-horizontal-scroll/wheel-horizontal-scroll.directive';
+import { StationState } from '../../../../../../common/enum/station-state.enum';
+import { MixedIntoEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/mixed-into-event-record.model';
+import { PagedArgs } from '../../../../../../common/network/model/model.interface';
+import { Page } from '../../../../../../common/network/model/page_list.model';
+import { PagedTableAbstractComponent } from '../../../../../../common/tools/component-tool/table-abstract.component';
+import { GarbageManagementRecordEventMixedIntoListTableBusiness } from './garbage-management-record-event-mixed-into-list-table.business';
+import {
+  GarbageManagementRecordEventMixedIntoListTableArgs,
+  MixedIntoEventRecordViewModel,
+} from './garbage-management-record-event-mixed-into-list-table.model';
+
+@Component({
+  selector: 'howell-garbage-management-record-event-mixed-into-list-table',
+  imports: [
+    CommonModule,
+    PaginatorComponent,
+    ImageDirective,
+    WheelHorizontalScrollDirective,
+  ],
+  templateUrl:
+    './garbage-management-record-event-mixed-into-list-table.component.html',
+  styleUrl:
+    './garbage-management-record-event-mixed-into-list-table.component.less',
+  providers: [GarbageManagementRecordEventMixedIntoListTableBusiness],
+})
+export class GarbageManagementRecordEventMixedIntoListTableComponent
+  extends PagedTableAbstractComponent<MixedIntoEventRecordViewModel>
+  implements OnInit
+{
+  @Input()
+  load?: EventEmitter<GarbageManagementRecordEventMixedIntoListTableArgs>;
+  @Input() args = new GarbageManagementRecordEventMixedIntoListTableArgs();
+
+  @Output() image = new EventEmitter<PagedArgs<MixedIntoEventRecord>>();
+  @Output() video = new EventEmitter<MixedIntoEventRecord>();
+
+  constructor(
+    private business: GarbageManagementRecordEventMixedIntoListTableBusiness
+  ) {
+    super();
+  }
+
+  StationState = StationState;
+  widths = [
+    '155px',
+    '250px',
+    '200px',
+    '120px',
+    '120px',
+    '180px',
+    '210px',
+    '120px',
+    '120px',
+    '120px',
+    '120px',
+    '200px',
+  ];
+
+  selected?: MixedIntoEventRecordViewModel;
+
+  ngOnInit(): void {
+    if (this.load) {
+      this.load.subscribe((args) => {
+        this.args = args;
+        this.loadData(1, this.pageSize);
+      });
+    }
+    this.loadData(1, this.pageSize);
+  }
+
+  async loadData(index: number, size: number) {
+    let promise = this.business.load(index, size, this.args);
+    this.loading = true;
+    promise
+      .then((paged) => {
+        this.page = paged.Page;
+        this.datas = paged.Data;
+        while (this.datas.length < this.page.PageSize) {
+          this.datas.push(undefined);
+        }
+      })
+      .finally(() => {
+        this.loading = false;
+      });
+    return promise;
+  }
+
+  on = {
+    page: (index: number) => {
+      this.page.PageIndex = index;
+      this.loadData(this.page.PageIndex, this.page.PageSize);
+    },
+    select: (item?: MixedIntoEventRecordViewModel) => {
+      if (item) {
+        if (this.selected === item) {
+          this.selected = undefined;
+        } else {
+          this.selected = item;
+        }
+      }
+    },
+    image: (e: Event, item: MixedIntoEventRecordViewModel, index: number) => {
+      let page = Page.create(index);
+      if (item.Data.HandleImageUrl) {
+        page.PageSize += item.Data.HandleImageUrl.length;
+        page.RecordCount = page.PageSize;
+        page.TotalRecordCount = page.PageSize;
+      }
+      this.image.emit({
+        page: page,
+        data: item,
+      });
+      if (this.selected === item) {
+        e.stopPropagation();
+      }
+    },
+    video: {
+      simple: (e: Event, item?: MixedIntoEventRecordViewModel) => {
+        if (item) {
+          this.video.emit(item);
+        }
+        if (this.selected === item) {
+          e.stopPropagation();
+        }
+      },
+      all: (e: Event, item?: MixedIntoEventRecordViewModel) => {},
+    },
+    complete: (e: Event, item?: MixedIntoEventRecordViewModel) => {},
+    card: {
+      record: (e: Event, item?: MixedIntoEventRecordViewModel) => {},
+    },
+    download: {
+      video: (e: Event, item?: MixedIntoEventRecordViewModel) => {
+        if (item && item.ResourceId) {
+          this.business.download.video(
+            item.Data.StationId,
+            item.ResourceId,
+            item.EventTime
+          );
+        }
+        if (this.selected === item) {
+          e.stopPropagation();
+        }
+      },
+      image: (e: Event, item?: MixedIntoEventRecordViewModel) => {
+        if (item && item.ImageUrl) {
+          this.business.download.image(
+            item.ImageUrl,
+            item.ResourceName ?? item.Data.StationName,
+            item.EventTime
+          );
+        }
+        if (this.selected === item) {
+          e.stopPropagation();
+        }
+      },
+    },
+  };
+}

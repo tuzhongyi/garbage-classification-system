@@ -41,6 +41,9 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
   get statistic() {
     return this.controller.statistic;
   }
+  get video() {
+    return this.controller.video;
+  }
 
   constructor(
     public panel: GarbageManagementManagerPanel,

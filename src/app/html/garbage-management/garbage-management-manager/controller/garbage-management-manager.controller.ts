@@ -3,13 +3,15 @@ import { GarbageManagementManagerCardController } from './card/garbage-managemen
 import { GarbageManagementManagerDataController } from './data/garbage-management-manager-data.controller';
 import { GarbageManagementManagerNavigationController } from './navigation/garbage-management-manager-navigation.controller';
 import { GarbageManagementManagerStatisticController } from './statistic/garbage-management-manager-statistic.controller';
+import { GarbageManagementManagerVideoController } from './video/garbage-management-manager-video.controller';
 
 @Injectable()
 export class GarbageManagementManagerController {
   constructor(
     public card: GarbageManagementManagerCardController,
     public data: GarbageManagementManagerDataController,
-    public statistic: GarbageManagementManagerStatisticController
+    public statistic: GarbageManagementManagerStatisticController,
+    public video: GarbageManagementManagerVideoController
   ) {
     this.navigation = new GarbageManagementManagerNavigationController();
   }

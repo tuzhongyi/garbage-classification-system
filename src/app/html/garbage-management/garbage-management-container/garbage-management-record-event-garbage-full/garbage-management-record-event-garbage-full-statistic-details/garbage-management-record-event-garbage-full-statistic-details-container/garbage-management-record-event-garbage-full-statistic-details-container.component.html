@@ -1,1 +1,10 @@
-<p>garbage-management-record-event-garbage-full-statistic-details-container works!</p>
+<div
+  class="garbage-management-record-event-garbage-full-statistic-details-container"
+>
+  <howell-garbage-management-chart-line
+    *ngIf="chart.data"
+    [interval]="0"
+    [data]="chart.data"
+    [xAxis]="chart.xAxis"
+  ></howell-garbage-management-chart-line>
+</div>

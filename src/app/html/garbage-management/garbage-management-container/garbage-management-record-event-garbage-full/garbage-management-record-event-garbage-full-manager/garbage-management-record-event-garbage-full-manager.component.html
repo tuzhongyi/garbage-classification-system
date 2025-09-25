@@ -1,1 +1,38 @@
-<p>garbage-management-record-event-garbage-full-manager works!</p>
+<div class="garbage-management-record-event-garbage-full-manager">
+  <div class="garbage-management-record-event-garbage-full-manager-head">
+    <div class="button-group">
+      <div
+        class="button-bracket"
+        [class.selected]="index == Index.list"
+        (click)="on.index(Index.list)"
+      >
+        列表
+      </div>
+      <!-- <div
+        class="button-bracket"
+        [class.selected]="index == Index.total"
+        (click)="on.index(Index.total)"
+      >
+        总图表
+      </div> -->
+      <div
+        class="button-bracket"
+        [class.selected]="index == Index.details"
+        (click)="on.index(Index.details)"
+      >
+        细分图表
+      </div>
+    </div>
+  </div>
+  <div class="garbage-management-record-event-garbage-full-manager-body">
+    <howell-garbage-management-record-event-garbage-full-list-manager
+      *ngIf="index == Index.list"
+      (image)="on.image($event)"
+      (video)="on.video($event)"
+    ></howell-garbage-management-record-event-garbage-full-list-manager>
+
+    <howell-garbage-management-record-event-garbage-full-statistic-details-manager
+      *ngIf="index == Index.details"
+    ></howell-garbage-management-record-event-garbage-full-statistic-details-manager>
+  </div>
+</div>

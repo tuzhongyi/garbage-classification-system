@@ -1,0 +1,132 @@
+<div class="garbage-management-record-event-illegal-drop-list-table">
+  <div
+    class="garbage-management-record-event-illegal-drop-list-table-body table-page"
+  >
+    <table border="0" cellpadding="0" cellspacing="0">
+      <colgroup>
+        <col [ngStyle]="{ width: width }" *ngFor="let width of widths" />
+      </colgroup>
+      <thead>
+        <tr>
+          <td>图片</td>
+          <td>资源名称</td>
+          <td>投放点</td>
+          <td>社区</td>
+          <td>街道</td>
+          <td>居委会</td>
+          <td>上报时间</td>
+          <td class="center">操作</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let item of datas; let i = index"
+          [style.height]="100 / page.PageSize + '%'"
+          [ngClass]="{
+            selected: selected === item,
+            nodata: !item,
+            nohover: !item
+          }"
+          (click)="on.select(item)"
+        >
+          <!-- <td >{{ i + 1 }}</td> -->
+          <td>
+            <div class="img-list" *ngIf="item">
+              <div
+                image
+                class="img"
+                *ngFor="let url of item.images; let index = index"
+                (click)="on.image($event, item, index)"
+                [url]="url"
+              ></div>
+            </div>
+          </td>
+          <td [title]="item?.ResourceName ?? ''">
+            @if(item){
+            {{ item.ResourceName }}
+            } @else{ &nbsp; }
+          </td>
+          <td [title]="item?.GarbageStation?.Name ?? ''">
+            @if(item){
+            {{ item.GarbageStation.Name }}
+            }
+          </td>
+          <td
+            [title]="
+              item?.Data
+                ? item?.Data?.CommunityName
+                : item?.GarbageStation
+                ? item?.GarbageStation?.CommunityName
+                : ''
+            "
+          >
+            @if(item){
+            {{
+              item.Data
+                ? item.Data.CommunityName
+                : item.GarbageStation
+                ? item.GarbageStation.CommunityName
+                : ""
+            }}
+            }
+          </td>
+          <td>
+            @if(item ){
+            {{ (item.Division?.Parent | async)?.Name ?? "-" }}
+            }
+          </td>
+          <td>
+            @if(item){
+            {{ item?.Division?.Name ?? "-" }}
+            }
+          </td>
+          <td>
+            @if(item){
+            {{ item.EventTime | date : "yyyy-MM-dd HH:mm:ss" }}
+            }
+          </td>
+          <td class="center">
+            @if(item){
+            <div class="operation button-group">
+              <div
+                class="button"
+                title="播放视频"
+                (click)="on.video($event, item)"
+              >
+                <i class="howell-icon-video"></i>
+              </div>
+              <div
+                class="button"
+                title="下载图片"
+                (click)="on.download.image($event, item)"
+              >
+                <i class="howell-icon-picturedownload"></i>
+              </div>
+              <div
+                class="button"
+                title="下载视频"
+                (click)="on.download.video($event, item)"
+              >
+                <i class="howell-icon-videodownload"></i>
+              </div>
+            </div>
+            }
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div
+    class="garbage-management-record-event-illegal-drop-list-table-foot foot"
+    *ngIf="page"
+  >
+    <div class="foot-info">
+      <div class="info-item">当前数量: {{ page && page.RecordCount }}</div>
+      <div class="info-item">总数量: {{ page && page.TotalRecordCount }}</div>
+    </div>
+
+    <paginator [page]="page" (change)="on.page($event)"> </paginator>
+  </div>
+
+  <div class="loading" *ngIf="loading"></div>
+</div>

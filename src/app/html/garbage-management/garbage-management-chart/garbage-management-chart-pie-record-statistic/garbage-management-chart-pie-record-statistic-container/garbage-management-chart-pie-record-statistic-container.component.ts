@@ -5,6 +5,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  Output,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { EventType } from '../../../../../common/enum/event-type.enum';
@@ -31,6 +32,7 @@ export class GarbageManagementChartPieRecordStatisticContainerComponent
   implements OnInit, OnDestroy
 {
   @Input('load') _load?: EventEmitter<void>;
+  @Output() itemclick = new EventEmitter<number>();
   constructor(
     private business: GarbageManagementChartPieRecordStatisticContainerBusiness
   ) {}
@@ -66,7 +68,7 @@ export class GarbageManagementChartPieRecordStatisticContainerComponent
       EventType.IllegalVehicle,
       ColorTool.station.state.illegalvehicle
     );
-    this.colors.set(0, ColorTool.station.state.garbageexposed);
+    this.colors.set(103, ColorTool.station.state.garbageexposed);
   }
 
   private load() {
@@ -75,4 +77,10 @@ export class GarbageManagementChartPieRecordStatisticContainerComponent
       this.count = datas.reduce((pre, cur) => pre + cur.value, 0);
     });
   }
+
+  on = {
+    click: (item: ChartItem) => {
+      this.itemclick.emit(item.id);
+    },
+  };
 }

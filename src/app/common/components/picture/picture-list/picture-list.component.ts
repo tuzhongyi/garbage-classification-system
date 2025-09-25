@@ -15,7 +15,7 @@ export class PictureListComponent {
   @Input() src?: string;
   @Input() id?: string;
   @Input() polygon: Point[] = [];
-  @Input() zoom = true;
+  @Input() zoom = false;
   @Input() page?: Page;
   @Output() pageChange = new EventEmitter<Page>();
 

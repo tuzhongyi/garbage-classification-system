@@ -4,9 +4,11 @@ import { StationType } from '../enum/station-type.enum';
 import { GarbageStationNumberStatistic } from '../network/model/garbage-station/garbage-station-number-statistic.model';
 import { GarbageStation } from '../network/model/garbage-station/garbage-station.model';
 import { Flags } from '../tools/flags';
+import { DivisionViewModel } from './division.view-model';
 
 export class GarbageStationViewModel extends GarbageStation {
   Statistic?: GarbageStationNumberStatistic;
+  Division?: DivisionViewModel;
   private _eventables?: EventType[];
   get Eventables(): EventType[] {
     if (this._eventables) {

@@ -20,6 +20,15 @@
   <div class="garbage-management-header-operation">
     <howell-garbage-management-header-operation
       [user]="user"
+      (setting)="menu.on.setting($event)"
     ></howell-garbage-management-header-operation>
+    <div class="garbage-management-header-operation-menu" *ngIf="menu.opened">
+      <div
+        class="garbage-management-header-operation-menu-item"
+        (click)="menu.on.logout()"
+      >
+        退出登录
+      </div>
+    </div>
   </div>
 </div>

@@ -31,6 +31,10 @@ export class GarbageFullEventData {
   GridCellId?: string;
   /**	String	网格单元名称	O */
   GridCellName?: string;
+  /**	String	小区ID	O */
+  CommunityId?: string;
+  /**	String	小区名称	O */
+  CommunityName?: string;
   /**	DateTime	处置时间	O	*/
   @Transform(transformDateTime)
   HandleTime?: Date;

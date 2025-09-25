@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="garbage-management-chart-pie-record-statistic-container-info">
-    <div class="info-item" *ngFor="let item of datas">
+    <div class="info-item" *ngFor="let item of datas" (click)="on.click(item)">
       <div
         class="info-item-color"
         [style.backgroundColor]="colors.get(item.id)"

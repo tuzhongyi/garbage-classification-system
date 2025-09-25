@@ -1,5 +1,4 @@
 import { WindowViewModel } from '../../../../../common/components/window/window.model';
-import { IasEventRecord } from '../../../../../common/network/model/ias/ias-event-record.model';
 import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
 
 export class GarbageManagementManagerRecordIasPanel extends WindowViewModel {
@@ -15,10 +14,7 @@ export class GarbageManagementManagerRecordIasPanel extends WindowViewModel {
   };
   title = '暴露垃圾';
 
-  on = {
-    task: (data: IasEventRecord) => {
-      this.window.record.ias.data = data;
-      this.window.record.ias.show = true;
-    },
-  };
+  open() {
+    this.show = true;
+  }
 }

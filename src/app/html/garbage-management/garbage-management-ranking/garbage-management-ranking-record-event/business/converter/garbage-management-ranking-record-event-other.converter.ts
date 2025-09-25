@@ -23,6 +23,6 @@ export class GarbageManagementRankingRecordEventConverter
       }
     }
 
-    return { name, value, language: `${value}`, unit: '起' };
+    return { name, value, language: `${value}`, unit: '起', data: source };
   }
 }

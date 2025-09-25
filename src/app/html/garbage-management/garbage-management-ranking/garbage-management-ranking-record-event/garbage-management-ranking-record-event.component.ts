@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TimeUnit } from '../../../../common/enum/time-unit.enum';
+import { IIdNameModel } from '../../../../common/network/model/model.interface';
 import { GarbageManagementRankingComponent } from '../component/garbage-management-ranking.component';
 import { IGarbageManagementRankingData } from '../component/garbage-management-ranking.model';
 import { GarbageManagementRankingRecordEventProviders } from './business/garbage-management-ranking-record-event-provider';
@@ -42,6 +43,7 @@ export class GarbageManagementRankingRecordEventComponent
   @Input() index = GarbageManagementRankingRecordEventIndex.illegaldrop;
   @Output() indexChange =
     new EventEmitter<GarbageManagementRankingRecordEventIndex>();
+  @Output() itemclick = new EventEmitter<IIdNameModel>();
 
   constructor(private business: GarbageManagementRankingRecordEventBusiness) {}
 
@@ -86,6 +88,11 @@ export class GarbageManagementRankingRecordEventComponent
       this.index = index;
       this.indexChange.emit(index);
       this.load();
+    },
+    item: {
+      click: (data: IGarbageManagementRankingData) => {
+        this.itemclick.emit(data.data);
+      },
     },
   };
 }

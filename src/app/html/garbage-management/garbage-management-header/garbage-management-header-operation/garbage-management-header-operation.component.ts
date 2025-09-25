@@ -9,11 +9,11 @@ import { User } from '../../../../common/network/model/garbage-station/user.mode
 })
 export class GarbageManagementHeaderOperationComponent {
   @Input() user?: User;
-  @Output() setting = new EventEmitter<void>();
+  @Output() setting = new EventEmitter<Event>();
 
   on = {
-    setting: () => {
-      this.setting.emit();
+    setting: (e: Event) => {
+      this.setting.emit(e);
     },
     help: () => {},
   };

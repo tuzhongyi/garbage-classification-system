@@ -16,6 +16,7 @@ import { HowellAuthHttpService } from '../../howell-auth-http.service';
 import { GarbageStationAbnormalRequestService } from './abnormal/garbage-station-abnormal-request.service';
 import { GarbageStationCameraRequestService } from './camera/garbage-station-camera-request.service';
 import { GarbageStationDeviceRequestService } from './device/garbage-station-device-request.service';
+import { GarbageStationDownloadRequestService } from './download/garbage-station-download-request.service';
 import { GarbageStationEventNumberRequestService } from './event-number/garbage-station-event-number-request.service';
 import { GetGarbageStationsParams } from './garbage-station-request.params';
 import { GarbageStationMumberRequestService } from './member/garbage-station-member-request.service';
@@ -66,6 +67,14 @@ export class GarbageStationRequestService extends AbstractService<GarbageStation
   manualCapture(stationId: string): Promise<CameraPictureUrl[]> {
     let url = GarbageStationUrl.manualcapture(stationId);
     return this.basic.postArray(url, CameraPictureUrl);
+  }
+
+  private _download?: GarbageStationDownloadRequestService;
+  public get download(): GarbageStationDownloadRequestService {
+    if (!this._download) {
+      this._download = new GarbageStationDownloadRequestService(this);
+    }
+    return this._download;
   }
 
   private _camera?: GarbageStationCameraRequestService;

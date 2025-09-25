@@ -1,0 +1,202 @@
+<div class="garbage-management-record-event-mixed-into-list-table">
+  <div
+    class="garbage-management-record-event-mixed-into-list-table-body table-page-sticky"
+    wheel-horizontal-scroll
+  >
+    <table border="0" cellpadding="0" cellspacing="0">
+      <colgroup>
+        <col [ngStyle]="{ width: width }" *ngFor="let width of widths" />
+      </colgroup>
+      <thead>
+        <tr>
+          <td class="lock left first">图片</td>
+          <td class="lock left second">资源名称</td>
+          <td>投放点</td>
+          <td>社区</td>
+          <td>街道</td>
+          <td>居委会</td>
+          <td>上报时间</td>
+          <td>闭环时间</td>
+          <td>闭环状态</td>
+          <td>处置人员</td>
+          <td>处置时间</td>
+          <td class="lock right last center">操作</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let item of datas; let i = index"
+          [style.height]="100 / page.PageSize + '%'"
+          [ngClass]="{
+            selected: selected === item,
+            nodata: !item,
+            nohover: !item
+          }"
+          (click)="on.select(item)"
+        >
+          <td class="lock left first">
+            @if(item){
+            <div class="img-list">
+              <div
+                class="img"
+                image
+                *ngFor="let url of item?.images; let imgIndex = index"
+                [url]="url"
+                (click)="on.image($event, item, imgIndex)"
+              ></div>
+            </div>
+            }
+          </td>
+          <td class="lock left second">
+            @if(item){
+            <div [style.width]="'calc(' + widths[1] + ' - 24px)'">
+              {{ item.ResourceName }}
+            </div>
+            }
+          </td>
+          <td>
+            @if(item){
+            <div [style.width]="'calc(' + widths[2] + ' - 24px)'">
+              {{ item.Data.StationName }}
+            </div>
+            }
+          </td>
+          <td>
+            @if(item){
+            <div [style.width]="'calc(' + widths[3] + ' - 24px)'">
+              {{ item.Data.CommunityName }}
+            </div>
+            }
+          </td>
+          <td>
+            @if(item){
+            <div [style.width]="'calc(' + widths[4] + ' - 24px)'">
+              {{ ((item.Division | async)?.Parent | async)?.Name }}
+            </div>
+            }
+          </td>
+          <td>
+            @if(item){
+            <div [style.width]="'calc(' + widths[5] + ' - 24px)'">
+              {{ (item.Division | async)?.Name }}
+            </div>
+            }
+          </td>
+          <td>
+            @if(item){
+            <div [style.width]="'calc(' + widths[6] + ' - 24px)'">
+              {{ item.EventTime | date : "HH:mm:ss" }}
+            </div>
+            }
+          </td>
+
+          <td>
+            @if(item){
+            <div [style.width]="'calc(' + widths[7] + ' - 24px)'">
+              {{ (item.Data.HandleTime | date : "HH:mm:ss") ?? "-" }}
+            </div>
+            }
+          </td>
+          <td>
+            @if(item){
+            <div
+              [style.width]="'calc(' + widths[8] + ' - 24px)'"
+              [ngClass]="{
+                'text-green': item.Data.IsHandle,
+                'text-yellow': !item.Data.IsHandle
+              }"
+            >
+              {{ Language.IsHandle(item.Data.IsHandle) }}
+            </div>
+            }
+          </td>
+          <td>
+            @if(item){
+            <div [style.width]="'calc(' + widths[9] + ' - 24px)'">
+              {{ item.Data.ProcessorName }}
+            </div>
+            }
+          </td>
+          <td>
+            @if(item){
+            <div [style.width]="'calc(' + widths[10] + ' - 24px)'">
+              {{
+                item.Data.ProcessTime
+                  ? (item.Data.ProcessTime | date : "HH:mm:ss")
+                  : "-"
+              }}
+            </div>
+            }
+          </td>
+          <td class="lock right last">
+            @if(item){
+            <div
+              class="operation center"
+              [style.width]="'calc(' + widths[11] + ' - 24px)'"
+            >
+              <div
+                class="button"
+                title="事件发生时间视频"
+                (click)="on.video.simple($event, item)"
+              >
+                <i class="howell-icon-video"></i>
+              </div>
+
+              <div
+                class="button"
+                title="事件发生时间厢房摄像机"
+                (click)="on.video.all($event, item)"
+              >
+                <i class="howell-icon-cam-all1"></i>
+              </div>
+              <div
+                class="button"
+                title="下载图片"
+                (click)="on.download.image($event, item)"
+              >
+                <i class="howell-icon-picturedownload"></i>
+              </div>
+              <div
+                class="button"
+                title="下载视频"
+                (click)="on.download.video($event, item)"
+              >
+                <i class="howell-icon-videodownload"></i>
+              </div>
+
+              <div
+                class="button"
+                title="刷卡记录"
+                (click)="on.card.record($event, item)"
+              >
+                <i class="howell-icon-garbage_card"></i>
+              </div>
+
+              <div
+                class="button"
+                title="查看工单"
+                (click)="on.complete($event, item)"
+              >
+                <i class="mdi mdi-nfc-tap"></i>
+              </div>
+            </div>
+            }
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div
+    class="garbage-management-record-event-mixed-into-list-table-foot foot"
+    *ngIf="page"
+  >
+    <div class="foot-info">
+      <div class="info-item">当前数量: {{ page && page.RecordCount }}</div>
+      <div class="info-item">总数量: {{ page && page.TotalRecordCount }}</div>
+    </div>
+
+    <paginator [page]="page" (change)="on.page($event)"> </paginator>
+  </div>
+
+  <div class="loading" *ngIf="loading"></div>
+</div>

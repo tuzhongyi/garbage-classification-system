@@ -1,0 +1,74 @@
+<div class="garbage-management-record-event-garbage-drop-list-manager">
+  <div class="garbage-management-record-event-garbage-drop-list-manager-head">
+    <div class="forms">
+      <div class="form-item">
+        <div class="form-item-text">开始时间</div>
+        <div class="form-item-value">
+          <date-time-control
+            [(date)]="table.args.duration.begin"
+          ></date-time-control>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-item-text">结束时间</div>
+        <div class="form-item-value">
+          <date-time-control
+            [(date)]="table.args.duration.end"
+          ></date-time-control>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-item-text">行政区域</div>
+        <div class="form-item-value">
+          <hw-select [(selected)]="table.args.divisionId" [nullable]="true">
+            <howell-division-select
+              [(selectedId)]="table.args.divisionId"
+            ></howell-division-select>
+          </hw-select>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-item-text">投放点</div>
+        <div class="form-item-value">
+          <hw-select [(selected)]="table.args.stationId" [nullable]="true">
+            <howell-garbage-station-select
+              [divisionId]="table.args.divisionId"
+              [(selectedId)]="table.args.stationId"
+            ></howell-garbage-station-select>
+          </hw-select>
+        </div>
+      </div>
+      <div class="form-item name">
+        <div class="form-item-text">
+          <select [(ngModel)]="name.type">
+            <option value="station">投放点</option>
+            <option value="community">社区</option>
+          </select>
+        </div>
+        <div class="form-item-value">
+          <input
+            type="text"
+            *ngIf="name.type == 'community'"
+            [(ngModel)]="table.args.communityname"
+          />
+          <input
+            type="text"
+            *ngIf="name.type == 'station'"
+            [(ngModel)]="table.args.stationname"
+          />
+        </div>
+      </div>
+      <div class="form-item submit">
+        <button class="button-border-blue" (click)="on.search()">查询</button>
+      </div>
+    </div>
+  </div>
+  <div class="garbage-management-record-event-garbage-drop-list-manager-body">
+    <howell-garbage-management-record-event-garbage-drop-list-table
+      [args]="table.args"
+      [load]="table.load"
+      (image)="on.image($event)"
+      (video)="on.video($event)"
+    ></howell-garbage-management-record-event-garbage-drop-list-table>
+  </div>
+</div>

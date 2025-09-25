@@ -26,7 +26,7 @@
     >
       <div class="forms">
         <div class="form-item">
-          <div class="form-item-name">日期：</div>
+          <div class="form-item-text">日期：</div>
           <div class="form-item-value">
             <date-time-control
               [(date)]="datetime.date"
@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class="form-item">
-          <div class="form-item-name">时间：</div>
+          <div class="form-item-text">时间：</div>
           <div class="form-item-value time">
             <app-time-control
               [(time)]="datetime.time.begin"
@@ -52,7 +52,7 @@
         </div>
         <div class="form-item submit">
           <button
-            class="button-normal"
+            class="button-border-blue"
             (click)="video.playback.play(video.playback.args)"
           >
             开始回放

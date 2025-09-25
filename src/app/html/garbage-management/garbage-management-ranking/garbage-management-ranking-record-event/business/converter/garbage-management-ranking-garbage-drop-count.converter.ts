@@ -14,6 +14,6 @@ export class GarbageManagementRankingGarbageDropCountConverter
   convert(source: DivisionNumberStatistic): IGarbageManagementRankingData {
     let name = source.Name;
     let value = source.GarbageDropStationNumber ?? 0;
-    return { name, value, language: `${value}`, unit: '个' };
+    return { name, value, language: `${value}`, unit: '个', data: source };
   }
 }

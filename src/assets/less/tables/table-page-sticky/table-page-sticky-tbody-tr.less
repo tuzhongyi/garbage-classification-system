@@ -1,0 +1,50 @@
+@import "./table-page-sticky-tbody-tr-td.less";
+@import "../../colors/color-table.less";
+
+.table-page-sticky {
+  table {
+    tbody {
+      tr {
+
+        &:nth-child(odd) {
+          td {
+            background-color: #050f40;
+          }
+        }
+
+        &:nth-child(even) {
+          td {
+            background-color: #071449;
+          }
+        }
+
+        &:hover {
+          td {
+            background-color: #0e3980;
+          }
+        }
+
+        &.selected {
+          td {
+            background-color: #0f438c;
+          }
+
+          &:hover {
+            td {
+              color: @tr-selected-text;
+            }
+          }
+        }
+
+        &.nohover {
+          background-color: initial;
+          cursor: default;
+        }
+
+        &.nodata {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

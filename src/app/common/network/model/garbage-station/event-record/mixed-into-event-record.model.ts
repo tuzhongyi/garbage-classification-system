@@ -24,6 +24,10 @@ export class MixedIntoEventData {
   GridCellId?: string;
   /**	String	网格单元名称	O */
   GridCellName?: string;
+  /**	String	小区ID	O */
+  CommunityId?: string;
+  /**	String	小区名称	O */
+  CommunityName?: string;
   /**	EventRule[]	事件规则	O */
   Rules?: EventRule[];
   /**	DateTime	处置时间	O	*/

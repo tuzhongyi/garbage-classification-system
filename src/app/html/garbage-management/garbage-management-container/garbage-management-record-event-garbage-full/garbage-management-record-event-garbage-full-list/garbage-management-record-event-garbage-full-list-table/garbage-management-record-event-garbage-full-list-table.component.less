@@ -1,0 +1,100 @@
+.garbage-management-record-event-garbage-full-list-table {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+
+  &-body {
+    height: calc(100% - 24px);
+
+
+
+    table {
+
+      @first-width: 155px;
+      @second-width: 250px;
+      @operation-width: 200px;
+
+
+      tr {
+
+        &.selected {
+          b {
+            &:hover {
+              color: white;
+            }
+          }
+        }
+
+        &.hover {
+          background: rgba(117, 134, 224, 0.5);
+        }
+
+        td {
+
+          z-index: 0;
+
+          &.lock {
+            height: auto;
+          }
+
+          div {
+            width: min-content;
+
+            b {
+              color: #7586e0;
+            }
+
+          }
+
+          &.first {
+            width: @first-width;
+            min-width: @first-width;
+            max-width: @first-width;
+            left: 0;
+            z-index: 2;
+            position: sticky;
+          }
+
+          &.second {
+            width: @second-width;
+            min-width: @second-width;
+            max-width: @second-width;
+            left: @first-width  !important;
+            z-index: 2;
+            position: sticky;
+          }
+
+          &.last {
+            width: @operation-width;
+            position: sticky;
+            right: 0;
+            z-index: 2;
+          }
+        }
+
+
+      }
+
+
+    }
+
+
+  }
+
+  &-foot {
+    width: 100%;
+    height: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .foot-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+}

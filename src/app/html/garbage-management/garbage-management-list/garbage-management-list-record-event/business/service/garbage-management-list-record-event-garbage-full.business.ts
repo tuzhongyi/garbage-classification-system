@@ -1,5 +1,6 @@
 import { EventType } from '../../../../../../common/enum/event-type.enum';
 import { Duration } from '../../../../../../common/network/model/garbage-station/duration.model';
+import { IEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/garbage-event-record.model';
 import { GarbageFullEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/garbage-full-event-record.model';
 import { EventRequestService } from '../../../../../../common/network/request/garbage/event/event-request.service';
 import { GetEventRecordGarbageFullParams } from '../../../../../../common/network/request/garbage/event/garbage-full/event-request-garbage-full.params';
@@ -23,12 +24,13 @@ export class GarbageManagementListRecordEventGarbageFullBusiness {
   }
 
   private convert(data: GarbageFullEventRecord) {
-    let item: GarbageManagementListRecordEventItem = {
+    let item: GarbageManagementListRecordEventItem<IEventRecord> = {
       id: data.EventId,
       name: data.Data.StationName,
       type: Language.EventType(EventType.GarbageFull),
       time: data.Data.FullTime,
       color: ColorTool.station.state.garbagefull,
+      data: data,
     };
     return item;
   }

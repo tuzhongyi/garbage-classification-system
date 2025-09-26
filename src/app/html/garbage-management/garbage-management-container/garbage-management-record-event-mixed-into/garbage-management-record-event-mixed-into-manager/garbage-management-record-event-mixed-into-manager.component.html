@@ -28,7 +28,9 @@
     <howell-garbage-management-record-event-mixed-into-list-manager
       *ngIf="index == Index.list"
       (image)="on.image($event)"
-      (video)="on.video($event)"
+      (video)="on.video.single($event)"
+      (videoall)="on.video.all($event)"
+      (complete)="on.complete($event)"
     ></howell-garbage-management-record-event-mixed-into-list-manager>
 
     <howell-garbage-management-record-event-mixed-into-statistic-details-manager

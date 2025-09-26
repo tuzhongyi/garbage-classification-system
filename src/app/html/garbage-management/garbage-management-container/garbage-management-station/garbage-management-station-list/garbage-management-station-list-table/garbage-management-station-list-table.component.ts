@@ -30,6 +30,7 @@ export class GarbageManagementStationListTableComponent
   @Input() args = new GarbageStationTableArgs();
   @Output() image: EventEmitter<PagedArgs<GarbageStation>> = new EventEmitter();
   @Output() position: EventEmitter<GarbageStation> = new EventEmitter();
+  @Output() video: EventEmitter<GarbageStation> = new EventEmitter();
 
   constructor(private business: GarbageStationTableBusiness) {
     super();
@@ -74,9 +75,17 @@ export class GarbageManagementStationListTableComponent
     },
     image: (e: Event, item: GarbageStationTableModel, index: number) => {
       this.image.emit({
-        page: Page.create(index),
+        page: Page.create(index + 1),
         data: item.GarbageStation,
       });
+      if (this.selected === item) {
+        e.stopPropagation();
+      }
+    },
+    video: (e: Event, item: GarbageStationTableModel) => {
+      if (item) {
+        this.video.emit(item.GarbageStation);
+      }
       if (this.selected === item) {
         e.stopPropagation();
       }

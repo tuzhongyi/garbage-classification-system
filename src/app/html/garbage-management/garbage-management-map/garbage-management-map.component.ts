@@ -34,7 +34,18 @@ export class GarbageManagementMapComponent
   @Input() records: IasEventRecord[] = [];
   @Input() eventables = [EventType.GarbageFull, EventType.GarbageDrop];
   @Input() select?: EventEmitter<IDivision>;
+  @Input() refresh = false;
+  @Output() refreshChange = new EventEmitter<boolean>();
+
   @Output() recorddblclick = new EventEmitter<IasEventRecord>();
+
+  @Output() camera = new EventEmitter<GarbageStationViewModel>();
+  @Output() mixedinto = new EventEmitter<GarbageStationViewModel>();
+  @Output() illegaldrop = new EventEmitter<GarbageStationViewModel>();
+  @Output() garbagefull = new EventEmitter<GarbageStationViewModel>();
+  @Output() garbagedrop = new EventEmitter<GarbageStationViewModel>();
+  @Output() error = new EventEmitter<GarbageStationViewModel>();
+
   constructor(
     public controller: GarbageManagementMapController,
     private business: GarbageManagementMapBusiness
@@ -65,6 +76,24 @@ export class GarbageManagementMapComponent
       this.controller.record.event.dblclick.subscribe((data) => {
         this.recorddblclick.emit(data);
       });
+      this.controller.station.event.camera.subscribe((data) => {
+        this.camera.emit(data);
+      });
+      this.controller.station.event.mixedinto.subscribe((data) => {
+        this.mixedinto.emit(data);
+      });
+      this.controller.station.event.illegaldrop.subscribe((data) => {
+        this.illegaldrop.emit(data);
+      });
+      this.controller.station.event.garbagefull.subscribe((data) => {
+        this.garbagefull.emit(data);
+      });
+      this.controller.station.event.garbagedrop.subscribe((data) => {
+        this.garbagedrop.emit(data);
+      });
+      this.controller.station.event.error.subscribe((data) => {
+        this.error.emit(data);
+      });
     },
   };
 
@@ -87,6 +116,15 @@ export class GarbageManagementMapComponent
     eventables: (simple: SimpleChange) => {
       if (simple) {
         this.load.eventables(this.eventables);
+      }
+    },
+    refresh: (simple: SimpleChange) => {
+      if (simple) {
+        if (this.refresh) {
+          this.controller.station.blur();
+          this.refresh = false;
+          this.refreshChange.emit(this.refresh);
+        }
       }
     },
   };
@@ -129,6 +167,7 @@ export class GarbageManagementMapComponent
     this.change.stations(changes['stations']);
     this.change.devices(changes['devices']);
     this.change.records(changes['records']);
+    this.change.refresh(changes['refresh']);
   }
   ngOnInit(): void {
     this.regist.input();

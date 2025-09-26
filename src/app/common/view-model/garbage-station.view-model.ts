@@ -8,7 +8,7 @@ import { DivisionViewModel } from './division.view-model';
 
 export class GarbageStationViewModel extends GarbageStation {
   Statistic?: GarbageStationNumberStatistic;
-  Division?: DivisionViewModel;
+  Division?: Promise<DivisionViewModel>;
   private _eventables?: EventType[];
   get Eventables(): EventType[] {
     if (this._eventables) {

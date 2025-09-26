@@ -1,12 +1,8 @@
 <div
   class="fill-height fill-width window-mask"
   *ngIf="Model.show"
-  [ngClass]="{
-    none: !mask
-  }"
-  [ngStyle]="{
-    zIndex: content.style.zIndex
-  }"
+  [class.none]="!mask"
+  [style.zIndex]="zindex"
 >
   <div #content class="window-content root-router" [ngStyle]="style">
     <div class="window-title" *ngIf="title">

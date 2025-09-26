@@ -161,14 +161,13 @@ export class AuthorizationService {
   }
 
   private loginByUrl(url: string): Promise<User> {
-    let _url = new URL(url);
     let index = url.indexOf('?');
     if (index > 0) {
       try {
+        let _url = new URL(`${location.origin}/${url}`);
         let auto = false;
         _url.searchParams.forEach((value, key) => {
           let lower = key.toLocaleLowerCase();
-
           switch (lower) {
             case 'auth':
               this.clear();

@@ -6,10 +6,10 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Point } from '../../../network/model/garbage-station/point.model';
 import { PromiseValue } from '../../../view-models/value.promise';
 import { PictureCanvasComponent } from '../picture-canvas/picture-canvas.component';
 import { PictureCanvasController } from './picture-canvas.controller';
+import { DrawPolygon } from './picture-polygon-multiple.model';
 
 @Component({
   selector: 'app-picture-polygon-multiple',
@@ -21,7 +21,7 @@ export class PicturePolygonMultipleComponent implements OnChanges {
   @Input() src?: string;
   @Input() id?: string;
   @Output() error = new EventEmitter<Event>();
-  @Input() polygon: Point[][] = [];
+  @Input() polygon: DrawPolygon[] = [];
   @Output() image = new EventEmitter<HTMLImageElement>();
   @Input() draw = true;
 

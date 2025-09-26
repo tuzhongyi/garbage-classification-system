@@ -29,6 +29,7 @@ export class GarbageManagementListRecordEventIasBusiness {
       type: data.EmergencyDescription ?? '突发事件',
       time: data.EventTime,
       color: ColorTool.station.state.garbageexposed,
+      data: data,
     };
     return item;
   }

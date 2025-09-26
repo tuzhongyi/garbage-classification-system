@@ -14,6 +14,7 @@ export class GarbageManagementMapAMapStationMarkerLayerController {
 
   private layer: AMap.LabelsLayer;
   private points: GarbageManagementMapAMapStationMarkerController[] = [];
+  selected?: GarbageStationViewModel;
 
   private init(map: AMap.Map) {
     let layer = new AMap.LabelsLayer({
@@ -56,6 +57,16 @@ export class GarbageManagementMapAMapStationMarkerLayerController {
       this.event.mouseout.emit(data);
     });
     point.event.click.subscribe((data) => {
+      if (this.selected) {
+        if (this.selected.Id != data.Id) {
+          this.points.forEach((x) => {
+            if (x.id != data.Id) {
+              x.blur();
+            }
+          });
+        }
+      }
+      this.selected = data;
       this.event.click.emit(data);
     });
   }

@@ -25,6 +25,7 @@ import { GarbageManagementStationListManagerSource } from './garbage-management-
 export class GarbageManagementStationListManagerComponent {
   @Output() image: EventEmitter<PagedArgs<GarbageStation>> = new EventEmitter();
   @Output() position: EventEmitter<GarbageStation> = new EventEmitter();
+  @Output() video: EventEmitter<GarbageStation> = new EventEmitter();
 
   constructor(public source: GarbageManagementStationListManagerSource) {}
 
@@ -39,6 +40,9 @@ export class GarbageManagementStationListManagerComponent {
     },
     position: (data: GarbageStation) => {
       this.position.emit(data);
+    },
+    video: (data: GarbageStation) => {
+      this.video.emit(data);
     },
     search: () => {
       this.table.load.emit(this.table.args);

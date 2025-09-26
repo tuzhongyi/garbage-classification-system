@@ -11,6 +11,10 @@ export class DivisionViewModel extends Division {
 })
 export class DivisionViewModelConverter {
   constructor(private service: DivisionRequestService) {}
+  async get(divisionId: string) {
+    let data = await this.service.cache.get(divisionId);
+    return this.convert(data);
+  }
   convert(data: Division) {
     let vm = new DivisionViewModel();
     vm = Object.assign(vm, data);

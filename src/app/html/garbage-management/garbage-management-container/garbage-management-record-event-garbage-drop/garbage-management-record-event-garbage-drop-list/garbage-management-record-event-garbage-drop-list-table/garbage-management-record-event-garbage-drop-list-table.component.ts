@@ -38,6 +38,8 @@ export class GarbageManagementRecordEventGarbageDropListTableComponent
 
   @Output() image = new EventEmitter<PagedArgs<GarbageDropEventRecord>>();
   @Output() video = new EventEmitter<GarbageDropEventRecord>();
+  @Output() videoall = new EventEmitter<GarbageDropEventRecord>();
+  @Output() complete = new EventEmitter<GarbageDropEventRecord>();
 
   constructor(
     private business: GarbageManagementRecordEventGarbageDropListTableBusiness
@@ -105,7 +107,7 @@ export class GarbageManagementRecordEventGarbageDropListTableComponent
       }
     },
     image: (e: Event, item: GarbageDropEventRecordViewModel, index: number) => {
-      let page = Page.create(index);
+      let page = Page.create(index + 1);
       if (item.Data.HandleImageUrls) {
         page.PageSize += item.Data.HandleImageUrls.length;
         page.RecordCount = page.PageSize;
@@ -120,7 +122,7 @@ export class GarbageManagementRecordEventGarbageDropListTableComponent
       }
     },
     video: {
-      simple: (e: Event, item?: GarbageDropEventRecordViewModel) => {
+      single: (e: Event, item?: GarbageDropEventRecordViewModel) => {
         if (item) {
           this.video.emit(item);
         }
@@ -128,9 +130,23 @@ export class GarbageManagementRecordEventGarbageDropListTableComponent
           e.stopPropagation();
         }
       },
-      all: (e: Event, item?: GarbageDropEventRecordViewModel) => {},
+      all: (e: Event, item?: GarbageDropEventRecordViewModel) => {
+        if (item) {
+          this.videoall.emit(item);
+        }
+        if (this.selected === item) {
+          e.stopPropagation();
+        }
+      },
     },
-    complete: (e: Event, item?: GarbageDropEventRecordViewModel) => {},
+    complete: (e: Event, item?: GarbageDropEventRecordViewModel) => {
+      if (item) {
+        this.complete.emit(item);
+      }
+      if (this.selected === item) {
+        e.stopPropagation();
+      }
+    },
     card: {
       record: (e: Event, item?: GarbageDropEventRecordViewModel) => {},
     },

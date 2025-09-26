@@ -55,6 +55,11 @@ export class GarbageManagementMapAMapController {
       let position = e.pixel.toArray();
       GarbageManagementMapAMapConfig.event.mousemoving.emit(position);
     });
+    map.on('click', (e) => {
+      this.station.get().then((station) => {
+        station.set.blur();
+      });
+    });
   }
 
   move(position: [number, number]) {

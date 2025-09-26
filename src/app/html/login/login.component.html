@@ -1,14 +1,9 @@
 <div class="login-container">
   <div class="login-bg">
     <div class="login-img">
-      <img src="'../../../assets/image/login/login.jpg'" />
+      <img [src]="Path.login.jpg" />
     </div>
-    <video
-      class="login-video"
-      [src]="'../../../assets/image/login/login.mp4'"
-      autoplay
-      loop
-    ></video>
+    <video class="login-video" [src]="Path.login.mp4" autoplay loop></video>
 
     <div class="login-header-wrapper">
       <div class="login-header">

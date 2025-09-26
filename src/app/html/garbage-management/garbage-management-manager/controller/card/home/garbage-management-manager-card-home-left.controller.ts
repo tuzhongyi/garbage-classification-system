@@ -60,6 +60,7 @@ export class GarbageManagementManagerCardHomeLeftController extends GarbageManag
         itemclick: this.event.recordopen,
       },
       single: true,
+      selector: 'app-garbage-management-card-chart-pie-record-statistic',
     },
     {
       component: GarbageManagementCardRankingRecordEventComponent,

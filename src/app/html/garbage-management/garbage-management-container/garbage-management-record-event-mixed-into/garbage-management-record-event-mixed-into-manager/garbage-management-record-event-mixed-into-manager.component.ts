@@ -21,6 +21,9 @@ import { GarbageManagementRecordEventMixedIntoIndex } from '../garbage-managemen
 export class GarbageManagementRecordEventMixedIntoManagerComponent {
   @Output() image = new EventEmitter<PagedArgs<MixedIntoEventRecord>>();
   @Output() video = new EventEmitter<MixedIntoEventRecord>();
+  @Output() videoall = new EventEmitter<MixedIntoEventRecord>();
+  @Output() complete = new EventEmitter<MixedIntoEventRecord>();
+
   index = GarbageManagementRecordEventMixedIntoIndex.list;
   Index = GarbageManagementRecordEventMixedIntoIndex;
 
@@ -31,8 +34,16 @@ export class GarbageManagementRecordEventMixedIntoManagerComponent {
     image: (data: PagedArgs<MixedIntoEventRecord>) => {
       this.image.emit(data);
     },
-    video: (data: MixedIntoEventRecord) => {
-      this.video.emit(data);
+    video: {
+      single: (data: MixedIntoEventRecord) => {
+        this.video.emit(data);
+      },
+      all: (data: MixedIntoEventRecord) => {
+        this.videoall.emit(data);
+      },
+    },
+    complete: (data: MixedIntoEventRecord) => {
+      this.complete.emit(data);
     },
   };
 }

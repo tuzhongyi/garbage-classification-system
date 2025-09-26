@@ -1,15 +1,17 @@
 <div class="video-multiple">
   <div
-    *ngFor="let item of items"
+    *ngFor="let item of items; let index = index"
     class="video-multiple-item"
     [class]="'_' + items.length"
     [class.nodata]="!item"
+    (click)="on.click(index, item)"
   >
     <howell-video-image
       *ngIf="item"
       [image]="item.image"
       [preview]="item.preview"
       [playback]="item.playback"
+      [playable]="playable"
     ></howell-video-image>
   </div>
 </div>

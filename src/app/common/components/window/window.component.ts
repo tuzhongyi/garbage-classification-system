@@ -39,7 +39,13 @@ export class WindowComponent implements OnInit {
 
   constructor() {}
   Language = Language;
-  ngOnInit() {}
+  ngOnInit() {
+    Promise.resolve().then(() => {
+      if (this.style.zIndex != undefined) {
+        this.zindex = this.style.zIndex;
+      }
+    });
+  }
 
   closeButtonClick() {
     if (this.manualClose === false) {

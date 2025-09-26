@@ -1,13 +1,15 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
+  Output,
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
 import { VideoImageComponent } from '../video-image/video-image.component';
-import { VideoArgs, VideoItem } from './video-multiple.model';
+import { VideoArgs } from './video-multiple.model';
 
 @Component({
   selector: 'howell-video-multiple',
@@ -17,6 +19,8 @@ import { VideoArgs, VideoItem } from './video-multiple.model';
 })
 export class VideoMultipleComponent implements OnChanges {
   @Input() datas: VideoArgs[] = [];
+  @Input() playable = true;
+  @Output() play = new EventEmitter<number>();
 
   items: (VideoArgs | undefined)[] = [];
   pow = 1;
@@ -26,6 +30,11 @@ export class VideoMultipleComponent implements OnChanges {
   change = {
     data: (change: SimpleChange) => {
       if (change) {
+        if (this.datas.length === 0) {
+          this.items = [];
+          this.pow = 1;
+          return;
+        }
         let sqrt = Math.ceil(Math.sqrt(this.datas.length));
         this.pow = Math.pow(sqrt, 2);
 
@@ -39,6 +48,13 @@ export class VideoMultipleComponent implements OnChanges {
   };
 
   on = {
-    play: (item: VideoItem) => {},
+    click: (index: number, item?: VideoArgs) => {
+      if (this.playable) {
+        return;
+      }
+      if (item) {
+        this.play.emit(index);
+      }
+    },
   };
 }

@@ -1,0 +1,74 @@
+<div class="event-handle-complete" *ngIf="!!model">
+  <div class="event-handle-complete-head">
+    <div></div>
+    <div class="operation"></div>
+  </div>
+  <div class="event-handle-complete-info forms">
+    <div class="form-item">
+      <div class="form-item-title">工单号：</div>
+      <div class="form-item-value">
+        <div>{{ model.RecordNo }}</div>
+      </div>
+    </div>
+    <div class="form-item">
+      <div class="form-item-title">投放点：</div>
+      <div class="form-item-value">
+        {{ (model.GarbageStation | async)?.Name }}
+      </div>
+    </div>
+  </div>
+  <!-- <div class="hw-simple-title time">
+    {{ model.Duration.begin | date : "HH:mm:ss" }}
+  </div> -->
+  <div class="event-handle-complete-line">
+    <ng-container *ngIf="!!model">
+      <event-handle-complete-line
+        [data]="model.Record"
+      ></event-handle-complete-line>
+    </ng-container>
+  </div>
+  <div class="event-handle-complete-body">
+    <div class="complete">
+      <div
+        class="complete-item"
+        *ngFor="let item of model.Items"
+        [ngStyle]="{
+          display: item.Type === CompleteType.timeout ? 'none' : undefined
+        }"
+      >
+        <div class="complete-item-head">
+          <div [ngSwitch]="item.Type" class="hw-simple-title-sub">
+            <ng-container *ngSwitchCase="CompleteType.event"
+              >处置前</ng-container
+            >
+            <ng-container *ngSwitchCase="CompleteType.handle"
+              >处置后</ng-container
+            >
+          </div>
+          <div class="sub" *ngIf="item.Type === CompleteType.handle">
+            <i class="mdi mdi-timer"></i>
+            {{ Language.Time(item.Minitues, "minute") }}
+          </div>
+        </div>
+        <div
+          class="complete-item-images"
+          WheelHorizontalScroll
+          (scroll)="onscroll($event)"
+          [id]="item.Type"
+        >
+          <div class="complete-item-images-scroll">
+            <ng-container *ngFor="let img of item.urls; let i = index">
+              <app-picture-polygon-multiple
+                [id]="img.url"
+                [polygon]="img.polygon"
+                [draw]="true"
+                (click)="onimage(item, i)"
+              ></app-picture-polygon-multiple>
+            </ng-container>
+            <style (load)="regist()"></style>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

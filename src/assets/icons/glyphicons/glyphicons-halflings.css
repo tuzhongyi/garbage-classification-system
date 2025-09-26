@@ -284,6 +284,10 @@
   content: "\e060";
 }
 
+.glyphicon-map-marker {
+  top: -2px;
+}
+
 .glyphicon-map-marker:before {
   content: "\e062";
 }

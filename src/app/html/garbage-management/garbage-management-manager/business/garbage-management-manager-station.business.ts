@@ -7,43 +7,67 @@ import {
 } from '../../../../common/network/request/garbage/garbage-station/garbage-station-request.params';
 import { GarbageStationRequestService } from '../../../../common/network/request/garbage/garbage-station/garbage-station-request.service';
 import { GlobalStorageService } from '../../../../common/storage/global.storage';
+import { DivisionViewModelConverter } from '../../../../common/view-model/division.view-model';
 import { GarbageStationViewModel } from '../../../../common/view-model/garbage-station.view-model';
 
 @Injectable()
 export class GarbageManagementManagerStationBusiness {
   constructor(
     private service: GarbageStationRequestService,
-
+    private converter: DivisionViewModelConverter,
     private global: GlobalStorageService
   ) {}
+
   async load() {
     let division = await this.global.division.selected;
     let params = new GetGarbageStationsParams();
     params.AncestorId = division.Id;
     let stations = await this.service.all(params);
-    let statistic = await this.statistic(stations);
-
-    let models = stations.map((station) => {
+    let statistic = await this.statistic.all(stations);
+    console.log(statistic);
+    let models: GarbageStationViewModel[] = [];
+    for (let i = 0; i < stations.length; i++) {
+      const station = stations[i];
       let item = statistic.find((x) => x.Id === station.Id);
-      return this.convert(station, item);
-    });
+      if (!item) {
+        item = await this.statistic.get(station.Id);
+      }
+      let model = this.convert(station, item);
+      models.push(model);
+    }
+
     return models;
   }
 
-  private statistic(datas: GarbageStation[]) {
-    let params = new GetGarbageStationStatisticNumbersParams();
-    params.Ids = datas.map((x) => x.Id);
-    params.GarbageDrop = true;
-    return this.service.statistic.number.all(params);
+  get(id: string) {
+    return this.service.cache.get(id);
   }
+
+  pictures(stationId: string) {
+    return this.service.manualCapture(stationId);
+  }
+
+  private statistic = {
+    all: (datas: GarbageStation[]) => {
+      let params = new GetGarbageStationStatisticNumbersParams();
+      params.Ids = datas.map((x) => x.Id);
+      return this.service.statistic.number.all(params);
+    },
+    get: (stationId: string) => {
+      return this.service.statistic.number.get(stationId);
+    },
+  };
 
   private convert(
     station: GarbageStation,
-    statistic?: GarbageStationNumberStatistic
+    statistic: GarbageStationNumberStatistic
   ) {
     let vm = new GarbageStationViewModel();
     vm = Object.assign(vm, station);
     vm.Statistic = statistic;
+    if (vm.DivisionId) {
+      vm.Division = this.converter.get(vm.DivisionId);
+    }
     return vm;
   }
 }

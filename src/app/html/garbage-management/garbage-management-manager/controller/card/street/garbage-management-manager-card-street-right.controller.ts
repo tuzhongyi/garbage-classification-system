@@ -40,6 +40,7 @@ export class GarbageManagementManagerCardStreetRightController extends GarbageMa
     {
       component: GarbageManagementCardDivisionSelectionComponent,
       single: true,
+      selector: 'app-garbage-management-card-division-selection',
     },
     {
       component: GarbageManagementCardChartLineRecordEventIasComponent,

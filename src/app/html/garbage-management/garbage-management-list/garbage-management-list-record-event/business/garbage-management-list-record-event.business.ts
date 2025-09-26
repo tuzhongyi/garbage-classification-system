@@ -10,6 +10,7 @@ import { GarbageManagementListRecordEventIasBusiness } from './service/garbage-m
 import { GarbageManagementListRecordEventMixedIntoBusiness } from './service/garbage-management-list-record-event-mixed-into.business';
 
 import { TimeUnit } from '../../../../../common/enum/time-unit.enum';
+import { IEventRecord } from '../../../../../common/network/model/garbage-station/event-record/garbage-event-record.model';
 import { DateTimeTool } from '../../../../../common/tools/date-time-tool/datetime.tool';
 
 @Injectable()
@@ -41,14 +42,14 @@ export class GarbageManagementListRecordEventBusiness {
   async load(unit: TimeUnit) {
     let division = await this.global.division.selected;
 
-    let items: GarbageManagementListRecordEventItem[] = [];
+    let items: GarbageManagementListRecordEventItem<IEventRecord>[] = [];
     let duration = DateTimeTool.TimeUnit(unit, new Date());
 
     let all = [
       this.service.garbagedrop.load(division.Id, duration),
-      this.service.garbagefull.load(division.Id, duration),
-      this.service.mixedinto.load(division.Id, duration),
-      this.service.ias.load(division.Id, duration),
+      // this.service.garbagefull.load(division.Id, duration),
+      // this.service.mixedinto.load(division.Id, duration),
+      // this.service.ias.load(division.Id, duration),
     ];
 
     let results = await Promise.all(all);

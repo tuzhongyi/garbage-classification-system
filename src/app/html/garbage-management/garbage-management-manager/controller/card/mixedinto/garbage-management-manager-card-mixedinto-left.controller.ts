@@ -26,6 +26,7 @@ export class GarbageManagementManagerCardMixedIntoLeftController extends Garbage
         load: this.load,
       },
       single: true,
+      selector: 'app-garbage-management-card-chart-pie-record-statistic',
     },
     {
       component: GarbageManagementCardRankingRecordEventComponent,

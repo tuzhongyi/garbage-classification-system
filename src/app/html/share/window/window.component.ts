@@ -17,7 +17,7 @@ export class HowellWindowComponent {
   private _style: any = {
     width: '50%',
     height: '70%',
-    padding: '10px',
+    padding: '20px',
   };
   public get style(): any {
     return this._style;

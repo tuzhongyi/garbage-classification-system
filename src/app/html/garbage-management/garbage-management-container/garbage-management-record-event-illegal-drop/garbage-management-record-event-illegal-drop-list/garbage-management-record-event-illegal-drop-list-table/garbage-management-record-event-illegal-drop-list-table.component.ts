@@ -96,7 +96,7 @@ export class GarbageManagementRecordEventIllegalDropListTableComponent
     },
     image: (e: Event, item: IllegalDropEventRecordViewModel, index: number) => {
       this.image.emit({
-        page: Page.create(index),
+        page: Page.create(index + 1),
         data: item,
       });
       if (this.selected === item) {

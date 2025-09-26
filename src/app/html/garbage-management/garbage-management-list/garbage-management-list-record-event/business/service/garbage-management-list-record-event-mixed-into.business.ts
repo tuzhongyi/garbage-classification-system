@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { EventType } from '../../../../../../common/enum/event-type.enum';
 import { Duration } from '../../../../../../common/network/model/garbage-station/duration.model';
+import { IEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/garbage-event-record.model';
 import { MixedIntoEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/mixed-into-event-record.model';
 import { EventRequestService } from '../../../../../../common/network/request/garbage/event/event-request.service';
 import { GetEventRecordMixedIntoParams } from '../../../../../../common/network/request/garbage/event/mixed-info/event-request-mixed-info.params';
@@ -25,12 +26,13 @@ export class GarbageManagementListRecordEventMixedIntoBusiness {
   }
 
   private convert(data: MixedIntoEventRecord) {
-    let item: GarbageManagementListRecordEventItem = {
+    let item: GarbageManagementListRecordEventItem<IEventRecord> = {
       id: data.EventId,
       name: data.Data.StationName,
       type: Language.EventType(EventType.MixedInto),
       time: data.EventTime,
       color: ColorTool.station.state.mixedinto,
+      data: data,
     };
     return item;
   }

@@ -1,7 +1,9 @@
 import { WindowViewModel } from '../../../../../common/components/window/window.model';
 import { IllegalDropEventRecord } from '../../../../../common/network/model/garbage-station/event-record/illegal-drop-event-record.model';
 import { PagedArgs } from '../../../../../common/network/model/model.interface';
+import { PagedList } from '../../../../../common/network/model/page_list.model';
 import { DateTimeTool } from '../../../../../common/tools/date-time-tool/datetime.tool';
+import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
 import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
 
 export class GarbageManagementManagerRecordIllegalDropPanel extends WindowViewModel {
@@ -23,25 +25,20 @@ export class GarbageManagementManagerRecordIllegalDropPanel extends WindowViewMo
 
   on = {
     image: (data: PagedArgs<IllegalDropEventRecord>) => {
-      if (data.data.ImageUrl) {
-        this.window.picture.title =
-          data.data.ResourceName ?? data.data.Data.StationName;
-        this.window.picture.args = {
-          id: data.data.ImageUrl,
-        };
-        this.window.picture.page = data.page;
-        this.window.picture.show = true;
-      }
+      let datas = ObjectTool.model.record.illegaldrop.cameras(data.data);
+      let paged = PagedList.create(datas, data.page.PageIndex, 1);
+      this.window.picture.open(paged);
     },
     video: (data: IllegalDropEventRecord) => {
       if (data.ResourceId) {
-        this.window.video.title = data.ResourceName ?? data.Data.StationName;
-        this.window.video.args.playback = {
+        this.window.video.single.title =
+          data.ResourceName ?? data.Data.StationName;
+        this.window.video.single.args.playback = {
           cameraId: data.ResourceId,
           duration: DateTimeTool.before(data.EventTime, 30),
           stream: 1,
         };
-        this.window.video.show = true;
+        this.window.video.single.show = true;
       }
     },
   };

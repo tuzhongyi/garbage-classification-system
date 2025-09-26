@@ -37,3 +37,7 @@ export interface INameValueModel<T> {
   Name: string;
   Value: T;
 }
+export class Paged<T = any> {
+  Page!: Page;
+  Data!: T;
+}

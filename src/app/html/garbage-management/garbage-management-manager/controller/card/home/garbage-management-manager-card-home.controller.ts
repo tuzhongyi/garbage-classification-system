@@ -2,6 +2,7 @@ import { EventEmitter } from '@angular/core';
 import { ComponentTool } from '../../../../../../common/tools/component-tool/component.tool';
 import { IGarbageManagementManagerCardController } from '../../../garbage-management-manager.model';
 import { GarbageManagementManagerPanel } from '../../../panel/garbage-management-manager.panel';
+import { GarbageManagementManagerWindow } from '../../../window/garbage-management-manager.window';
 import { GarbageManagementManagerCardCommonController } from '../common/garbage-management-manager-card-common.controller';
 import { GarbageManagementManagerCardHomeLeftController } from './garbage-management-manager-card-home-left.controller';
 import { GarbageManagementManagerCardHomeRightController } from './garbage-management-manager-card-home-right.controller';
@@ -13,7 +14,8 @@ export class GarbageManagementManagerCardHomeController
     common: GarbageManagementManagerCardCommonController,
     tool: ComponentTool,
     load: EventEmitter<void>,
-    panel: GarbageManagementManagerPanel
+    panel: GarbageManagementManagerPanel,
+    window: GarbageManagementManagerWindow
   ) {
     this.left = new GarbageManagementManagerCardHomeLeftController(
       common,
@@ -24,7 +26,8 @@ export class GarbageManagementManagerCardHomeController
     this.right = new GarbageManagementManagerCardHomeRightController(
       common,
       tool,
-      load
+      load,
+      window
     );
   }
 

@@ -21,6 +21,9 @@ import { GarbageManagementRecordEventGarbageFullIndex } from '../garbage-managem
 export class GarbageManagementRecordEventGarbageFullManagerComponent {
   @Output() image = new EventEmitter<PagedArgs<GarbageFullEventRecord>>();
   @Output() video = new EventEmitter<GarbageFullEventRecord>();
+  @Output() videoall = new EventEmitter<GarbageFullEventRecord>();
+  @Output() complete = new EventEmitter<GarbageFullEventRecord>();
+
   index = GarbageManagementRecordEventGarbageFullIndex.list;
   Index = GarbageManagementRecordEventGarbageFullIndex;
 
@@ -31,8 +34,16 @@ export class GarbageManagementRecordEventGarbageFullManagerComponent {
     image: (data: PagedArgs<GarbageFullEventRecord>) => {
       this.image.emit(data);
     },
-    video: (data: GarbageFullEventRecord) => {
-      this.video.emit(data);
+    video: {
+      single: (data: GarbageFullEventRecord) => {
+        this.video.emit(data);
+      },
+      all: (data: GarbageFullEventRecord) => {
+        this.videoall.emit(data);
+      },
+    },
+    complete: (data: GarbageFullEventRecord) => {
+      this.complete.emit(data);
     },
   };
 }

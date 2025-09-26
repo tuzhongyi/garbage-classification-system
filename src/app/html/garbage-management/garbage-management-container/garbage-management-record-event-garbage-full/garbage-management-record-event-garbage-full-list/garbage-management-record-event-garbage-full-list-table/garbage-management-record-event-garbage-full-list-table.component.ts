@@ -38,6 +38,8 @@ export class GarbageManagementRecordEventGarbageFullListTableComponent
 
   @Output() image = new EventEmitter<PagedArgs<GarbageFullEventRecord>>();
   @Output() video = new EventEmitter<GarbageFullEventRecord>();
+  @Output() videoall = new EventEmitter<GarbageFullEventRecord>();
+  @Output() complete = new EventEmitter<GarbageFullEventRecord>();
 
   constructor(
     private business: GarbageManagementRecordEventGarbageFullListTableBusiness
@@ -104,7 +106,7 @@ export class GarbageManagementRecordEventGarbageFullListTableComponent
       }
     },
     image: (e: Event, item: GarbageFullEventRecordViewModel, index: number) => {
-      let page = Page.create(index);
+      let page = Page.create(index + 1);
       if (item.Data.HandleImageUrls) {
         page.PageSize += item.Data.HandleImageUrls.length;
         page.RecordCount = page.PageSize;
@@ -119,7 +121,7 @@ export class GarbageManagementRecordEventGarbageFullListTableComponent
       }
     },
     video: {
-      simple: (e: Event, item?: GarbageFullEventRecordViewModel) => {
+      single: (e: Event, item?: GarbageFullEventRecordViewModel) => {
         if (item) {
           this.video.emit(item);
         }
@@ -127,11 +129,22 @@ export class GarbageManagementRecordEventGarbageFullListTableComponent
           e.stopPropagation();
         }
       },
-      all: (e: Event, item?: GarbageFullEventRecordViewModel) => {},
+      all: (e: Event, item?: GarbageFullEventRecordViewModel) => {
+        if (item) {
+          this.videoall.emit(item);
+        }
+        if (this.selected === item) {
+          e.stopPropagation();
+        }
+      },
     },
-    complete: (e: Event, item?: GarbageFullEventRecordViewModel) => {},
-    card: {
-      record: (e: Event, item?: GarbageFullEventRecordViewModel) => {},
+    complete: (e: Event, item?: GarbageFullEventRecordViewModel) => {
+      if (item) {
+        this.complete.emit(item);
+      }
+      if (this.selected === item) {
+        e.stopPropagation();
+      }
     },
     download: {
       video: (e: Event, item?: GarbageFullEventRecordViewModel) => {

@@ -25,6 +25,7 @@
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
+            "deployUrl": "/garbage-classification-system/",
             "inlineStyleLanguage": "less",
             "assets": [
               {

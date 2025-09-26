@@ -49,7 +49,7 @@ export class GarbageManagementHeaderComponent implements OnInit, OnDestroy {
         this.menu.opened = !this.menu.opened;
       },
       logout: () => {
-        this.router.navigateByUrl(`/${RoutePath.login}`);
+        location.href = RoutePath.login;
       },
     },
   };

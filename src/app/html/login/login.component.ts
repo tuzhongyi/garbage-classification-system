@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { Md5 } from 'ts-md5';
 import { User } from '../../common/network/model/garbage-station/user.model';
 import { AuthorizationService } from '../../common/network/request/auth/auth-request.service';
+import { PathTool } from '../../common/tools/path-tool/path.tool';
 import {
   LoginController,
   LoginControllerProvider,
@@ -42,6 +43,8 @@ export class LoginComponent
   ) {
     title.setTitle('生活垃圾监管平台');
   }
+
+  Path = PathTool;
 
   @ViewChild('loginVideo')
   video?: ElementRef;

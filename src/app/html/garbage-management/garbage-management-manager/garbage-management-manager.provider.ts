@@ -4,6 +4,7 @@ import { GarbageManagementManagerBusiness } from './business/garbage-management-
 import { GarbageManagementManagerCardController } from './controller/card/garbage-management-manager-card.controller';
 import { GarbageManagementManagerDataController } from './controller/data/garbage-management-manager-data.controller';
 import { GarbageManagementManagerController } from './controller/garbage-management-manager.controller';
+import { GarbageManagementManagerMapController } from './controller/map/garbage-management-manager-map.controller';
 import { GarbageManagementManagerStatisticController } from './controller/statistic/garbage-management-manager-statistic.controller';
 import { GarbageManagementManagerVideoController } from './controller/video/garbage-management-manager-video.controller';
 import { GarbageManagementManagerPanel } from './panel/garbage-management-manager.panel';
@@ -15,6 +16,7 @@ const controllers = [
   GarbageManagementManagerDataController,
   GarbageManagementManagerStatisticController,
   GarbageManagementManagerVideoController,
+  GarbageManagementManagerMapController,
 ];
 
 const businesses = [

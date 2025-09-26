@@ -14,6 +14,7 @@ export class VideoImageComponent {
   @Input() image = '';
   @Input('preview') _preview?: VideoPreviewArgs;
   @Input('playback') _playback?: VideoPlaybackArgs;
+  @Input() playable = true;
 
   opened = false;
   playing = false;
@@ -26,10 +27,12 @@ export class VideoImageComponent {
       this.opened = true;
     },
     play: () => {
-      if (this._playback) {
-        this.playback.emit(this._playback);
-      } else if (this._preview) {
-        this.preview.emit(this._preview);
+      if (this.playable) {
+        if (this._playback) {
+          this.playback.emit(this._playback);
+        } else if (this._preview) {
+          this.preview.emit(this._preview);
+        }
       }
     },
   };

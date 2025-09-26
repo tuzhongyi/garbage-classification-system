@@ -25,7 +25,7 @@ export class GarbageManagementControlButtonListComponent {
     { icon: GarbageManagementControlButtonIcon.garbagedrop, name: '垃圾偷倒' },
     { icon: GarbageManagementControlButtonIcon.vehicle, name: '建筑垃圾清运' },
     { icon: GarbageManagementControlButtonIcon.street, name: '街面巡检' },
-    { icon: GarbageManagementControlButtonIcon.filter, name: '筛选' },
+    // { icon: GarbageManagementControlButtonIcon.filter, name: '筛选' },
   ];
 
   on = {

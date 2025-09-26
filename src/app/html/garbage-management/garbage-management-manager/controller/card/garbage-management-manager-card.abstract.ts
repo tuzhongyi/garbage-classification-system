@@ -36,12 +36,12 @@ export abstract class GarbageManagementManagerCardAbstract
           for (let i = 0; i < this.ctors.length; i++) {
             const ctor = this.ctors[i];
             let element: HTMLElement;
-            if (ctor.single) {
-              if (this.common.elements.has(ctor.component.name)) {
-                element = this.common.elements.get(ctor.component.name)!;
+            if (ctor.single && ctor.selector) {
+              if (this.common.elements.has(ctor.selector)) {
+                element = this.common.elements.get(ctor.selector)!;
               } else {
                 element = this.create(ctor);
-                this.common.elements.set(ctor.component.name, element);
+                this.common.elements.set(ctor.selector, element);
               }
             } else {
               element = this.create(ctor);

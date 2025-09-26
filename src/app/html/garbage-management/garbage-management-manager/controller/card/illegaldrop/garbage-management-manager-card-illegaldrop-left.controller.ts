@@ -26,6 +26,7 @@ export class GarbageManagementManagerCardIllegalDropLeftController extends Garba
         load: this.load,
       },
       single: true,
+      selector: 'app-garbage-management-card-chart-pie-record-statistic',
     },
     {
       component: GarbageManagementCardRankingRecordEventComponent,

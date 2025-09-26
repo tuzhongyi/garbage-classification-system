@@ -18,6 +18,26 @@ export class GarbageManagementMapController {
         this.record.event.dblclick.emit(data);
       });
     });
+    this.amap.station.get().then((x) => {
+      x.event.camera.subscribe((data) => {
+        this.station.event.camera.emit(data);
+      });
+      x.event.mixedinto.subscribe((data) => {
+        this.station.event.mixedinto.emit(data);
+      });
+      x.event.illegaldrop.subscribe((data) => {
+        this.station.event.illegaldrop.emit(data);
+      });
+      x.event.garbagefull.subscribe((data) => {
+        this.station.event.garbagefull.emit(data);
+      });
+      x.event.garbagedrop.subscribe((data) => {
+        this.station.event.garbagedrop.emit(data);
+      });
+      x.event.error.subscribe((data) => {
+        this.station.event.error.emit(data);
+      });
+    });
   }
 
   move(center: [number, number]) {
@@ -48,6 +68,14 @@ export class GarbageManagementMapController {
     },
   };
   station = {
+    event: {
+      camera: new EventEmitter<GarbageStationViewModel>(),
+      mixedinto: new EventEmitter<GarbageStationViewModel>(),
+      illegaldrop: new EventEmitter<GarbageStationViewModel>(),
+      garbagefull: new EventEmitter<GarbageStationViewModel>(),
+      garbagedrop: new EventEmitter<GarbageStationViewModel>(),
+      error: new EventEmitter<GarbageStationViewModel>(),
+    },
     load: (datas: GarbageStationViewModel[]) => {
       this.amap.station.get().then((x) => {
         x.clear();
@@ -62,6 +90,11 @@ export class GarbageManagementMapController {
     eventable: (types: EventType[]) => {
       this.amap.station.get().then((x) => {
         x.set.eventable(types);
+      });
+    },
+    blur: () => {
+      this.amap.station.get().then((x) => {
+        x.set.blur();
       });
     },
   };

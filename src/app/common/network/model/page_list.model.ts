@@ -29,4 +29,20 @@ export class PagedList<T> implements IModel {
   Page!: Page;
   /**	T[]	数据内容，T为任何需要的类型	M */
   Data!: T[];
+
+  static create<T>(datas: T[], index: number, size: number = 1) {
+    let paged = new PagedList<T>();
+    paged.Data = datas;
+
+    let count = datas.length;
+    let page = new Page();
+    page.PageIndex = index;
+    page.PageSize = size;
+    page.PageCount = Math.ceil(count / size);
+    page.RecordCount = size % count;
+    page.TotalRecordCount = count;
+
+    paged.Page = page;
+    return paged;
+  }
 }

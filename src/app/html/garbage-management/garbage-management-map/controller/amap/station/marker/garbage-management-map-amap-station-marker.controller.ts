@@ -6,10 +6,12 @@ import {
 
 export class GarbageManagementMapAMapStationMarkerController {
   event = new MapPointEvent<GarbageStationViewModel>();
+  id: string;
   constructor(
     private data: GarbageStationViewModel,
     private icon: IMapIcon<AMap.LabelMarkerIconOptions>
   ) {
+    this.id = data.Id;
     this.marker = this.create(data, icon.normal);
   }
 
@@ -42,6 +44,7 @@ export class GarbageManagementMapAMapStationMarkerController {
       this.event.mouseout.emit(this.data);
     });
     marker.on('click', (e: any) => {
+      this.select();
       this.event.click.emit(this.data);
     });
     marker.on('dblclick', (e: any) => {

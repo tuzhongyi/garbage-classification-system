@@ -9,7 +9,14 @@
       [records]="data.records"
       [eventables]="data.eventables"
       [select]="map.select"
+      [(refresh)]="map.refresh"
       (recorddblclick)="window.record.ias.open($event)"
+      (camera)="map.on.camera($event)"
+      (error)="map.on.error($event)"
+      (garbagedrop)="map.on.garbagedrop($event)"
+      (mixedinto)="map.on.mixedinto($event)"
+      (garbagefull)="map.on.garbagefull($event)"
+      (illegaldrop)="map.on.illegaldrop($event)"
     ></howell-garbage-management-map>
     <div class="garbage-management-manager-map-mask"></div>
   </div>
@@ -81,7 +88,11 @@
     [title]="panel.station.title"
     [style]="panel.station.style"
   >
-    <howell-garbage-management-station-manager></howell-garbage-management-station-manager>
+    <howell-garbage-management-station-manager
+      (image)="panel.station.on.image($event)"
+      (video)="panel.station.on.video($event)"
+      (position)="panel.station.on.position($event)"
+    ></howell-garbage-management-station-manager>
   </howell-panel>
   <howell-panel
     *ngIf="panel.street.show"
@@ -93,25 +104,7 @@
       [online]="panel.street.online"
     ></howell-garbage-management-street-device-manager>
   </howell-panel>
-  <howell-panel
-    *ngIf="panel.record.mixedinto.show"
-    [model]="panel.record.mixedinto"
-    [title]="panel.record.mixedinto.title"
-    [style]="panel.record.mixedinto.style"
-  >
-    <howell-garbage-management-record-event-mixed-into-manager
-      (image)="panel.record.mixedinto.on.image($event)"
-      (video)="panel.record.mixedinto.on.video($event)"
-    ></howell-garbage-management-record-event-mixed-into-manager>
-  </howell-panel>
-  <howell-panel
-    *ngIf="panel.record.garbagefull.show"
-    [model]="panel.record.garbagefull"
-    [title]="panel.record.garbagefull.title"
-    [style]="panel.record.garbagefull.style"
-  >
-    <howell-garbage-management-record-event-garbage-full-manager></howell-garbage-management-record-event-garbage-full-manager>
-  </howell-panel>
+
   <howell-panel
     *ngIf="panel.record.illegaldrop.show"
     [model]="panel.record.illegaldrop"
@@ -121,7 +114,35 @@
     <howell-garbage-management-record-event-illegal-drop-manager
       (image)="panel.record.illegaldrop.on.image($event)"
       (video)="panel.record.illegaldrop.on.video($event)"
-    ></howell-garbage-management-record-event-illegal-drop-manager>
+    >
+    </howell-garbage-management-record-event-illegal-drop-manager>
+  </howell-panel>
+  <howell-panel
+    *ngIf="panel.record.mixedinto.show"
+    [model]="panel.record.mixedinto"
+    [title]="panel.record.mixedinto.title"
+    [style]="panel.record.mixedinto.style"
+  >
+    <howell-garbage-management-record-event-mixed-into-manager
+      (image)="panel.record.mixedinto.on.image($event)"
+      (video)="panel.record.mixedinto.on.video.single($event)"
+      (videoall)="panel.record.mixedinto.on.video.multiple($event)"
+      (complete)="panel.record.mixedinto.on.complete($event)"
+    ></howell-garbage-management-record-event-mixed-into-manager>
+  </howell-panel>
+  <howell-panel
+    *ngIf="panel.record.garbagefull.show"
+    [model]="panel.record.garbagefull"
+    [title]="panel.record.garbagefull.title"
+    [style]="panel.record.garbagefull.style"
+  >
+    <howell-garbage-management-record-event-garbage-full-manager
+      (image)="panel.record.garbagefull.on.image($event)"
+      (video)="panel.record.garbagefull.on.video.single($event)"
+      (videoall)="panel.record.garbagefull.on.video.multiple($event)"
+      (complete)="panel.record.garbagefull.on.complete($event)"
+    >
+    </howell-garbage-management-record-event-garbage-full-manager>
   </howell-panel>
   <howell-panel
     *ngIf="panel.record.garbagedrop.show"
@@ -129,7 +150,12 @@
     [title]="panel.record.garbagedrop.title"
     [style]="panel.record.garbagedrop.style"
   >
-    <howell-garbage-management-record-event-garbage-drop-manager></howell-garbage-management-record-event-garbage-drop-manager>
+    <howell-garbage-management-record-event-garbage-drop-manager
+      (image)="panel.record.garbagedrop.on.image($event)"
+      (video)="panel.record.garbagedrop.on.video.single($event)"
+      (videoall)="panel.record.garbagedrop.on.video.multiple($event)"
+      (complete)="panel.record.garbagedrop.on.complete($event)"
+    ></howell-garbage-management-record-event-garbage-drop-manager>
   </howell-panel>
   <howell-panel
     *ngIf="panel.record.ias.show"
@@ -152,22 +178,51 @@
     ></howell-garbage-management-record-event-ias-task-manager>
   </howell-window>
   <howell-window
+    [model]="window.record.complete"
+    *ngIf="window.record.complete.show"
+    [style]="window.record.complete.style"
+    [title]="window.record.complete.title"
+  >
+    <event-handle-complete
+      [data]="window.record.complete.data"
+    ></event-handle-complete>
+  </howell-window>
+  <howell-window
     [model]="window.picture"
-    *ngIf="window.picture.show && window.picture.args"
+    *ngIf="window.picture.show"
     [style]="window.picture.style"
     [title]="window.picture.title"
   >
-    <app-picture-list
-      [id]="window.picture.args.id"
+    <howell-container-page
       [page]="window.picture.page"
       (pageChange)="window.picture.on.page.change($event)"
-    ></app-picture-list>
+    >
+      <app-picture-polygon-multiple
+        [id]="window.picture.current?.url"
+        [polygon]="window.picture.current?.polygon ?? []"
+      ></app-picture-polygon-multiple>
+    </howell-container-page>
+  </howell-window>
+  <howell-window
+    [model]="window.video.multiple"
+    *ngIf="window.video.multiple.show"
+    [style]="window.video.multiple.style"
+    [title]="window.video.multiple.title"
+  >
+    <div class="video-multiple-window">
+      <howell-video-multiple
+        [datas]="window.video.multiple.datas"
+        [playable]="window.video.multiple.playable"
+        (play)="window.video.multiple.on.play($event)"
+      ></howell-video-multiple>
+      <div class="loading" *ngIf="window.video.multiple.loading"></div>
+    </div>
   </howell-window>
   <howell-video-window
-    *ngIf="window.video.show"
-    [Model]="window.video"
-    [title]="window.video.title"
-    [style]="window.video.style"
+    *ngIf="window.video.single.show"
+    [Model]="window.video.single"
+    [title]="window.video.single.title"
+    [style]="window.video.single.style"
     [playback]="video.playback"
     [preview]="video.preview"
     (opened)="video.play()"

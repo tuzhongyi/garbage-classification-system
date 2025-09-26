@@ -25,6 +25,7 @@ export class GarbageManagementManagerCardVehicleRightController extends GarbageM
     {
       component: GarbageManagementCardDivisionSelectionComponent,
       single: true,
+      selector: 'app-garbage-management-card-division-selection',
     },
     {
       component: GarbageManagementCardChartLineRecordEventComponent,

@@ -11,9 +11,11 @@ export interface IGarbageManagementManagerCardElement {
 }
 export interface GarbageManagementManagerCardItem {
   component: any;
+
   args?: any;
   class?: string[];
   single?: boolean;
+  selector?: string;
 }
 export enum GarbageManagementManagerIndex {
   home,

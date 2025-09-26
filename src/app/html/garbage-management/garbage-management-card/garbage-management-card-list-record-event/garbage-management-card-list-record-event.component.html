@@ -5,6 +5,7 @@
     </div>
     <howell-garbage-management-list-record-event
       [load]="load"
+      (details)="on.details($event)"
       *ngIf="loading || count > 0"
       (loaded)="on.loaded($event)"
     ></howell-garbage-management-list-record-event>

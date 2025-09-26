@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { DivisionType } from '../../../../../../common/enum/division-type.enum';
 import { EventType } from '../../../../../../common/enum/event-type.enum';
@@ -9,6 +10,7 @@ import { GetGarbageDropEventRecordsParams } from '../../../../../../common/netwo
 import { GarbageStationRequestService } from '../../../../../../common/network/request/garbage/garbage-station/garbage-station-request.service';
 import { PicturesUrl } from '../../../../../../common/network/url/aiop/medium/pictures/pictures.url';
 import { Language } from '../../../../../../common/tools/language';
+import { ObjectTool } from '../../../../../../common/tools/object-tool/object.tool';
 import { DivisionViewModelConverter } from '../../../../../../common/view-model/division.view-model';
 import {
   GarbageDropEventRecordViewModel,
@@ -79,21 +81,7 @@ export class GarbageManagementRecordEventGarbageDropListTableBusiness {
           });
       }
 
-      if (data.Data.DropImageUrls) {
-        vm.images = data.Data.DropImageUrls.map((url) =>
-          PicturesUrl.jpg(url.ImageUrl)
-        );
-      }
-      if (data.Data.TimeoutImageUrls) {
-        vm.images = vm.images.concat(
-          data.Data.TimeoutImageUrls.map((url) => PicturesUrl.jpg(url.ImageUrl))
-        );
-      }
-      if (data.Data.HandleImageUrls) {
-        vm.images = vm.images.concat(
-          data.Data.HandleImageUrls.map((url) => PicturesUrl.jpg(url.ImageUrl))
-        );
-      }
+      vm.images = ObjectTool.model.record.garbagedrop.images(data);
 
       vm.status = {
         class: this.status.class(data, data.Data.IsTimeout),
@@ -102,6 +90,25 @@ export class GarbageManagementRecordEventGarbageDropListTableBusiness {
           data.Data.IsTimeout
         ),
       };
+
+      vm.SendTime = formatDate(data.Data.DropTime, Language.HHmmss, 'en');
+      if (data.Data.HandleTime) {
+        vm.HandleTime = formatDate(data.Data.HandleTime, Language.HHmmss, 'en');
+      }
+
+      if (data.Data.TakeMinutes) {
+        vm.DropDuration = Language.Time(data.Data.TakeMinutes, 'minute');
+      } else if (data.Data.HandleTime) {
+        let drop = new Date(data.Data.DropTime.getTime());
+        let duration = data.Data.HandleTime.getTime() - drop.getTime();
+        vm.DropDuration = Language.Time(duration / 1000 / 60, 'minute');
+      } else {
+        let now = new Date();
+        let drop = new Date(data.Data.DropTime);
+        let duration = (now.getTime() - drop.getTime()) / 1000 / 60;
+        vm.DropDuration = Language.Time(duration, 'minute');
+      }
+
       return vm;
     },
   };

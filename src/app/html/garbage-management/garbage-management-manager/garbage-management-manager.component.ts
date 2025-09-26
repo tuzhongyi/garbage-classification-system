@@ -1,17 +1,37 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   ElementRef,
-  EventEmitter,
   OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { IDivision } from '../../../common/network/model/garbage-station/division.model';
+import { ContainerPageComponent } from '../../../common/components/container/container-page/container-page.component';
+import { PicturePolygonMultipleComponent } from '../../../common/components/picture/picture-polygon-multiple/picture-polygon-multiple.component';
 import { GlobalStorageService } from '../../../common/storage/global.storage';
 import { wait } from '../../../common/tools/tools';
+import { HowellPanelComponent } from '../../share/panel/panel.component';
+import { VideoMultipleComponent } from '../../share/video/video-multiple/video-multiple.component';
+import { VideoWindowComponent } from '../../share/video/video-window/video-window.component';
+import { HowellWindowComponent } from '../../share/window/window.component';
+import { GarbageManagementRecordEventGarbageDropManagerComponent } from '../garbage-management-container/garbage-management-record-event-garbage-drop/garbage-management-record-event-garbage-drop-manager/garbage-management-record-event-garbage-drop-manager.component';
+import { GarbageManagementRecordEventGarbageFullManagerComponent } from '../garbage-management-container/garbage-management-record-event-garbage-full/garbage-management-record-event-garbage-full-manager/garbage-management-record-event-garbage-full-manager.component';
+import { EventHandleCompleteComponent } from '../garbage-management-container/garbage-management-record-event-handle-complete/event-handle-complete/event-handle-complete.component';
+import { GarbageManagementRecordEventIasManagerComponent } from '../garbage-management-container/garbage-management-record-event-ias/garbage-management-record-event-ias-manager/garbage-management-record-event-ias-manager.component';
+import { GarbageManagementRecordEventIasTaskManagerComponent } from '../garbage-management-container/garbage-management-record-event-ias/garbage-management-record-event-ias-task/garbage-management-record-event-ias-task-manager/garbage-management-record-event-ias-task-manager.component';
+import { GarbageManagementRecordEventIllegalDropManagerComponent } from '../garbage-management-container/garbage-management-record-event-illegal-drop/garbage-management-record-event-illegal-drop-manager/garbage-management-record-event-illegal-drop-manager.component';
+import { GarbageManagementRecordEventMixedIntoManagerComponent } from '../garbage-management-container/garbage-management-record-event-mixed-into/garbage-management-record-event-mixed-into-manager/garbage-management-record-event-mixed-into-manager.component';
 import { GarbageManagementStationManagerComponent } from '../garbage-management-container/garbage-management-station/garbage-management-station-manager/garbage-management-station-manager.component';
+import { GarbageManagementControlButtonListComponent } from '../garbage-management-control/garbage-management-control-button-list/garbage-management-control-button-list.component';
+import { GarbageManagementHeaderComponent } from '../garbage-management-header/component/garbage-management-header.component';
+import { GarbageManagementManagerSettingsComponent } from '../garbage-management-manager-settings/garbage-management-manager-settings.component';
+import { GarbageManagementMapComponent } from '../garbage-management-map/garbage-management-map.component';
+import { GarbageManagementStateRecordIasComponent } from '../garbage-management-state/garbage-management-state-record-ias/garbage-management-state-record-ias.component';
+import { GarbageManagementStateStationComponent } from '../garbage-management-state/garbage-management-state-station/garbage-management-state-station.component';
+import { GarbageManagementStatisticStationComponent } from '../garbage-management-statistic/garbage-management-statistic-station/component/garbage-management-statistic-station.component';
+import { GarbageManagementStreetDeviceManagerComponent } from '../garbage-management-street/garbage-management-street-device/garbage-management-street-device-manager/garbage-management-street-device-manager.component';
+import { GarbageManagementManagerBusiness } from './business/garbage-management-manager.business';
 import { GarbageManagementManagerController } from './controller/garbage-management-manager.controller';
-import { GarbageManagementManagerImports } from './garbage-management-manager.import';
 import { GarbageManagementManagerIndex } from './garbage-management-manager.model';
 import { GarbageManagementManagerProviders } from './garbage-management-manager.provider';
 import { GarbageManagementManagerPanel } from './panel/garbage-management-manager.panel';
@@ -23,8 +43,31 @@ import { GarbageManagementManagerWindow } from './window/garbage-management-mana
   templateUrl: './garbage-management-manager.component.html',
   styleUrl: './garbage-management-manager.component.less',
   imports: [
-    ...GarbageManagementManagerImports,
+    CommonModule,
+    GarbageManagementHeaderComponent,
+    GarbageManagementMapComponent,
+    GarbageManagementStatisticStationComponent,
+    HowellWindowComponent,
+    HowellPanelComponent,
+    VideoWindowComponent,
+    VideoMultipleComponent,
+    ContainerPageComponent,
+    PicturePolygonMultipleComponent,
+    GarbageManagementManagerSettingsComponent,
+    GarbageManagementControlButtonListComponent,
+    GarbageManagementStateStationComponent,
+    GarbageManagementStateRecordIasComponent,
     GarbageManagementStationManagerComponent,
+    GarbageManagementStreetDeviceManagerComponent,
+    GarbageManagementRecordEventIasManagerComponent,
+    GarbageManagementRecordEventIasTaskManagerComponent,
+
+    GarbageManagementRecordEventGarbageFullManagerComponent,
+    GarbageManagementRecordEventIllegalDropManagerComponent,
+    GarbageManagementRecordEventGarbageDropManagerComponent,
+    GarbageManagementRecordEventMixedIntoManagerComponent,
+    GarbageManagementStationManagerComponent,
+    EventHandleCompleteComponent,
   ],
   providers: [...GarbageManagementManagerProviders],
 })
@@ -44,12 +87,15 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
   get video() {
     return this.controller.video;
   }
+  get map() {
+    return this.controller.map;
+  }
 
   constructor(
     public panel: GarbageManagementManagerPanel,
     public window: GarbageManagementManagerWindow,
     private controller: GarbageManagementManagerController,
-
+    private business: GarbageManagementManagerBusiness,
     private global: GlobalStorageService
   ) {}
   Index = GarbageManagementManagerIndex;
@@ -84,6 +130,7 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
       this.map.select.emit(x);
     });
     this.controller.navigation.change.subscribe((x) => {
+      this.map.refresh = true;
       this.card.on.index(x);
       if (this.left) {
         this.load.left(this.left.nativeElement);
@@ -145,10 +192,5 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
         }
       );
     },
-  };
-
-  map = {
-    select: new EventEmitter<IDivision>(),
-    load: new EventEmitter<void>(),
   };
 }

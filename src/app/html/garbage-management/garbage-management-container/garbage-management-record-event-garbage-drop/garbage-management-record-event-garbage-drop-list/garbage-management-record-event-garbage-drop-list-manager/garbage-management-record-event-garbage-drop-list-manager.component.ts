@@ -29,6 +29,8 @@ import { GarbageManagementRecordEventGarbageDropListTableArgs } from '../garbage
 export class GarbageManagementRecordEventGarbageDropListManagerComponent {
   @Output() image = new EventEmitter<PagedArgs<GarbageDropEventRecord>>();
   @Output() video = new EventEmitter<GarbageDropEventRecord>();
+  @Output() videoall = new EventEmitter<GarbageDropEventRecord>();
+  @Output() complete = new EventEmitter<GarbageDropEventRecord>();
 
   constructor() {}
 
@@ -62,8 +64,16 @@ export class GarbageManagementRecordEventGarbageDropListManagerComponent {
     image: (data: PagedArgs<GarbageDropEventRecord>) => {
       this.image.emit(data);
     },
-    video: (data: GarbageDropEventRecord) => {
-      this.video.emit(data);
+    video: {
+      single: (data: GarbageDropEventRecord) => {
+        this.video.emit(data);
+      },
+      all: (data: GarbageDropEventRecord) => {
+        this.videoall.emit(data);
+      },
+    },
+    complete: (data: GarbageDropEventRecord) => {
+      this.complete.emit(data);
     },
   };
 }

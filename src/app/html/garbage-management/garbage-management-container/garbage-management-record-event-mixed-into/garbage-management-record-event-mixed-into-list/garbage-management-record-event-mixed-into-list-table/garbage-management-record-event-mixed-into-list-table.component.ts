@@ -38,6 +38,8 @@ export class GarbageManagementRecordEventMixedIntoListTableComponent
 
   @Output() image = new EventEmitter<PagedArgs<MixedIntoEventRecord>>();
   @Output() video = new EventEmitter<MixedIntoEventRecord>();
+  @Output() videoall = new EventEmitter<MixedIntoEventRecord>();
+  @Output() complete = new EventEmitter<MixedIntoEventRecord>();
 
   constructor(
     private business: GarbageManagementRecordEventMixedIntoListTableBusiness
@@ -105,7 +107,7 @@ export class GarbageManagementRecordEventMixedIntoListTableComponent
       }
     },
     image: (e: Event, item: MixedIntoEventRecordViewModel, index: number) => {
-      let page = Page.create(index);
+      let page = Page.create(index + 1);
       if (item.Data.HandleImageUrl) {
         page.PageSize += item.Data.HandleImageUrl.length;
         page.RecordCount = page.PageSize;
@@ -120,7 +122,7 @@ export class GarbageManagementRecordEventMixedIntoListTableComponent
       }
     },
     video: {
-      simple: (e: Event, item?: MixedIntoEventRecordViewModel) => {
+      single: (e: Event, item?: MixedIntoEventRecordViewModel) => {
         if (item) {
           this.video.emit(item);
         }
@@ -128,11 +130,22 @@ export class GarbageManagementRecordEventMixedIntoListTableComponent
           e.stopPropagation();
         }
       },
-      all: (e: Event, item?: MixedIntoEventRecordViewModel) => {},
+      all: (e: Event, item?: MixedIntoEventRecordViewModel) => {
+        if (item) {
+          this.videoall.emit(item);
+        }
+        if (this.selected === item) {
+          e.stopPropagation();
+        }
+      },
     },
-    complete: (e: Event, item?: MixedIntoEventRecordViewModel) => {},
-    card: {
-      record: (e: Event, item?: MixedIntoEventRecordViewModel) => {},
+    complete: (e: Event, item?: MixedIntoEventRecordViewModel) => {
+      if (item) {
+        this.complete.emit(item);
+      }
+      if (this.selected === item) {
+        e.stopPropagation();
+      }
     },
     download: {
       video: (e: Event, item?: MixedIntoEventRecordViewModel) => {

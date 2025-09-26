@@ -40,7 +40,8 @@ export class GarbageManagementManagerCardController {
       common,
       this.tool,
       this.load.event,
-      this.panel
+      this.panel,
+      this.window
     );
     this.controller.set(GarbageManagementManagerIndex.home, home);
     this.controller.set(

@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TimeUnit } from '../../../../common/enum/time-unit.enum';
+import { IEventRecord } from '../../../../common/network/model/garbage-station/event-record/garbage-event-record.model';
 import { GarbageManagementListRecordEventBusiness } from './business/garbage-management-list-record-event.business';
 import { GarbageManagementListRecordEventItem } from './business/garbage-management-list-record-event.model';
 
@@ -24,10 +25,14 @@ export class GarbageManagementListRecordEventComponent
 {
   @Input('load') _load?: EventEmitter<void>;
   @Input() unit = TimeUnit.Day;
-  @Output() loaded = new EventEmitter<GarbageManagementListRecordEventItem[]>();
+  @Output() loaded = new EventEmitter<
+    GarbageManagementListRecordEventItem<IEventRecord>[]
+  >();
+  @Output() details = new EventEmitter<IEventRecord>();
+
   constructor(private business: GarbageManagementListRecordEventBusiness) {}
 
-  datas: GarbageManagementListRecordEventItem[] = [];
+  datas: GarbageManagementListRecordEventItem<IEventRecord>[] = [];
   private subscription = new Subscription();
   private regist() {
     if (this._load) {
@@ -52,4 +57,10 @@ export class GarbageManagementListRecordEventComponent
       this.loaded.emit(this.datas);
     });
   }
+
+  on = {
+    details: (item: GarbageManagementListRecordEventItem<IEventRecord>) => {
+      this.details.emit(item.data);
+    },
+  };
 }

@@ -16,7 +16,7 @@
       {{ item.time | date : "HH:mm:ss" }}
     </div>
     <div class="garbage-management-list-record-event-item-operation">
-      <button>
+      <button (click)="on.details(item)">
         <i class="howell-icon-details"></i>
       </button>
     </div>

@@ -92,6 +92,13 @@
           <td class="center">
             @if(item){
             <div class="operation">
+              <div
+                class="button"
+                title="厢房摄像机"
+                (click)="on.video($event, item)"
+              >
+                <i class="howell-icon-cam-all1"></i>
+              </div>
               <button (click)="on.position(item)">
                 <i class="glyphicon glyphicon-map-marker"></i>
               </button>

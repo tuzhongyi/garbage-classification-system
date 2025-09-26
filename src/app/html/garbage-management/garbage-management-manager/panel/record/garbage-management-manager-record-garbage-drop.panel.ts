@@ -1,8 +1,17 @@
 import { WindowViewModel } from '../../../../../common/components/window/window.model';
+import { GarbageDropEventRecord } from '../../../../../common/network/model/garbage-station/event-record/garbage-drop-event-record.model';
+import { PagedArgs } from '../../../../../common/network/model/model.interface';
+import { PagedList } from '../../../../../common/network/model/page_list.model';
+import { DateTimeTool } from '../../../../../common/tools/date-time-tool/datetime.tool';
+import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
+import { GarbageManagementManagerBusiness } from '../../business/garbage-management-manager.business';
 import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
 
 export class GarbageManagementManagerRecordGarbageDropPanel extends WindowViewModel {
-  constructor(private window: GarbageManagementManagerWindow) {
+  constructor(
+    private window: GarbageManagementManagerWindow,
+    private business: GarbageManagementManagerBusiness
+  ) {
     super();
   }
   style = {
@@ -17,4 +26,46 @@ export class GarbageManagementManagerRecordGarbageDropPanel extends WindowViewMo
   open() {
     this.show = true;
   }
+
+  on = {
+    image: (data: PagedArgs<GarbageDropEventRecord>) => {
+      let datas = ObjectTool.model.record.garbagedrop.cameras(data.data);
+
+      let paged = PagedList.create(datas, data.page.PageIndex, 1);
+      this.window.picture.open(paged);
+    },
+    complete: (data: GarbageDropEventRecord) => {
+      this.window.record.complete.open(data);
+    },
+    video: {
+      single: (data: GarbageDropEventRecord) => {
+        if (data.ResourceId) {
+          this.window.video.single.title =
+            data.ResourceName ?? data.Data.StationName;
+          this.window.video.single.args.playback = {
+            cameraId: data.ResourceId,
+            duration: DateTimeTool.before(data.EventTime, 30),
+            stream: 1,
+          };
+          this.window.video.single.show = true;
+        }
+      },
+      multiple: (data: GarbageDropEventRecord) => {
+        this.window.video.multiple.clear();
+        this.window.video.multiple.loading = true;
+        this.window.video.multiple.title = data.Data.StationName;
+        this.business.station
+          .pictures(data.Data.StationId)
+          .then((pictures) => {
+            this.window.video.multiple.datas = pictures.map((picture) => {
+              return ObjectTool.model.camera.picture.video(picture);
+            });
+          })
+          .finally(() => {
+            this.window.video.multiple.loading = false;
+          });
+        this.window.video.multiple.show = true;
+      },
+    },
+  };
 }

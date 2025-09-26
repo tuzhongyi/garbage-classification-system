@@ -24,6 +24,7 @@ export class GarbageManagementManagerCardIllegalDropRightController extends Garb
     {
       component: GarbageManagementCardDivisionSelectionComponent,
       single: true,
+      selector: 'app-garbage-management-card-division-selection',
     },
     {
       component: GarbageManagementCardChartLineRecordEventComponent,

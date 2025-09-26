@@ -3,17 +3,76 @@
   &-container {
 
     ::ng-deep {
-      .amap-info-window-content {
-        &.garbage-station {
+      .amap-info-window {
+        .amap-garbage-station {
           display: flex;
           flex-direction: column;
-          gap: 5px;
+          gap: 10px;
+          font-size: 18px;
 
-          &-title {}
+          &-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
 
-          &-info {}
+            &-state {
+              display: flex;
+              align-items: center;
+              justify-content: flex-end;
+              gap: 5px;
+            }
+          }
 
-          &-statistic {}
+          &-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+            &-item {
+              display: flex;
+              gap: 10px;
+
+              &-icon {
+                color: #80aaff
+              }
+
+              &-content {
+                color: #bdd3ff
+              }
+            }
+          }
+
+          .hr {
+            margin: 0;
+          }
+
+          &-statistic {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px 20px;
+
+            &-item {
+              display: flex;
+              gap: 10px;
+              width: calc((100% - 20px) * 0.5);
+              cursor: pointer;
+
+              &-icon {}
+
+              &-content {
+                color: white
+              }
+
+            }
+          }
+        }
+
+        .amap-info-sharp {
+          top: auto;
+          bottom: -8px;
         }
       }
     }

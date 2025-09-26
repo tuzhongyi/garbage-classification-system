@@ -106,15 +106,15 @@
             @if(item){
             <div class="operation">
               <div
-                class="icon-button"
+                class="button"
                 title="播放视频"
-                (click)="on.video.simple($event, item)"
+                (click)="on.video.single($event, item)"
               >
                 <i class="howell-icon-video"></i>
               </div>
 
               <div
-                class="icon-button"
+                class="button"
                 title="事件发生时间外摄像机"
                 (click)="on.video.all($event, item)"
               >
@@ -122,7 +122,7 @@
               </div>
 
               <div
-                class="icon-button"
+                class="button"
                 title="查看工单"
                 (click)="on.complete($event, item)"
               >

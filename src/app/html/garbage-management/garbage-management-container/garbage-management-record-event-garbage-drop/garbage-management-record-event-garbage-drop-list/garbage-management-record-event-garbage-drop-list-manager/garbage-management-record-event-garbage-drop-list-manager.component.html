@@ -68,7 +68,9 @@
       [args]="table.args"
       [load]="table.load"
       (image)="on.image($event)"
-      (video)="on.video($event)"
+      (video)="on.video.single($event)"
+      (videoall)="on.video.all($event)"
+      (complete)="on.complete($event)"
     ></howell-garbage-management-record-event-garbage-drop-list-table>
   </div>
 </div>

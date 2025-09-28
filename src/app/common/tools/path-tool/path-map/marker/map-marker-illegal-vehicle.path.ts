@@ -1,13 +1,12 @@
-import { MapMarkerEventPath } from './map-marker-event.path';
+import { IMapMarkerOffline } from './map-marker.interface';
 import { MapMarkerPathAbstract } from './map-marker.path.abstract';
 
-export class MapMarkerIllegalVehiclePath extends MapMarkerPathAbstract {
+export class MapMarkerIllegalVehiclePath
+  extends MapMarkerPathAbstract
+  implements IMapMarkerOffline
+{
   constructor(base: string) {
     super(`${base}-illegal-vehicle`);
-  }
-
-  get event() {
-    return new MapMarkerEventPath(this.basic);
   }
 
   get offline() {

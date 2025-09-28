@@ -12,8 +12,8 @@ export class GarbageManagementChartStationCountStateConverter {
 
     item.color = {
       r: 255,
-      g: 0,
-      b: 240,
+      g: 255,
+      b: 0,
     };
     return item;
   }
@@ -26,7 +26,7 @@ export class GarbageManagementChartStationCountStateConverter {
 
     item.color = {
       r: 255,
-      g: 255,
+      g: 140,
       b: 0,
     };
     return item;
@@ -39,9 +39,9 @@ export class GarbageManagementChartStationCountStateConverter {
     item.data.value = data.value;
 
     item.color = {
-      r: 0,
-      g: 246,
-      b: 255,
+      r: 255,
+      g: 0,
+      b: 240,
     };
     return item;
   }

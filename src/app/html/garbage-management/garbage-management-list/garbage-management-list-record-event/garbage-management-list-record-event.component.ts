@@ -29,6 +29,7 @@ export class GarbageManagementListRecordEventComponent
     GarbageManagementListRecordEventItem<IEventRecord>[]
   >();
   @Output() details = new EventEmitter<IEventRecord>();
+  @Output() position = new EventEmitter<IEventRecord>();
 
   constructor(private business: GarbageManagementListRecordEventBusiness) {}
 
@@ -61,6 +62,11 @@ export class GarbageManagementListRecordEventComponent
   on = {
     details: (item: GarbageManagementListRecordEventItem<IEventRecord>) => {
       this.details.emit(item.data);
+    },
+    item: {
+      click: (item: GarbageManagementListRecordEventItem<IEventRecord>) => {
+        this.position.emit(item.data);
+      },
     },
   };
 }

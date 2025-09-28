@@ -18,6 +18,7 @@ import { GarbageManagementCardComponent } from '../component/garbage-management-
 export class GarbageManagementCardListRecordEventComponent {
   @Input() load?: EventEmitter<void>;
   @Output() details = new EventEmitter<IEventRecord>();
+  @Output() position = new EventEmitter<IEventRecord>();
   title = '今日待处置事件';
 
   count = 0;
@@ -30,6 +31,9 @@ export class GarbageManagementCardListRecordEventComponent {
     },
     details: (data: IEventRecord) => {
       this.details.emit(data);
+    },
+    position: (data: IEventRecord) => {
+      this.position.emit(data);
     },
   };
 }

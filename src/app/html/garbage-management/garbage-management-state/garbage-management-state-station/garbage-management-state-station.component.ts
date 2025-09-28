@@ -64,8 +64,8 @@ export class GarbageManagementStateStationComponent implements OnChanges {
   private display() {
     let icons = [
       GarbageManagementStateItemColor.green,
-      GarbageManagementStateItemColor.purple,
       GarbageManagementStateItemColor.yellow,
+      GarbageManagementStateItemColor.orange,
       GarbageManagementStateItemColor.gray,
     ];
     this.datas.forEach((x) => {
@@ -76,7 +76,7 @@ export class GarbageManagementStateStationComponent implements OnChanges {
         case GarbageManagementManagerIndex.mixedinto:
           icons = [
             GarbageManagementStateItemColor.green,
-            GarbageManagementStateItemColor.purple,
+            GarbageManagementStateItemColor.yellow,
             GarbageManagementStateItemColor.gray,
           ];
           x.show = icons.includes(x.color);
@@ -84,7 +84,7 @@ export class GarbageManagementStateStationComponent implements OnChanges {
         case GarbageManagementManagerIndex.garbagedrop:
           icons = [
             GarbageManagementStateItemColor.green,
-            GarbageManagementStateItemColor.yellow,
+            GarbageManagementStateItemColor.orange,
             GarbageManagementStateItemColor.gray,
           ];
           x.show = icons.includes(x.color);
@@ -92,7 +92,7 @@ export class GarbageManagementStateStationComponent implements OnChanges {
         case GarbageManagementManagerIndex.vehicle:
           icons = [
             GarbageManagementStateItemColor.green,
-            GarbageManagementStateItemColor.purple,
+            GarbageManagementStateItemColor.yellow,
             GarbageManagementStateItemColor.gray,
           ];
           x.show = x.show = icons.includes(x.color);

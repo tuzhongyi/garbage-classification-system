@@ -1,5 +1,5 @@
-import { EventType } from '../../../../../../../common/enum/event-type.enum';
 import { StationState } from '../../../../../../../common/enum/station-state.enum';
+import { StationType } from '../../../../../../../common/enum/station-type.enum';
 import { Flags } from '../../../../../../../common/tools/flags';
 import { PathTool } from '../../../../../../../common/tools/path-tool/path.tool';
 import { SizeTool } from '../../../../../../../common/tools/size-tool/size.tool';
@@ -11,12 +11,15 @@ export class GarbageManagementMapAMapStationMarkerIconController
 {
   constructor(private data: GarbageStationViewModel) {
     this.normal = this.init.normal();
-    this.hover = this.init.hover();
-    this.selected = this.init.selected();
+    let flags = new Flags(this.data.StationState);
+    if (!this.is.error(flags)) {
+      this.hover = this.init.hover();
+      this.selected = this.init.selected();
+    }
   }
   normal: AMap.LabelMarkerIconOptions;
-  hover: AMap.LabelMarkerIconOptions;
-  selected: AMap.LabelMarkerIconOptions;
+  hover?: AMap.LabelMarkerIconOptions;
+  selected?: AMap.LabelMarkerIconOptions;
 
   private get opts(): AMap.LabelMarkerIconOptions {
     let icon = {
@@ -29,76 +32,90 @@ export class GarbageManagementMapAMapStationMarkerIconController
   }
 
   private get path() {
-    if (this.data.Eventables.includes(EventType.MixedInto)) {
-      return PathTool.map.marker.mixedinto;
+    let flags = new Flags(this.data.StationState);
+    switch (this.data.StationType) {
+      case StationType.GarbageDrop:
+        if (this.is.stay(this.data, flags)) {
+          return PathTool.map.marker.illegaldrop.stay;
+        } else {
+          return PathTool.map.marker.illegaldrop;
+        }
+      case StationType.Construction:
+        if (this.is.full(flags)) {
+          return PathTool.map.marker.construction.full;
+        }
+        return PathTool.map.marker.construction;
+      case StationType.VehicleWatching:
+        return PathTool.map.marker.illegalvehicle;
+      case StationType.Plus:
+      case StationType.Smart:
+        if (this.is.stay(this.data, flags)) {
+          return PathTool.map.marker.station.wifi.stay;
+        } else if (this.is.full(flags)) {
+          return PathTool.map.marker.station.wifi.full;
+        } else {
+          return PathTool.map.marker.station.wifi;
+        }
+      default:
+        if (this.is.stay(this.data, flags)) {
+          return PathTool.map.marker.station.stay;
+        } else if (this.is.full(flags)) {
+          return PathTool.map.marker.station.full;
+        } else {
+          return PathTool.map.marker.station;
+        }
     }
-    if (
-      this.data.Eventables.includes(EventType.IllegalVehicle) ||
-      this.data.Eventables.includes(EventType.ConstructionData)
-    ) {
-      return PathTool.map.marker.illegalvehicle;
-    }
-    if (this.data.Eventables.includes(EventType.IllegalDrop)) {
-      return PathTool.map.marker.illegaldrop;
-    }
-    return undefined;
   }
+
+  is = {
+    stay: (data: GarbageStationViewModel, flags: Flags<StationState>) => {
+      if (this.is.error(flags)) {
+        return false;
+      }
+      return !!data.Statistic && data.Statistic.CurrentGarbageTime;
+    },
+    full: (flags: Flags<StationState>) => {
+      if (this.is.error(flags)) {
+        return false;
+      }
+      return flags.contains(StationState.Full);
+    },
+    error: (flags: Flags<StationState>) => {
+      return flags.contains(StationState.Error);
+    },
+  };
 
   private init = {
     normal: () => {
-      let image = PathTool.map.marker.unknow;
+      let image = this.path.normal;
       let flags = new Flags(this.data.StationState);
-      if (this.path) {
-        if (flags.contains(StationState.Error)) {
-          image = this.path.offline;
-        } else if (
-          flags.contains(StationState.Full) ||
-          (this.data.Statistic && this.data.Statistic.CurrentGarbageTime)
-        ) {
-          image = this.path.event.normal;
-        } else {
-          image = this.path.normal;
-        }
+      if (this.is.error(flags) && 'offline' in this.path) {
+        image = this.path.offline;
       }
+
       return {
         ...this.opts,
         image: image,
       };
     },
     hover: () => {
-      let image = PathTool.map.marker.unknow;
+      let image = this.path.hover;
       let flags = new Flags(this.data.StationState);
-      if (this.path) {
-        if (flags.contains(StationState.Error)) {
-          image = this.path.offline;
-        } else if (
-          flags.contains(StationState.Full) ||
-          (this.data.Statistic && this.data.Statistic.CurrentGarbageTime)
-        ) {
-          image = this.path.event.hover;
-        } else {
-          image = this.path.hover;
-        }
+
+      if (this.is.error(flags) && 'offline' in this.path) {
+        image = this.path.offline;
       }
+
       return {
         ...this.opts,
         image: image,
       };
     },
     selected: () => {
-      let image = PathTool.map.marker.unknow;
+      let image = this.path.selected;
       let flags = new Flags(this.data.StationState);
-      if (this.path) {
-        if (flags.contains(StationState.Error)) {
-          image = this.path.offline;
-        } else if (
-          flags.contains(StationState.Full) ||
-          (this.data.Statistic && this.data.Statistic.CurrentGarbageTime)
-        ) {
-          image = this.path.event.selected;
-        } else {
-          image = this.path.selected;
-        }
+      if (this.is.error(flags) && 'offline' in this.path) {
+        image = this.path.offline;
       }
       return {
         ...this.opts,

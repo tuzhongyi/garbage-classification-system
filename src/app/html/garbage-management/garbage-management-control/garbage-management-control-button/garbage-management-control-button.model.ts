@@ -3,6 +3,6 @@ export enum GarbageManagementControlButtonIcon {
   street = 'street',
   vehicle = 'vehicle',
   garbagedrop = 'garbage-drop',
-  mixedinto = 'mixed-into',
+  station = 'garbage-station',
   filter = 'filter',
 }

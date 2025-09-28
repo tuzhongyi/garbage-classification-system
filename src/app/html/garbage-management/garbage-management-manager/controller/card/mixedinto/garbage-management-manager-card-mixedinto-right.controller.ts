@@ -31,7 +31,7 @@ export class GarbageManagementManagerCardMixedIntoRightController extends Garbag
       args: {
         load: this.load,
         type: EventType.MixedInto,
-        color: ColorTool.chart.line.get(0, 255, 255),
+        color: ColorTool.chart.line.get(255, 0, 240),
       },
     },
     {
@@ -39,7 +39,7 @@ export class GarbageManagementManagerCardMixedIntoRightController extends Garbag
       args: {
         load: this.load,
         type: EventType.GarbageFull,
-        color: ColorTool.chart.line.get(255, 0, 240),
+        color: ColorTool.chart.line.get(255, 255, 0),
       },
     },
   ];

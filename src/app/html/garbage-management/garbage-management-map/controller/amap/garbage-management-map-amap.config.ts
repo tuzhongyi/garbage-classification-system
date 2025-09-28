@@ -9,7 +9,7 @@ export class GarbageManagementMapAMapConfig {
 
   static zoom = {
     point: [0, 18] as [number, number],
-    marker: [18, 24] as [number, number],
+    marker: [18, 50] as [number, number],
   };
 
   static color = {

@@ -13,6 +13,7 @@ export class GarbageManagementManagerCardHomeRightController extends GarbageMana
   event = {
     record: {
       details: new EventEmitter<IEventRecord>(),
+      position: new EventEmitter<IEventRecord>(),
     },
   };
 
@@ -53,6 +54,7 @@ export class GarbageManagementManagerCardHomeRightController extends GarbageMana
       args: {
         load: this.load,
         details: this.event.record.details,
+        position: this.event.record.position,
       },
     },
   ];

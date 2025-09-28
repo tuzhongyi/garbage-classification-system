@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { IEventRecord } from '../../../../../common/network/model/garbage-station/event-record/garbage-event-record.model';
 import { ComponentTool } from '../../../../../common/tools/component-tool/component.tool';
 import {
   GarbageManagementManagerIndex,
@@ -16,6 +17,10 @@ import { GarbageManagementManagerCardVehicleController } from './vehicle/garbage
 
 @Injectable()
 export class GarbageManagementManagerCardController {
+  event = {
+    position: new EventEmitter<IEventRecord>(),
+  };
+
   constructor(
     private tool: ComponentTool,
     private panel: GarbageManagementManagerPanel,
@@ -43,6 +48,9 @@ export class GarbageManagementManagerCardController {
       this.panel,
       this.window
     );
+    home.right.event.record.position.subscribe((data) => {
+      this.event.position.emit(data);
+    });
     this.controller.set(GarbageManagementManagerIndex.home, home);
     this.controller.set(
       GarbageManagementManagerIndex.mixedinto,

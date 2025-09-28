@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { ContainerPageComponent } from '../../../common/components/container/container-page/container-page.component';
 import { PicturePolygonMultipleComponent } from '../../../common/components/picture/picture-polygon-multiple/picture-polygon-multiple.component';
+import { GarbageDropEventRecord } from '../../../common/network/model/garbage-station/event-record/garbage-drop-event-record.model';
 import { GlobalStorageService } from '../../../common/storage/global.storage';
 import { wait } from '../../../common/tools/tools';
 import { HowellPanelComponent } from '../../share/panel/panel.component';
@@ -139,6 +140,17 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
         this.load.right(this.right.nativeElement);
       }
       this.data.on.index(x);
+    });
+    this.controller.card.event.position.subscribe((x) => {
+      if (x instanceof GarbageDropEventRecord) {
+        if (x.Data.GisPoint) {
+          let position: [number, number] = [
+            x.Data.GisPoint.Longitude,
+            x.Data.GisPoint.Latitude,
+          ];
+          this.map.move.emit(position);
+        }
+      }
     });
     wait(
       () => {

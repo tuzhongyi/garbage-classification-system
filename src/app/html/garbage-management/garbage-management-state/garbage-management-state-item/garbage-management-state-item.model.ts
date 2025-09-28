@@ -5,9 +5,9 @@ export class GarbageManagementStateItem {
   show = true;
 }
 export enum GarbageManagementStateItemColor {
-  green = 'green',
-  yellow = 'yellow',
-  gray = 'gray',
-  cyan = 'cyan',
-  purple = 'purple',
+  green = 'text-green',
+  yellow = 'text-yellow',
+  gray = 'text-gray',
+  cyan = 'text-cyan',
+  orange = 'text-orange',
 }

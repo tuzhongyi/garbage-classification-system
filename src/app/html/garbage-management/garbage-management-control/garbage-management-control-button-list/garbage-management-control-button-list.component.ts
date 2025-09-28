@@ -15,13 +15,13 @@ export class GarbageManagementControlButtonListComponent {
   @Output() vehicle = new EventEmitter();
   @Output() filter = new EventEmitter();
   @Output() garbagedrop = new EventEmitter();
-  @Output() mixedinto = new EventEmitter();
+  @Output() station = new EventEmitter();
 
   selected = GarbageManagementControlButtonIcon.home;
 
   buttons = [
     { icon: GarbageManagementControlButtonIcon.home, name: '综合统计' },
-    { icon: GarbageManagementControlButtonIcon.mixedinto, name: '混投满溢' },
+    { icon: GarbageManagementControlButtonIcon.station, name: '垃圾箱房' },
     { icon: GarbageManagementControlButtonIcon.garbagedrop, name: '垃圾偷倒' },
     { icon: GarbageManagementControlButtonIcon.vehicle, name: '建筑垃圾清运' },
     { icon: GarbageManagementControlButtonIcon.street, name: '街面巡检' },
@@ -36,9 +36,9 @@ export class GarbageManagementControlButtonListComponent {
           this.selected = index;
           this.home.emit();
           break;
-        case GarbageManagementControlButtonIcon.mixedinto:
+        case GarbageManagementControlButtonIcon.station:
           this.selected = index;
-          this.mixedinto.emit();
+          this.station.emit();
           break;
         case GarbageManagementControlButtonIcon.garbagedrop:
           this.selected = index;

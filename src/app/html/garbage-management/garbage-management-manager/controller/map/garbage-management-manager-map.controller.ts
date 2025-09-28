@@ -16,7 +16,7 @@ export class GarbageManagementManagerMapController {
       this.play(args);
     };
   }
-
+  move = new EventEmitter<[number, number]>();
   select = new EventEmitter<IDivision>();
   load = new EventEmitter<void>();
   refresh = false;

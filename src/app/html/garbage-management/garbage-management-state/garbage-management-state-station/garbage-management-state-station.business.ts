@@ -37,12 +37,12 @@ export class GarbageManagementStateStationBusiness {
     let full = this.create(
       '满溢',
       StationState.Full,
-      GarbageManagementStateItemColor.purple
+      GarbageManagementStateItemColor.yellow
     );
     let drop = this.create(
       '滞留',
       StationState.PanicButton,
-      GarbageManagementStateItemColor.yellow
+      GarbageManagementStateItemColor.orange
     );
     let error = this.create(
       '异常',

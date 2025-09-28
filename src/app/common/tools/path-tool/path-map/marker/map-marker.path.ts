@@ -1,6 +1,7 @@
+import { MapMarkerConstructionPath } from './map-marker-construction.path';
 import { MapMarkerIllegalDropPath } from './map-marker-illegal-drop.path';
 import { MapMarkerIllegalVehiclePath } from './map-marker-illegal-vehicle.path';
-import { MapMarkerMixedIntoPath } from './map-marker-mixed-into.path';
+import { MapMarkerStationPath } from './map-marker-station.path';
 
 export class MapMarkerPath {
   constructor(path: string) {
@@ -9,14 +10,17 @@ export class MapMarkerPath {
 
   private basic: string;
 
-  get illegaldrop() {
-    return new MapMarkerIllegalDropPath(this.basic);
+  get station() {
+    return new MapMarkerStationPath(this.basic);
   }
-  get mixedinto() {
-    return new MapMarkerMixedIntoPath(this.basic);
+  get construction() {
+    return new MapMarkerConstructionPath(this.basic);
   }
   get illegalvehicle() {
     return new MapMarkerIllegalVehiclePath(this.basic);
+  }
+  get illegaldrop() {
+    return new MapMarkerIllegalDropPath(this.basic);
   }
   get unknow() {
     return `${this.basic}-unknow.png`;

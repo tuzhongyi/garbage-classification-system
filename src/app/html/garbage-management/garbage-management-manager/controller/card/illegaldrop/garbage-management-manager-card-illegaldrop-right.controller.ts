@@ -31,7 +31,7 @@ export class GarbageManagementManagerCardIllegalDropRightController extends Garb
       args: {
         load: this.load,
         type: EventType.IllegalDrop,
-        color: ColorTool.chart.line.get(255, 140, 0),
+        color: ColorTool.chart.line.get(0, 246, 255),
       },
     },
     {
@@ -39,7 +39,7 @@ export class GarbageManagementManagerCardIllegalDropRightController extends Garb
       args: {
         load: this.load,
         type: EventType.GarbageDrop,
-        color: ColorTool.chart.line.get(255, 255, 0),
+        color: ColorTool.chart.line.get(255, 140, 0),
       },
     },
   ];

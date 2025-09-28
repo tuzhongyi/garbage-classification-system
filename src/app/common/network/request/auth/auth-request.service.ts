@@ -11,7 +11,6 @@ import { firstValueFrom } from 'rxjs';
 import { RoutePath } from '../../../../html/app-routing.path';
 import { UserResourceType } from '../../../enum/user-resource-type.enum';
 import { UserType } from '../../../enum/user-type.enum';
-import { UserUIType } from '../../../enum/user-ui-type.enum';
 import { Base64 } from '../../../imports/base64/base64';
 import { GlobalStorageService } from '../../../storage/global.storage';
 import { LocalStorageService } from '../../../storage/local.storage';
@@ -72,9 +71,10 @@ export class AuthorizationService {
 
   getPath(user: User): RoutePath {
     let role = user.Role[0];
-    if (user.UIType === UserUIType.dapuqiao) {
-      return RoutePath.dapuqiao;
-    } else if (
+    // if (user.UIType === UserUIType.dapuqiao) {
+    //   return RoutePath.dapuqiao;
+    // } else
+    if (
       user.UserType === UserType.station_vehicle ||
       user.UserType === UserType.garbage_vehicle_system
     ) {

@@ -34,7 +34,9 @@ export class GarbageManagementMapComponent
   @Input() records: IasEventRecord[] = [];
   @Input() eventables = [EventType.GarbageFull, EventType.GarbageDrop];
   @Input() select?: EventEmitter<IDivision>;
+  @Input() move?: EventEmitter<[number, number]>;
   @Input() refresh = false;
+
   @Output() refreshChange = new EventEmitter<boolean>();
 
   @Output() recorddblclick = new EventEmitter<IasEventRecord>();
@@ -68,6 +70,12 @@ export class GarbageManagementMapComponent
               });
             }
           });
+        });
+        this.subscription.add(sub);
+      }
+      if (this.move) {
+        let sub = this.move.subscribe((x) => {
+          this.controller.move(x);
         });
         this.subscription.add(sub);
       }
@@ -119,7 +127,7 @@ export class GarbageManagementMapComponent
       }
     },
     refresh: (simple: SimpleChange) => {
-      if (simple) {
+      if (simple && !simple.firstChange) {
         if (this.refresh) {
           this.controller.station.blur();
           this.refresh = false;

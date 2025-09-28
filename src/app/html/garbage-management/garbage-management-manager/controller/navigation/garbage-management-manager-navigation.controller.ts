@@ -24,7 +24,7 @@ export class GarbageManagementManagerNavigationController {
     this.index = GarbageManagementManagerIndex.garbagedrop;
     this.change.emit(this.index);
   }
-  mixedinto() {
+  garbagestation() {
     this.index = GarbageManagementManagerIndex.mixedinto;
     this.change.emit(this.index);
   }

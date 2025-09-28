@@ -48,7 +48,7 @@ export class GarbageManagementRecordEventMixedIntoStatisticDetailsContainerCompo
   chart = {
     data: undefined as IGarbageManagementChartData | undefined,
     load: new EventEmitter<void>(),
-    color: ColorTool.chart.line.get(0, 246, 255),
+    color: ColorTool.chart.line.get(255, 0, 240),
     interval: 0,
     xAxis: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'],
   };

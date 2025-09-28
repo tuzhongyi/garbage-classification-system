@@ -9,6 +9,7 @@
       [records]="data.records"
       [eventables]="data.eventables"
       [select]="map.select"
+      [move]="map.move"
       [(refresh)]="map.refresh"
       (recorddblclick)="window.record.ias.open($event)"
       (camera)="map.on.camera($event)"
@@ -67,7 +68,7 @@
   <div class="garbage-management-manager-controls">
     <howell-garbage-management-control-button-list
       (home)="navigation.home()"
-      (mixedinto)="navigation.mixedinto()"
+      (station)="navigation.garbagestation()"
       (garbagedrop)="navigation.garbagedrop()"
       (vehicle)="navigation.vehicle()"
       (street)="navigation.street()"

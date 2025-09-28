@@ -197,21 +197,34 @@ class InfoContent implements GarbageManagementMapAMapInfoEvent {
       'howell-icon-video text-icon',
       data.Cameras?.length ?? 0
     );
+    camera.title = '查看摄像机视频';
     camera.addEventListener('click', () => {
       this.camera.emit(this.data);
     });
     html.appendChild(camera);
 
     if (data.Statistic) {
+      let time = Language.Time(data.Statistic.CurrentGarbageTime, 'minute');
+      let _time = this.item.statistic(
+        'howell-icon-garbagebags text-orange',
+        time || '0分钟'
+      );
+      _time.title = '查看垃圾滞留信息';
+      _time.addEventListener('click', () => {
+        this.garbagedrop.emit(this.data);
+      });
+      html.appendChild(_time);
+
       if (data.Statistic.TodayEventNumbers) {
         let mixedinto = data.Statistic.TodayEventNumbers.find(
           (x) => x.EventType === EventType.MixedInto
         );
         if (mixedinto) {
           let _mixedinto = this.item.statistic(
-            'howell-icon-mixlittering text-cyan',
+            'howell-icon-mixlittering text-pink',
             mixedinto.DayNumber
           );
+          _mixedinto.title = '查看混合投放信息';
           _mixedinto.addEventListener('click', () => {
             this.mixedinto.emit(this.data);
           });
@@ -222,25 +235,16 @@ class InfoContent implements GarbageManagementMapAMapInfoEvent {
         );
         if (illegaldrop) {
           let _illegaldrop = this.item.statistic(
-            'howell-icon-nolittering text-orange',
+            'howell-icon-nolittering text-cyan',
             illegaldrop.DayNumber
           );
+          _illegaldrop.title = '查看垃圾乱倒信息';
           _illegaldrop.addEventListener('click', () => {
             this.illegaldrop.emit(this.data);
           });
           html.appendChild(_illegaldrop);
         }
       }
-
-      let time = Language.Time(data.Statistic.CurrentGarbageTime, 'minute');
-      let _time = this.item.statistic(
-        'howell-icon-garbagebags text-yellow',
-        time || '0分钟'
-      );
-      _time.addEventListener('click', () => {
-        this.garbagedrop.emit(this.data);
-      });
-      html.appendChild(_time);
     }
 
     return html;

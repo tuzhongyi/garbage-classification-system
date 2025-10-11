@@ -12,13 +12,13 @@ export class GarbageManagementManagerVideoController {
   playback = new EventEmitter<VideoPlaybackArgs>();
 
   play() {
-    if (this.window.video.single.show) {
-      if (this.window.video.single.args.playback) {
-        this.playback.emit(this.window.video.single.args.playback);
-      } else if (this.window.video.single.args.preview) {
-        this.preview.emit(this.window.video.single.args.preview);
+    if (this.window.video.ws.show) {
+      if (this.window.video.ws.args.playback) {
+        this.playback.emit(this.window.video.ws.args.playback);
+      } else if (this.window.video.ws.args.preview) {
+        this.preview.emit(this.window.video.ws.args.preview);
       } else {
-        this.window.video.single.show = false;
+        this.window.video.ws.show = false;
       }
     }
   }

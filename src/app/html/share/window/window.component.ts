@@ -13,6 +13,7 @@ export class HowellWindowComponent {
   @Input() model: WindowViewModel = new WindowViewModel();
   @Input() title = '';
   @Input() button = true;
+  @Input() mask = true;
 
   private _style: any = {
     width: '50%',

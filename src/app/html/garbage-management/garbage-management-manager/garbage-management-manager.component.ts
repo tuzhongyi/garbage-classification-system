@@ -21,6 +21,8 @@ import { EventHandleCompleteComponent } from '../garbage-management-container/ga
 import { GarbageManagementRecordEventIasManagerComponent } from '../garbage-management-container/garbage-management-record-event-ias/garbage-management-record-event-ias-manager/garbage-management-record-event-ias-manager.component';
 import { GarbageManagementRecordEventIasTaskManagerComponent } from '../garbage-management-container/garbage-management-record-event-ias/garbage-management-record-event-ias-task/garbage-management-record-event-ias-task-manager/garbage-management-record-event-ias-task-manager.component';
 import { GarbageManagementRecordEventIllegalDropManagerComponent } from '../garbage-management-container/garbage-management-record-event-illegal-drop/garbage-management-record-event-illegal-drop-manager/garbage-management-record-event-illegal-drop-manager.component';
+import { GarbageManagementRecordEventIllegalDumpManagerComponent } from '../garbage-management-container/garbage-management-record-event-illegal-dump/garbage-management-record-event-illegal-dump-manager/garbage-management-record-event-illegal-dump-manager.component';
+import { GarbageManagementRecordEventIllegalVehicleManagerComponent } from '../garbage-management-container/garbage-management-record-event-illegal-vehicle/garbage-management-record-event-illegal-vehicle-manager/garbage-management-record-event-illegal-vehicle-manager.component';
 import { GarbageManagementRecordEventMixedIntoManagerComponent } from '../garbage-management-container/garbage-management-record-event-mixed-into/garbage-management-record-event-mixed-into-manager/garbage-management-record-event-mixed-into-manager.component';
 import { GarbageManagementStationManagerComponent } from '../garbage-management-container/garbage-management-station/garbage-management-station-manager/garbage-management-station-manager.component';
 import { GarbageManagementControlButtonListComponent } from '../garbage-management-control/garbage-management-control-button-list/garbage-management-control-button-list.component';
@@ -65,8 +67,10 @@ import { GarbageManagementManagerWindow } from './window/garbage-management-mana
 
     GarbageManagementRecordEventGarbageFullManagerComponent,
     GarbageManagementRecordEventIllegalDropManagerComponent,
+    GarbageManagementRecordEventIllegalDumpManagerComponent,
     GarbageManagementRecordEventGarbageDropManagerComponent,
     GarbageManagementRecordEventMixedIntoManagerComponent,
+    GarbageManagementRecordEventIllegalVehicleManagerComponent,
     GarbageManagementStationManagerComponent,
     EventHandleCompleteComponent,
   ],

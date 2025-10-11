@@ -18,9 +18,9 @@ export class GarbageManagementStateStationBusiness {
     switch (index) {
       case GarbageManagementManagerIndex.home:
         return datas;
-      case GarbageManagementManagerIndex.mixedinto:
-        return this._filter.mixedinto(datas);
-      case GarbageManagementManagerIndex.garbagedrop:
+      case GarbageManagementManagerIndex.garbagestation:
+        return this._filter.garbagestation(datas);
+      case GarbageManagementManagerIndex.illegaldump:
         return this._filter.illegaldrop(datas);
       case GarbageManagementManagerIndex.vehicle:
         return this._filter.illegalvehicle(datas);

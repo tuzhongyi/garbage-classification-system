@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EventType } from '../../../../../common/enum/event-type.enum';
+import { StationType } from '../../../../../common/enum/station-type.enum';
 import { GarbageManagementManagerPanel } from '../../panel/garbage-management-manager.panel';
 
 @Injectable()
@@ -7,8 +7,8 @@ export class GarbageManagementManagerStatisticController {
   constructor(private panel: GarbageManagementManagerPanel) {}
 
   station = {
-    open: (eventables: EventType[]) => {
-      this.panel.station.show = true;
+    open: (type: StationType) => {
+      this.panel.station.open(type);
     },
   };
   device = {

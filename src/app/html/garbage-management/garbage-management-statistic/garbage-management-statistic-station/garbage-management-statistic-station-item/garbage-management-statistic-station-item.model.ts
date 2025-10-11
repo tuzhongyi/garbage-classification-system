@@ -1,12 +1,13 @@
 export class GarbageManagementStatisticStationItem {
-  icon = GarbageManagementStatisticRecordIcon.illegaldrop;
+  icon = GarbageManagementStatisticRecordIcon.illegaldump;
   value = 0;
   name = '';
   show = true;
 }
 export enum GarbageManagementStatisticRecordIcon {
-  mixedinto = 'mixedinto',
-  illegaldrop = 'illegaldrop',
+  garbagestation = 'garbagestation',
+  illegaldump = 'illegaldump',
   illegalvehicle = 'illegalvehicle',
+  construction = 'construction',
   street = 'street',
 }

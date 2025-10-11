@@ -255,6 +255,8 @@ export class Language {
         return Language.json.EventType.GarbageDropHandle;
       case EventType.IllegalVehicle:
         return '非法清运';
+      case EventType.IllegalDrop2:
+        return '垃圾偷倒';
       default:
         return Language.json.EventType.Default;
     }
@@ -338,10 +340,10 @@ export class Language {
         return '智能垃圾厢房';
       case StationType.Plus:
         return '精品厢房';
-      case StationType.GarbageDrop:
+      case StationType.IllegalDrop:
         return '垃圾偷倒';
       case StationType.VehicleWatching:
-        return '';
+        return '非法清运';
       default:
         return Language.json.Unknow;
     }
@@ -1175,5 +1177,35 @@ export class Language {
         return '未知';
     }
   }
+
+  static PlateColor(value?: number) {
+    switch (value) {
+      case 1:
+        return '蓝牌';
+      case 2:
+        return '黄牌';
+      case 3:
+        return '白牌';
+      case 4:
+        return '黑色';
+      case 5:
+        return '绿色';
+      default:
+        return '其他';
+    }
+  }
+
+  static IllegalVehicleType(value?: number) {
+    switch (value) {
+      case 1:
+        return '授权车辆';
+      case 2:
+        return '禁止车辆';
+      case 0:
+      default:
+        return '未知车辆';
+    }
+  }
+
   static json = language;
 }

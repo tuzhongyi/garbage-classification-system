@@ -90,6 +90,7 @@
     [style]="panel.station.style"
   >
     <howell-garbage-management-station-manager
+      [type]="panel.station.args.type"
       (image)="panel.station.on.image($event)"
       (video)="panel.station.on.video($event)"
       (position)="panel.station.on.position($event)"
@@ -117,6 +118,31 @@
       (video)="panel.record.illegaldrop.on.video($event)"
     >
     </howell-garbage-management-record-event-illegal-drop-manager>
+  </howell-panel>
+  <howell-panel
+    *ngIf="panel.record.illegaldump.show"
+    [model]="panel.record.illegaldump"
+    [title]="panel.record.illegaldump.title"
+    [style]="panel.record.illegaldump.style"
+  >
+    <howell-garbage-management-record-event-illegal-dump-manager
+      (image)="panel.record.illegaldump.on.image($event)"
+      (video)="panel.record.illegaldump.on.video($event)"
+    >
+    </howell-garbage-management-record-event-illegal-dump-manager>
+  </howell-panel>
+  <howell-panel
+    *ngIf="panel.record.illegalvehicle.show"
+    [model]="panel.record.illegalvehicle"
+    [title]="panel.record.illegalvehicle.title"
+    [style]="panel.record.illegalvehicle.style"
+  >
+    <howell-garbage-management-record-event-illegal-vehicle-manager
+      (image)="panel.record.illegalvehicle.on.image($event)"
+      (video)="panel.record.illegalvehicle.on.video.single($event)"
+      (videoall)="panel.record.illegalvehicle.on.video.multiple($event)"
+    >
+    </howell-garbage-management-record-event-illegal-vehicle-manager>
   </howell-panel>
   <howell-panel
     *ngIf="panel.record.mixedinto.show"
@@ -199,7 +225,7 @@
       (pageChange)="window.picture.on.page.change($event)"
     >
       <app-picture-polygon-multiple
-        [id]="window.picture.current?.url"
+        [src]="window.picture.current?.url"
         [polygon]="window.picture.current?.polygon ?? []"
       ></app-picture-polygon-multiple>
     </howell-container-page>
@@ -212,21 +238,34 @@
   >
     <div class="video-multiple-window">
       <howell-video-multiple
+        *ngIf="!window.video.multiple.loading"
         [datas]="window.video.multiple.datas"
         [playable]="window.video.multiple.playable"
         (play)="window.video.multiple.on.play($event)"
+        (error)="window.video.multiple.on.error($event)"
       ></howell-video-multiple>
       <div class="loading" *ngIf="window.video.multiple.loading"></div>
     </div>
   </howell-window>
   <howell-video-window
-    *ngIf="window.video.single.show"
-    [Model]="window.video.single"
-    [title]="window.video.single.title"
-    [style]="window.video.single.style"
+    *ngIf="window.video.ws.show"
+    [Model]="window.video.ws"
+    [title]="window.video.ws.title"
+    [style]="window.video.ws.style"
+    [mask]="window.video.ws.mask"
     [playback]="video.playback"
     [preview]="video.preview"
     (opened)="video.play()"
   >
   </howell-video-window>
+  <howell-window
+    [model]="window.video.mkv"
+    *ngIf="window.video.mkv.show"
+    [style]="window.video.mkv.style"
+    [title]="window.video.mkv.title"
+  >
+    <div class="video-mkv-window">
+      <video [src]="window.video.mkv.src" autoplay="autoplay" controls></video>
+    </div>
+  </howell-window>
 </div>

@@ -21,6 +21,7 @@ import { GarbageManagementStationManagerIndex } from './garbage-management-stati
 })
 export class GarbageManagementStationManagerComponent {
   @Input() type?: StationType;
+
   @Output() image = new EventEmitter<PagedArgs<GarbageStation>>();
   @Output() video = new EventEmitter<GarbageStation>();
   @Output() position = new EventEmitter<GarbageStation>();

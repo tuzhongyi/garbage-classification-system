@@ -74,13 +74,11 @@ export class GarbageManagementRecordEventGarbageFullListTableBusiness {
       }
 
       if (data.Data.CameraImageUrls) {
-        vm.images = data.Data.CameraImageUrls.map((url) =>
-          PicturesUrl.jpg(url.ImageUrl)
-        );
+        vm.images = data.Data.CameraImageUrls.map((url) => url.ImageUrl);
       }
       if (data.Data.HandleImageUrls) {
         vm.images = vm.images.concat(
-          data.Data.HandleImageUrls.map((url) => PicturesUrl.jpg(url.ImageUrl))
+          data.Data.HandleImageUrls.map((url) => url.ImageUrl)
         );
       }
       return vm;

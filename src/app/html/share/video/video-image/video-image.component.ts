@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PictureComponent } from '../../../../common/components/picture/component/picture.component';
 import { VideoComponent } from '../component/video.component';
 import { VideoPlaybackArgs, VideoPreviewArgs } from '../component/video.model';
@@ -15,6 +15,7 @@ export class VideoImageComponent {
   @Input('preview') _preview?: VideoPreviewArgs;
   @Input('playback') _playback?: VideoPlaybackArgs;
   @Input() playable = true;
+  @Output() error = new EventEmitter<Event>();
 
   opened = false;
   playing = false;
@@ -34,6 +35,9 @@ export class VideoImageComponent {
           this.preview.emit(this._preview);
         }
       }
+    },
+    error: (e: Event) => {
+      this.error.emit(e);
     },
   };
 }

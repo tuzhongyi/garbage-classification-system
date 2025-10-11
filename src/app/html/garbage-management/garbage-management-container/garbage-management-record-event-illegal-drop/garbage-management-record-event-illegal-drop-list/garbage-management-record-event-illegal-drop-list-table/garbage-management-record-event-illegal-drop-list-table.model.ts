@@ -14,6 +14,6 @@ export class GarbageManagementRecordEventIllegalDropListTableArgs {
 export class IllegalDropEventRecordViewModel extends IllegalDropEventRecord {
   images: string[] = [];
   states: StationState[] = [];
-  GarbageStation!: GarbageStation;
-  Division?: DivisionViewModel;
+  GarbageStation!: Promise<GarbageStation>;
+  Division?: Promise<DivisionViewModel>;
 }

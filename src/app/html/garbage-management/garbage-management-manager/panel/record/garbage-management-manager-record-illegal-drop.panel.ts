@@ -31,14 +31,15 @@ export class GarbageManagementManagerRecordIllegalDropPanel extends WindowViewMo
     },
     video: (data: IllegalDropEventRecord) => {
       if (data.ResourceId) {
-        this.window.video.single.title =
-          data.ResourceName ?? data.Data.StationName;
-        this.window.video.single.args.playback = {
-          cameraId: data.ResourceId,
-          duration: DateTimeTool.before(data.EventTime, 30),
-          stream: 1,
+        let title = data.ResourceName ?? data.Data.StationName;
+        let args = {
+          playback: {
+            cameraId: data.ResourceId,
+            duration: DateTimeTool.before(data.EventTime, 30),
+            stream: 1,
+          },
         };
-        this.window.video.single.show = true;
+        this.window.video.ws.open(title, args);
       }
     },
   };

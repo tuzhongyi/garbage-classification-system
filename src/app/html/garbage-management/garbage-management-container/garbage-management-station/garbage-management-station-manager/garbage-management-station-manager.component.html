@@ -27,6 +27,7 @@
   <div class="garbage-management-station-manager-body">
     <howell-garbage-management-station-list-manager
       *ngIf="index == Index.list"
+      [type]="type"
       (image)="on.image($event)"
       (video)="on.video($event)"
       (position)="on.position($event)"

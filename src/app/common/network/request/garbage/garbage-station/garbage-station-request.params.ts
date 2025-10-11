@@ -68,6 +68,9 @@ export class GetGarbageStationsParams extends PagedParams implements IParams {
   GCHAOnlineStatus?: number;
   /**	Int32	设备在线状态 0:正常、1:异常 GarbageDeviceData	O */
   DeviceOnlineStatus?: number;
+
+  /**垃圾房类型(可选) */
+  StationTypes?: number[];
 }
 
 export class GetGarbageStationCamerasParams

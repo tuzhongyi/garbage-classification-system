@@ -21,6 +21,7 @@ export class VideoMultipleComponent implements OnChanges {
   @Input() datas: VideoArgs[] = [];
   @Input() playable = true;
   @Output() play = new EventEmitter<number>();
+  @Output() error = new EventEmitter<{ index: number; event: Event }>();
 
   items: (VideoArgs | undefined)[] = [];
   pow = 1;
@@ -55,6 +56,9 @@ export class VideoMultipleComponent implements OnChanges {
       if (item) {
         this.play.emit(index);
       }
+    },
+    error: (index: number, event: Event) => {
+      this.error.emit({ index, event });
     },
   };
 }

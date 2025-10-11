@@ -8,8 +8,8 @@ import { TimeUnit } from '../../../../../../common/enum/time-unit.enum';
 import { Language } from '../../../../../../common/tools/language';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
 import { SelectGarbageStationComponent } from '../../../../../share/select/select-garbage-station/select-garbage-station.component';
-import { GarbageManagementRecordEventIllegalDropStatisticDetailsArgs } from '../garbage-management-record-event-illegal-drop-statistic-details-container/business/garbage-management-record-event-illegal-drop-statistic-details-container.model';
 import { GarbageManagementRecordEventIllegalDropStatisticDetailsContainerComponent } from '../garbage-management-record-event-illegal-drop-statistic-details-container/garbage-management-record-event-illegal-drop-statistic-details-container.component';
+import { GarbageManagementRecordEventIllegalDropStatisticDetailsArgs } from '../garbage-management-record-event-illegal-drop-statistic-details-container/garbage-management-record-event-illegal-drop-statistic-details-container.model';
 
 @Component({
   selector:

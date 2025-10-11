@@ -1,0 +1,40 @@
+<div class="garbage-management-record-event-illegal-dump-manager">
+  <div class="garbage-management-record-event-illegal-dump-manager-head">
+    <div class="button-group">
+      <div
+        class="button-bracket"
+        [class.selected]="index == Index.list"
+        (click)="on.index(Index.list)"
+      >
+        列表
+      </div>
+      <!-- <div
+        class="button-bracket"
+        [class.selected]="index == Index.total"
+        (click)="on.index(Index.total)"
+      >
+        总图表
+      </div> -->
+      <div
+        class="button-bracket"
+        [class.selected]="index == Index.details"
+        (click)="on.index(Index.details)"
+      >
+        细分图表
+      </div>
+    </div>
+  </div>
+  <div class="garbage-management-record-event-illegal-dump-manager-body">
+    <howell-garbage-management-record-event-illegal-dump-list-manager
+      *ngIf="index == Index.list"
+      (image)="on.image($event)"
+      (video)="on.video($event)"
+    ></howell-garbage-management-record-event-illegal-dump-list-manager>
+    <howell-garbage-management-record-event-illegal-dump-statistic-total-manager
+      *ngIf="index == Index.total"
+    ></howell-garbage-management-record-event-illegal-dump-statistic-total-manager>
+    <howell-garbage-management-record-event-illegal-dump-statistic-details-manager
+      *ngIf="index == Index.details"
+    ></howell-garbage-management-record-event-illegal-dump-statistic-details-manager>
+  </div>
+</div>

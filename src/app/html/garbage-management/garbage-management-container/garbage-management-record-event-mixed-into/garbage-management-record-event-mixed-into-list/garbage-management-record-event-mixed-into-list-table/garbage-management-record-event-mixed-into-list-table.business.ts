@@ -73,10 +73,10 @@ export class GarbageManagementRecordEventMixedIntoListTableBusiness {
           });
       }
 
-      vm.images = data.ImageUrl ? [PicturesUrl.jpg(data.ImageUrl)] : [];
+      vm.images = data.ImageUrl ? [data.ImageUrl] : [];
 
       if (data.Data.HandleImageUrl) {
-        vm.images.push(PicturesUrl.jpg(data.Data.HandleImageUrl));
+        vm.images.push(data.Data.HandleImageUrl);
       }
 
       return vm;

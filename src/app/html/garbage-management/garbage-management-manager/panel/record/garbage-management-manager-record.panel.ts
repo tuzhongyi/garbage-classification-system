@@ -4,6 +4,8 @@ import { GarbageManagementManagerRecordGarbageDropPanel } from './garbage-manage
 import { GarbageManagementManagerRecordGarbageFullPanel } from './garbage-management-manager-record-garbage-full.panel';
 import { GarbageManagementManagerRecordIasPanel } from './garbage-management-manager-record-ias.panel';
 import { GarbageManagementManagerRecordIllegalDropPanel } from './garbage-management-manager-record-illegal-drop.panel';
+import { GarbageManagementManagerRecordIllegalDumpPanel } from './garbage-management-manager-record-illegal-dump.panel';
+import { GarbageManagementManagerRecordIllegalVehiclePanel } from './garbage-management-manager-record-illegal-vehicle.panel';
 import { GarbageManagementManagerRecordMixedIntoPanel } from './garbage-management-manager-record-mixed-into.panel';
 
 export class GarbageManagementManagerRecordPanel {
@@ -12,6 +14,8 @@ export class GarbageManagementManagerRecordPanel {
   garbagedrop: GarbageManagementManagerRecordGarbageDropPanel;
   mixedinto: GarbageManagementManagerRecordMixedIntoPanel;
   illegaldrop: GarbageManagementManagerRecordIllegalDropPanel;
+  illegaldump: GarbageManagementManagerRecordIllegalDumpPanel;
+  illegalvehicle: GarbageManagementManagerRecordIllegalVehiclePanel;
   constructor(
     window: GarbageManagementManagerWindow,
     business: GarbageManagementManagerBusiness
@@ -30,6 +34,12 @@ export class GarbageManagementManagerRecordPanel {
       business
     );
     this.illegaldrop = new GarbageManagementManagerRecordIllegalDropPanel(
+      window
+    );
+    this.illegaldump = new GarbageManagementManagerRecordIllegalDumpPanel(
+      window
+    );
+    this.illegalvehicle = new GarbageManagementManagerRecordIllegalVehiclePanel(
       window
     );
   }

@@ -7,6 +7,7 @@ import {
 } from '../../../../common/network/request/garbage/garbage-station/garbage-station-request.params';
 import { GarbageStationRequestService } from '../../../../common/network/request/garbage/garbage-station/garbage-station-request.service';
 import { GlobalStorageService } from '../../../../common/storage/global.storage';
+import { ObjectTool } from '../../../../common/tools/object-tool/object.tool';
 import { DivisionViewModelConverter } from '../../../../common/view-model/division.view-model';
 import { GarbageStationViewModel } from '../../../../common/view-model/garbage-station.view-model';
 
@@ -22,6 +23,7 @@ export class GarbageManagementManagerStationBusiness {
     let division = await this.global.division.selected;
     let params = new GetGarbageStationsParams();
     params.AncestorId = division.Id;
+    params.StationTypes = [...ObjectTool.model.GarbageStation.types];
     let stations = await this.service.all(params);
     let statistic = await this.statistic.all(stations);
     let models: GarbageStationViewModel[] = [];

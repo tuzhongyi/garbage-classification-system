@@ -1,47 +1,54 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { Camera } from '../../../../../common/network/model/garbage-station/camera.model';
 import { IDivision } from '../../../../../common/network/model/garbage-station/division.model';
+import { GarbageStation } from '../../../../../common/network/model/garbage-station/garbage-station.model';
 import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
 import { GarbageStationViewModel } from '../../../../../common/view-model/garbage-station.view-model';
-import { VideoArgs } from '../../../../share/video/video-multiple/video-multiple.model';
 import { GarbageManagementManagerPanel } from '../../panel/garbage-management-manager.panel';
 import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
+import { VideoType } from '../../window/video/garbage-management-manager-video.window';
 
 @Injectable()
 export class GarbageManagementManagerMapController {
   constructor(
     private panel: GarbageManagementManagerPanel,
     private window: GarbageManagementManagerWindow
-  ) {
-    window.video.multiple.play = (args) => {
-      this.play(args);
-    };
-  }
+  ) {}
   move = new EventEmitter<[number, number]>();
   select = new EventEmitter<IDivision>();
   load = new EventEmitter<void>();
   refresh = false;
 
-  play(args: VideoArgs) {
-    this.window.video.single.args.preview = args.preview;
-    if (this.current) {
-      this.window.video.single.title = this.current.Name;
-    }
-    this.window.video.single.show = true;
-  }
-
   current?: GarbageStationViewModel;
+
+  private video = {
+    single: (camera: Camera) => {
+      let args = {
+        preview: {
+          cameraId: camera.Id,
+          stream: 1,
+        },
+      };
+      this.window.video.ws.open(camera.Name, args);
+    },
+    multiple: (data: GarbageStation) => {
+      if (!data.Cameras) return;
+      let videos = data.Cameras.map((x) => {
+        return ObjectTool.model.camera.video(x);
+      });
+      this.window.video.multiple.open(data.Name, videos, VideoType.ws, data.Id);
+    },
+  };
 
   on = {
     camera: (data: GarbageStationViewModel) => {
       this.current = data;
       if (data.Cameras) {
-        let videos = data.Cameras.map((x) => {
-          return ObjectTool.model.camera.get.video(x);
-        });
-        this.window.video.multiple.playable = false;
-        this.window.video.multiple.title = data.Name;
-        this.window.video.multiple.datas = videos;
-        this.window.video.multiple.show = true;
+        if (data.Cameras.length === 1) {
+          this.video.single(data.Cameras[0]);
+        } else {
+          this.video.multiple(data);
+        }
       }
     },
     mixedinto: (data: GarbageStationViewModel) => {

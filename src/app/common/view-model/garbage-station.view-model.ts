@@ -29,7 +29,7 @@ export class GarbageStationViewModel extends GarbageStation {
         }
       }
     }
-    if (this.StationType === StationType.GarbageDrop) {
+    if (this.StationType === StationType.IllegalDrop) {
       events.push(EventType.GarbageDrop);
       events.push(EventType.IllegalDrop);
     }

@@ -9,7 +9,7 @@ import {
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
-import { EventType } from '../../../../../common/enum/event-type.enum';
+import { StationType } from '../../../../../common/enum/station-type.enum';
 import { GarbageStation } from '../../../../../common/network/model/garbage-station/garbage-station.model';
 import { IasDevice } from '../../../../../common/network/model/ias/ias-device.model';
 import { GarbageManagementManagerIndex } from '../../../garbage-management-manager/garbage-management-manager.model';
@@ -34,7 +34,7 @@ export class GarbageManagementStatisticStationComponent
   @Input() stations: GarbageStation[] = [];
   @Input() devices: IasDevice[] = [];
 
-  @Output() openstations = new EventEmitter<EventType[]>();
+  @Output() openstations = new EventEmitter<StationType>();
   @Output() opendevices = new EventEmitter<void>();
 
   constructor(private business: GarbageManagementStatisticStationBusiness) {}
@@ -92,15 +92,17 @@ export class GarbageManagementStatisticStationComponent
         case GarbageManagementManagerIndex.home:
           x.show = true;
           break;
-        case GarbageManagementManagerIndex.mixedinto:
-          x.show = x.icon === GarbageManagementStatisticRecordIcon.mixedinto;
+        case GarbageManagementManagerIndex.garbagestation:
+          x.show =
+            x.icon === GarbageManagementStatisticRecordIcon.garbagestation;
           break;
-        case GarbageManagementManagerIndex.garbagedrop:
-          x.show = x.icon === GarbageManagementStatisticRecordIcon.illegaldrop;
+        case GarbageManagementManagerIndex.illegaldump:
+          x.show = x.icon === GarbageManagementStatisticRecordIcon.illegaldump;
           break;
         case GarbageManagementManagerIndex.vehicle:
           x.show =
-            x.icon === GarbageManagementStatisticRecordIcon.illegalvehicle;
+            x.icon === GarbageManagementStatisticRecordIcon.illegalvehicle ||
+            x.icon === GarbageManagementStatisticRecordIcon.construction;
           break;
         case GarbageManagementManagerIndex.street:
           x.show = x.icon === GarbageManagementStatisticRecordIcon.street;
@@ -114,17 +116,14 @@ export class GarbageManagementStatisticStationComponent
   on = {
     click: (item: GarbageManagementStatisticStationItem) => {
       switch (item.icon) {
-        case GarbageManagementStatisticRecordIcon.illegaldrop:
-          this.openstations.emit([
-            EventType.IllegalDrop,
-            EventType.GarbageDrop,
-          ]);
+        case GarbageManagementStatisticRecordIcon.illegaldump:
+          this.openstations.emit(StationType.IllegalDrop);
           break;
-        case GarbageManagementStatisticRecordIcon.mixedinto:
-          this.openstations.emit([EventType.MixedInto, EventType.GarbageFull]);
+        case GarbageManagementStatisticRecordIcon.garbagestation:
+          this.openstations.emit(StationType.Garbage);
           break;
         case GarbageManagementStatisticRecordIcon.illegalvehicle:
-          this.openstations.emit([EventType.IllegalVehicle]);
+          this.openstations.emit(StationType.VehicleWatching);
           break;
         case GarbageManagementStatisticRecordIcon.street:
           this.opendevices.emit();

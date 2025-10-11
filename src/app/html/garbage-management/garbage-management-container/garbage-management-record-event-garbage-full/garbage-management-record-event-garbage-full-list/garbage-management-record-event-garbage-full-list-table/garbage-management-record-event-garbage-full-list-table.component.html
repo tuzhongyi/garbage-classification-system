@@ -72,17 +72,21 @@
             </div>
             }
           </td>
-          <td>
+          <td [title]="item?.Data?.FullTime | date : Language.yyyyMMddHHmmss">
             @if(item){
             <div [style.width]="'calc(' + widths[5] + ' - 24px)'">
-              {{ item.Data.FullTime | date : "HH:mm:ss" }}
+              {{ item.Data.FullTime | date : Language.HHmmss }}
             </div>
             }
           </td>
-          <td>
+          <td
+            [title]="
+              (item?.Data?.ProcessTime | date : Language.yyyyMMddHHmmss) ?? ''
+            "
+          >
             @if(item){
             <div [style.width]="'calc(' + widths[6] + ' - 24px)'"></div>
-            {{ (item.Data.ProcessTime | date : "HH:mm:ss") ?? "-" }}
+            {{ (item.Data.ProcessTime | date : Language.HHmmss) ?? "-" }}
             }
           </td>
           <td>
@@ -109,12 +113,16 @@
             </div>
             }
           </td>
-          <td>
+          <td
+            [title]="
+              (item?.Data?.ProcessTime | date : Language.yyyyMMddHHmmss) ?? ''
+            "
+          >
             @if(item){
             <div [style.width]="'calc(' + widths[9] + ' - 24px)'">
               {{
                 item.Data.ProcessTime
-                  ? (item.Data.ProcessTime | date : "HH:mm:ss")
+                  ? (item.Data.ProcessTime | date : Language.HHmmss)
                   : "-"
               }}
             </div>

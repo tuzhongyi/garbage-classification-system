@@ -14,8 +14,12 @@
       <div class="form-item">
         <div class="form-item-text">类型</div>
         <div class="form-item-value">
-          <hw-select [(selected)]="table.args.type" [nullable]="true">
-            <select [(ngModel)]="table.args.type">
+          <hw-select
+            [(selected)]="table.type.selected"
+            [nullable]="true"
+            (selectedChange)="on.type($event)"
+          >
+            <select [(ngModel)]="table.type.selected">
               <option *ngFor="let item of source.types" [ngValue]="item.Id">
                 {{ item.Name }}
               </option>

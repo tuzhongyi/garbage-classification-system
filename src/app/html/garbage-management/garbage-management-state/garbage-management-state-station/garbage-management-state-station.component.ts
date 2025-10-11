@@ -73,15 +73,16 @@ export class GarbageManagementStateStationComponent implements OnChanges {
         case GarbageManagementManagerIndex.home:
           x.show = true;
           break;
-        case GarbageManagementManagerIndex.mixedinto:
+        case GarbageManagementManagerIndex.garbagestation:
           icons = [
             GarbageManagementStateItemColor.green,
             GarbageManagementStateItemColor.yellow,
+            GarbageManagementStateItemColor.orange,
             GarbageManagementStateItemColor.gray,
           ];
           x.show = icons.includes(x.color);
           break;
-        case GarbageManagementManagerIndex.garbagedrop:
+        case GarbageManagementManagerIndex.illegaldump:
           icons = [
             GarbageManagementStateItemColor.green,
             GarbageManagementStateItemColor.orange,
@@ -92,7 +93,6 @@ export class GarbageManagementStateStationComponent implements OnChanges {
         case GarbageManagementManagerIndex.vehicle:
           icons = [
             GarbageManagementStateItemColor.green,
-            GarbageManagementStateItemColor.yellow,
             GarbageManagementStateItemColor.gray,
           ];
           x.show = x.show = icons.includes(x.color);

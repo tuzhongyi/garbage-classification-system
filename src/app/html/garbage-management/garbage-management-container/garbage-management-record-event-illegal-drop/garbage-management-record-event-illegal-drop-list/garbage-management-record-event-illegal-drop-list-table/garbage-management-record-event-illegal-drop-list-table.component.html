@@ -46,38 +46,24 @@
             {{ item.ResourceName }}
             } @else{ &nbsp; }
           </td>
-          <td [title]="item?.GarbageStation?.Name ?? ''">
+          <td [title]="item?.Data?.StationName ?? ''">
             @if(item){
-            {{ item.GarbageStation.Name }}
+            {{ item?.Data?.StationName }}
             }
           </td>
-          <td
-            [title]="
-              item?.Data
-                ? item?.Data?.CommunityName
-                : item?.GarbageStation
-                ? item?.GarbageStation?.CommunityName
-                : ''
-            "
-          >
+          <td [title]="item?.Data?.CommunityName ?? ''">
             @if(item){
-            {{
-              item.Data
-                ? item.Data.CommunityName
-                : item.GarbageStation
-                ? item.GarbageStation.CommunityName
-                : ""
-            }}
+            {{ item?.Data?.CommunityName }}
             }
           </td>
-          <td>
+          <td [title]="((item?.Division | async)?.Parent | async)?.Name ?? ''">
             @if(item ){
-            {{ (item.Division?.Parent | async)?.Name ?? "-" }}
+            {{ ((item.Division | async)?.Parent | async)?.Name ?? "-" }}
             }
           </td>
-          <td>
+          <td [title]="item?.Data?.DivisionName ?? '-'">
             @if(item){
-            {{ item?.Division?.Name ?? "-" }}
+            {{ item.Data.DivisionName ?? "-" }}
             }
           </td>
           <td>

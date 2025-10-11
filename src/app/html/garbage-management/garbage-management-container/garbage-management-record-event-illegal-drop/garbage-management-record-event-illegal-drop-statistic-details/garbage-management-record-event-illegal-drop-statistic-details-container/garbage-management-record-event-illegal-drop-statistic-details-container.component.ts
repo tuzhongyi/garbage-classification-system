@@ -16,10 +16,9 @@ import {
 } from '../../../../garbage-management-chart/garbage-management-chart-line/garbage-management-chart-line.model';
 import { GarbageManagementRecordEventDetailsDivisionBusiness } from '../../../garbage-management-record-event-business/garbage-management-record-event-details-division.business';
 import { GarbageManagementRecordEventDetailsStationBusiness } from '../../../garbage-management-record-event-business/garbage-management-record-event-details-station.business';
-
 import { GarbageManagementRecordEventDetailsConverter } from '../../../garbage-management-record-event-business/garbage-management-record-event-details.converter';
-import { GarbageManagementRecordEventIllegalDropStatisticDetailsContainerBusiness } from './business/garbage-management-record-event-illegal-drop-statistic-details-container.business';
-import { GarbageManagementRecordEventIllegalDropStatisticDetailsArgs } from './business/garbage-management-record-event-illegal-drop-statistic-details-container.model';
+import { GarbageManagementRecordEventIllegalDropStatisticDetailsContainerBusiness } from './garbage-management-record-event-illegal-drop-statistic-details-container.business';
+import { GarbageManagementRecordEventIllegalDropStatisticDetailsArgs } from './garbage-management-record-event-illegal-drop-statistic-details-container.model';
 
 @Component({
   selector:

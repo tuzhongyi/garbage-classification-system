@@ -16,22 +16,23 @@ export class GarbageManagementStatisticStationBusiness {
   stations(datas: GarbageStation[]) {
     let illegaldrop = this.filter.illegaldrop(datas);
     let illegalvehicle = this.filter.illegalvehicle(datas);
-    let mixedinto = this.filter.mixedinto(datas);
+    let garbagestation = this.filter.garbagestation(datas);
+
     return [
       this.convert(
-        mixedinto,
-        GarbageManagementStatisticRecordIcon.mixedinto,
-        '混合满溢投放点'
+        garbagestation,
+        GarbageManagementStatisticRecordIcon.garbagestation,
+        '垃圾箱房'
       ),
       this.convert(
         illegaldrop,
-        GarbageManagementStatisticRecordIcon.illegaldrop,
-        '垃圾偷倒投放点'
+        GarbageManagementStatisticRecordIcon.illegaldump,
+        '偷倒垃圾'
       ),
       this.convert(
         illegalvehicle,
         GarbageManagementStatisticRecordIcon.illegalvehicle,
-        '建筑垃圾投放点'
+        '非法清运'
       ),
     ];
   }

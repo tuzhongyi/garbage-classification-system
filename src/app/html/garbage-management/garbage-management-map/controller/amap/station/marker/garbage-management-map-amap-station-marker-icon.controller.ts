@@ -34,17 +34,12 @@ export class GarbageManagementMapAMapStationMarkerIconController
   private get path() {
     let flags = new Flags(this.data.StationState);
     switch (this.data.StationType) {
-      case StationType.GarbageDrop:
+      case StationType.IllegalDrop:
         if (this.is.stay(this.data, flags)) {
-          return PathTool.map.marker.illegaldrop.stay;
+          return PathTool.map.marker.illegaldump.stay;
         } else {
-          return PathTool.map.marker.illegaldrop;
+          return PathTool.map.marker.illegaldump;
         }
-      case StationType.Construction:
-        if (this.is.full(flags)) {
-          return PathTool.map.marker.construction.full;
-        }
-        return PathTool.map.marker.construction;
       case StationType.VehicleWatching:
         return PathTool.map.marker.illegalvehicle;
       case StationType.Plus:

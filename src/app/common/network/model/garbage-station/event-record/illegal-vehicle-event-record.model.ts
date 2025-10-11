@@ -1,5 +1,5 @@
-import { Transform } from 'class-transformer';
-import { transformDateTime } from '../../transform.model';
+import { Transform, Type } from 'class-transformer';
+import { transformDateTime, transformPictureUrl } from '../../transform.model';
 import { CameraImageUrl } from '../../url-model/camera-image-url.model';
 import { CameraRecordUrl } from '../../url-model/camera-record-url.model';
 import { EventRecordData } from './garbage-event-record.model';
@@ -23,8 +23,10 @@ export class IllegalVehicleEventData {
   @Transform(transformDateTime)
   EndTime?: Date;
   /**	CameraImageUrl[]	图片ID、图片地址列表	O	*/
+  @Type(() => CameraImageUrl)
   CameraImageUrls?: CameraImageUrl[];
   /**	CameraRecordUrl[]	录像ID、录像地址列表	O	*/
+  @Type(() => CameraRecordUrl)
   CameraRecordUrls?: CameraRecordUrl[];
   /**	String	网格单元ID	O	*/
   GridCellId?: string;
@@ -58,8 +60,10 @@ export class IllegalVehicleEventData {
    **/
   VehicleType?: number;
   /**	String	车牌照片地址	O	*/
+  @Transform(transformPictureUrl)
   PlateImageUrl?: string;
   /**	String	车辆照片地址	O	*/
+  @Transform(transformPictureUrl)
   VehicleImageUrl?: string;
   /**	Boolean	处置人员是否已处置	O	*/
   Processed?: boolean;

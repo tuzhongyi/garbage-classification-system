@@ -58,7 +58,10 @@ export class GarbageStationTableBusiness {
       }
     }
 
-    params.StationType = args.type;
+    if (args.types && args.types.length > 0) {
+      params.StationTypes = args.types;
+    }
+
     params.CommunityName = args.communityName;
     params.Name = args.stationName;
 

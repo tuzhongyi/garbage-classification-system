@@ -32,7 +32,8 @@
   }
 
   &.mixedinto {
-    background-image: url(../../../../../../assets/image/statistic/statistic-item-background.png), url(../../../../../../assets/image/statistic/station/statistic-station-mixed-into.png);
+    background-image: url(../../../../../../assets/image/statistic/statistic-item-background.png),
+      url(../../../../../../assets/image/statistic/station/statistic-station-mixed-into.png);
     background-size: 100% 100%, contain;
     background-position: center, 12% center;
 
@@ -41,19 +42,32 @@
     }
   }
 
-  &.illegaldrop {
-    background-image: url(../../../../../../assets/image/statistic/statistic-item-background.png), url(../../../../../../assets/image/statistic/station/statistic-station-illegal-drop.png);
+  &.garbagestation {
+    background-image: url(../../../../../../assets/image/statistic/statistic-item-background.png),
+      url(../../../../../../assets/image/statistic/station/statistic-station-garbage.png);
+    background-size: 100% 100%, contain;
+    background-position: center, 12% center;
+
+    &:hover {
+      filter: drop-shadow(0 0 10px #21e452);
+    }
+  }
+
+  &.illegaldump {
+    background-image: url(../../../../../../assets/image/statistic/statistic-item-background.png),
+      url(../../../../../../assets/image/statistic/station/statistic-station-illegal-dump.png);
     background-size: 100% 100%, contain;
     background-position: center, 12% center;
 
 
     &:hover {
-      filter: drop-shadow(0 0 10px darkorange);
+      filter: drop-shadow(0 0 10px #ff00f0);
     }
   }
 
   &.illegalvehicle {
-    background-image: url(../../../../../../assets/image/statistic/statistic-item-background.png), url(../../../../../../assets/image/statistic/station/illegal-statistic-station-vehicle.png);
+    background-image: url(../../../../../../assets/image/statistic/statistic-item-background.png),
+      url(../../../../../../assets/image/statistic/station/statistic-station-illegal-vehicle.png);
     background-size: 100% 100%, contain;
     background-position: center, 12% center;
 
@@ -64,8 +78,10 @@
   }
 
 
+
   &.street {
-    background-image: url(../../../../../../assets/image/statistic/statistic-item-background.png), url(../../../../../../assets/image/statistic/station/statistic-station-bicycle.png);
+    background-image: url(../../../../../../assets/image/statistic/statistic-item-background.png),
+      url(../../../../../../assets/image/statistic/station/statistic-station-bicycle.png);
     background-size: 100% 100%, contain;
     background-position: center, 12% center;
 

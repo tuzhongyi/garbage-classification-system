@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { EventType } from '../../../../../../common/enum/event-type.enum';
 import { IllegalDropEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/illegal-drop-event-record.model';
 import { PagedList } from '../../../../../../common/network/model/page_list.model';
 import { DivisionRequestService } from '../../../../../../common/network/request/garbage/division/division-request.service';
@@ -64,17 +65,16 @@ export class GarbageManagementRecordEventIllegalDropListTableBusiness {
     record: async (data: IllegalDropEventRecord) => {
       let vm = new IllegalDropEventRecordViewModel();
       vm = Object.assign(vm, data);
-      vm.GarbageStation = await this.service.station.cache.get(
-        data.Data.StationId
-      );
+      vm.GarbageStation = this.service.station.cache.get(data.Data.StationId);
       if (vm.Data.DivisionId) {
-        let division = await this.service.division.cache.get(
-          vm.Data.DivisionId
-        );
-        vm.Division = this.converter.division.convert(division);
+        vm.Division = this.service.division.cache
+          .get(vm.Data.DivisionId)
+          .then((division) => {
+            return this.converter.division.convert(division);
+          });
       }
 
-      vm.images = data.ImageUrl ? [PicturesUrl.jpg(data.ImageUrl)] : [];
+      vm.images = data.ImageUrl ? [data.ImageUrl] : [];
 
       return vm;
     },
@@ -103,6 +103,7 @@ export class GarbageManagementRecordEventIllegalDropListTableBusiness {
       if (args.communityname) {
         params.CommunityName = args.communityname;
       }
+      params.EventTypes = [EventType.IllegalDrop];
       return this.service.event.record.IllegalDrop.list(params);
     },
   };

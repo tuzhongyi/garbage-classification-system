@@ -14,6 +14,7 @@ export class ColorTool {
       garbagedrop: '#ff8c00', // '#ffff00',
       illegalvehicle: '#f73d3d',
       garbageexposed: '#00b3ff',
+      illegaldump: '#b636fd',
       normal: '#01fd74',
     },
   };

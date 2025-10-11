@@ -1,5 +1,5 @@
-import { MapMarkerConstructionPath } from './map-marker-construction.path';
 import { MapMarkerIllegalDropPath } from './map-marker-illegal-drop.path';
+import { MapMarkerIllegalDumpPath } from './map-marker-illegal-dump.path';
 import { MapMarkerIllegalVehiclePath } from './map-marker-illegal-vehicle.path';
 import { MapMarkerStationPath } from './map-marker-station.path';
 
@@ -13,8 +13,8 @@ export class MapMarkerPath {
   get station() {
     return new MapMarkerStationPath(this.basic);
   }
-  get construction() {
-    return new MapMarkerConstructionPath(this.basic);
+  get illegaldump() {
+    return new MapMarkerIllegalDumpPath(this.basic);
   }
   get illegalvehicle() {
     return new MapMarkerIllegalVehiclePath(this.basic);

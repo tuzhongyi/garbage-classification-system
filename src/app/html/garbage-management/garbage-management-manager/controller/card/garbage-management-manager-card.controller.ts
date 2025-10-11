@@ -10,7 +10,7 @@ import { GarbageManagementManagerPanel } from '../../panel/garbage-management-ma
 import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
 import { GarbageManagementManagerCardCommonController } from './common/garbage-management-manager-card-common.controller';
 import { GarbageManagementManagerCardHomeController } from './home/garbage-management-manager-card-home.controller';
-import { GarbageManagementManagerCardIllegalDropController } from './illegaldrop/garbage-management-manager-card-illegaldrop.controller';
+import { GarbageManagementManagerCardIllegalDumpController } from './illegaldump/garbage-management-manager-card-illegaldump.controller';
 import { GarbageManagementManagerCardMixedIntoController } from './mixedinto/garbage-management-manager-card-mixedinto.controller';
 import { GarbageManagementManagerCardStreetController } from './street/garbage-management-manager-card-street.controller';
 import { GarbageManagementManagerCardVehicleController } from './vehicle/garbage-management-manager-card-vehicle.controller';
@@ -53,7 +53,7 @@ export class GarbageManagementManagerCardController {
     });
     this.controller.set(GarbageManagementManagerIndex.home, home);
     this.controller.set(
-      GarbageManagementManagerIndex.mixedinto,
+      GarbageManagementManagerIndex.garbagestation,
       new GarbageManagementManagerCardMixedIntoController(
         common,
         this.tool,
@@ -61,8 +61,8 @@ export class GarbageManagementManagerCardController {
       )
     );
     this.controller.set(
-      GarbageManagementManagerIndex.garbagedrop,
-      new GarbageManagementManagerCardIllegalDropController(
+      GarbageManagementManagerIndex.illegaldump,
+      new GarbageManagementManagerCardIllegalDumpController(
         common,
         this.tool,
         this.load.event

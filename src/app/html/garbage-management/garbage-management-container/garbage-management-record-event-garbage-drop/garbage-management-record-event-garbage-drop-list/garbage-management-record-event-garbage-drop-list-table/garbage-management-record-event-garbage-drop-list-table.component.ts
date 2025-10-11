@@ -8,6 +8,7 @@ import { GarbageDropEventRecord } from '../../../../../../common/network/model/g
 import { PagedArgs } from '../../../../../../common/network/model/model.interface';
 import { Page } from '../../../../../../common/network/model/page_list.model';
 import { PagedTableAbstractComponent } from '../../../../../../common/tools/component-tool/table-abstract.component';
+import { ObjectTool } from '../../../../../../common/tools/object-tool/object.tool';
 import { GarbageManagementRecordEventGarbageDropListTableBusiness } from './garbage-management-record-event-garbage-drop-list-table.business';
 import {
   GarbageDropEventRecordViewModel,
@@ -108,11 +109,12 @@ export class GarbageManagementRecordEventGarbageDropListTableComponent
     },
     image: (e: Event, item: GarbageDropEventRecordViewModel, index: number) => {
       let page = Page.create(index + 1);
-      if (item.Data.HandleImageUrls) {
-        page.PageSize += item.Data.HandleImageUrls.length;
-        page.RecordCount = page.PageSize;
-        page.TotalRecordCount = page.PageSize;
-      }
+
+      let images = ObjectTool.model.record.garbagedrop.images(item);
+      page.PageSize = images.length;
+      page.RecordCount = page.PageSize;
+      page.TotalRecordCount = page.PageSize;
+
       this.image.emit({
         page: page,
         data: item,

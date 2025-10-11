@@ -21,6 +21,6 @@ export enum GarbageManagementManagerIndex {
   home,
   street,
   vehicle,
-  garbagedrop,
-  mixedinto,
+  illegaldump,
+  garbagestation,
 }

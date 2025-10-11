@@ -5,6 +5,7 @@ import { IModel } from '../../model.interface';
 import {
   transformDateTime,
   transformEventRecordData,
+  transformPictureUrl,
 } from '../../transform.model';
 
 export interface IEventRecord<T = any> extends IModel {
@@ -46,6 +47,7 @@ export class BaseEventRecord implements IModel {
   /**	String	资源名称	O */
   ResourceName?: string;
   /**	String	图片ID、图片地址	O */
+  @Transform(transformPictureUrl)
   ImageUrl?: string;
   /**	String	录像文件ID、录像地址	O */
   RecordUrl?: string;

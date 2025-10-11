@@ -2,7 +2,7 @@ export enum GarbageManagementControlButtonIcon {
   home = 'home',
   street = 'street',
   vehicle = 'vehicle',
-  garbagedrop = 'garbage-drop',
+  illegaldump = 'illegal-dump',
   station = 'garbage-station',
   filter = 'filter',
 }

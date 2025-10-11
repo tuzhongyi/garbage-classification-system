@@ -1,0 +1,162 @@
+<div class="garbage-management-record-event-illegal-vehicle-list-table">
+  <div
+    class="garbage-management-record-event-illegal-vehicle-list-table-body table-page"
+    wheel-horizontal-scroll
+  >
+    <table border="0" cellpadding="0" cellspacing="0">
+      <colgroup>
+        <col [ngStyle]="{ width: width }" *ngFor="let width of widths" />
+      </colgroup>
+      <thead>
+        <tr>
+          <td>照片</td>
+          <td>车牌号码</td>
+          <td>车牌颜色</td>
+          <td>车辆类型</td>
+          <td>地址</td>
+          <td>居委会</td>
+          <td>社区</td>
+          <td>报警时间</td>
+          <td>处置时间</td>
+          <td>状态</td>
+          <td>处置人员</td>
+          <td>操作</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let item of datas"
+          [style.height]="100 / page.PageSize + '%'"
+          [ngClass]="{
+            selected: selected === item,
+            nodata: !item,
+            nohover: !item
+          }"
+          (click)="on.select(item)"
+        >
+          <td>
+            @if(item){
+            <div class="img-list">
+              <div
+                image
+                [url]="url"
+                class="img"
+                *ngFor="let url of item.images; let index = index"
+                (click)="on.image($event, item, index)"
+              ></div>
+            </div>
+            }
+          </td>
+          <td [title]="item?.Data?.PlateNo ?? ''">
+            @if(item){
+            {{ item.Data.PlateNo }}
+            }
+          </td>
+          <td
+            [ngClass]="{
+            'text-blue': item?.Data?.PlateColor === 1,
+            'text-orange': item?.Data?.PlateColor === 2,
+            'text-white': item?.Data?.PlateColor === 3,
+            'text-black': item?.Data?.PlateColor === 4,
+            'text-green': item?.Data?.PlateColor === 5,
+          }"
+          >
+            @if(item){
+            {{ Language.PlateColor(item.Data.PlateColor) }}
+            }
+          </td>
+          <td>
+            @if(item){
+            {{ Language.IllegalVehicleType(item.Data.VehicleType) }}
+            }
+          </td>
+          <td [title]="(item?.GarbageStation | async)?.Name ?? ''">
+            @if(item){
+            {{ (item?.GarbageStation | async)?.Name ?? "-" }}
+            }
+          </td>
+          <td [title]="((item?.Division | async)?.Parent | async)?.Name ?? ''">
+            @if(item){
+            {{ ((item.Division | async)?.Parent | async)?.Name ?? "-" }}
+            }
+          </td>
+          <td [title]="item?.Data?.CommunityName ?? ''">
+            @if(item){
+            {{ item?.Data?.CommunityName ?? "-" }}
+            }
+          </td>
+          <td [title]="item?.EventTime | date : Language.yyyyMMddHHmmss">
+            @if(item){
+            {{ item.EventTime | date : Language.HHmmss }}
+            }
+          </td>
+
+          <td
+            [title]="item?.Data?.ProcessTime | date : Language.yyyyMMddHHmmss"
+          >
+            @if(item){
+            {{ (item.Data.ProcessTime | date : Language.HHmmss) ?? "-" }}
+            }
+          </td>
+          <td
+            [ngClass]="{
+              'text-green': item?.Data?.Processed,
+              'text-yellow': !item?.Data?.Processed
+            }"
+          >
+            @if(item){
+            {{ item.Data.Processed ? "已处置" : "待处置" }}
+            }
+          </td>
+          <td>
+            @if(item){
+            {{ item.Data.ProcessorName || "-" }}
+            }
+          </td>
+          <td>
+            @if(item){
+            <div class="operation">
+              <div
+                class="button"
+                title="播放视频"
+                (click)="on.video.single($event, item)"
+              >
+                <i class="howell-icon-video"></i>
+              </div>
+
+              <div
+                class="button"
+                title="事件发生时间外摄像机"
+                (click)="on.video.all($event, item)"
+              >
+                <i class="howell-icon-cam-all1"></i>
+              </div>
+
+              <div
+                class="button"
+                title="查看工单"
+                (click)="on.complete($event, item)"
+              >
+                <i class="mdi mdi-nfc-tap"></i>
+              </div>
+            </div>
+            }
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div
+    class="garbage-management-record-event-illegal-vehicle-list-table-foot foot"
+    *ngIf="page"
+  >
+    <div class="foot-info">
+      <div class="info-item">当前数量: {{ page && page.RecordCount }}</div>
+      <div class="info-item">总数量: {{ page && page.TotalRecordCount }}</div>
+    </div>
+
+    <paginator [page]="page" (change)="on.page($event)"> </paginator>
+  </div>
+
+  <div class="loading" *ngIf="loading"></div>
+</div>

@@ -22,7 +22,7 @@ export class GarbageManagementControlButtonListComponent {
   buttons = [
     { icon: GarbageManagementControlButtonIcon.home, name: '综合统计' },
     { icon: GarbageManagementControlButtonIcon.station, name: '垃圾箱房' },
-    { icon: GarbageManagementControlButtonIcon.garbagedrop, name: '垃圾偷倒' },
+    { icon: GarbageManagementControlButtonIcon.illegaldump, name: '垃圾偷倒' },
     { icon: GarbageManagementControlButtonIcon.vehicle, name: '建筑垃圾清运' },
     { icon: GarbageManagementControlButtonIcon.street, name: '街面巡检' },
     // { icon: GarbageManagementControlButtonIcon.filter, name: '筛选' },
@@ -40,7 +40,7 @@ export class GarbageManagementControlButtonListComponent {
           this.selected = index;
           this.station.emit();
           break;
-        case GarbageManagementControlButtonIcon.garbagedrop:
+        case GarbageManagementControlButtonIcon.illegaldump:
           this.selected = index;
           this.garbagedrop.emit();
           break;

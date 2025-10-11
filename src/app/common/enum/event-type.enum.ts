@@ -20,6 +20,8 @@ export enum EventType {
 
   /**	垃圾投放预警 */
   DropWarning = 9,
+  /**	偷倒垃圾	10 */
+  IllegalDrop2 = 10,
   /**	车辆占道，扩展功能事件 */
   VehiclePresence = 11,
   /**	紧急按钮 */

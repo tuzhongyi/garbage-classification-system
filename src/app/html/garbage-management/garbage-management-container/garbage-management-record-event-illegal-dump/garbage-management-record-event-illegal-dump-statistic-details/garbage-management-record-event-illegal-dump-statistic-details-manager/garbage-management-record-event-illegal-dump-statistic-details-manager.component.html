@@ -1,0 +1,63 @@
+<div
+  class="garbage-management-record-event-illegal-dump-statistic-details-manager"
+>
+  <div
+    class="garbage-management-record-event-illegal-dump-statistic-details-manager-head"
+  >
+    <div class="forms">
+      <div class="form-item">
+        <div class="form-item-text">选择时间</div>
+        <div class="form-item-value date">
+          <date-time-control
+            [week]="date.week"
+            [format]="date.format"
+            [minView]="date.view.min"
+            [startView]="date.view.min"
+            [(date)]="chart.args.date"
+          ></date-time-control>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-item-text">行政区域</div>
+        <div class="form-item-value">
+          <hw-select [(selected)]="chart.args.divisionId" [nullable]="true">
+            <howell-division-select
+              [(selectedId)]="chart.args.divisionId"
+            ></howell-division-select>
+          </hw-select>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-item-text">投放点</div>
+        <div class="form-item-value">
+          <hw-select [(selected)]="chart.args.stationId" [nullable]="true">
+            <howell-garbage-station-select
+              [divisionId]="chart.args.divisionId"
+              [(selectedId)]="chart.args.stationId"
+            ></howell-garbage-station-select>
+          </hw-select>
+        </div>
+      </div>
+      <div class="form-item submit">
+        <button class="button-border-blue" (click)="on.search()">查询</button>
+      </div>
+    </div>
+    <div class="forms">
+      <div class="form-item">
+        <select [(ngModel)]="chart.args.unit" (change)="on.unit()">
+          <option [ngValue]="TimeUnit.Day">日报表</option>
+          <option [ngValue]="TimeUnit.Week">周报表</option>
+          <option [ngValue]="TimeUnit.Month">月报表</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div
+    class="garbage-management-record-event-illegal-dump-statistic-details-manager-body"
+  >
+    <howell-garbage-management-record-event-illegal-dump-statistic-details-container
+      [args]="chart.args"
+      [load]="chart.load"
+    ></howell-garbage-management-record-event-illegal-dump-statistic-details-container>
+  </div>
+</div>

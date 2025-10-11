@@ -9,14 +9,9 @@ export enum StationType {
   Plus = 3,
 
   /** 垃圾偷倒 */
-  GarbageDrop = 10,
+  IllegalDrop = 10,
   /** 车辆监控 */
   VehicleWatching = 11,
   /** 核酸检测点 */
   NucleicAcid = 99,
-}
-export enum GarbageStationType {
-  Construction,
-  FullMixedInto,
-  IllegalDrop,
 }

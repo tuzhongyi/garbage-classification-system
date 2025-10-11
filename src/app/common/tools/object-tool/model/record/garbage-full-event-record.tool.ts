@@ -1,12 +1,14 @@
-import { VideoPlaybackArgs } from '../../../../../html/share/video/component/video.model';
 import { VideoArgs } from '../../../../../html/share/video/video-multiple/video-multiple.model';
 import { GarbageFullEventRecord } from '../../../../network/model/garbage-station/event-record/garbage-full-event-record.model';
 import { CameraImageUrl } from '../../../../network/model/url-model/camera-image-url.model';
-import { CameraPictureUrl } from '../../../../network/model/url-model/camera-picture-url.model';
-import { PicturesUrl } from '../../../../network/url/aiop/medium/pictures/pictures.url';
-import { DateTimeTool } from '../../../date-time-tool/datetime.tool';
+import { CameraTool } from '../camera/camera.tool';
+import { IRecordTool } from './record-tool.interface';
 
-export class GarbageFullEventRecordTool {
+export class GarbageFullEventRecordTool
+  implements IRecordTool<GarbageFullEventRecord>
+{
+  constructor(private camera: CameraTool) {}
+
   cameras(data: GarbageFullEventRecord) {
     let cameras: CameraImageUrl[] = [];
     if (data.Data.CameraImageUrls) {
@@ -24,50 +26,26 @@ export class GarbageFullEventRecordTool {
     if (data.Data.CameraImageUrls) {
       videos.push(
         ...data.Data.CameraImageUrls.map((x) =>
-          this.item.video(x, data.EventTime)
+          this.camera.image.video.playback(x, data.EventTime)
         )
       );
     }
     if (data.Data.HandleImageUrls && data.Data.HandleTime) {
       videos.push(
         ...data.Data.HandleImageUrls.map((x) =>
-          this.item.video(x, data.Data.HandleTime!)
+          this.camera.image.video.playback(x, data.Data.HandleTime!)
         )
       );
     }
     return videos;
   }
 
-  pictures(
-    data: GarbageFullEventRecord,
-    get: (stationId: string) => Promise<CameraPictureUrl[]>
-  ) {
-    return get(data.Data.StationId).then((pictures) => {
-      return pictures.map((picture) => {
-        let video = new VideoArgs();
-        if (picture.Id) {
-          video.image = picture.Id;
-        }
-        video.playback = {
-          cameraId: picture.CameraId,
-          duration: DateTimeTool.before(data.EventTime, 30),
-          stream: 1,
-        };
-        return video;
-      });
-    });
+  images(data: GarbageFullEventRecord) {
+    let cameras = this.cameras(data);
+    let images: string[] = [];
+    for (let i = 0; i < cameras.length; i++) {
+      images.push(cameras[i].ImageUrl);
+    }
+    return images;
   }
-
-  private item = {
-    video: (data: CameraImageUrl, time: Date) => {
-      let item = new VideoArgs();
-      item.image = PicturesUrl.jpg(data.ImageUrl);
-      item.playback = {
-        cameraId: data.CameraId,
-        duration: DateTimeTool.before(time, 30),
-        stream: 1,
-      } as VideoPlaybackArgs;
-      return item;
-    },
-  };
 }

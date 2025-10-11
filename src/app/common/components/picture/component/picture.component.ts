@@ -45,7 +45,7 @@ export class PictureComponent implements OnChanges {
     if (changes['id']) {
       if (this.id) {
         this.src = this.business.load(this.id);
-      } else {
+      } else if (!changes['id'].firstChange) {
         this.src = undefined;
       }
     }

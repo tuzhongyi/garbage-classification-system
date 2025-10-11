@@ -6,6 +6,7 @@ import { DateTimeTool } from '../../../../../common/tools/date-time-tool/datetim
 import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
 import { GarbageManagementManagerBusiness } from '../../business/garbage-management-manager.business';
 import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
+import { VideoType } from '../../window/video/garbage-management-manager-video.window';
 
 export class GarbageManagementManagerRecordMixedIntoPanel extends WindowViewModel {
   constructor(
@@ -39,31 +40,26 @@ export class GarbageManagementManagerRecordMixedIntoPanel extends WindowViewMode
     video: {
       single: (data: MixedIntoEventRecord) => {
         if (data.ResourceId) {
-          this.window.video.single.title =
-            data.ResourceName ?? data.Data.StationName;
-          this.window.video.single.args.playback = {
-            cameraId: data.ResourceId,
-            duration: DateTimeTool.before(data.EventTime, 30),
-            stream: 1,
+          let title = data.ResourceName ?? data.Data.StationName;
+          let args = {
+            playback: {
+              cameraId: data.ResourceId,
+              duration: DateTimeTool.before(data.EventTime, 30),
+              stream: 1,
+            },
           };
-          this.window.video.single.show = true;
+          this.window.video.ws.open(title, args);
         }
       },
       multiple: (data: MixedIntoEventRecord) => {
-        this.window.video.multiple.clear();
-        this.window.video.multiple.loading = true;
-        this.window.video.multiple.title = data.Data.StationName;
-        this.business.station
-          .pictures(data.Data.StationId)
-          .then((pictures) => {
-            this.window.video.multiple.datas = pictures.map((picture) => {
-              return ObjectTool.model.camera.picture.video(picture);
-            });
-          })
-          .finally(() => {
-            this.window.video.multiple.loading = false;
-          });
-        this.window.video.multiple.show = true;
+        let title = data.Data.StationName;
+        let videos = ObjectTool.model.record.mixedinto.videos(data);
+        this.window.video.multiple.open(
+          title,
+          videos,
+          VideoType.ws,
+          data.Data.StationId
+        );
       },
     },
   };

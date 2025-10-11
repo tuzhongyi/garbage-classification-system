@@ -1,27 +1,19 @@
+import { VideoArgs } from '../../../../../html/share/video/video-multiple/video-multiple.model';
 import { GarbageDropEventRecord } from '../../../../network/model/garbage-station/event-record/garbage-drop-event-record.model';
 import { CameraImageUrl } from '../../../../network/model/url-model/camera-image-url.model';
-import { PicturesUrl } from '../../../../network/url/aiop/medium/pictures/pictures.url';
+import { CameraTool } from '../camera/camera.tool';
+import { IRecordTool } from './record-tool.interface';
 
-export class GarbageDropEventRecordTool {
+export class GarbageDropEventRecordTool
+  implements IRecordTool<GarbageDropEventRecord>
+{
+  constructor(private camera: CameraTool) {}
+
   images(data: GarbageDropEventRecord) {
-    let keys = this.keys(data);
+    let cameras = this.cameras(data);
     let images: string[] = [];
-    for (let i = 0; i < keys.length; i++) {
-      images.push(PicturesUrl.jpg(keys[i]));
-    }
-    return images;
-  }
-
-  keys(data: GarbageDropEventRecord) {
-    const images: string[] = [];
-    if (data.Data.DropImageUrls) {
-      images.push(...data.Data.DropImageUrls.map((url) => url.ImageUrl));
-    }
-    if (data.Data.TimeoutImageUrls) {
-      images.push(...data.Data.TimeoutImageUrls.map((url) => url.ImageUrl));
-    }
-    if (data.Data.HandleImageUrls) {
-      images.push(...data.Data.HandleImageUrls.map((url) => url.ImageUrl));
+    for (let i = 0; i < cameras.length; i++) {
+      images.push(cameras[i].ImageUrl);
     }
     return images;
   }
@@ -38,5 +30,22 @@ export class GarbageDropEventRecordTool {
       cameras.push(...data.Data.HandleImageUrls.map((url) => url));
     }
     return cameras;
+  }
+  videos(data: GarbageDropEventRecord): VideoArgs[] {
+    if (data.Data.HandleImageUrls && data.Data.HandleTime) {
+      let time = data.Data.HandleTime;
+
+      return data.Data.HandleImageUrls.map((x) =>
+        this.camera.image.video.playback(x, time)
+      );
+    }
+
+    if (data.Data.DropImageUrls) {
+      return data.Data.DropImageUrls.map((x) =>
+        this.camera.image.video.playback(x, data.Data.DropTime)
+      );
+    }
+
+    return [];
   }
 }

@@ -1,4 +1,3 @@
-import { Division } from '../../../../../../common/network/model/garbage-station/division.model';
 import { GarbageDropEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/garbage-drop-event-record.model';
 import { GarbageStation } from '../../../../../../common/network/model/garbage-station/garbage-station.model';
 import { DateTimeTool } from '../../../../../../common/tools/date-time-tool/datetime.tool';
@@ -19,7 +18,6 @@ export class GarbageDropEventRecordViewModel extends GarbageDropEventRecord {
 
   GarbageStation!: Promise<GarbageStation>;
   Division?: Promise<DivisionViewModel>;
-  County?: Division;
   SendTime?: string;
   DropDuration?: string;
   HandleTime?: string;

@@ -1,6 +1,5 @@
 import { formatDate } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { DivisionType } from '../../../../../../common/enum/division-type.enum';
 import { EventType } from '../../../../../../common/enum/event-type.enum';
 import { GarbageDropEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/garbage-drop-event-record.model';
 import { PagedList } from '../../../../../../common/network/model/page_list.model';
@@ -74,9 +73,6 @@ export class GarbageManagementRecordEventGarbageDropListTableBusiness {
         vm.Division = this.service.division.cache
           .get(vm.Data.DivisionId)
           .then((division) => {
-            if (division.DivisionType === DivisionType.County) {
-              vm.County = division;
-            }
             return this.converter.division.convert(division);
           });
       }

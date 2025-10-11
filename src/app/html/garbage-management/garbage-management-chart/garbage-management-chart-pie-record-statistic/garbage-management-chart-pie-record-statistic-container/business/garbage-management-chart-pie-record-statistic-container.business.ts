@@ -38,6 +38,10 @@ export class GarbageManagementChartPieRecordStatisticContainerBusiness {
       EventType.GarbageDrop,
       data.division
     );
+    let illegaldump = this.convert.statistic(
+      EventType.IllegalDrop2,
+      data.division
+    );
     let illegalvehicle = this.convert.statistic(
       EventType.IllegalVehicle,
       data.division
@@ -48,6 +52,7 @@ export class GarbageManagementChartPieRecordStatisticContainerBusiness {
       garbagefull,
       illegaldrop,
       garbagedrop,
+      illegaldump,
       illegalvehicle,
       garbageexposed,
     ];

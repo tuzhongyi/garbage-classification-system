@@ -8,7 +8,7 @@
     ></howell-video>
   </div>
   <div class="video-image-image" *ngIf="!playing">
-    <app-picture [id]="image"></app-picture>
+    <app-picture [src]="image" (error)="on.error($event)"></app-picture>
   </div>
   <div class="video-image-icon" *ngIf="!playing" (click)="on.play()">
     <div class="howell-icon-play"></div>

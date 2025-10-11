@@ -4,7 +4,7 @@ import { CameraEncodeType } from '../../../enum/camera-type.enum';
 import { CameraUsage } from '../../../enum/camera-usage.enum';
 import { OnlineStatus } from '../../../enum/online-status.enum';
 import { IModel } from '../model.interface';
-import { transformDateTime } from '../transform.model';
+import { transformDateTime, transformPictureUrl } from '../transform.model';
 import { ICamera } from './camera.interface';
 
 /** 摄像机 */
@@ -35,6 +35,7 @@ export class Camera implements ICamera, IModel {
   PositionNo?: number;
 
   /**	String	垃圾满溢照片路径	O */
+  @Transform(transformPictureUrl)
   GarbageFullImageUrl?: string;
   /**	DateTime	垃圾满溢时间	O */
   @Transform(transformDateTime)
@@ -44,6 +45,7 @@ export class Camera implements ICamera, IModel {
   /**	Int32	在线状态0-正常，1-离线	O */
   OnlineStatus?: OnlineStatus;
   /**	String	照片URL或ID	O */
+  @Transform(transformPictureUrl)
   ImageUrl?: string;
   /**	DateTime	照片时间	O */
   @Transform(transformDateTime)

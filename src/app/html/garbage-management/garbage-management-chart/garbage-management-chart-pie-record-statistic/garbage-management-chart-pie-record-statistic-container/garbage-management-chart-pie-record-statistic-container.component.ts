@@ -65,6 +65,10 @@ export class GarbageManagementChartPieRecordStatisticContainerComponent
     this.colors.set(EventType.IllegalDrop, ColorTool.station.state.illegaldrop);
     this.colors.set(EventType.GarbageDrop, ColorTool.station.state.garbagedrop);
     this.colors.set(
+      EventType.IllegalDrop2,
+      ColorTool.station.state.illegaldump
+    );
+    this.colors.set(
       EventType.IllegalVehicle,
       ColorTool.station.state.illegalvehicle
     );

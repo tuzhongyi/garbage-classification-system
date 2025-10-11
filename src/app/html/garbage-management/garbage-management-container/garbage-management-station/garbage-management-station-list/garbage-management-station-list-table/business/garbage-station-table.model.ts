@@ -13,7 +13,7 @@ export class GarbageStationTableArgs {
   stationId?: string;
   divisionId?: string;
   state?: number;
-  type?: StationType;
+  types: StationType[] = [];
   stationName?: string;
   communityName?: string;
 }

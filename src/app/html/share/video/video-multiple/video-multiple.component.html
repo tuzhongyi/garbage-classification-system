@@ -12,6 +12,7 @@
       [preview]="item.preview"
       [playback]="item.playback"
       [playable]="playable"
+      (error)="on.error(index, $event)"
     ></howell-video-image>
   </div>
 </div>

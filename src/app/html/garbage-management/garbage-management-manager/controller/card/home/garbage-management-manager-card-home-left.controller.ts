@@ -35,11 +35,17 @@ export class GarbageManagementManagerCardHomeLeftController extends GarbageManag
         case EventType.IllegalDrop:
           this.panel.record.illegaldrop.open();
           break;
+        case EventType.IllegalDrop2:
+          this.panel.record.illegaldump.open();
+          break;
         case EventType.MixedInto:
           this.panel.record.mixedinto.open();
           break;
         case EventType.GarbageDrop:
           this.panel.record.garbagedrop.open();
+          break;
+        case EventType.IllegalVehicle:
+          this.panel.record.illegalvehicle.open();
           break;
         case 103:
           this.panel.record.ias.open();

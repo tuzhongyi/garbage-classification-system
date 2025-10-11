@@ -56,21 +56,25 @@ export class VideoWindowComponent
   override ngOnInit(): void {
     if (this.input_preview) {
       let sub = this.input_preview.subscribe((args) => {
-        this.video.preview.args = args;
-        this.video.preview.play(args);
+        setTimeout(() => {
+          this.video.preview.args = args;
+          this.video.preview.play(args);
+        }, 0);
       });
       this.subscription.add(sub);
     }
     if (this.input_playback) {
       let sub = this.input_playback.subscribe((args) => {
-        this.datetime.show = true;
-        this.video.playback.args = args;
-        if (args.duration) {
-          this.datetime.date = args.duration.begin;
-          this.datetime.time.begin = new TimeModel(args.duration.begin);
-          this.datetime.time.end = new TimeModel(args.duration.end);
-          this.video.playback.play(args);
-        }
+        setTimeout(() => {
+          this.datetime.show = true;
+          this.video.playback.args = args;
+          if (args.duration) {
+            this.datetime.date = args.duration.begin;
+            this.datetime.time.begin = new TimeModel(args.duration.begin);
+            this.datetime.time.end = new TimeModel(args.duration.end);
+            this.video.playback.play(args);
+          }
+        }, 0);
       });
       this.subscription.add(sub);
     }

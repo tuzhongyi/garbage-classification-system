@@ -7,14 +7,41 @@ import {
 import { EventType } from '../../enum/event-type.enum';
 import { Flags } from '../../tools/flags';
 import { Language } from '../../tools/language';
+import { PicturesUrl } from '../url/aiop/medium/pictures/pictures.url';
+import { MediumVideoUrl } from '../url/aiop/medium/videos/video.url';
 import { GarbageDropEventData } from './garbage-station/event-record/garbage-drop-event-record.model';
 import { EventRecordData } from './garbage-station/event-record/garbage-event-record.model';
 import { GarbageFullEventData } from './garbage-station/event-record/garbage-full-event-record.model';
 import { IllegalDropEventData } from './garbage-station/event-record/illegal-drop-event-record.model';
+import { IllegalVehicleEventData } from './garbage-station/event-record/illegal-vehicle-event-record.model';
 import { MixedIntoEventData } from './garbage-station/event-record/mixed-into-event-record.model';
 import { SewageEventData } from './garbage-station/event-record/sewage-event-record.model';
 import { IdNameModel } from './model.interface';
 import { Time } from './time.model';
+
+export function transformRecordUrl(params: TransformFnParams) {
+  if (!params.value) return params.value;
+  if (params.type === TransformationType.PLAIN_TO_CLASS) {
+    if (params.value.indexOf('/') >= 0 || params.value.indexOf('\\') >= 0) {
+      return params.value;
+    }
+    return MediumVideoUrl.mkv(params.value);
+  } else {
+    return params.value;
+  }
+}
+
+export function transformPictureUrl(params: TransformFnParams) {
+  if (!params.value) return params.value;
+  if (params.type === TransformationType.PLAIN_TO_CLASS) {
+    if (params.value.indexOf('/') >= 0 || params.value.indexOf('\\') >= 0) {
+      return params.value;
+    }
+    return PicturesUrl.jpg(params.value);
+  } else {
+    return params.value;
+  }
+}
 
 export function transformRound(params: TransformFnParams, number: number) {
   if (!params.value) return params.value;
@@ -194,11 +221,14 @@ export function transformEventRecordData(params: TransformFnParams) {
     case EventType.GarbageFull:
       return plainToInstance(GarbageFullEventData, params.value);
     case EventType.IllegalDrop:
+    case EventType.IllegalDrop2:
       return plainToInstance(IllegalDropEventData, params.value);
     case EventType.MixedInto:
       return plainToInstance(MixedIntoEventData, params.value);
     case EventType.Sewage:
       return plainToInstance(SewageEventData, params.value);
+    case EventType.IllegalVehicle:
+      return plainToInstance(IllegalVehicleEventData, params.value);
     default:
       throw new Error('EventRecordDataTransformer unknow eventtype');
   }

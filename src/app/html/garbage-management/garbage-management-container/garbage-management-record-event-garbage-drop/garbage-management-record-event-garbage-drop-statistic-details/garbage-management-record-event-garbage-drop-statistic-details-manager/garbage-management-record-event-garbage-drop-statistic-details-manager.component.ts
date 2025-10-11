@@ -8,7 +8,7 @@ import { TimeUnit } from '../../../../../../common/enum/time-unit.enum';
 import { Language } from '../../../../../../common/tools/language';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
 import { SelectGarbageStationComponent } from '../../../../../share/select/select-garbage-station/select-garbage-station.component';
-import { GarbageManagementRecordEventIllegalDropStatisticDetailsArgs } from '../../../garbage-management-record-event-illegal-drop/garbage-management-record-event-illegal-drop-statistic-details/garbage-management-record-event-illegal-drop-statistic-details-container/business/garbage-management-record-event-illegal-drop-statistic-details-container.model';
+import { GarbageManagementRecordEventGarbageDropStatisticDetailsArgs } from '../garbage-management-record-event-garbage-drop-statistic-details-container/business/garbage-management-record-event-garbage-drop-statistic-details-container.model';
 import { GarbageManagementRecordEventGarbageDropStatisticDetailsContainerComponent } from '../garbage-management-record-event-garbage-drop-statistic-details-container/garbage-management-record-event-garbage-drop-statistic-details-container.component';
 
 @Component({
@@ -39,8 +39,8 @@ export class GarbageManagementRecordEventGarbageDropStatisticDetailsManagerCompo
   };
 
   chart = {
-    args: new GarbageManagementRecordEventIllegalDropStatisticDetailsArgs(),
-    load: new EventEmitter<GarbageManagementRecordEventIllegalDropStatisticDetailsArgs>(),
+    args: new GarbageManagementRecordEventGarbageDropStatisticDetailsArgs(),
+    load: new EventEmitter<GarbageManagementRecordEventGarbageDropStatisticDetailsArgs>(),
   };
 
   on = {

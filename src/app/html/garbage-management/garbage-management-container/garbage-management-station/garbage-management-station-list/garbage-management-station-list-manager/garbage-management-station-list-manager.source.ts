@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { StationState } from '../../../../../../common/enum/station-state.enum';
 import { StationType } from '../../../../../../common/enum/station-type.enum';
 import { IIdNameModel } from '../../../../../../common/network/model/model.interface';
-import { EnumTool } from '../../../../../../common/tools/enum-tool/enum.tool';
 import { Language } from '../../../../../../common/tools/language';
 
 @Injectable()
@@ -17,13 +16,20 @@ export class GarbageManagementStationListManagerSource {
 
   init = {
     type: () => {
-      return EnumTool.values(StationType).map((value) => {
-        let model: IIdNameModel<number> = {
-          Id: value,
-          Name: Language.StationType(value),
-        };
-        return model;
-      });
+      return [
+        {
+          Id: StationType.Garbage,
+          Name: Language.StationType(StationType.Garbage),
+        },
+        {
+          Id: StationType.IllegalDrop,
+          Name: Language.StationType(StationType.IllegalDrop),
+        },
+        {
+          Id: StationType.VehicleWatching,
+          Name: Language.StationType(StationType.VehicleWatching),
+        },
+      ];
     },
     state: () => {
       return [

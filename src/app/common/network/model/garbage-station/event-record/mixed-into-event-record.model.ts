@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import { transformDateTime } from '../../transform.model';
+import { transformDateTime, transformPictureUrl } from '../../transform.model';
 import { EventDataObject } from '../event-data-object.model';
 import { EventRule } from '../event-rule';
 import { EventRecordData } from './garbage-event-record.model';
@@ -36,6 +36,7 @@ export class MixedIntoEventData {
   /**	Boolean	是否已处置	O	*/
   IsHandle?: boolean;
   /**	String	图片ID、图片地址	O	*/
+  @Transform(transformPictureUrl)
   HandleImageUrl?: string;
   /**	Boolean	处置人员是否已处置	O	*/
   Processed?: boolean;

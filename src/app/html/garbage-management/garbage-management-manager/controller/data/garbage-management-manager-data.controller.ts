@@ -51,10 +51,10 @@ export class GarbageManagementManagerDataController {
           case GarbageManagementManagerIndex.home:
             this.stations = datas;
             break;
-          case GarbageManagementManagerIndex.mixedinto:
-            this.stations = this.filtration.mixedinto(datas);
+          case GarbageManagementManagerIndex.garbagestation:
+            this.stations = this.filtration.garbagestation(datas);
             break;
-          case GarbageManagementManagerIndex.garbagedrop:
+          case GarbageManagementManagerIndex.illegaldump:
             this.stations = this.filtration.illegaldrop(datas);
             break;
           case GarbageManagementManagerIndex.vehicle:
@@ -119,8 +119,8 @@ export class GarbageManagementManagerDataController {
               this.devices = x;
             });
             break;
-          case GarbageManagementManagerIndex.mixedinto:
-          case GarbageManagementManagerIndex.garbagedrop:
+          case GarbageManagementManagerIndex.garbagestation:
+          case GarbageManagementManagerIndex.illegaldump:
           case GarbageManagementManagerIndex.vehicle:
           default:
             this.devices = [];
@@ -132,10 +132,10 @@ export class GarbageManagementManagerDataController {
       index: (index: GarbageManagementManagerIndex) => {
         this.eventables = [EventType.GarbageFull, EventType.GarbageDrop];
         switch (index) {
-          case GarbageManagementManagerIndex.mixedinto:
-            this.eventables = [EventType.GarbageFull];
+          case GarbageManagementManagerIndex.garbagestation:
+            this.eventables = [EventType.GarbageFull, EventType.GarbageDrop];
             break;
-          case GarbageManagementManagerIndex.garbagedrop:
+          case GarbageManagementManagerIndex.illegaldump:
             this.eventables = [EventType.GarbageDrop];
             break;
           case GarbageManagementManagerIndex.home:

@@ -33,11 +33,10 @@ export class GarbageManagementManagerCardIllegalDumpLeftController extends Garba
       args: {
         load: this.load,
         display: [
-          GarbageManagementRankingRecordEventIndex.illegaldrop,
-          GarbageManagementRankingRecordEventIndex.garbagedropduration,
-          GarbageManagementRankingRecordEventIndex.garbagedropcount,
+          GarbageManagementRankingRecordEventIndex.illegaldump,
+          GarbageManagementRankingRecordEventIndex.illegalvehicle,
         ],
-        index: GarbageManagementRankingRecordEventIndex.illegaldrop,
+        index: GarbageManagementRankingRecordEventIndex.illegaldump,
       },
       class: ['span-2'],
     },

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { DateTimeControlComponent } from '../../../../../../common/components/date-time/date-time-control/date-time-control.component';
 import { HowellSelectComponent } from '../../../../../../common/components/select/hw-select/select-control.component';
 import { DateTimePickerView } from '../../../../../../common/directives/date-time-picker/date-time-picker.directive';
+import { StationType } from '../../../../../../common/enum/station-type.enum';
 import { TimeUnit } from '../../../../../../common/enum/time-unit.enum';
 import { Language } from '../../../../../../common/tools/language';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
@@ -41,6 +42,9 @@ export class GarbageManagementRecordEventIllegalVehicleStatisticDetailsManagerCo
   chart = {
     args: new GarbageManagementRecordEventIllegalVehicleStatisticDetailsArgs(),
     load: new EventEmitter<GarbageManagementRecordEventIllegalVehicleStatisticDetailsArgs>(),
+    station: {
+      types: [StationType.IllegalDump],
+    },
   };
 
   on = {

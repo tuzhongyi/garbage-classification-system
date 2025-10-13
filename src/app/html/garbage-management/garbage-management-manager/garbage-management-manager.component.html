@@ -11,7 +11,7 @@
       [select]="map.select"
       [move]="map.move"
       [(refresh)]="map.refresh"
-      (recorddblclick)="window.record.ias.open($event)"
+      (recorddblclick)="window.task.ias.open($event)"
       (camera)="map.on.camera($event)"
       (error)="map.on.error($event)"
       (garbagedrop)="map.on.garbagedrop($event)"
@@ -141,6 +141,7 @@
       (image)="panel.record.illegalvehicle.on.image($event)"
       (video)="panel.record.illegalvehicle.on.video.single($event)"
       (videoall)="panel.record.illegalvehicle.on.video.multiple($event)"
+      (complete)="window.task.illegalvehicle.open($event)"
     >
     </howell-garbage-management-record-event-illegal-vehicle-manager>
   </howell-panel>
@@ -191,28 +192,41 @@
     [style]="panel.record.ias.style"
   >
     <howell-garbage-management-record-event-ias-manager
-      (task)="window.record.ias.open($event)"
+      (task)="window.task.ias.open($event)"
     ></howell-garbage-management-record-event-ias-manager>
   </howell-panel>
+
   <howell-window
-    *ngIf="window.record.ias.show"
-    [model]="window.record.ias"
-    [title]="window.record.ias.title"
-    [style]="window.record.ias.style"
+    [model]="window.task.complete"
+    *ngIf="window.task.complete.show"
+    [style]="window.task.complete.style"
+    [title]="window.task.complete.title"
+  >
+    <event-handle-complete
+      [data]="window.task.complete.data"
+    ></event-handle-complete>
+  </howell-window>
+  <howell-window
+    *ngIf="window.task.ias.show"
+    [model]="window.task.ias"
+    [title]="window.task.ias.title"
+    [style]="window.task.ias.style"
   >
     <howell-garbage-management-record-event-ias-task-manager
-      [data]="window.record.ias.data"
+      [data]="window.task.ias.data"
     ></howell-garbage-management-record-event-ias-task-manager>
   </howell-window>
   <howell-window
-    [model]="window.record.complete"
-    *ngIf="window.record.complete.show"
-    [style]="window.record.complete.style"
-    [title]="window.record.complete.title"
+    *ngIf="window.task.illegalvehicle.show"
+    [model]="window.task.illegalvehicle"
+    [title]="window.task.illegalvehicle.title"
+    [style]="window.task.illegalvehicle.style"
   >
-    <event-handle-complete
-      [data]="window.record.complete.data"
-    ></event-handle-complete>
+    <howell-garbage-management-record-event-illegal-vehicle-task-manager
+      [data]="window.task.illegalvehicle.data"
+      (image)="window.task.illegalvehicle.on.image($event)"
+      (video)="window.task.illegalvehicle.on.video($event)"
+    ></howell-garbage-management-record-event-illegal-vehicle-task-manager>
   </howell-window>
   <howell-window
     [model]="window.picture"
@@ -260,12 +274,16 @@
   </howell-video-window>
   <howell-window
     [model]="window.video.mkv"
-    *ngIf="window.video.mkv.show"
+    *ngIf="window.video.mkv.show && window.video.mkv.data"
     [style]="window.video.mkv.style"
     [title]="window.video.mkv.title"
   >
     <div class="video-mkv-window">
-      <video [src]="window.video.mkv.src" autoplay="autoplay" controls></video>
+      <video
+        [src]="window.video.mkv.data.src"
+        autoplay="autoplay"
+        controls
+      ></video>
     </div>
   </howell-window>
 </div>

@@ -1,0 +1,85 @@
+<div
+  class="garbage-management-record-event-illegal-vehicle-task-progress"
+  *ngIf="data"
+>
+  <div
+    class="garbage-management-record-event-illegal-vehicle-task-progress-item did"
+  >
+    <div
+      class="garbage-management-record-event-illegal-vehicle-task-progress-item-name"
+    >
+      事件报警
+    </div>
+    <div
+      class="garbage-management-record-event-illegal-vehicle-task-progress-item-time"
+    >
+      {{ data.EventTime | date : Language.MMddHHmmss }}
+    </div>
+  </div>
+  <div
+    class="garbage-management-record-event-illegal-vehicle-task-progress-to"
+    [ngClass]="{
+      did: true
+    }"
+  ></div>
+  <div
+    class="garbage-management-record-event-illegal-vehicle-task-progress-item"
+    [ngClass]="{
+      did: true
+    }"
+  >
+    <div
+      class="garbage-management-record-event-illegal-vehicle-task-progress-item-name"
+    >
+      派单时间
+    </div>
+    <div
+      class="garbage-management-record-event-illegal-vehicle-task-progress-item-time"
+    >
+      {{ data.EventTime | date : Language.MMddHHmmss }}
+    </div>
+  </div>
+  <div
+    class="garbage-management-record-event-illegal-vehicle-task-progress-to"
+    [ngClass]="{
+      did: data.Data.Processed
+    }"
+  ></div>
+  <div
+    class="garbage-management-record-event-illegal-vehicle-task-progress-item"
+  >
+    <div
+      class="garbage-management-record-event-illegal-vehicle-task-progress-item-name"
+    >
+      执法处置
+    </div>
+    <div
+      class="garbage-management-record-event-illegal-vehicle-task-progress-item-time"
+    >
+      {{ (data.Data.ProcessTime | date : Language.MMddHHmmss) ?? "-" }}
+    </div>
+  </div>
+  <div
+    class="garbage-management-record-event-illegal-vehicle-task-progress-to"
+    [ngClass]="{
+      did: data.Data.Processed
+    }"
+  ></div>
+  <div
+    class="garbage-management-record-event-illegal-vehicle-task-progress-item"
+    [ngClass]="{
+      did: data.Data.Processed
+    }"
+  >
+    <div
+      class="garbage-management-record-event-illegal-vehicle-task-progress-item-name"
+    >
+      自动闭环
+    </div>
+    <div
+      class="garbage-management-record-event-illegal-vehicle-task-progress-item-time"
+    >
+      {{ (data.Data.ProcessTime | date : Language.MMddHHmmss) ?? "-" }}
+    </div>
+  </div>
+</div>

@@ -4,7 +4,10 @@
     *ngFor="let item of datas"
     (click)="on.item.click(item)"
   >
-    <div class="garbage-management-list-record-event-item-name">
+    <div
+      class="garbage-management-list-record-event-item-name"
+      [title]="item.name"
+    >
       {{ item.name }}
     </div>
     <div
@@ -13,8 +16,11 @@
     >
       {{ item.type }}
     </div>
-    <div class="garbage-management-list-record-event-item-time">
-      {{ item.time | date : "HH:mm:ss" }}
+    <div
+      class="garbage-management-list-record-event-item-time"
+      [title]="(item.time | date : Language.yyyyMMddHHmmss) ?? ''"
+    >
+      {{ item.time | date : Language.HHmmss }}
     </div>
     <div class="garbage-management-list-record-event-item-operation">
       <button (click)="on.details(item)">

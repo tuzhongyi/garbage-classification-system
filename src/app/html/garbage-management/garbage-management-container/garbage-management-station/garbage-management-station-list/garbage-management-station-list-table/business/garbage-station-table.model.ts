@@ -7,7 +7,7 @@ export class GarbageStationTableModel {
   GarbageStation!: GarbageStation;
   Division?: Promise<DivisionViewModel>;
   states: StationState[] = [];
-  urls!: Promise<string[]>;
+  urls: string[] = [];
 }
 export class GarbageStationTableArgs {
   stationId?: string;

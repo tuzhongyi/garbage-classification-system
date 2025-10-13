@@ -36,6 +36,7 @@
             <howell-garbage-station-select
               [divisionId]="table.args.divisionId"
               [(selectedId)]="table.args.stationId"
+              [types]="table.station.types"
             ></howell-garbage-station-select>
           </hw-select>
         </div>
@@ -72,6 +73,7 @@
       [args]="table.args"
       [load]="table.load"
       (image)="on.image($event)"
+      (complete)="on.complete($event)"
       (video)="on.video.single($event)"
       (videoall)="on.video.all($event)"
     ></howell-garbage-management-record-event-illegal-vehicle-list-table>

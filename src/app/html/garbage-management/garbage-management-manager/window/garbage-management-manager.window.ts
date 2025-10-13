@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
 import { GarbageManagementManagerPictureWindow } from './garbage-management-manager-picture.window';
 
-import { GarbageManagementManagerBusiness } from '../business/garbage-management-manager.business';
-import { GarbageManagementManagerRecordWindow } from './record/garbage-management-manager-record.window';
-import { GarbageManagementManagerVideoWindow } from './video/garbage-management-manager-video.window';
+import { GarbageManagementManagerTaskWindow } from './record/garbage-management-manager-task.window';
+import {
+  GarbageManagementManagerVideoWindow,
+  GarbageManagementManagerVideoWindowProvider,
+} from './video/garbage-management-manager-video.window';
 
 @Injectable()
 export class GarbageManagementManagerWindow {
-  record = new GarbageManagementManagerRecordWindow();
+  task: GarbageManagementManagerTaskWindow;
   picture = new GarbageManagementManagerPictureWindow();
-  video: GarbageManagementManagerVideoWindow;
 
-  constructor(business: GarbageManagementManagerBusiness) {
-    this.video = new GarbageManagementManagerVideoWindow(business);
+  constructor(public video: GarbageManagementManagerVideoWindow) {
+    this.task = new GarbageManagementManagerTaskWindow(this);
   }
 }
+
+export const GarbageManagementManagerWindowProvider = [
+  ...GarbageManagementManagerVideoWindowProvider,
+  GarbageManagementManagerWindow,
+];

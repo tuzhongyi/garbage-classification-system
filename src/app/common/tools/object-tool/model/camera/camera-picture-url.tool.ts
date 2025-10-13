@@ -11,12 +11,14 @@ export class CameraPictureUrlTool {
     if (time) {
       video.playback = {
         cameraId: data.CameraId,
+        cameraName: data.CameraName,
         duration: DateTimeTool.before(time, 30),
         stream: stream,
       };
     } else {
       video.preview = {
         cameraId: data.CameraId,
+        cameraName: data.CameraName,
         stream: stream,
       };
     }

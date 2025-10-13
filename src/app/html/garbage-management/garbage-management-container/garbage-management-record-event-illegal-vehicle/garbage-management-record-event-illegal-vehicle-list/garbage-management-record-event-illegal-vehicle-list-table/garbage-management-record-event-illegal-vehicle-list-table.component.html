@@ -20,7 +20,7 @@
           <td>处置时间</td>
           <td>状态</td>
           <td>处置人员</td>
-          <td>操作</td>
+          <td class="center">操作</td>
         </tr>
       </thead>
       <tbody>
@@ -70,14 +70,14 @@
             {{ Language.IllegalVehicleType(item.Data.VehicleType) }}
             }
           </td>
-          <td [title]="(item?.GarbageStation | async)?.Name ?? ''">
+          <td [title]="item?.Data?.StationName ?? ''">
             @if(item){
-            {{ (item?.GarbageStation | async)?.Name ?? "-" }}
+            {{ item.Data.StationName }}
             }
           </td>
-          <td [title]="((item?.Division | async)?.Parent | async)?.Name ?? ''">
+          <td [title]="item?.Data?.DivisionName ?? ''">
             @if(item){
-            {{ ((item.Division | async)?.Parent | async)?.Name ?? "-" }}
+            {{ item.Data.DivisionName ?? "-" }}
             }
           </td>
           <td [title]="item?.Data?.CommunityName ?? ''">
@@ -85,14 +85,18 @@
             {{ item?.Data?.CommunityName ?? "-" }}
             }
           </td>
-          <td [title]="item?.EventTime | date : Language.yyyyMMddHHmmss">
+          <td
+            [title]="(item?.EventTime | date : Language.yyyyMMddHHmmss) ?? ''"
+          >
             @if(item){
             {{ item.EventTime | date : Language.HHmmss }}
             }
           </td>
 
           <td
-            [title]="item?.Data?.ProcessTime | date : Language.yyyyMMddHHmmss"
+            [title]="
+              (item?.Data?.ProcessTime | date : Language.yyyyMMddHHmmss) ?? ''
+            "
           >
             @if(item){
             {{ (item.Data.ProcessTime | date : Language.HHmmss) ?? "-" }}
@@ -113,7 +117,7 @@
             {{ item.Data.ProcessorName || "-" }}
             }
           </td>
-          <td>
+          <td class="center">
             @if(item){
             <div class="operation">
               <div

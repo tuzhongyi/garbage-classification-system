@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { WindowViewModel } from '../../../../../common/components/window/window.model';
 import { SizeTool } from '../../../../../common/tools/size-tool/size.tool';
 import {
@@ -5,6 +6,7 @@ import {
   VideoPreviewArgs,
 } from '../../../../share/video/component/video.model';
 
+@Injectable()
 export class GarbageManagementManagerVideoSingleWSWindow extends WindowViewModel {
   style = {
     ...SizeTool.window.large,

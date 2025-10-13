@@ -25,6 +25,7 @@ export class GarbageManagementManagerStationBusiness {
     params.AncestorId = division.Id;
     params.StationTypes = [...ObjectTool.model.GarbageStation.types];
     let stations = await this.service.all(params);
+    this.service.cache.save(stations);
     let statistic = await this.statistic.all(stations);
     let models: GarbageStationViewModel[] = [];
     for (let i = 0; i < stations.length; i++) {

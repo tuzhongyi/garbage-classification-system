@@ -4,7 +4,7 @@ import { IEventRecord } from '../../../../../common/network/model/garbage-statio
 import { Language } from '../../../../../common/tools/language';
 import { SizeTool } from '../../../../../common/tools/size-tool/size.tool';
 
-export class GarbageManagementManagerRecordCompleteWindow extends WindowViewModel {
+export class GarbageManagementManagerTaskCompleteWindow extends WindowViewModel {
   style = {
     ...SizeTool.window.large,
 

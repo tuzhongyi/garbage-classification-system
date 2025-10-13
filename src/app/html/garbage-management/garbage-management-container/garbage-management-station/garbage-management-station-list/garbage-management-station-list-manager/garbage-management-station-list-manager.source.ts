@@ -22,8 +22,8 @@ export class GarbageManagementStationListManagerSource {
           Name: Language.StationType(StationType.Garbage),
         },
         {
-          Id: StationType.IllegalDrop,
-          Name: Language.StationType(StationType.IllegalDrop),
+          Id: StationType.IllegalDump,
+          Name: Language.StationType(StationType.IllegalDump),
         },
         {
           Id: StationType.VehicleWatching,

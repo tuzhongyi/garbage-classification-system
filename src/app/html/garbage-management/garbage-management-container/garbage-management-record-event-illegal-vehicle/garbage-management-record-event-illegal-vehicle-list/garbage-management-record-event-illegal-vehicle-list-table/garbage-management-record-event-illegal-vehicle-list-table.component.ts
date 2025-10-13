@@ -41,18 +41,18 @@ export class GarbageManagementRecordEventIllegalVehicleListTableComponent
 
   StationState = StationState;
   widths = [
-    '10%',
+    '8%',
     '8%',
     '6%',
     '8%',
+    '14%',
     '10%',
-    '10%',
-    '10%',
-    '210px',
-    '210px',
+    '12%',
+    '7%',
+    '7%',
     '6%',
     '8%',
-    '8%',
+    '6%',
   ];
 
   selected?: IllegalVehicleEventRecordViewModel;

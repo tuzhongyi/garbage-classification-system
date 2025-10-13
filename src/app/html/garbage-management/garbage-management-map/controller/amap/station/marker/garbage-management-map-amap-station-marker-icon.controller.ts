@@ -34,7 +34,7 @@ export class GarbageManagementMapAMapStationMarkerIconController
   private get path() {
     let flags = new Flags(this.data.StationState);
     switch (this.data.StationType) {
-      case StationType.IllegalDrop:
+      case StationType.IllegalDump:
         if (this.is.stay(this.data, flags)) {
           return PathTool.map.marker.illegaldump.stay;
         } else {

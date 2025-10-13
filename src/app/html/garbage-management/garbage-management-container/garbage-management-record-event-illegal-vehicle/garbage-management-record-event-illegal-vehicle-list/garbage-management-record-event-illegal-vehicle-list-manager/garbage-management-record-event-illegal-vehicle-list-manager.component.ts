@@ -3,6 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DateTimeControlComponent } from '../../../../../../common/components/date-time/date-time-control/date-time-control.component';
 import { HowellSelectComponent } from '../../../../../../common/components/select/hw-select/select-control.component';
+import { StationType } from '../../../../../../common/enum/station-type.enum';
 import { IllegalVehicleEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/illegal-vehicle-event-record.model';
 import { PagedArgs } from '../../../../../../common/network/model/model.interface';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
@@ -38,6 +39,9 @@ export class GarbageManagementRecordEventIllegalVehicleListManagerComponent {
   table = {
     args: new GarbageManagementRecordEventIllegalVehicleListTableArgs(),
     load: new EventEmitter<GarbageManagementRecordEventIllegalVehicleListTableArgs>(),
+    station: {
+      types: [StationType.IllegalDump],
+    },
   };
 
   name = {

@@ -9,6 +9,7 @@ import { Language } from '../../../../../../common/tools/language';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
 import { SelectGarbageStationComponent } from '../../../../../share/select/select-garbage-station/select-garbage-station.component';
 
+import { StationType } from '../../../../../../common/enum/station-type.enum';
 import { GarbageManagementRecordEventMixedIntoStatisticDetailsArgs } from '../garbage-management-record-event-mixed-into-statistic-details-container/business/garbage-management-record-event-mixed-into-statistic-details-container.model';
 import { GarbageManagementRecordEventMixedIntoStatisticDetailsContainerComponent } from '../garbage-management-record-event-mixed-into-statistic-details-container/garbage-management-record-event-mixed-into-statistic-details-container.component';
 
@@ -42,6 +43,9 @@ export class GarbageManagementRecordEventMixedIntoStatisticDetailsManagerCompone
   chart = {
     args: new GarbageManagementRecordEventMixedIntoStatisticDetailsArgs(),
     load: new EventEmitter<GarbageManagementRecordEventMixedIntoStatisticDetailsArgs>(),
+    station: {
+      types: [StationType.Garbage, StationType.Plus, StationType.Smart],
+    },
   };
 
   on = {

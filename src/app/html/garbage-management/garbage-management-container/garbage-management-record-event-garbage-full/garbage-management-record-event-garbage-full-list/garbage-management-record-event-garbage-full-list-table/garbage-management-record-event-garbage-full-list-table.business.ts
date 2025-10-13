@@ -42,11 +42,7 @@ export class GarbageManagementRecordEventGarbageFullListTableBusiness {
     let datas = await this.data.load(index, size, args);
     let paged = new PagedList<GarbageFullEventRecordViewModel>();
     paged.Page = datas.Page;
-    paged.Data = [];
-    for (let i = 0; i < datas.Data.length; i++) {
-      let item = await this.convert.record(datas.Data[i]);
-      paged.Data.push(item);
-    }
+    paged.Data = datas.Data.map((x) => this.convert.record(x));
     return paged;
   }
 
@@ -61,7 +57,7 @@ export class GarbageManagementRecordEventGarbageFullListTableBusiness {
   };
 
   private convert = {
-    record: async (data: GarbageFullEventRecord) => {
+    record: (data: GarbageFullEventRecord) => {
       let vm = new GarbageFullEventRecordViewModel();
       vm = Object.assign(vm, data);
       vm.GarbageStation = this.service.station.cache.get(data.Data.StationId);

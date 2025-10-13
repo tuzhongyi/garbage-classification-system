@@ -32,7 +32,7 @@ export class GarbageManagementManagerCardHomeRightController extends GarbageMana
 
   private regist() {
     this.event.record.details.subscribe((data) => {
-      this.window.record.complete.open(data);
+      this.window.task.complete.open(data);
     });
   }
 

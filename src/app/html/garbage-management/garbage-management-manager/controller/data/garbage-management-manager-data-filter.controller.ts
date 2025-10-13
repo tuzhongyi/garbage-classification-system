@@ -4,7 +4,7 @@ import { GarbageStation } from '../../../../../common/network/model/garbage-stat
 export class GarbageManagementManagerDataFilterController {
   illegaldrop<T extends GarbageStation>(datas: T[]) {
     return datas.filter((x) => {
-      return x.StationType == StationType.IllegalDrop;
+      return x.StationType == StationType.IllegalDump;
     });
   }
   illegalvehicle<T extends GarbageStation>(datas: T[]) {

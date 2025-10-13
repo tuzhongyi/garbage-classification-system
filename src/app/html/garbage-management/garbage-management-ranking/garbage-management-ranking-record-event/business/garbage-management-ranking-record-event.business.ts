@@ -47,6 +47,13 @@ export class GarbageManagementRankingRecordEventBusiness {
           date,
           EventType.GarbageFull
         );
+      case GarbageManagementRankingRecordEventIndex.illegaldump:
+        return this._load(
+          this.converter.event,
+          unit,
+          date,
+          EventType.IllegalDrop2
+        );
       case GarbageManagementRankingRecordEventIndex.illegalvehicle:
         return this._load(
           this.converter.event,

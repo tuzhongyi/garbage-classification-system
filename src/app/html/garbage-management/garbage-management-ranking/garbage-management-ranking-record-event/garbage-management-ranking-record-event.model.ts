@@ -5,6 +5,6 @@ export enum GarbageManagementRankingRecordEventIndex {
   illegaldrop,
   mixedinto,
   garbagefull,
-
+  illegaldump,
   illegalvehicle,
 }

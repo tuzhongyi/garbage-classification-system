@@ -117,13 +117,13 @@ export class GarbageManagementStatisticStationComponent
     click: (item: GarbageManagementStatisticStationItem) => {
       switch (item.icon) {
         case GarbageManagementStatisticRecordIcon.illegaldump:
-          this.openstations.emit(StationType.IllegalDrop);
+          this.openstations.emit(StationType.IllegalDump);
           break;
         case GarbageManagementStatisticRecordIcon.garbagestation:
           this.openstations.emit(StationType.Garbage);
           break;
         case GarbageManagementStatisticRecordIcon.illegalvehicle:
-          this.openstations.emit(StationType.VehicleWatching);
+          this.openstations.emit(StationType.IllegalDump);
           break;
         case GarbageManagementStatisticRecordIcon.street:
           this.opendevices.emit();

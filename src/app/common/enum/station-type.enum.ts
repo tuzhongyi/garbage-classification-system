@@ -9,7 +9,7 @@ export enum StationType {
   Plus = 3,
 
   /** 垃圾偷倒 */
-  IllegalDrop = 10,
+  IllegalDump = 10,
   /** 车辆监控 */
   VehicleWatching = 11,
   /** 核酸检测点 */

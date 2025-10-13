@@ -2,7 +2,7 @@ import { WindowViewModel } from '../../../../../common/components/window/window.
 import { IasEventRecord } from '../../../../../common/network/model/ias/ias-event-record.model';
 import { SizeTool } from '../../../../../common/tools/size-tool/size.tool';
 
-export class GarbageManagementManagerRecordIasWindow extends WindowViewModel {
+export class GarbageManagementManagerTaskIasWindow extends WindowViewModel {
   style = {
     ...SizeTool.window.large,
 

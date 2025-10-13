@@ -1,0 +1,42 @@
+<div class="garbage-management-record-event-illegal-vehicle-task-manager">
+  <div
+    class="garbage-management-record-event-illegal-vehicle-task-manager-process"
+  >
+    <howell-garbage-management-record-event-illegal-vehicle-task-progress
+      [data]="data"
+    ></howell-garbage-management-record-event-illegal-vehicle-task-progress>
+  </div>
+  <div class="hr"></div>
+  <div
+    class="garbage-management-record-event-illegal-vehicle-task-manager-info"
+  >
+    <howell-garbage-management-record-event-illegal-vehicle-task-info
+      [data]="data"
+    ></howell-garbage-management-record-event-illegal-vehicle-task-info>
+  </div>
+  <div class="hr"></div>
+  <div
+    class="garbage-management-record-event-illegal-vehicle-task-manager-picture"
+    wheel-horizontal-scroll
+  >
+    <div
+      class="garbage-management-record-event-illegal-vehicle-task-manager-picture-item panel"
+      *ngFor="let item of picture.datas; let index = index"
+      (click)="picture.on.click(index)"
+    >
+      <app-picture [src]="item"></app-picture>
+    </div>
+
+    <div
+      class="garbage-management-record-event-illegal-vehicle-task-manager-picture-item panel"
+      *ngFor="let item of video.datas; let index = index"
+      (click)="video.on.click(index)"
+    >
+      <howell-video-image
+        *ngIf="item"
+        [image]="item.image"
+        [playable]="false"
+      ></howell-video-image>
+    </div>
+  </div>
+</div>

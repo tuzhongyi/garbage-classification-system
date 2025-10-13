@@ -131,7 +131,9 @@ export class GarbageManagementMapComponent
         if (this.refresh) {
           this.controller.station.blur();
           this.refresh = false;
-          this.refreshChange.emit(this.refresh);
+          setTimeout(() => {
+            this.refreshChange.emit(this.refresh);
+          }, 0);
         }
       }
     },

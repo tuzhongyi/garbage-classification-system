@@ -8,7 +8,7 @@ import { GarbageManagementManagerMapController } from './controller/map/garbage-
 import { GarbageManagementManagerStatisticController } from './controller/statistic/garbage-management-manager-statistic.controller';
 import { GarbageManagementManagerVideoController } from './controller/video/garbage-management-manager-video.controller';
 import { GarbageManagementManagerPanel } from './panel/garbage-management-manager.panel';
-import { GarbageManagementManagerWindow } from './window/garbage-management-manager.window';
+import { GarbageManagementManagerWindowProvider } from './window/garbage-management-manager.window';
 
 const controllers = [
   GarbageManagementManagerController,
@@ -24,9 +24,10 @@ const businesses = [
   GarbageManagementManagerIasBusiness,
   GarbageManagementManagerBusiness,
 ];
+
 export const GarbageManagementManagerProviders = [
   ...controllers,
   ...businesses,
   GarbageManagementManagerPanel,
-  GarbageManagementManagerWindow,
+  ...GarbageManagementManagerWindowProvider,
 ];

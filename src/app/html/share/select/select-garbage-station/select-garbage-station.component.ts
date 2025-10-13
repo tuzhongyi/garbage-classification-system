@@ -11,6 +11,7 @@ import {
 import { FormsModule } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
+import { StationType } from '../../../../common/enum/station-type.enum';
 import { GarbageStation } from '../../../../common/network/model/garbage-station/garbage-station.model';
 import { SelectGarbageStationBusiness } from './select-garbage-station.business';
 
@@ -27,29 +28,36 @@ export class SelectGarbageStationComponent implements OnInit, OnChanges {
   @Input() selectedId?: string;
   @Output() selectedIdChange = new EventEmitter<string>();
   @Input() divisionId?: string;
+  @Input() types: StationType[] = [];
 
   constructor(private business: SelectGarbageStationBusiness) {}
 
   datas: GarbageStation[] = [];
 
-  private load(divisionId?: string) {
-    this.business.load(divisionId).then((x) => {
+  private load(divisionId?: string, types: StationType[] = []) {
+    this.business.load(divisionId, types).then((x) => {
       this.datas = x;
     });
   }
   private change = {
     divisionId: (simple: SimpleChange) => {
       if (simple && !simple.firstChange) {
-        this.load(this.divisionId);
+        this.load(this.divisionId, this.types);
+      }
+    },
+    types: (simple: SimpleChange) => {
+      if (simple && !simple.firstChange) {
+        this.load(this.divisionId, this.types);
       }
     },
   };
 
   ngOnInit(): void {
-    this.load(this.divisionId);
+    this.load(this.divisionId, this.types);
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.change.divisionId(changes['divisionId']);
+    this.change.types(changes['types']);
   }
 
   on = {

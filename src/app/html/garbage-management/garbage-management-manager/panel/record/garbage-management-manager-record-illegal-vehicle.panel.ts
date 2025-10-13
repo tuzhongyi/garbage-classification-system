@@ -38,20 +38,15 @@ export class GarbageManagementManagerRecordIllegalVehiclePanel extends WindowVie
     },
     video: {
       single: (data: IllegalVehicleEventRecord) => {
-        let urls = data.Data.CameraRecordUrls?.map((x) => x.RecordUrl) ?? [];
+        let videos = ObjectTool.model.record.illegalvehicle.videos(data);
         let title = data.Data.StationName;
-        if (urls.length > 0) {
-          let src = urls[0];
-          if (src) {
-            this.window.video.mkv.open(title, src);
-          }
+        if (videos.length > 0) {
+          this.window.video.mkv.open(title, videos[0]);
         }
       },
       multiple: (data: IllegalVehicleEventRecord) => {
         let videos = ObjectTool.model.record.illegalvehicle.videos(data);
-        videos.forEach((x) => {
-          x.image = data.Data.PlateImageUrl ?? data.Data.VehicleImageUrl ?? '';
-        });
+
         let title = data.Data.StationName;
         this.window.video.multiple.open(
           title,

@@ -69,12 +69,18 @@ export class GarbageManagementChartRecordEventContainerComponent
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.change.unit(changes['unit']);
+    this.change.type(changes['type']);
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
   private change = {
     unit: (simple: SimpleChange) => {
+      if (simple && !simple.firstChange) {
+        this.load(this.type, this.unit, this.date);
+      }
+    },
+    type: (simple: SimpleChange) => {
       if (simple && !simple.firstChange) {
         this.load(this.type, this.unit, this.date);
       }

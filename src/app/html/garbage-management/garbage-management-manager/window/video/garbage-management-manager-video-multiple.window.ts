@@ -1,15 +1,21 @@
+import { EventEmitter, Injectable } from '@angular/core';
 import { WindowViewModel } from '../../../../../common/components/window/window.model';
 import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
 import { SizeTool } from '../../../../../common/tools/size-tool/size.tool';
 import { VideoArgs } from '../../../../share/video/video-multiple/video-multiple.model';
 import { GarbageManagementManagerBusiness } from '../../business/garbage-management-manager.business';
+import { MKVVideoArgs } from './garbage-management-manager-video-single-mkv.window';
 import { VideoType } from './garbage-management-manager-video.window';
 
+@Injectable()
 export class GarbageManagementManagerVideoMultipleWindow extends WindowViewModel {
-  constructor(
-    private business: GarbageManagementManagerBusiness,
-    private play: (title: string, args: VideoArgs, type: VideoType) => void
-  ) {
+  play = new EventEmitter<{
+    title: string;
+    args: VideoArgs;
+    type: VideoType;
+  }>();
+
+  constructor(private business: GarbageManagementManagerBusiness) {
     super();
   }
 
@@ -19,7 +25,7 @@ export class GarbageManagementManagerVideoMultipleWindow extends WindowViewModel
   };
   title = '';
 
-  datas: VideoArgs[] = [];
+  datas: MKVVideoArgs[] = [];
   loading = false;
   playable = false;
 
@@ -37,7 +43,7 @@ export class GarbageManagementManagerVideoMultipleWindow extends WindowViewModel
   }
   open(
     title: string,
-    datas: VideoArgs[],
+    datas: MKVVideoArgs[],
     type: VideoType,
     stationId?: string,
     captureable = true
@@ -55,7 +61,7 @@ export class GarbageManagementManagerVideoMultipleWindow extends WindowViewModel
     play: (index: number) => {
       if (this.play) {
         let args = this.datas[index];
-        this.play(this.title, args, this.type);
+        this.play.emit({ title: this.title, args: args, type: this.type });
       }
     },
     error: (args: { index: number; event: Event }) => {

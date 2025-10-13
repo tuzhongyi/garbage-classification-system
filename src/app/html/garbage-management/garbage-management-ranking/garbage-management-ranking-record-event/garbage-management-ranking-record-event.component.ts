@@ -11,6 +11,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { WheelHorizontalScrollDirective } from '../../../../common/directives/wheel-horizontal-scroll/wheel-horizontal-scroll.directive';
 import { TimeUnit } from '../../../../common/enum/time-unit.enum';
 import { IIdNameModel } from '../../../../common/network/model/model.interface';
 import { GarbageManagementRankingComponent } from '../component/garbage-management-ranking.component';
@@ -21,7 +22,11 @@ import { GarbageManagementRankingRecordEventIndex } from './garbage-management-r
 
 @Component({
   selector: 'howell-garbage-management-ranking-record-event',
-  imports: [CommonModule, GarbageManagementRankingComponent],
+  imports: [
+    CommonModule,
+    GarbageManagementRankingComponent,
+    WheelHorizontalScrollDirective,
+  ],
   templateUrl: './garbage-management-ranking-record-event.component.html',
   styleUrl: './garbage-management-ranking-record-event.component.less',
   providers: [...GarbageManagementRankingRecordEventProviders],
@@ -36,6 +41,7 @@ export class GarbageManagementRankingRecordEventComponent
     GarbageManagementRankingRecordEventIndex.garbagedropcount,
     GarbageManagementRankingRecordEventIndex.mixedinto,
     GarbageManagementRankingRecordEventIndex.garbagefull,
+    GarbageManagementRankingRecordEventIndex.illegaldump,
     GarbageManagementRankingRecordEventIndex.illegalvehicle,
   ];
   @Input() unit = TimeUnit.Day;

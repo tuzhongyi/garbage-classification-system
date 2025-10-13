@@ -30,16 +30,16 @@ export class GarbageManagementManagerCardIllegalDumpRightController extends Garb
       component: GarbageManagementCardChartLineRecordEventComponent,
       args: {
         load: this.load,
-        type: EventType.IllegalDrop,
-        color: ColorTool.chart.line.get(0, 246, 255),
+        type: EventType.IllegalDrop2,
+        color: ColorTool.chart.line.record.illegaldump,
       },
     },
     {
       component: GarbageManagementCardChartLineRecordEventComponent,
       args: {
         load: this.load,
-        type: EventType.GarbageDrop,
-        color: ColorTool.chart.line.get(255, 140, 0),
+        type: EventType.IllegalVehicle,
+        color: ColorTool.chart.line.record.illegalvehicle,
       },
     },
   ];

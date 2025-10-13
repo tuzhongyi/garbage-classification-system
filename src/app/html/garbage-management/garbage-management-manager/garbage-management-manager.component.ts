@@ -23,6 +23,7 @@ import { GarbageManagementRecordEventIasTaskManagerComponent } from '../garbage-
 import { GarbageManagementRecordEventIllegalDropManagerComponent } from '../garbage-management-container/garbage-management-record-event-illegal-drop/garbage-management-record-event-illegal-drop-manager/garbage-management-record-event-illegal-drop-manager.component';
 import { GarbageManagementRecordEventIllegalDumpManagerComponent } from '../garbage-management-container/garbage-management-record-event-illegal-dump/garbage-management-record-event-illegal-dump-manager/garbage-management-record-event-illegal-dump-manager.component';
 import { GarbageManagementRecordEventIllegalVehicleManagerComponent } from '../garbage-management-container/garbage-management-record-event-illegal-vehicle/garbage-management-record-event-illegal-vehicle-manager/garbage-management-record-event-illegal-vehicle-manager.component';
+import { GarbageManagementRecordEventIllegalVehicleTaskManagerComponent } from '../garbage-management-container/garbage-management-record-event-illegal-vehicle/garbage-management-record-event-illegal-vehicle-task/garbage-management-record-event-illegal-vehicle-task-manager/garbage-management-record-event-illegal-vehicle-task-manager.component';
 import { GarbageManagementRecordEventMixedIntoManagerComponent } from '../garbage-management-container/garbage-management-record-event-mixed-into/garbage-management-record-event-mixed-into-manager/garbage-management-record-event-mixed-into-manager.component';
 import { GarbageManagementStationManagerComponent } from '../garbage-management-container/garbage-management-station/garbage-management-station-manager/garbage-management-station-manager.component';
 import { GarbageManagementControlButtonListComponent } from '../garbage-management-control/garbage-management-control-button-list/garbage-management-control-button-list.component';
@@ -63,7 +64,6 @@ import { GarbageManagementManagerWindow } from './window/garbage-management-mana
     GarbageManagementStationManagerComponent,
     GarbageManagementStreetDeviceManagerComponent,
     GarbageManagementRecordEventIasManagerComponent,
-    GarbageManagementRecordEventIasTaskManagerComponent,
 
     GarbageManagementRecordEventGarbageFullManagerComponent,
     GarbageManagementRecordEventIllegalDropManagerComponent,
@@ -73,6 +73,9 @@ import { GarbageManagementManagerWindow } from './window/garbage-management-mana
     GarbageManagementRecordEventIllegalVehicleManagerComponent,
     GarbageManagementStationManagerComponent,
     EventHandleCompleteComponent,
+
+    GarbageManagementRecordEventIasTaskManagerComponent,
+    GarbageManagementRecordEventIllegalVehicleTaskManagerComponent,
   ],
   providers: [...GarbageManagementManagerProviders],
 })
@@ -136,6 +139,7 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
     });
     this.controller.navigation.change.subscribe((x) => {
       this.map.refresh = true;
+
       this.card.on.index(x);
       if (this.left) {
         this.load.left(this.left.nativeElement);

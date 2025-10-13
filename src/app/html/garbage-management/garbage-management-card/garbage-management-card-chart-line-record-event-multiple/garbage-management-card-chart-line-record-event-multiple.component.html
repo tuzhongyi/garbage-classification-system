@@ -1,0 +1,31 @@
+<div class="garbage-management-card-chart-line-record-event-multiple">
+  <howell-garbage-management-card>
+    <div ngProjectAs="card-header" class="card-head">
+      <div class="card-head-title">
+        {{ language.unit() }}{{ language.type()
+        }}<span class="card-head-title-count">{{ count }}</span
+        >起
+      </div>
+      <div class="card-head-operation">
+        <select [(ngModel)]="type" class="noborder type" (change)="on.type()">
+          <option [ngValue]="item" *ngFor="let item of types">
+            {{ Language.EventType(item) }}
+          </option>
+        </select>
+        <select [(ngModel)]="unit" class="noborder unit">
+          <option [ngValue]="TimeUnit.Day">今日</option>
+          <option [ngValue]="TimeUnit.Week">本周</option>
+          <option [ngValue]="TimeUnit.Month">本月</option>
+        </select>
+      </div>
+    </div>
+    <howell-garbage-management-chart-record-event-container
+      *ngIf="type"
+      [load]="load"
+      [type]="type"
+      [unit]="unit"
+      [color]="color"
+      (loaded)="on.loaded($event)"
+    ></howell-garbage-management-chart-record-event-container>
+  </howell-garbage-management-card>
+</div>

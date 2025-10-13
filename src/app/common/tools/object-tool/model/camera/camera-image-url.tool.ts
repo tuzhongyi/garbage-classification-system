@@ -27,11 +27,12 @@ export class CameraImageUrlTool {
   }
 
   video = {
-    playback: (data: CameraImageUrl, time: Date) => {
+    playback: (data: CameraImageUrl, time: Date): VideoArgs => {
       let item = new VideoArgs();
       item.image = data.ImageUrl;
       item.playback = {
         cameraId: data.CameraId,
+        cameraName: data.CameraName,
         duration: DateTimeTool.before(time, 30),
         stream: 1,
       } as VideoPlaybackArgs;
@@ -42,6 +43,7 @@ export class CameraImageUrlTool {
       item.image = data.ImageUrl;
       item.preview = {
         cameraId: data.CameraId,
+        cameraName: data.CameraName,
         stream: 1,
       } as VideoPlaybackArgs;
       return item;

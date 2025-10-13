@@ -34,7 +34,7 @@ export class GarbageManagementManagerRecordGarbageFullPanel extends WindowViewMo
       this.window.picture.open(paged);
     },
     complete: (data: GarbageFullEventRecord) => {
-      this.window.record.complete.open(data);
+      this.window.task.complete.open(data);
     },
     video: {
       single: (data: GarbageFullEventRecord) => {

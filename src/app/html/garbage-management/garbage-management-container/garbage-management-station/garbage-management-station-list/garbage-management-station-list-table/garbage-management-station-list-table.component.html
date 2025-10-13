@@ -36,7 +36,7 @@
               <div
                 image
                 class="img"
-                *ngFor="let url of item.urls | async; let index = index"
+                *ngFor="let url of item.urls; let index = index"
                 (click)="on.image($event, item, index)"
                 [url]="url"
               ></div>

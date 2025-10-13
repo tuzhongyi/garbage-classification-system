@@ -35,7 +35,7 @@ export class GarbageManagementManagerRecordMixedIntoPanel extends WindowViewMode
       this.window.picture.open(paged);
     },
     complete: (data: MixedIntoEventRecord) => {
-      this.window.record.complete.open(data);
+      this.window.task.complete.open(data);
     },
     video: {
       single: (data: MixedIntoEventRecord) => {

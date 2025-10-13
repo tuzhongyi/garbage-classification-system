@@ -59,7 +59,7 @@
           <div class="complete-item-images-scroll">
             <ng-container *ngFor="let img of item.urls; let i = index">
               <app-picture-polygon-multiple
-                [id]="img.url"
+                [src]="img.url"
                 [polygon]="img.polygon"
                 [draw]="true"
                 (click)="onimage(item, i)"

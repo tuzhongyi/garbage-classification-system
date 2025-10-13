@@ -67,12 +67,14 @@ export class VideoComponent implements OnInit, OnChanges, OnDestroy {
 
   video = {
     src: '',
+    name: '',
     preview: {
       args: undefined as VideoPreviewArgs | undefined,
       play: (args: VideoPreviewArgs) => {
         if (this.playing) {
           this.video.stop.emit();
         }
+        this.video.name = args.cameraName ?? '';
         this.video.preview.args = args;
         this.business.preview(args).then((x) => {
           let url = x.Url;
@@ -89,6 +91,7 @@ export class VideoComponent implements OnInit, OnChanges, OnDestroy {
         if (this.playing) {
           this.video.stop.emit();
         }
+        this.video.name = args.cameraName ?? '';
         this.business.playback(args).then((x) => {
           let url = x.Url;
 

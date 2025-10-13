@@ -10,6 +10,7 @@ import {
 import { Subscription } from 'rxjs';
 import { TimeUnit } from '../../../../common/enum/time-unit.enum';
 import { IEventRecord } from '../../../../common/network/model/garbage-station/event-record/garbage-event-record.model';
+import { Language } from '../../../../common/tools/language';
 import { GarbageManagementListRecordEventBusiness } from './business/garbage-management-list-record-event.business';
 import { GarbageManagementListRecordEventItem } from './business/garbage-management-list-record-event.model';
 
@@ -33,6 +34,7 @@ export class GarbageManagementListRecordEventComponent
 
   constructor(private business: GarbageManagementListRecordEventBusiness) {}
 
+  Language = Language;
   datas: GarbageManagementListRecordEventItem<IEventRecord>[] = [];
   private subscription = new Subscription();
   private regist() {

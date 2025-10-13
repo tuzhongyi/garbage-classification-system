@@ -1,8 +1,7 @@
 import { EventEmitter } from '@angular/core';
 import { EventType } from '../../../../../../common/enum/event-type.enum';
-import { ColorTool } from '../../../../../../common/tools/color-tool/color.tool';
 import { ComponentTool } from '../../../../../../common/tools/component-tool/component.tool';
-import { GarbageManagementCardChartLineRecordEventComponent } from '../../../../garbage-management-card/garbage-management-card-chart-line-record-event/garbage-management-card-chart-line-record-event.component';
+import { GarbageManagementCardChartLineRecordEventMultipleComponent } from '../../../../garbage-management-card/garbage-management-card-chart-line-record-event-multiple/garbage-management-card-chart-line-record-event-multiple.component';
 import { GarbageManagementCardDivisionSelectionComponent } from '../../../../garbage-management-card/garbage-management-card-division-selection/garbage-management-card-division-selection/garbage-management-card-division-selection.component';
 import { GarbageManagementManagerCardItem } from '../../../garbage-management-manager.model';
 import { GarbageManagementManagerCardCommonController } from '../common/garbage-management-manager-card-common.controller';
@@ -27,19 +26,17 @@ export class GarbageManagementManagerCardMixedIntoRightController extends Garbag
       selector: 'app-garbage-management-card-division-selection',
     },
     {
-      component: GarbageManagementCardChartLineRecordEventComponent,
+      component: GarbageManagementCardChartLineRecordEventMultipleComponent,
       args: {
         load: this.load,
-        type: EventType.MixedInto,
-        color: ColorTool.chart.line.get(255, 0, 240),
+        types: [EventType.MixedInto, EventType.GarbageFull],
       },
     },
     {
-      component: GarbageManagementCardChartLineRecordEventComponent,
+      component: GarbageManagementCardChartLineRecordEventMultipleComponent,
       args: {
         load: this.load,
-        type: EventType.GarbageFull,
-        color: ColorTool.chart.line.get(255, 255, 0),
+        types: [EventType.IllegalDrop, EventType.GarbageDrop],
       },
     },
   ];

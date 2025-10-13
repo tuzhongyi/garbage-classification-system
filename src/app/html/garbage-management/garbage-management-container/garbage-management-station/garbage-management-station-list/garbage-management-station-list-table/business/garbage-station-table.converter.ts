@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { Division } from '../../../../../../../common/network/model/garbage-station/division.model';
 import { GarbageStation } from '../../../../../../../common/network/model/garbage-station/garbage-station.model';
 import { DivisionRequestService } from '../../../../../../../common/network/request/garbage/division/division-request.service';
-import { EnumTool } from '../../../../../../../common/tools/enum-tool/enum.tool';
 import { Flags } from '../../../../../../../common/tools/flags';
-import { MediumTool } from '../../../../../../../common/tools/medium-tool/medium.tool';
 import { DivisionViewModel } from '../../../../../../../common/view-model/division.view-model';
 import { GarbageStationTableModel } from './garbage-station-table.model';
 
@@ -55,14 +53,7 @@ export class GarbageStationTableConverter {
       }
     },
     urls: (data: GarbageStation, model: GarbageStationTableModel) => {
-      model.urls = new Promise((resolve) => {
-        if (data.Cameras) {
-          let all = data.Cameras.filter(
-            (x) => !EnumTool.CameraIgnore(x.Classification)
-          ).map((x) => MediumTool.img(x.ImageUrl));
-          resolve(Promise.all(all));
-        }
-      });
+      model.urls = data.Cameras?.map((x) => x.ImageUrl ?? '') ?? [];
     },
   };
 }

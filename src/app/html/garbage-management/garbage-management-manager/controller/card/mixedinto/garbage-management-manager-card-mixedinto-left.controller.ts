@@ -38,7 +38,18 @@ export class GarbageManagementManagerCardMixedIntoLeftController extends Garbage
         ],
         index: GarbageManagementRankingRecordEventIndex.mixedinto,
       },
-      class: ['span-2'],
+    },
+    {
+      component: GarbageManagementCardRankingRecordEventComponent,
+      args: {
+        load: this.load,
+        display: [
+          GarbageManagementRankingRecordEventIndex.illegaldrop,
+          GarbageManagementRankingRecordEventIndex.garbagedropcount,
+          GarbageManagementRankingRecordEventIndex.garbagedropduration,
+        ],
+        index: GarbageManagementRankingRecordEventIndex.illegaldrop,
+      },
     },
   ];
 }

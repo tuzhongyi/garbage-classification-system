@@ -31,8 +31,8 @@ export class GarbageManagementManagerCardStreetRightController extends GarbageMa
 
   private regist() {
     this.event.task.subscribe((x) => {
-      this.window.record.ias.data = x;
-      this.window.record.ias.show = true;
+      this.window.task.ias.data = x;
+      this.window.task.ias.show = true;
     });
   }
 

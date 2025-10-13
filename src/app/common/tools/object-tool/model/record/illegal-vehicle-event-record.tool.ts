@@ -1,4 +1,4 @@
-import { VideoArgs } from '../../../../../html/share/video/video-multiple/video-multiple.model';
+import { MKVVideoArgs } from '../../../../../html/garbage-management/garbage-management-manager/window/video/garbage-management-manager-video-single-mkv.window';
 import { IllegalVehicleEventRecord } from '../../../../network/model/garbage-station/event-record/illegal-vehicle-event-record.model';
 import { CameraImageUrl } from '../../../../network/model/url-model/camera-image-url.model';
 import { CameraTool } from '../camera/camera.tool';
@@ -19,10 +19,10 @@ export class IllegalVehicleEventRecordTool
   }
 
   images(data: IllegalVehicleEventRecord) {
-    let cameras = this.cameras(data);
-    let images = cameras.map((x) => {
-      return x.ImageUrl;
-    });
+    let images: string[] = [];
+    if (data.ImageUrl) {
+      images.push(data.ImageUrl);
+    }
     if (data.Data.PlateImageUrl) {
       images.push(data.Data.PlateImageUrl);
     }
@@ -32,8 +32,8 @@ export class IllegalVehicleEventRecordTool
 
     return images;
   }
-  videos(data: IllegalVehicleEventRecord): VideoArgs[] {
-    let videos: VideoArgs[] = [];
+  videos(data: IllegalVehicleEventRecord): MKVVideoArgs[] {
+    let videos: MKVVideoArgs[] = [];
 
     if (data.Data.CameraImageUrls) {
       videos.push(
@@ -42,13 +42,21 @@ export class IllegalVehicleEventRecordTool
         )
       );
     }
+
     if (data.Data.CameraRecordUrls) {
-      videos.push(
-        ...data.Data.CameraRecordUrls.map((x) => {
-          let args = this.camera.record.video.playback(x, data.EventTime);
-          return args;
-        })
-      );
+      for (let i = 0; i < videos.length; i++) {
+        const video = videos[i];
+        let cameraId = video.playback?.cameraId;
+        if (!cameraId) {
+          cameraId = video.preview?.cameraId;
+        }
+        if (cameraId) {
+          let record = data.Data.CameraRecordUrls.find(
+            (x) => x.CameraId === cameraId
+          );
+          video.src = record?.RecordUrl;
+        }
+      }
     }
 
     return videos;

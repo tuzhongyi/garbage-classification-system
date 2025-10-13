@@ -2,6 +2,7 @@
   <app-video-player
     *ngIf="video.src"
     [url]="video.src"
+    [name]="video.name"
     [stop]="video.stop"
     (onPlaying)="on.playing()"
     (onStoping)="on.stoping()"

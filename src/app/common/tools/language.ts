@@ -340,7 +340,7 @@ export class Language {
         return '智能垃圾厢房';
       case StationType.Plus:
         return '精品厢房';
-      case StationType.IllegalDrop:
+      case StationType.IllegalDump:
         return '垃圾偷倒';
       case StationType.VehicleWatching:
         return '非法清运';
@@ -506,7 +506,7 @@ export class Language {
     }
   }
 
-  static VehicleType(type: VehicleType) {
+  static VehicleType(type?: VehicleType) {
     switch (type) {
       case VehicleType.Tricycle:
         return Language.json.VehicleType.Tricycle;

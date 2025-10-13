@@ -41,7 +41,7 @@ export class GarbageManagementRecordEventIllegalVehicleListTableComponent
 
   StationState = StationState;
   widths = [
-    '8%',
+    '10%',
     '8%',
     '6%',
     '8%',
@@ -50,8 +50,8 @@ export class GarbageManagementRecordEventIllegalVehicleListTableComponent
     '12%',
     '7%',
     '7%',
-    '6%',
-    '8%',
+    '5%',
+    '7%',
     '6%',
   ];
 

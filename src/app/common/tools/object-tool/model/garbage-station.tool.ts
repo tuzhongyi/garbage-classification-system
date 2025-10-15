@@ -7,7 +7,7 @@ export class GarbageStationTool {
       StationType.Smart,
       StationType.Plus,
       StationType.IllegalDump,
-      StationType.VehicleWatching,
+      StationType.IllegalVehicle,
     ];
   }
 }

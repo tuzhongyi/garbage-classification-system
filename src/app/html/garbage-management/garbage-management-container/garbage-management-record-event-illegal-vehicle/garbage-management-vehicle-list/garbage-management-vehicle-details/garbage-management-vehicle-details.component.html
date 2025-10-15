@@ -1,0 +1,101 @@
+<div class="garbage-management-vehicle-details">
+  <div class="garbage-management-vehicle-details-body">
+    <div class="garbage-management-vehicle-details-picture panel">
+      <app-picture [src]="model.VehicleImageUrl"></app-picture>
+    </div>
+    <div class="garbage-management-vehicle-details-info">
+      <div class="garbage-management-vehicle-details-info-picture panel">
+        <app-picture [src]="model.PlateImageUrl"></app-picture>
+      </div>
+      <div class="forms panel">
+        <div class="form-item">
+          <div class="form-item-text" text-space-between>车牌号码</div>
+          <div class="form-item-value">
+            <input
+              type="text"
+              [(ngModel)]="model.PlateNo"
+              [disabled]="!!data"
+            />
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-item-text" text-space-between>车牌颜色</div>
+          <div class="form-item-value">
+            <hw-select [(selected)]="model.PlateColor" [nullable]="true">
+              <select [(ngModel)]="model.PlateColor" [disabled]="!!data">
+                <option [ngValue]="item.key" *ngFor="let item of source.colors">
+                  {{ item.value }}
+                </option>
+              </select>
+            </hw-select>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-item-text" text-space-between>车牌类型</div>
+          <div class="form-item-value button-group">
+            <button
+              class="button-selection green"
+              [class.selected]="model.VehicleType === 1"
+              (click)="on.type(1)"
+            >
+              授权
+            </button>
+            <button
+              class="button-selection red"
+              [class.selected]="model.VehicleType === 2"
+              (click)="on.type(2)"
+            >
+              禁止
+            </button>
+            <button
+              class="button-selection yellow"
+              [class.selected]="model.VehicleType === 0"
+              (click)="on.type(0)"
+            >
+              未知
+            </button>
+          </div>
+        </div>
+        <!-- <div class="form-item">
+          <div class="form-item-text" text-space-between>居委会</div>
+          <div class="form-item-value">
+            <hw-select [(selected)]="model.DivisionId" [nullable]="true">
+              <howell-division-select
+                [disabled]="!!data"
+                [(selectedId)]="model.DivisionId"
+              ></howell-division-select>
+            </hw-select>
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-item-text" text-space-between>创建时间</div>
+          <div class="form-item-value">
+            <input
+              type="text"
+              disabled
+              [value]="model.CreateTime | date : Language.YearMonthDayHHmmss"
+            />
+          </div>
+        </div>
+        <div class="form-item">
+          <div class="form-item-text" text-space-between>修改时间</div>
+          <div class="form-item-value">
+            <input
+              type="text"
+              disabled
+              [value]="model.UpdateTime | date : Language.YearMonthDayHHmmss"
+            />
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <div class="garbage-management-vehicle-details-foot">
+    <div class="button-group">
+      <button class="button-clip-gradient" (click)="on.button.save()">
+        保存
+      </button>
+      <button class="button-clip-blue" (click)="on.button.close()">取消</button>
+    </div>
+  </div>
+</div>

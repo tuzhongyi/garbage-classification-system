@@ -11,9 +11,9 @@ import { GarbageManagementListRecordEventItem } from '../garbage-management-list
 export class GarbageManagementListRecordEventGarbageDropBusiness {
   constructor(private service: EventRequestService) {}
 
-  async load(divisionId: string, duration: Duration) {
+  async load(divisionId: string, duration: Duration, stationIds: string[]) {
     try {
-      let datas = await this.data.load(divisionId, duration);
+      let datas = await this.data.load(divisionId, duration, stationIds);
       let items = datas.map((x) => {
         return this.convert(x);
       });
@@ -36,12 +36,15 @@ export class GarbageManagementListRecordEventGarbageDropBusiness {
   }
 
   private data = {
-    load: (divisionId: string, duration: Duration) => {
+    load: (divisionId: string, duration: Duration, stationIds: string[]) => {
       let params = new GetGarbageDropEventRecordsParams();
       params.BeginTime = duration.begin;
       params.EndTime = duration.end;
       params.DivisionIds = [divisionId];
       params.IsHandle = false;
+      if (stationIds.length > 0) {
+        params.StationIds = stationIds;
+      }
       return this.service.record.GarbageDrop.all(params);
     },
   };

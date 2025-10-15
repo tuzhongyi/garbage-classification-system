@@ -1,3 +1,4 @@
+import { EventEmitter } from '@angular/core';
 import { WindowViewModel } from '../../../../common/components/window/window.model';
 import { StationType } from '../../../../common/enum/station-type.enum';
 import { GarbageStation } from '../../../../common/network/model/garbage-station/garbage-station.model';
@@ -8,6 +9,10 @@ import { GarbageManagementManagerBusiness } from '../business/garbage-management
 import { GarbageManagementManagerWindow } from '../window/garbage-management-manager.window';
 
 export class GarbageManagementManagerStationPanel extends WindowViewModel {
+  event = {
+    move: new EventEmitter<[number, number]>(),
+    select: new EventEmitter<GarbageStation>(),
+  };
   constructor(
     private window: GarbageManagementManagerWindow,
     private business: GarbageManagementManagerBusiness
@@ -63,6 +68,16 @@ export class GarbageManagementManagerStationPanel extends WindowViewModel {
         });
       this.window.video.multiple.show = true;
     },
-    position: (data: GarbageStation) => {},
+    position: (data: GarbageStation) => {
+      this.show = false;
+      this.event.select.emit(data);
+      // if (data.GisPoint) {
+      //   let position: [number, number] = [
+      //     data.GisPoint.Longitude,
+      //     data.GisPoint.Latitude,
+      //   ];
+      //   this.event.move.emit(position);
+      // }
+    },
   };
 }

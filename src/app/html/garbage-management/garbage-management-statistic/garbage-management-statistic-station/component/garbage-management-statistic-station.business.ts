@@ -29,11 +29,11 @@ export class GarbageManagementStatisticStationBusiness {
         GarbageManagementStatisticRecordIcon.illegaldump,
         '垃圾偷倒'
       ),
-      // this.convert(
-      //   illegalvehicle,
-      //   GarbageManagementStatisticRecordIcon.illegalvehicle,
-      //   '非法清运'
-      // ),
+      this.convert(
+        illegalvehicle,
+        GarbageManagementStatisticRecordIcon.illegalvehicle,
+        '非法清运'
+      ),
     ];
   }
   devices(datas: IasDevice[]) {

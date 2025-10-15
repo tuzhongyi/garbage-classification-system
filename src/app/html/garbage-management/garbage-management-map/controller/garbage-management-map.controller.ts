@@ -97,6 +97,11 @@ export class GarbageManagementMapController {
         x.set.blur();
       });
     },
+    select: (id: string) => {
+      this.amap.station.get().then((x) => {
+        x.select(id);
+      });
+    },
   };
   device = {
     load: (datas: IasDevice[]) => {

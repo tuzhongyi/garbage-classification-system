@@ -1,19 +1,15 @@
 import { Injectable } from '@angular/core';
-import { IasEventRecord } from '../../../../../../../common/network/model/ias/ias-event-record.model';
-import { PagedList } from '../../../../../../../common/network/model/page_list.model';
 import { GetIasEventsParams } from '../../../../../../../common/network/request/ias/event/ias-event-request.params';
 import { IasRequestService } from '../../../../../../../common/network/request/ias/ias-request.service';
-import { MediumRequestService } from '../../../../../../../common/network/request/medium/medium-request.service';
-import {
-  GarbageManagementRecordEventIasListTableArgs,
-  GarbageManagementRecordEventIasListTableItem,
-} from './garbage-management-record-event-ias-list-table.model';
+import { IasEventRecordViewModelConverter } from '../../../../../../../common/view-model/record/ias-event-record.view-model';
+import { GarbageManagementRecordEventIasListTableArgs } from './garbage-management-record-event-ias-list-table.model';
 
 @Injectable()
 export class GarbageManagementRecordEventIasListTableBusiness {
   constructor(
     private service: IasRequestService,
-    private medium: MediumRequestService
+
+    private converter: IasEventRecordViewModelConverter
   ) {}
 
   async load(
@@ -22,21 +18,10 @@ export class GarbageManagementRecordEventIasListTableBusiness {
     args: GarbageManagementRecordEventIasListTableArgs
   ) {
     let datas = await this.data.load(index, size, args);
-    let paged = new PagedList<GarbageManagementRecordEventIasListTableItem>();
-    paged.Page = datas.Page;
-    paged.Data = datas.Data.map((x) => this.convert(x));
-    return paged;
-  }
-
-  picture(id: string) {
-    return this.medium.picture.get(id);
-  }
-
-  private convert(data: IasEventRecord) {
-    let item = new GarbageManagementRecordEventIasListTableItem();
-    item = Object.assign(item, data);
-    item.Device = this.service.device.get(data.DeviceId);
-    return item;
+    // let paged = new PagedList<IasEventRecordViewModel>();
+    // paged.Page = datas.Page;
+    // paged.Data = datas.Data.map((x) => this.converter.convert(x));
+    return datas;
   }
 
   private data = {
@@ -51,7 +36,7 @@ export class GarbageManagementRecordEventIasListTableBusiness {
       params.BeginTime = args.duration.begin;
       params.EndTime = args.duration.end;
       params.EventType = 103;
-      params.Desc = 'EventTime';
+      params.Asc = 'EventTime';
       return this.service.event.list(params);
     },
   };

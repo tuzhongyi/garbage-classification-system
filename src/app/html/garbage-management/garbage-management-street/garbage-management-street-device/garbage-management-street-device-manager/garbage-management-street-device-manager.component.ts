@@ -4,6 +4,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  Output,
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
@@ -30,6 +31,7 @@ export class GarbageManagementStreetDeviceManagerComponent
   implements OnChanges
 {
   @Input() online?: boolean;
+  @Output() position = new EventEmitter<IasDevice>();
   constructor() {}
   table = {
     args: new GarbageManagementStreetDeviceTableArgs(),
@@ -49,7 +51,9 @@ export class GarbageManagementStreetDeviceManagerComponent
   }
 
   on = {
-    position: (data: IasDevice) => {},
+    position: (data: IasDevice) => {
+      this.position.emit(data);
+    },
     search: () => {
       this.table.args.first = true;
       this.table.load.emit(this.table.args);

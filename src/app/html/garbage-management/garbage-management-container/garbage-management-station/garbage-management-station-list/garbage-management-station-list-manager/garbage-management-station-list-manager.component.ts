@@ -97,8 +97,8 @@ export class GarbageManagementStationListManagerComponent implements OnChanges {
         case StationType.IllegalDump:
           this.table.args.types = [StationType.IllegalDump];
           break;
-        case StationType.VehicleWatching:
-          this.table.args.types = [StationType.VehicleWatching];
+        case StationType.IllegalVehicle:
+          this.table.args.types = [StationType.IllegalVehicle];
           break;
         default:
           this.table.args.types = [...this.table.type.all];

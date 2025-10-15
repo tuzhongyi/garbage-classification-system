@@ -123,7 +123,7 @@ export class GarbageManagementStatisticStationComponent
           this.openstations.emit(StationType.Garbage);
           break;
         case GarbageManagementStatisticRecordIcon.illegalvehicle:
-          this.openstations.emit(StationType.IllegalDump);
+          this.openstations.emit(StationType.IllegalVehicle);
           break;
         case GarbageManagementStatisticRecordIcon.street:
           this.opendevices.emit();

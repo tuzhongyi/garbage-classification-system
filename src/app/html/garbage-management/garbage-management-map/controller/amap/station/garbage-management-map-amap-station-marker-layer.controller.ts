@@ -49,6 +49,13 @@ export class GarbageManagementMapAMapStationMarkerLayerController {
     return markers;
   }
 
+  select(id: string) {
+    let point = this.points.find((x) => x.id == id);
+    if (point) {
+      this.on.select(point.data);
+    }
+  }
+
   private regist(point: GarbageManagementMapAMapStationMarkerController) {
     point.event.mouseover.subscribe((data) => {
       this.event.mouseover.emit(data);
@@ -57,6 +64,11 @@ export class GarbageManagementMapAMapStationMarkerLayerController {
       this.event.mouseout.emit(data);
     });
     point.event.click.subscribe((data) => {
+      this.on.select(data);
+    });
+  }
+  private on = {
+    select: (data: GarbageStationViewModel) => {
       if (this.selected) {
         if (this.selected.Id != data.Id) {
           this.points.forEach((x) => {
@@ -66,10 +78,11 @@ export class GarbageManagementMapAMapStationMarkerLayerController {
           });
         }
       }
+
       this.selected = data;
       this.event.click.emit(data);
-    });
-  }
+    },
+  };
 
   clear() {
     this.layer.clear();

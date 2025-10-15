@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { EventType } from '../../../../../common/enum/event-type.enum';
 import { IEventRecord } from '../../../../../common/network/model/garbage-station/event-record/garbage-event-record.model';
 import { ComponentTool } from '../../../../../common/tools/component-tool/component.tool';
 import {
@@ -44,13 +45,9 @@ export class GarbageManagementManagerCardController {
     let home = new GarbageManagementManagerCardHomeController(
       common,
       this.tool,
-      this.load.event,
-      this.panel,
-      this.window
+      this.load.event
     );
-    home.right.event.record.position.subscribe((data) => {
-      this.event.position.emit(data);
-    });
+    this.regist.home(home);
     this.controller.set(GarbageManagementManagerIndex.home, home);
     this.controller.set(
       GarbageManagementManagerIndex.garbagestation,
@@ -60,36 +57,100 @@ export class GarbageManagementManagerCardController {
         this.load.event
       )
     );
-    this.controller.set(
-      GarbageManagementManagerIndex.illegaldump,
-      new GarbageManagementManagerCardIllegalDumpController(
-        common,
-        this.tool,
-        this.load.event
-      )
+    let illegaldump = new GarbageManagementManagerCardIllegalDumpController(
+      common,
+      this.tool,
+      this.load.event
     );
-    this.controller.set(
-      GarbageManagementManagerIndex.vehicle,
-      new GarbageManagementManagerCardVehicleController(
-        common,
-        this.tool,
-        this.load.event
-      )
+    this.regist.illegaldump(illegaldump);
+    this.controller.set(GarbageManagementManagerIndex.illegaldump, illegaldump);
+    let vehicle = new GarbageManagementManagerCardVehicleController(
+      common,
+      this.tool,
+      this.load.event
     );
-    this.controller.set(
-      GarbageManagementManagerIndex.street,
-      new GarbageManagementManagerCardStreetController(
-        common,
-        this.tool,
-        this.load.event,
-        this.panel,
-        this.window
-      )
+    this.regist.vehicle(vehicle);
+    this.controller.set(GarbageManagementManagerIndex.vehicle, vehicle);
+    let street = new GarbageManagementManagerCardStreetController(
+      common,
+      this.tool,
+      this.load.event
     );
+    this.regist.street(street);
+    this.controller.set(GarbageManagementManagerIndex.street, street);
 
     this.left = await home.left.html;
     this.right = await home.right.html;
   }
+
+  private regist = {
+    home: (controller: GarbageManagementManagerCardHomeController) => {
+      controller.right.event.record.position.subscribe((data) => {
+        this.event.position.emit(data);
+      });
+      controller.right.event.record.details.subscribe((data) => {
+        this.window.task.complete.open(data);
+      });
+      controller.left.event.recordopen.subscribe((x) => {
+        switch (x) {
+          case EventType.GarbageFull:
+            this.panel.record.garbagefull.open();
+            break;
+          case EventType.IllegalDrop:
+            this.panel.record.illegaldrop.open();
+            break;
+          case EventType.IllegalDrop2:
+            this.panel.record.illegaldump.open();
+            break;
+          case EventType.MixedInto:
+            this.panel.record.mixedinto.open();
+            break;
+          case EventType.GarbageDrop:
+            this.panel.record.garbagedrop.open();
+            break;
+          case EventType.IllegalVehicle:
+            this.panel.record.illegalvehicle.open();
+            break;
+          case 103:
+            this.panel.record.ias.open();
+            break;
+
+          default:
+            break;
+        }
+      });
+    },
+    street: (controller: GarbageManagementManagerCardStreetController) => {
+      controller.left.event.device.subscribe((online) => {
+        this.panel.street.clear();
+        this.panel.street.online = online;
+        this.panel.street.show = true;
+      });
+      controller.left.event.record.subscribe(() => {
+        this.panel.record.ias.show = true;
+      });
+      controller.right.event.task.subscribe((x) => {
+        this.window.task.ias.data = x;
+        this.window.task.ias.show = true;
+      });
+    },
+    vehicle: (controller: GarbageManagementManagerCardVehicleController) => {
+      controller.right.event.task.subscribe((data) => {
+        this.window.task.illegalvehicle.data = data;
+        this.window.task.illegalvehicle.show = true;
+      });
+    },
+    illegaldump: (
+      controller: GarbageManagementManagerCardIllegalDumpController
+    ) => {
+      controller.right.event.record.position.subscribe((data) => {
+        this.event.position.emit(data);
+      });
+      controller.right.event.record.details.subscribe((data) => {
+        this.window.task.complete.open(data);
+      });
+    },
+  };
 
   on = {
     index: async (index: GarbageManagementManagerIndex) => {

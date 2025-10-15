@@ -11,7 +11,7 @@ export enum StationType {
   /** 垃圾偷倒 */
   IllegalDump = 10,
   /** 车辆监控 */
-  VehicleWatching = 11,
+  IllegalVehicle = 11,
   /** 核酸检测点 */
   NucleicAcid = 99,
 }

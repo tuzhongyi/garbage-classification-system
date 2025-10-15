@@ -105,29 +105,18 @@
           <td class="center">
             @if(item){
             <div class="operation">
-              <div
-                class="button"
-                title="播放视频"
-                (click)="on.video.single($event, item)"
-              >
+              <button title="播放视频" (click)="on.video.single($event, item)">
                 <i class="howell-icon-video"></i>
-              </div>
-
-              <div
-                class="button"
+              </button>
+              <button
                 title="事件发生时间外摄像机"
                 (click)="on.video.all($event, item)"
               >
                 <i class="howell-icon-cam-all1"></i>
-              </div>
-
-              <div
-                class="button"
-                title="查看工单"
-                (click)="on.complete($event, item)"
-              >
+              </button>
+              <button title="查看工单" (click)="on.complete($event, item)">
                 <i class="mdi mdi-nfc-tap"></i>
-              </div>
+              </button>
             </div>
             }
           </td>

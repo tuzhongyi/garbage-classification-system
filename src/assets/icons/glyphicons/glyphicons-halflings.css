@@ -404,10 +404,12 @@
   content: "\e090";
 }
 
+.icon-arrow-left:before,
 .glyphicon-arrow-left:before {
   content: "\e091";
 }
 
+.icon-arrow-right:before,
 .glyphicon-arrow-right:before {
   content: "\e092";
 }

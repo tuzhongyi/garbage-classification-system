@@ -24,6 +24,7 @@ export class GarbageManagementRecordEventIasListManagerComponent {
   @Output() image = new EventEmitter<PagedArgs<IasEventRecord>>();
   @Output() position = new EventEmitter<IasEventRecord>();
   @Output() task = new EventEmitter<IasEventRecord>();
+  @Output() video = new EventEmitter<IasEventRecord>();
 
   table = {
     args: new GarbageManagementRecordEventIasListTableArgs(),
@@ -43,6 +44,9 @@ export class GarbageManagementRecordEventIasListManagerComponent {
     },
     task: (data: IasEventRecord) => {
       this.task.emit(data);
+    },
+    video: (data: IasEventRecord) => {
+      this.video.emit(data);
     },
     search: () => {
       this.table.args.first = true;

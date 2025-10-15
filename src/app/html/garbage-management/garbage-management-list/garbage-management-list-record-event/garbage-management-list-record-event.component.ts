@@ -8,6 +8,7 @@ import {
   Output,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { StationType } from '../../../../common/enum/station-type.enum';
 import { TimeUnit } from '../../../../common/enum/time-unit.enum';
 import { IEventRecord } from '../../../../common/network/model/garbage-station/event-record/garbage-event-record.model';
 import { Language } from '../../../../common/tools/language';
@@ -26,6 +27,7 @@ export class GarbageManagementListRecordEventComponent
 {
   @Input('load') _load?: EventEmitter<void>;
   @Input() unit = TimeUnit.Day;
+  @Input() types: StationType[] = [];
   @Output() loaded = new EventEmitter<
     GarbageManagementListRecordEventItem<IEventRecord>[]
   >();
@@ -55,7 +57,7 @@ export class GarbageManagementListRecordEventComponent
   }
 
   private load() {
-    this.business.load(this.unit).then((x) => {
+    this.business.load(this.unit, this.types).then((x) => {
       this.datas = x;
       this.loaded.emit(this.datas);
     });

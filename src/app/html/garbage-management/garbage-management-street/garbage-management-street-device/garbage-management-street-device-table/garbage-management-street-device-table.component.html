@@ -72,7 +72,10 @@
           <td class="center">
             @if(item){
             <div class="operation">
-              <button (click)="on.position(item)">
+              <button
+                (click)="on.position($event, item)"
+                [disabled]="!item.Location"
+              >
                 <i class="glyphicon glyphicon-map-marker"></i>
               </button>
             </div>

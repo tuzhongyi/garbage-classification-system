@@ -9,8 +9,11 @@ import { GarbageManagementListRecordEventGarbageFullBusiness } from './service/g
 import { GarbageManagementListRecordEventIasBusiness } from './service/garbage-management-list-record-event-ias.service';
 import { GarbageManagementListRecordEventMixedIntoBusiness } from './service/garbage-management-list-record-event-mixed-into.business';
 
+import { StationType } from '../../../../../common/enum/station-type.enum';
 import { TimeUnit } from '../../../../../common/enum/time-unit.enum';
 import { IEventRecord } from '../../../../../common/network/model/garbage-station/event-record/garbage-event-record.model';
+import { GetGarbageStationsParams } from '../../../../../common/network/request/garbage/garbage-station/garbage-station-request.params';
+import { GarbageStationRequestService } from '../../../../../common/network/request/garbage/garbage-station/garbage-station-request.service';
 import { DateTimeTool } from '../../../../../common/tools/date-time-tool/datetime.tool';
 
 @Injectable()
@@ -18,6 +21,7 @@ export class GarbageManagementListRecordEventBusiness {
   constructor(
     event: EventRequestService,
     ias: IasRequestService,
+    private station: GarbageStationRequestService,
     private global: GlobalStorageService
   ) {
     this.service = {
@@ -39,14 +43,22 @@ export class GarbageManagementListRecordEventBusiness {
     ias: GarbageManagementListRecordEventIasBusiness;
   };
 
-  async load(unit: TimeUnit) {
+  async load(unit: TimeUnit, types: StationType[]) {
     let division = await this.global.division.selected;
 
     let items: GarbageManagementListRecordEventItem<IEventRecord>[] = [];
     let duration = DateTimeTool.TimeUnit(unit, new Date());
 
+    let stationIds: string[] = [];
+    if (types.length > 0) {
+      let params = new GetGarbageStationsParams();
+      params.StationTypes = types;
+      let stations = await this.station.cache.all(params);
+      stationIds = stations.map((s) => s.Id);
+    }
+
     let all = [
-      this.service.garbagedrop.load(division.Id, duration),
+      this.service.garbagedrop.load(division.Id, duration, stationIds),
       // this.service.garbagefull.load(division.Id, duration),
       // this.service.mixedinto.load(division.Id, duration),
       // this.service.ias.load(division.Id, duration),

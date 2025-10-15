@@ -9,6 +9,7 @@ import { Page } from '../../../../../../common/network/model/page_list.model';
 import { PagedTableAbstractComponent } from '../../../../../../common/tools/component-tool/table-abstract.component';
 import { GarbageManagementRecordEventGarbageDropListTableArgs } from '../../../garbage-management-record-event-garbage-drop/garbage-management-record-event-garbage-drop-list/garbage-management-record-event-garbage-drop-list-table/garbage-management-record-event-garbage-drop-list-table.model';
 import { GarbageManagementRecordEventIllegalVehicleListTableBusiness } from './garbage-management-record-event-illegal-vehicle-list-table.business';
+import { GarbageManagementRecordEventIllegalVehicleListTableConverter } from './garbage-management-record-event-illegal-vehicle-list-table.converter';
 import { IllegalVehicleEventRecordViewModel } from './garbage-management-record-event-illegal-vehicle-list-table.model';
 
 @Component({
@@ -18,7 +19,10 @@ import { IllegalVehicleEventRecordViewModel } from './garbage-management-record-
     './garbage-management-record-event-illegal-vehicle-list-table.component.html',
   styleUrl:
     './garbage-management-record-event-illegal-vehicle-list-table.component.less',
-  providers: [GarbageManagementRecordEventIllegalVehicleListTableBusiness],
+  providers: [
+    GarbageManagementRecordEventIllegalVehicleListTableConverter,
+    GarbageManagementRecordEventIllegalVehicleListTableBusiness,
+  ],
 })
 export class GarbageManagementRecordEventIllegalVehicleListTableComponent
   extends PagedTableAbstractComponent<IllegalVehicleEventRecordViewModel>
@@ -32,6 +36,7 @@ export class GarbageManagementRecordEventIllegalVehicleListTableComponent
   @Output() video = new EventEmitter<IllegalVehicleEventRecord>();
   @Output() videoall = new EventEmitter<IllegalVehicleEventRecord>();
   @Output() complete = new EventEmitter<IllegalVehicleEventRecord>();
+  @Output() enable = new EventEmitter<IllegalVehicleEventRecord>();
 
   constructor(
     private business: GarbageManagementRecordEventIllegalVehicleListTableBusiness
@@ -44,15 +49,15 @@ export class GarbageManagementRecordEventIllegalVehicleListTableComponent
     '10%',
     '8%',
     '6%',
-    '8%',
+    '7%',
     '14%',
     '10%',
     '12%',
     '7%',
     '7%',
     '5%',
-    '7%',
     '6%',
+    '8%',
   ];
 
   selected?: IllegalVehicleEventRecordViewModel;
@@ -138,6 +143,14 @@ export class GarbageManagementRecordEventIllegalVehicleListTableComponent
     complete: (e: Event, item?: IllegalVehicleEventRecordViewModel) => {
       if (item) {
         this.complete.emit(item);
+      }
+      if (this.selected === item) {
+        e.stopPropagation();
+      }
+    },
+    enable: (e: Event, item?: IllegalVehicleEventRecordViewModel) => {
+      if (item) {
+        this.enable.emit(item);
       }
       if (this.selected === item) {
         e.stopPropagation();

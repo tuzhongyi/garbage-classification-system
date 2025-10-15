@@ -40,7 +40,7 @@
                 class="img"
                 [ngStyle]="{
                   backgroundImage: resource.ImageUrl
-                    ? 'url(' + picture.get(resource.ImageUrl) + ')'
+                    ? 'url(' + resource.ImageUrl + ')'
                     : 'none'
                 }"
                 (click)="picture.on($event, item, i)"
@@ -91,12 +91,19 @@
           <td class="center">
             @if(item){
             <div class="operation">
-              <button (click)="on.task(item)">
+              <button
+                [disabled]="!item.FileUrl"
+                title="播放视频"
+                (click)="on.video($event, item)"
+              >
+                <i class="howell-icon-video"></i>
+              </button>
+              <button (click)="on.task($event, item)" title="查看工单">
                 <i class="howell-icon-task_misson"></i>
               </button>
-              <button (click)="on.position(item)">
+              <!-- <button (click)="on.position($event, item)">
                 <i class="glyphicon glyphicon-map-marker"></i>
-              </button>
+              </button> -->
             </div>
             }
           </td>

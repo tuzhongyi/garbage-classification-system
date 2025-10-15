@@ -14,10 +14,7 @@ import { PagedArgs } from '../../../../../../common/network/model/model.interfac
 import { Page } from '../../../../../../common/network/model/page_list.model';
 import { PagedTableAbstractComponent } from '../../../../../../common/tools/component-tool/table-abstract.component';
 import { GarbageManagementRecordEventIasListTableBusiness } from './business/garbage-management-record-event-ias-list-table.business';
-import {
-  GarbageManagementRecordEventIasListTableArgs,
-  GarbageManagementRecordEventIasListTableItem,
-} from './business/garbage-management-record-event-ias-list-table.model';
+import { GarbageManagementRecordEventIasListTableArgs } from './business/garbage-management-record-event-ias-list-table.model';
 
 @Component({
   selector: 'howell-garbage-management-record-event-ias-list-table',
@@ -28,7 +25,7 @@ import {
   providers: [GarbageManagementRecordEventIasListTableBusiness],
 })
 export class GarbageManagementRecordEventIasListTableComponent
-  extends PagedTableAbstractComponent<GarbageManagementRecordEventIasListTableItem>
+  extends PagedTableAbstractComponent<IasEventRecord>
   implements OnInit, OnDestroy
 {
   @Input() args = new GarbageManagementRecordEventIasListTableArgs();
@@ -37,6 +34,7 @@ export class GarbageManagementRecordEventIasListTableComponent
   @Output() image = new EventEmitter<PagedArgs<IasEventRecord>>();
   @Output() position = new EventEmitter<IasEventRecord>();
   @Output() task = new EventEmitter<IasEventRecord>();
+  @Output() video = new EventEmitter<IasEventRecord>();
 
   constructor(
     private business: GarbageManagementRecordEventIasListTableBusiness
@@ -44,9 +42,9 @@ export class GarbageManagementRecordEventIasListTableComponent
     super();
   }
 
-  widths = ['10%', '10%', '12%', '15%', '10%', '10%', '10%', '15%', '8%'];
+  widths = ['10%', '10%', '12%', '15%', '15%', '10%', '10%', '10%', '8%'];
 
-  selected?: GarbageManagementRecordEventIasListTableItem;
+  selected?: IasEventRecord;
   private subscription = new Subscription();
   private regist() {
     if (this.load) {
@@ -86,14 +84,7 @@ export class GarbageManagementRecordEventIasListTableComponent
   }
 
   picture = {
-    get: (url: string) => {
-      return this.business.picture(url);
-    },
-    on: (
-      e: Event,
-      item: GarbageManagementRecordEventIasListTableItem,
-      index: number
-    ) => {
+    on: (e: Event, item: IasEventRecord, index: number) => {
       if (this.selected === item) {
         e.stopImmediatePropagation();
       }
@@ -120,7 +111,7 @@ export class GarbageManagementRecordEventIasListTableComponent
       this.page.PageIndex = index;
       this.loadData(this.page.PageIndex, this.page.PageSize);
     },
-    select: (item?: GarbageManagementRecordEventIasListTableItem) => {
+    select: (item?: IasEventRecord) => {
       if (item) {
         if (this.selected === item) {
           this.selected = undefined;
@@ -129,11 +120,23 @@ export class GarbageManagementRecordEventIasListTableComponent
         }
       }
     },
-    position: (item: GarbageManagementRecordEventIasListTableItem) => {
+    position: (e: Event, item: IasEventRecord) => {
       this.position.emit(item);
+      if (this.selected === item) {
+        e.stopImmediatePropagation();
+      }
     },
-    task: (item: GarbageManagementRecordEventIasListTableItem) => {
+    task: (e: Event, item: IasEventRecord) => {
       this.task.emit(item);
+      if (this.selected === item) {
+        e.stopImmediatePropagation();
+      }
+    },
+    video: (e: Event, item: IasEventRecord) => {
+      this.video.emit(item);
+      if (this.selected === item) {
+        e.stopImmediatePropagation();
+      }
     },
   };
 }

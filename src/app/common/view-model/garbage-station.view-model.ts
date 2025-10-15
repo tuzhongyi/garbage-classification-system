@@ -38,7 +38,7 @@ export class GarbageStationViewModel extends GarbageStation {
       events.push(EventType.GarbageFull);
       events.push(EventType.ConstructionData);
     }
-    if (this.StationType === StationType.VehicleWatching) {
+    if (this.StationType === StationType.IllegalVehicle) {
       events.push(EventType.IllegalVehicle);
     }
 

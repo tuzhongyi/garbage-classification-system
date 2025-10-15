@@ -3,7 +3,6 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DateTimeControlComponent } from '../../../../../../common/components/date-time/date-time-control/date-time-control.component';
-import { HowellSelectComponent } from '../../../../../../common/components/select/hw-select/select-control.component';
 import { DateTimePickerView } from '../../../../../../common/directives/date-time-picker/date-time-picker.directive';
 import { TimeUnit } from '../../../../../../common/enum/time-unit.enum';
 import { Language } from '../../../../../../common/tools/language';
@@ -19,7 +18,6 @@ import { GarbageManagementRecordEventIasStatisticDetailsManagerSource } from './
     CommonModule,
     FormsModule,
     DateTimeControlComponent,
-    HowellSelectComponent,
     GarbageManagementRecordEventIasStatisticDetailsContainerComponent,
   ],
   templateUrl:

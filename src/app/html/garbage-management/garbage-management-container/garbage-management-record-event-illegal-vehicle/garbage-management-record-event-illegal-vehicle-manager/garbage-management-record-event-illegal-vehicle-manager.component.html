@@ -22,6 +22,13 @@
       >
         细分图表
       </div>
+      <div
+        class="button-bracket"
+        [class.selected]="index == Index.vehicle"
+        (click)="on.index(Index.vehicle)"
+      >
+        车辆信息
+      </div>
     </div>
   </div>
   <div class="garbage-management-record-event-illegal-vehicle-manager-body">
@@ -36,5 +43,9 @@
     <howell-garbage-management-record-event-illegal-vehicle-statistic-details-manager
       *ngIf="index == Index.details"
     ></howell-garbage-management-record-event-illegal-vehicle-statistic-details-manager>
+    <howell-garbage-management-vehicle-list-manager
+      *ngIf="index == Index.vehicle"
+      (image)="on.image($event)"
+    ></howell-garbage-management-vehicle-list-manager>
   </div>
 </div>

@@ -6,7 +6,6 @@ import { GarbageManagementCardChartLineRecordEventIasComponent } from '../../../
 import { GarbageManagementCardDivisionSelectionComponent } from '../../../../garbage-management-card/garbage-management-card-division-selection/garbage-management-card-division-selection/garbage-management-card-division-selection.component';
 import { GarbageManagementCardListRecordEventIasComponent } from '../../../../garbage-management-card/garbage-management-card-list-record-event-ias/garbage-management-card-list-record-event-ias.component';
 import { GarbageManagementManagerCardItem } from '../../../garbage-management-manager.model';
-import { GarbageManagementManagerWindow } from '../../../window/garbage-management-manager.window';
 import { GarbageManagementManagerCardCommonController } from '../common/garbage-management-manager-card-common.controller';
 import { GarbageManagementManagerCardAbstract } from '../garbage-management-manager-card.abstract';
 
@@ -18,23 +17,14 @@ export class GarbageManagementManagerCardStreetRightController extends GarbageMa
   constructor(
     common: GarbageManagementManagerCardCommonController,
     tool: ComponentTool,
-    load: EventEmitter<void>,
-    private window: GarbageManagementManagerWindow
+    load: EventEmitter<void>
   ) {
     super(common, tool);
     load.subscribe(() => {
       this.load.emit();
     });
-    this.regist();
   }
   private load = new EventEmitter<void>();
-
-  private regist() {
-    this.event.task.subscribe((x) => {
-      this.window.task.ias.data = x;
-      this.window.task.ias.show = true;
-    });
-  }
 
   protected override ctors: Array<GarbageManagementManagerCardItem> = [
     {

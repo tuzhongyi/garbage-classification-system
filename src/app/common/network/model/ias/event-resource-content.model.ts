@@ -1,6 +1,8 @@
+import { Transform } from 'class-transformer';
 import { EventDataObject } from '../garbage-station/event-data-object.model';
 import { GisPoint } from '../garbage-station/gis-point.model';
 import { IModel } from '../model.interface';
+import { transformPictureUrl } from '../transform.model';
 
 /**	EventResourceContent (AI事件资源内容)	*/
 export class EventResourceContent implements IModel {
@@ -30,6 +32,7 @@ export class EventResourceContent implements IModel {
   /**	Int64	数值	O	*/
   Value?: number;
   /**	String	图片地址	O	*/
+  @Transform(transformPictureUrl)
   ImageUrl?: string;
   /**	String	录像地址	O	*/
   RecordUrl?: string;

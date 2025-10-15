@@ -1,5 +1,6 @@
 import { EventEmitter } from '@angular/core';
 import { EventType } from '../../../../../../common/enum/event-type.enum';
+import { IllegalVehicleEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/illegal-vehicle-event-record.model';
 import { ColorTool } from '../../../../../../common/tools/color-tool/color.tool';
 import { ComponentTool } from '../../../../../../common/tools/component-tool/component.tool';
 import { GarbageManagementCardChartLineRecordEventComponent } from '../../../../garbage-management-card/garbage-management-card-chart-line-record-event/garbage-management-card-chart-line-record-event.component';
@@ -10,6 +11,10 @@ import { GarbageManagementManagerCardCommonController } from '../common/garbage-
 import { GarbageManagementManagerCardAbstract } from '../garbage-management-manager-card.abstract';
 
 export class GarbageManagementManagerCardVehicleRightController extends GarbageManagementManagerCardAbstract {
+  event = {
+    task: new EventEmitter<IllegalVehicleEventRecord>(),
+  };
+
   constructor(
     common: GarbageManagementManagerCardCommonController,
     tool: ComponentTool,
@@ -19,7 +24,13 @@ export class GarbageManagementManagerCardVehicleRightController extends GarbageM
     load.subscribe(() => {
       this.load.emit();
     });
+    this.regist();
   }
+
+  private regist() {
+    this.event.task.subscribe((data) => {});
+  }
+
   private load = new EventEmitter<void>();
   protected override ctors: Array<GarbageManagementManagerCardItem> = [
     {
@@ -39,6 +50,7 @@ export class GarbageManagementManagerCardVehicleRightController extends GarbageM
       component: GarbageManagementCardListRecordEventIllegalVehicleComponent,
       args: {
         load: this.load,
+        task: this.event.task,
       },
     },
   ];

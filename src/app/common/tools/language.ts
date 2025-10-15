@@ -342,7 +342,7 @@ export class Language {
         return '精品厢房';
       case StationType.IllegalDump:
         return '垃圾偷倒';
-      case StationType.VehicleWatching:
+      case StationType.IllegalVehicle:
         return '非法清运';
       default:
         return Language.json.Unknow;

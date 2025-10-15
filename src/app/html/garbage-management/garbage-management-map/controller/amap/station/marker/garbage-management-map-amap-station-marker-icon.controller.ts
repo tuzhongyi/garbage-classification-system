@@ -40,7 +40,7 @@ export class GarbageManagementMapAMapStationMarkerIconController
         } else {
           return PathTool.map.marker.illegaldump;
         }
-      case StationType.VehicleWatching:
+      case StationType.IllegalVehicle:
         return PathTool.map.marker.illegalvehicle;
       case StationType.Plus:
       case StationType.Smart:

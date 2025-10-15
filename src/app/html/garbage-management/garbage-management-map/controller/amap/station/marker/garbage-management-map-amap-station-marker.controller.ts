@@ -8,7 +8,7 @@ export class GarbageManagementMapAMapStationMarkerController {
   event = new MapPointEvent<GarbageStationViewModel>();
   id: string;
   constructor(
-    private data: GarbageStationViewModel,
+    public data: GarbageStationViewModel,
     private icon: IMapIcon<AMap.LabelMarkerIconOptions>
   ) {
     this.id = data.Id;

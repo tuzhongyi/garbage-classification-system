@@ -104,6 +104,7 @@
   >
     <howell-garbage-management-street-device-manager
       [online]="panel.street.online"
+      (position)="panel.street.on.position($event)"
     ></howell-garbage-management-street-device-manager>
   </howell-panel>
 
@@ -193,6 +194,9 @@
   >
     <howell-garbage-management-record-event-ias-manager
       (task)="window.task.ias.open($event)"
+      (position)="panel.record.ias.on.position($event)"
+      (image)="panel.record.ias.on.image($event)"
+      (video)="panel.record.ias.on.video($event)"
     ></howell-garbage-management-record-event-ias-manager>
   </howell-panel>
 

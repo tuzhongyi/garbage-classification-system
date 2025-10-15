@@ -2,7 +2,7 @@
   <ng-content></ng-content>
   <div
     class="clear"
-    *ngIf="nullable && selected !== undefined"
+    *ngIf="nullable && selected !== undefined && !disabled"
     (click)="onclear($event)"
   >
     <i class="howell-icon-Close"></i>

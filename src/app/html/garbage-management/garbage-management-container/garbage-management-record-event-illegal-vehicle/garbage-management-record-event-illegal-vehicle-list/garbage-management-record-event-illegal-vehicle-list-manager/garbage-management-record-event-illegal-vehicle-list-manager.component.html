@@ -76,6 +76,15 @@
       (complete)="on.complete($event)"
       (video)="on.video.single($event)"
       (videoall)="on.video.all($event)"
+      (enable)="on.enable.confirm($event)"
     ></howell-garbage-management-record-event-illegal-vehicle-list-table>
+
+    <confirm-window
+      *ngIf="confirm.show"
+      [model]="confirm"
+      [content]="confirm.content"
+      (ok)="on.enable.ok()"
+      (cancel)="confirm.show = false"
+    ></confirm-window>
   </div>
 </div>

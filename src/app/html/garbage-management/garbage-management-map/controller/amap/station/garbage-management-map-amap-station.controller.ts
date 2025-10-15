@@ -14,7 +14,7 @@ export class GarbageManagementMapAMapStationController {
   get event() {
     return this.info.details.event;
   }
-  constructor(map: AMap.Map, loca: Loca.Container) {
+  constructor(private map: AMap.Map, loca: Loca.Container) {
     this.point = new GarbageManagementMapAMapStationPointController(loca);
     this.label = new GarbageManagementMapAMapStationLabelController(
       map,
@@ -85,6 +85,10 @@ export class GarbageManagementMapAMapStationController {
   clear() {
     this.point.clear();
     this.marker.clear();
+  }
+  select(id: string) {
+    this.marker.select(id);
+    this.map.setZoom(GarbageManagementMapAMapConfig.zoom.marker[0] + 1);
   }
 
   set = {

@@ -61,7 +61,9 @@ export class GarbageManagementCardRankingRecordEventComponent {
         case GarbageManagementRankingRecordEventIndex.garbagefull:
           return '垃圾满溢事件';
         case GarbageManagementRankingRecordEventIndex.illegalvehicle:
-          return '垃圾清运事件';
+          return '非法清运事件';
+        case GarbageManagementRankingRecordEventIndex.illegaldump:
+          return '垃圾偷倒事件';
 
         default:
           return '';

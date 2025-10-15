@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { StationType } from '../../../../common/enum/station-type.enum';
 import { IEventRecord } from '../../../../common/network/model/garbage-station/event-record/garbage-event-record.model';
 import { GarbageManagementListRecordEventItem } from '../../garbage-management-list/garbage-management-list-record-event/business/garbage-management-list-record-event.model';
 import { GarbageManagementListRecordEventComponent } from '../../garbage-management-list/garbage-management-list-record-event/garbage-management-list-record-event.component';
@@ -17,6 +18,7 @@ import { GarbageManagementCardComponent } from '../component/garbage-management-
 })
 export class GarbageManagementCardListRecordEventComponent {
   @Input() load?: EventEmitter<void>;
+  @Input() types: StationType[] = [];
   @Output() details = new EventEmitter<IEventRecord>();
   @Output() position = new EventEmitter<IEventRecord>();
   title = '今日待处置事件';

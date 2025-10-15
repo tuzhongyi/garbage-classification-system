@@ -144,43 +144,35 @@
               class="operation center"
               [style.width]="'calc(' + widths[11] + ' - 24px)'"
             >
-              <div
-                class="button"
+              <button
                 title="事件发生时间视频"
                 (click)="on.video.single($event, item)"
               >
                 <i class="howell-icon-video"></i>
-              </div>
+              </button>
 
-              <div
-                class="button"
+              <button
                 title="事件发生时间厢房摄像机"
                 (click)="on.video.all($event, item)"
               >
                 <i class="howell-icon-cam-all1"></i>
-              </div>
-              <div
-                class="button"
+              </button>
+              <button
                 title="下载图片"
                 (click)="on.download.image($event, item)"
               >
                 <i class="howell-icon-picturedownload"></i>
-              </div>
-              <div
-                class="button"
+              </button>
+              <button
                 title="下载视频"
                 (click)="on.download.video($event, item)"
               >
                 <i class="howell-icon-videodownload"></i>
-              </div>
+              </button>
 
-              <div
-                class="button"
-                title="查看工单"
-                (click)="on.complete($event, item)"
-              >
+              <button title="查看工单" (click)="on.complete($event, item)">
                 <i class="mdi mdi-nfc-tap"></i>
-              </div>
+              </button>
             </div>
             }
           </td>

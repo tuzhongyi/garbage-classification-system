@@ -1,6 +1,6 @@
 import { Transform } from 'class-transformer';
 import { IModel } from '../model.interface';
-import { transformDateTime } from '../transform.model';
+import { transformDateTime, transformPictureUrl } from '../transform.model';
 
 /**	Assignment (事件派单信息)	*/
 export class Assignment implements IModel {
@@ -17,6 +17,7 @@ export class Assignment implements IModel {
   @Transform(transformDateTime)
   HandledTime?: Date;
   /**	String[]	处置图片地址	O	*/
+  @Transform(transformPictureUrl)
   HandledImageUrls?: string[];
   /**	Boolean	是否为误报，true：误报，标记误报的事件Handled会被处置为true。	O	*/
   IsMisInfo?: boolean;

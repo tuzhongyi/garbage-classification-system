@@ -41,3 +41,6 @@ export class Paged<T = any> {
   Page!: Page;
   Data!: T;
 }
+export interface IArgs {
+  first: boolean;
+}

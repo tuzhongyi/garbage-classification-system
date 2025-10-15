@@ -9,6 +9,7 @@ import {
 import { ContainerPageComponent } from '../../../common/components/container/container-page/container-page.component';
 import { PicturePolygonMultipleComponent } from '../../../common/components/picture/picture-polygon-multiple/picture-polygon-multiple.component';
 import { GarbageDropEventRecord } from '../../../common/network/model/garbage-station/event-record/garbage-drop-event-record.model';
+import { GarbageStation } from '../../../common/network/model/garbage-station/garbage-station.model';
 import { GlobalStorageService } from '../../../common/storage/global.storage';
 import { wait } from '../../../common/tools/tools';
 import { HowellPanelComponent } from '../../share/panel/panel.component';
@@ -132,46 +133,78 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
       this.load.right(value.nativeElement);
     }
   }
-  private regist() {
-    this.global.division.change.subscribe((x) => {
-      this.card.load.event.emit();
-      this.map.select.emit(x);
-    });
-    this.controller.navigation.change.subscribe((x) => {
-      this.map.refresh = true;
-
-      this.card.on.index(x);
-      if (this.left) {
-        this.load.left(this.left.nativeElement);
-      }
-      if (this.right) {
-        this.load.right(this.right.nativeElement);
-      }
-      this.data.on.index(x);
-    });
-    this.controller.card.event.position.subscribe((x) => {
-      if (x instanceof GarbageDropEventRecord) {
-        if (x.Data.GisPoint) {
-          let position: [number, number] = [
-            x.Data.GisPoint.Longitude,
-            x.Data.GisPoint.Latitude,
-          ];
-          this.map.move.emit(position);
-        }
-      }
-    });
-    wait(
-      () => {
+  private regist = {
+    load: () => {
+      this.regist.global();
+      this.regist.navigation();
+      this.regist.card();
+      this.regist.panel();
+    },
+    global: () => {
+      this.global.division.change.subscribe((x) => {
         this.card.load.event.emit();
-        return this.destroyed;
-      },
-      () => {},
-      60 * 1000
-    );
-  }
+        this.map.select.emit(x);
+      });
+    },
+    navigation: () => {
+      this.controller.navigation.change.subscribe((x) => {
+        this.map.refresh = true;
+
+        this.card.on.index(x);
+        if (this.left) {
+          this.load.left(this.left.nativeElement);
+        }
+        if (this.right) {
+          this.load.right(this.right.nativeElement);
+        }
+        this.data.on.index(x);
+      });
+    },
+    card: () => {
+      this.controller.card.event.position.subscribe((x) => {
+        if (x instanceof GarbageDropEventRecord) {
+          // if (x.Data.GisPoint) {
+          //   let position: [number, number] = [
+          //     x.Data.GisPoint.Longitude,
+          //     x.Data.GisPoint.Latitude,
+          //   ];
+          //   this.map.move.emit(position);
+          // }
+
+          let station = new GarbageStation();
+          station.Id = x.Data.StationId;
+          station.GisPoint = x.Data.GisPoint;
+          this.map.select.emit(station);
+        }
+      });
+
+      wait(
+        () => {
+          this.card.load.event.emit();
+          return this.destroyed;
+        },
+        () => {},
+        60 * 1000
+      );
+    },
+    panel: () => {
+      this.panel.station.event.move.subscribe((x) => {
+        this.map.move.emit(x);
+      });
+      this.panel.station.event.select.subscribe((x) => {
+        this.map.select.emit(x);
+      });
+      this.panel.street.event.move.subscribe((x) => {
+        this.map.move.emit(x);
+      });
+      this.panel.street.event.select.subscribe((x) => {
+        this.map.select.emit(x);
+      });
+    },
+  };
 
   ngOnInit(): void {
-    this.regist();
+    this.regist.load();
     this.controller.navigation.home();
     this.data.load();
   }

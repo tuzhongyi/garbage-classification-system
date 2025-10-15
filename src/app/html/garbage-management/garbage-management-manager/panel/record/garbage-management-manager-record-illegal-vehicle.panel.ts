@@ -1,6 +1,5 @@
 import { WindowViewModel } from '../../../../../common/components/window/window.model';
 import { IllegalVehicleEventRecord } from '../../../../../common/network/model/garbage-station/event-record/illegal-vehicle-event-record.model';
-import { PagedArgs } from '../../../../../common/network/model/model.interface';
 import { PagedList } from '../../../../../common/network/model/page_list.model';
 import { CameraImageUrl } from '../../../../../common/network/model/url-model/camera-image-url.model';
 import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
@@ -25,15 +24,7 @@ export class GarbageManagementManagerRecordIllegalVehiclePanel extends WindowVie
   }
 
   on = {
-    image: (data: PagedArgs<IllegalVehicleEventRecord>) => {
-      let datas = ObjectTool.model.record.illegalvehicle.images(data.data);
-      let cameras = datas.map((x) => {
-        let camera = new CameraImageUrl();
-        camera.CameraName = data.data.Data.StationName;
-        camera.ImageUrl = x;
-        return camera;
-      });
-      let paged = PagedList.create(cameras, data.page.PageIndex, 1);
+    image: (paged: PagedList<CameraImageUrl>) => {
       this.window.picture.open(paged);
     },
     video: {

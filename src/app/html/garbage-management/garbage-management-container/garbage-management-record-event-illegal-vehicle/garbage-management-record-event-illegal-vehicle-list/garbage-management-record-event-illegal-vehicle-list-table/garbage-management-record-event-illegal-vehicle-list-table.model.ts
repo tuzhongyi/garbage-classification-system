@@ -1,5 +1,6 @@
 import { IllegalVehicleEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/illegal-vehicle-event-record.model';
 import { GarbageStation } from '../../../../../../common/network/model/garbage-station/garbage-station.model';
+import { Vehicle } from '../../../../../../common/network/model/garbage-station/vehicle/vehicle.model';
 import { DateTimeTool } from '../../../../../../common/tools/date-time-tool/datetime.tool';
 import { DivisionViewModel } from '../../../../../../common/view-model/division.view-model';
 
@@ -14,5 +15,6 @@ export class IllegalVehicleEventRecordViewModel extends IllegalVehicleEventRecor
   images: string[] = [];
 
   GarbageStation!: Promise<GarbageStation>;
+  Vehicle!: Promise<Vehicle>;
   Division?: Promise<DivisionViewModel>;
 }

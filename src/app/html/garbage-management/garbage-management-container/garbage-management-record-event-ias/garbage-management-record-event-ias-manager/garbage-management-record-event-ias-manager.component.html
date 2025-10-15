@@ -29,6 +29,8 @@
       *ngIf="index == Index.list"
       (task)="on.task($event)"
       (position)="on.position($event)"
+      (image)="on.image($event)"
+      (video)="on.video($event)"
     ></howell-garbage-management-record-event-ias-list-manager>
     <howell-garbage-management-record-event-ias-statistic-details-manager
       *ngIf="index == Index.details"

@@ -5,7 +5,6 @@ import { GarbageManagementCardChartStationCountStateComponent } from '../../../.
 import { GarbageManagementCardDivisionSelectionComponent } from '../../../../garbage-management-card/garbage-management-card-division-selection/garbage-management-card-division-selection/garbage-management-card-division-selection.component';
 import { GarbageManagementCardListRecordEventComponent } from '../../../../garbage-management-card/garbage-management-card-list-record-event/garbage-management-card-list-record-event.component';
 import { GarbageManagementManagerCardItem } from '../../../garbage-management-manager.model';
-import { GarbageManagementManagerWindow } from '../../../window/garbage-management-manager.window';
 import { GarbageManagementManagerCardCommonController } from '../common/garbage-management-manager-card-common.controller';
 import { GarbageManagementManagerCardAbstract } from '../garbage-management-manager-card.abstract';
 
@@ -20,19 +19,11 @@ export class GarbageManagementManagerCardHomeRightController extends GarbageMana
   constructor(
     common: GarbageManagementManagerCardCommonController,
     tool: ComponentTool,
-    load: EventEmitter<void>,
-    private window: GarbageManagementManagerWindow
+    load: EventEmitter<void>
   ) {
     super(common, tool);
     load.subscribe(() => {
       this.load.emit();
-    });
-    this.regist();
-  }
-
-  private regist() {
-    this.event.record.details.subscribe((data) => {
-      this.window.task.complete.open(data);
     });
   }
 

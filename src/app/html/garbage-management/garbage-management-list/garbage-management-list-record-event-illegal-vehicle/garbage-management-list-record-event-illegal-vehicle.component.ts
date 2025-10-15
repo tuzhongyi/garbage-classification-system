@@ -28,6 +28,7 @@ export class GarbageManagementListRecordEventIllegalVehicleComponent
   @Input('load') _load?: EventEmitter<void>;
   @Input() unit = TimeUnit.Day;
   @Output() loaded = new EventEmitter<IllegalVehicleEventRecord[]>();
+  @Output() task = new EventEmitter<IllegalVehicleEventRecord>();
   constructor(
     private business: GarbageManagementListRecordEventIllegalVehicleBusiness
   ) {}
@@ -57,4 +58,10 @@ export class GarbageManagementListRecordEventIllegalVehicleComponent
       this.loaded.emit(x);
     });
   }
+
+  on = {
+    task: (data: IllegalVehicleEventRecord) => {
+      this.task.emit(data);
+    },
+  };
 }

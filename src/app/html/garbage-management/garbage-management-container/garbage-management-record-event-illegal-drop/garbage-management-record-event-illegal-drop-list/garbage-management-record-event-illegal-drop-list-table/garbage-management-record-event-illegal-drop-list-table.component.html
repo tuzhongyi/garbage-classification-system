@@ -74,27 +74,21 @@
           <td class="center">
             @if(item){
             <div class="operation button-group">
-              <div
-                class="button"
-                title="播放视频"
-                (click)="on.video($event, item)"
-              >
+              <button title="播放视频" (click)="on.video($event, item)">
                 <i class="howell-icon-video"></i>
-              </div>
-              <div
-                class="button"
+              </button>
+              <button
                 title="下载图片"
                 (click)="on.download.image($event, item)"
               >
                 <i class="howell-icon-picturedownload"></i>
-              </div>
-              <div
-                class="button"
+              </button>
+              <button
                 title="下载视频"
                 (click)="on.download.video($event, item)"
               >
                 <i class="howell-icon-videodownload"></i>
-              </div>
+              </button>
             </div>
             }
           </td>

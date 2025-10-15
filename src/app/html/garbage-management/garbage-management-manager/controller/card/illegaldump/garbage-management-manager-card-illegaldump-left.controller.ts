@@ -32,10 +32,7 @@ export class GarbageManagementManagerCardIllegalDumpLeftController extends Garba
       component: GarbageManagementCardRankingRecordEventComponent,
       args: {
         load: this.load,
-        display: [
-          GarbageManagementRankingRecordEventIndex.illegaldump,
-          GarbageManagementRankingRecordEventIndex.illegalvehicle,
-        ],
+        display: [GarbageManagementRankingRecordEventIndex.illegaldump],
         index: GarbageManagementRankingRecordEventIndex.illegaldump,
       },
       class: ['span-2'],

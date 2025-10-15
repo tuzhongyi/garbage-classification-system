@@ -10,7 +10,7 @@ export class GarbageManagementManagerDataFilterController {
   illegalvehicle<T extends GarbageStation>(datas: T[]) {
     return datas.filter(
       (x) =>
-        x.StationType == StationType.VehicleWatching ||
+        x.StationType == StationType.IllegalVehicle ||
         x.StationType == StationType.Construction
     );
   }

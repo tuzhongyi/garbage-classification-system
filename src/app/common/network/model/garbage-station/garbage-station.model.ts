@@ -35,6 +35,7 @@ export class GarbageStation extends IdNameModel {
   /**	String	所属区划ID	O */
   DivisionId?: string;
   /**	TrashCan[]	垃圾桶列表	O */
+  @Type(() => TrashCan)
   TrashCans?: TrashCan[];
   /**	Camera[]	摄像机列表	O */
   @Type(() => Camera)

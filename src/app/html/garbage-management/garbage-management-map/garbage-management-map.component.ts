@@ -12,6 +12,7 @@ import {
 import { Subscription } from 'rxjs';
 import { EventType } from '../../../common/enum/event-type.enum';
 import { IDivision } from '../../../common/network/model/garbage-station/division.model';
+import { GarbageStation } from '../../../common/network/model/garbage-station/garbage-station.model';
 import { IasDevice } from '../../../common/network/model/ias/ias-device.model';
 import { IasEventRecord } from '../../../common/network/model/ias/ias-event-record.model';
 import { GarbageStationViewModel } from '../../../common/view-model/garbage-station.view-model';
@@ -33,7 +34,7 @@ export class GarbageManagementMapComponent
   @Input() stations: GarbageStationViewModel[] = [];
   @Input() records: IasEventRecord[] = [];
   @Input() eventables = [EventType.GarbageFull, EventType.GarbageDrop];
-  @Input() select?: EventEmitter<IDivision>;
+  @Input() select?: EventEmitter<GarbageStation | IasDevice | IDivision>;
   @Input() move?: EventEmitter<[number, number]>;
   @Input() refresh = false;
 
@@ -56,20 +57,14 @@ export class GarbageManagementMapComponent
   private regist = {
     input: () => {
       if (this.select) {
-        let sub = this.select.subscribe((division) => {
-          this.controller.division.select(division.Id);
-
-          this.business.map.default.get().then((x) => {
-            if (x.Id === division.Id) {
-              this.controller.fit();
-            } else {
-              this.business.map.get(division.Id).then((x) => {
-                if (x) {
-                  this.controller.move([x.center.lon, x.center.lat]);
-                }
-              });
-            }
-          });
+        let sub = this.select.subscribe((data) => {
+          if (data instanceof GarbageStation) {
+            this.on.select.station(data);
+          } else if (data instanceof IasDevice) {
+            this.on.select.ias(data);
+          } else {
+            this.on.select.division(data);
+          }
         });
         this.subscription.add(sub);
       }
@@ -187,4 +182,42 @@ export class GarbageManagementMapComponent
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+  private on = {
+    select: {
+      ias: (data: IasDevice) => {
+        if (data.Location) {
+          this.controller.move([
+            data.Location.Longitude,
+            data.Location.Latitude,
+          ]);
+        }
+      },
+      station: (data: GarbageStation) => {
+        this.controller.station.blur();
+        this.controller.station.select(data.Id);
+        if (data.GisPoint) {
+          this.controller.move([
+            data.GisPoint.Longitude,
+            data.GisPoint.Latitude,
+          ]);
+        }
+      },
+      division: (data: IDivision) => {
+        this.controller.division.select(data.Id);
+
+        this.business.map.default.get().then((x) => {
+          if (x.Id === data.Id) {
+            this.controller.fit();
+          } else {
+            this.business.map.get(data.Id).then((x) => {
+              if (x) {
+                this.controller.move([x.center.lon, x.center.lat]);
+              }
+            });
+          }
+        });
+      },
+    },
+  };
 }

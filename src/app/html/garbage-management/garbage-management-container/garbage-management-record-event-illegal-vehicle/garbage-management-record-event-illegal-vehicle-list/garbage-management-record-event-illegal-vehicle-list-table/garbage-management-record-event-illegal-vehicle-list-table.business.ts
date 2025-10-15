@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
-import { IllegalVehicleEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/illegal-vehicle-event-record.model';
 import { PagedList } from '../../../../../../common/network/model/page_list.model';
-import { DivisionRequestService } from '../../../../../../common/network/request/garbage/division/division-request.service';
 import { EventRequestService } from '../../../../../../common/network/request/garbage/event/event-request.service';
 import { GetIllegalVehicleEventRecordsParams } from '../../../../../../common/network/request/garbage/event/illegal-vehicle/event-request-illegal-vehicle.params';
 import { GarbageStationRequestService } from '../../../../../../common/network/request/garbage/garbage-station/garbage-station-request.service';
 import { PicturesUrl } from '../../../../../../common/network/url/aiop/medium/pictures/pictures.url';
-import { ObjectTool } from '../../../../../../common/tools/object-tool/object.tool';
-import { DivisionViewModelConverter } from '../../../../../../common/view-model/division.view-model';
 import { GarbageManagementRecordEventGarbageDropListTableArgs } from '../../../garbage-management-record-event-garbage-drop/garbage-management-record-event-garbage-drop-list/garbage-management-record-event-garbage-drop-list-table/garbage-management-record-event-garbage-drop-list-table.model';
+import { GarbageManagementRecordEventIllegalVehicleListTableConverter } from './garbage-management-record-event-illegal-vehicle-list-table.converter';
 import {
   GarbageManagementRecordEventIllegalVehicleListTableArgs,
   IllegalVehicleEventRecordViewModel,
@@ -19,21 +16,14 @@ export class GarbageManagementRecordEventIllegalVehicleListTableBusiness {
   constructor(
     event: EventRequestService,
     station: GarbageStationRequestService,
-    division: DivisionRequestService,
-    converter: DivisionViewModelConverter
+    private converter: GarbageManagementRecordEventIllegalVehicleListTableConverter
   ) {
-    this.service = { event, station, division };
-    this.converter = { division: converter };
+    this.service = { event, station };
   }
-
-  converter: {
-    division: DivisionViewModelConverter;
-  };
 
   private service: {
     event: EventRequestService;
     station: GarbageStationRequestService;
-    division: DivisionRequestService;
   };
 
   async load(
@@ -44,7 +34,7 @@ export class GarbageManagementRecordEventIllegalVehicleListTableBusiness {
     let datas = await this.data.load(index, size, args);
     let paged = new PagedList<IllegalVehicleEventRecordViewModel>();
     paged.Page = datas.Page;
-    paged.Data = datas.Data.map((x) => this.convert.record(x));
+    paged.Data = datas.Data.map((x) => this.converter.convert(x));
     return paged;
   }
 
@@ -55,25 +45,6 @@ export class GarbageManagementRecordEventIllegalVehicleListTableBusiness {
     image: (key: string, name: string, time: Date) => {
       let url = PicturesUrl.jpg(key);
       this.service.station.download.image(url, name, time);
-    },
-  };
-
-  private convert = {
-    record: (data: IllegalVehicleEventRecord) => {
-      let vm = new IllegalVehicleEventRecordViewModel();
-      vm = Object.assign(vm, data);
-      vm.GarbageStation = this.service.station.cache.get(data.Data.StationId);
-      if (vm.Data.DivisionId) {
-        vm.Division = this.service.division.cache
-          .get(vm.Data.DivisionId)
-          .then((division) => {
-            return this.converter.division.convert(division);
-          });
-      }
-
-      vm.images = ObjectTool.model.record.illegalvehicle.images(data);
-
-      return vm;
     },
   };
 

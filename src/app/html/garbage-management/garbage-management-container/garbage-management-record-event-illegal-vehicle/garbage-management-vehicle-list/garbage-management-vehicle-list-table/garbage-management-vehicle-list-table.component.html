@@ -1,0 +1,104 @@
+<div class="garbage-management-vehicle-list-table">
+  <div
+    class="garbage-management-vehicle-list-table-body table-page"
+    wheel-horizontal-scroll
+  >
+    <table border="0" cellpadding="0" cellspacing="0">
+      <colgroup>
+        <col [ngStyle]="{ width: width }" *ngFor="let width of widths" />
+      </colgroup>
+      <thead>
+        <tr>
+          <td>照片</td>
+          <td>车牌号码</td>
+          <td>车牌颜色</td>
+          <td>车辆类型</td>
+          <td>居委会</td>
+          <td>描述</td>
+          <td class="center">操作</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let item of datas"
+          [style.height]="100 / page.PageSize + '%'"
+          [ngClass]="{
+            selected: selected === item,
+            nodata: !item,
+            nohover: !item
+          }"
+          (click)="on.select(item)"
+        >
+          <td>
+            @if(item){
+            <div class="img-list">
+              <div
+                image
+                [url]="url"
+                class="img"
+                *ngFor="let url of item.images; let index = index"
+                (click)="on.image($event, item, index)"
+              ></div>
+            </div>
+            }
+          </td>
+          <td [title]="item?.PlateNo ?? ''">
+            @if(item){
+            {{ item.PlateNo }}
+            }
+          </td>
+          <td
+            [ngClass]="{
+            'text-blue': item?.PlateColor === 1,
+            'text-orange': item?.PlateColor === 2,
+            'text-white': item?.PlateColor === 3,
+            'text-black': item?.PlateColor === 4,
+            'text-green': item?.PlateColor === 5,
+          }"
+          >
+            @if(item){
+            {{ Language.PlateColor(item.PlateColor) }}
+            }
+          </td>
+          <td>
+            @if(item){
+            {{ Language.IllegalVehicleType(item.VehicleType) }}
+            }
+          </td>
+          <td [title]="(item?.Division | async)?.Name ?? ''">
+            @if(item){
+            {{ (item.Division | async)?.Name ?? "-" }}
+            }
+          </td>
+          <td [title]="item?.Description ?? ''">
+            @if(item){
+            {{ item.Description ?? "-" }}
+            }
+          </td>
+          <td class="center">
+            @if(item){
+            <div class="operation">
+              <button title="编辑" (click)="on.edit($event, item)">
+                <i class="howell-icon-modification"></i>
+              </button>
+              <button title="删除" (click)="on.delete($event, item)">
+                <i class="howell-icon-delete-bin"></i>
+              </button>
+            </div>
+            }
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="garbage-management-vehicle-list-table-foot foot" *ngIf="page">
+    <div class="foot-info">
+      <div class="info-item">当前数量: {{ page && page.RecordCount }}</div>
+      <div class="info-item">总数量: {{ page && page.TotalRecordCount }}</div>
+    </div>
+
+    <paginator [page]="page" (change)="on.page($event)"> </paginator>
+  </div>
+
+  <div class="loading" *ngIf="loading"></div>
+</div>

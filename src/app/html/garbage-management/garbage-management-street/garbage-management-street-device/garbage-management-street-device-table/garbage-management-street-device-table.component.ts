@@ -91,6 +91,11 @@ export class GarbageManagementStreetDeviceTableComponent
         }
       }
     },
-    position: (item: IasDevice) => {},
+    position: (e: Event, item?: IasDevice) => {
+      this.position.emit(item);
+      if (this.selected === item) {
+        e.stopImmediatePropagation();
+      }
+    },
   };
 }

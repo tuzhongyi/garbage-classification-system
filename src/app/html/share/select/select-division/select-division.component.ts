@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Division } from '../../../../common/network/model/garbage-station/division.model';
+import { wait } from '../../../../common/tools/tools';
 import { SelectDivisionBusiness } from './select-division.business';
 
 @Component({
@@ -24,20 +25,44 @@ export class SelectDivisionComponent {
   @Input() selectedId?: string;
   @Output() selectedIdChange = new EventEmitter<string>();
   @Input() parentId?: string;
+  @Input() disabled = false;
 
   constructor(private business: SelectDivisionBusiness) {}
 
   datas: Division[] = [];
 
+  loaded = false;
+
   private load(parentId?: string) {
-    this.business.load(parentId).then((x) => {
-      this.datas = x;
-    });
+    this.loaded = false;
+    this.business
+      .load(parentId)
+      .then((x) => {
+        this.datas = x;
+      })
+      .finally(() => {
+        this.loaded = true;
+      });
   }
   private change = {
-    divisionId: (simple: SimpleChange) => {
+    parentId: (simple: SimpleChange) => {
       if (simple && !simple.firstChange) {
         this.load(this.parentId);
+      }
+    },
+    selectedId: (simple: SimpleChange) => {
+      if (simple) {
+        if (this.selectedId) {
+          wait(
+            () => {
+              return this.loaded;
+            },
+            () => {
+              this.selected = this.datas.find((x) => x.Id === this.selectedId);
+              this.selectedChange.emit(this.selected);
+            }
+          );
+        }
       }
     },
   };
@@ -46,7 +71,8 @@ export class SelectDivisionComponent {
     this.load(this.parentId);
   }
   ngOnChanges(changes: SimpleChanges): void {
-    this.change.divisionId(changes['parentId']);
+    this.change.parentId(changes['parentId']);
+    this.change.selectedId(changes['selectedId']);
   }
 
   on = {

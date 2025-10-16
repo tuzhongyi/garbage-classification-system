@@ -88,13 +88,13 @@ export class GarbageStationStatisticTableService {
     params.TimeUnit = unit;
     params.GarbageStationIds = stations.map((x) => x.Id);
 
-    return this.station.statistic.number.history.array(params);
+    return this.station.statistic.number.history.list(params);
   }
 
   async getStations(divisionId: string) {
     let params = new GetGarbageStationsParams();
     params.DivisionId = divisionId;
-    let paged = await this.station.cache.list(params);
+    let paged = await this.station.cache.paged(params);
     return paged.Data;
   }
 

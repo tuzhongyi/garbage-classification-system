@@ -27,7 +27,7 @@ export class EventRecordIllegalDropRequestService {
     let url = EventUrl.record.illegaldrop.item(id);
     return this.type.get(url);
   }
-  async all(
+  async array(
     params: GetEventRecordIllegalDropParams = new GetEventRecordIllegalDropParams()
   ) {
     return ServiceTool.all((_params) => {

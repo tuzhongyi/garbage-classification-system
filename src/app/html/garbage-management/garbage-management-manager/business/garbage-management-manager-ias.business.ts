@@ -7,7 +7,7 @@ import { DateTimeTool } from '../../../../common/tools/date-time-tool/datetime.t
 export class GarbageManagementManagerIasBusiness {
   constructor(private service: IasRequestService) {}
   async device() {
-    return this.service.device.all();
+    return this.service.device.array();
   }
   record(date = new Date()) {
     let duration = DateTimeTool.all.day(date);
@@ -15,6 +15,6 @@ export class GarbageManagementManagerIasBusiness {
     params.BeginTime = duration.begin;
     params.EndTime = duration.end;
     params.EventType = 103;
-    return this.service.event.all(params);
+    return this.service.event.array(params);
   }
 }

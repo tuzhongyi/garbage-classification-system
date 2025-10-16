@@ -55,7 +55,7 @@ export class GridCellRequestService {
     let data = instanceToPlain(params);
     return this.type.paged(url, data);
   }
-  all(params = new GetGridCellsParams()) {
+  array(params = new GetGridCellsParams()) {
     return ServiceTool.all((p) => {
       return this.list(p);
     }, params);

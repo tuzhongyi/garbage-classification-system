@@ -15,7 +15,7 @@ export class GarbageManagementStationStatisticDetailsManagerBusiness {
     let division = await this.global.division.selected;
     let params = new GetGarbageStationsParams();
     params.AncestorId = division.Id;
-    return this.service.cache.all(params).then((x) => {
+    return this.service.cache.array(params).then((x) => {
       return x.sort((a, b) => {
         return LocaleCompare.compare(a.Name, b.Name);
       });

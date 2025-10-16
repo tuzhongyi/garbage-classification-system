@@ -14,7 +14,7 @@ export class GarbageStationTrashCanRequestService {
 
   private basicType: HowellBaseTypeRequestService<TrashCan>;
 
-  all(stationId: string): Promise<TrashCan[]> {
+  array(stationId: string): Promise<TrashCan[]> {
     let url = GarbageStationUrl.trashcan(stationId).basic();
     return this.basicType.getArray(url);
   }

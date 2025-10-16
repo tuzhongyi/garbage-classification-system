@@ -37,7 +37,7 @@ export class GarbageManagementRecordEventIasListTableBusiness {
       params.EndTime = args.duration.end;
       params.EventType = 103;
       params.Asc = 'EventTime';
-      return this.service.event.list(params);
+      return this.service.event.paged(params);
     },
   };
 }

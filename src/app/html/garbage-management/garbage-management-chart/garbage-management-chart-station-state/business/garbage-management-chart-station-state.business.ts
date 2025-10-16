@@ -29,13 +29,13 @@ export class GarbageManagementChartStationStateBusiness {
   private data(divisionId: string) {
     let params = new GetGarbageStationsParams();
     params.AncestorId = divisionId;
-    return this.service.cache.all(params);
+    return this.service.cache.array(params);
   }
 
   private statistic(divisionId: string) {
     let params = new GetGarbageStationStatisticNumbersParams();
     params.GarbageDrop = true;
     params.DivisionId = divisionId;
-    return this.service.statistic.number.cache.all(params);
+    return this.service.statistic.number.cache.array(params);
   }
 }

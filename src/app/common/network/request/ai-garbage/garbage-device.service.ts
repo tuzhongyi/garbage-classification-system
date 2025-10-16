@@ -74,7 +74,7 @@ export class AIGarbageDevicesRequestService {
       plain as AIGarbageDeviceCommand
     );
   }
-  async all(
+  async array(
     params: GetAIGarbageStationDevicesParams = new GetAIGarbageStationDevicesParams()
   ) {
     let data: AIGarbageDevice[] = [];

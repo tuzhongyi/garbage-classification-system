@@ -44,7 +44,7 @@ export class GarbageManagementListRecordEventMixedIntoBusiness {
       params.EndTime = duration.end;
       params.DivisionIds = [divisionId];
       params.IsHandle = false;
-      return this.service.record.MixedInto.all(params);
+      return this.service.record.MixedInto.array(params);
     },
   };
 }

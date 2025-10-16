@@ -25,7 +25,7 @@ export class EventRecordSewageRequestService {
     let url = EventUrl.record.sewage.item(id);
     return this.type.get(url);
   }
-  async all(
+  async array(
     params: GetEventRecordSewageParams = new GetEventRecordSewageParams()
   ) {
     return ServiceTool.all((_params) => {

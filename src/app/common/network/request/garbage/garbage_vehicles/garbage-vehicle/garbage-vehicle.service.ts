@@ -52,7 +52,7 @@ export class GarbageVehicleRequestService extends AbstractService<GarbageVehicle
     let url = GarbageVehicleUrl.item(vehicleId);
     return this.type.delete(url);
   }
-  list(
+  paged(
     params: GetGarbageVehiclesParams = new GetGarbageVehiclesParams()
   ): Promise<PagedList<GarbageVehicle>> {
     let url = GarbageVehicleUrl.list();
@@ -101,7 +101,7 @@ class VehicleCameraService {
     this.basicType = basic.type(VehicleCamera);
   }
 
-  all(vehicleId: string) {
+  array(vehicleId: string) {
     let url = GarbageVehicleUrl.camera(vehicleId).basic();
     return this.basicType.get(url);
   }
@@ -154,7 +154,7 @@ class VehicleRouteService {
     return this.basicType.paged(url, data);
   }
 
-  async all(
+  async array(
     params: GetGarbageVehicleRouteParams = new GetGarbageVehicleRouteParams()
   ) {
     let data: GisRoutePoint[] = [];

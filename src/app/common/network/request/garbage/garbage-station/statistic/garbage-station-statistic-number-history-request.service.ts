@@ -1,5 +1,5 @@
 import { GarbageStationNumberStatisticV2 } from '../../../../model/garbage-station/garbage-station-number-statistic-v2.model';
-import { Page, PagedList } from '../../../../model/page_list.model';
+import { PagedList } from '../../../../model/page_list.model';
 import { GarbageStationUrl } from '../../../../url/garbage/garbage-station.url';
 import {
   HowellBaseRequestService,
@@ -20,26 +20,16 @@ export class GarbageStationStatisticNumberHistoryService extends AbstractService
   }
   private basicType: HowellBaseTypeRequestService<GarbageStationNumberStatisticV2>;
 
-  override get(
-    id: string,
-    ...args: any[]
-  ): Promise<GarbageStationNumberStatisticV2> {
-    throw new Error('Method not implemented.');
-  }
-
-  async list(params: GetGarbageStationStatisticNumbersParamsV2) {
-    let datas = await this.array(params);
-    let page = Page.create(1, datas.length);
-    let paged = new PagedList<GarbageStationNumberStatisticV2>();
-    paged.Data = datas;
-    paged.Page = page;
-    return paged;
-  }
-
-  array(
+  list(
     params: GetGarbageStationStatisticNumbersParamsV2
   ): Promise<GarbageStationNumberStatisticV2[]> {
     let url = GarbageStationUrl.statistic().number.history.list();
     return this.basicType.postArray(url, params);
+  }
+  override paged(): Promise<PagedList<GarbageStationNumberStatisticV2>> {
+    throw new Error('Method not implemented.');
+  }
+  override get(id: string): Promise<GarbageStationNumberStatisticV2> {
+    throw new Error('Method not implemented.');
   }
 }

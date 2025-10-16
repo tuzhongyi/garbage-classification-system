@@ -10,7 +10,7 @@ import { Division } from '../../../model/garbage-station/division.model';
 import { EventNumberStatistic } from '../../../model/garbage-station/event-number-statistic.model';
 import { GarbageVolume } from '../../../model/garbage-station/garbage-volume.model';
 import { SumEventNumber } from '../../../model/garbage-station/sum-event-number.model';
-import { Page, PagedList } from '../../../model/page_list.model';
+import { PagedList } from '../../../model/page_list.model';
 import { DivisionUrl } from '../../../url/garbage/division.url';
 import {
   HowellBaseRequestService,
@@ -60,7 +60,7 @@ export class DivisionRequestService extends AbstractService<Division> {
     let url = DivisionUrl.item(divisionId);
     return this.type.delete(url);
   }
-  list(
+  paged(
     params: GetDivisionsParams = new GetDivisionsParams()
   ): Promise<PagedList<Division>> {
     let url = DivisionUrl.list();
@@ -178,7 +178,7 @@ class StatisticNumberService extends AbstractService<DivisionNumberStatistic> {
     let url = DivisionUrl.statistic(divisionId).number.basic();
     return this.type.get(url);
   }
-  list(
+  paged(
     params: GetDivisionStatisticNumbersParams = new GetDivisionStatisticNumbersParams()
   ): Promise<PagedList<DivisionNumberStatistic>> {
     let url = DivisionUrl.statistic().number.list();
@@ -208,24 +208,17 @@ class StatisticNumberHistoryService extends AbstractService<DivisionNumberStatis
     super();
   }
 
-  override async list(
-    params: GetDivisionStatisticNumbersParamsV2
-  ): Promise<PagedList<DivisionNumberStatisticV2>> {
-    let datas = await this.array(params);
-    let page = Page.create(1, datas.length);
-    let paged = new PagedList<DivisionNumberStatisticV2>();
-    paged.Data = datas;
-    paged.Page = page;
-    return paged;
-  }
-  override get(id: string, ...args: any[]): Promise<DivisionNumberStatisticV2> {
-    throw new Error('Method not implemented.');
-  }
-
-  array(
+  list(
     params: GetDivisionStatisticNumbersParamsV2
   ): Promise<DivisionNumberStatisticV2[]> {
     let url = DivisionUrl.statistic().number.history.list();
     return this.basic.postArray(url, DivisionNumberStatisticV2, params);
+  }
+
+  override paged(): Promise<PagedList<DivisionNumberStatisticV2>> {
+    throw new Error('Method not implemented.');
+  }
+  override get(id: string): Promise<DivisionNumberStatisticV2> {
+    throw new Error('Method not implemented.');
   }
 }

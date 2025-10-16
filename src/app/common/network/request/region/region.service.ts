@@ -46,7 +46,7 @@ export class RegionRequestService {
   trees(): Promise<RegionTree> {
     return this.basic.get(RegionsURL.trees(), RegionTree);
   }
-  async all() {
+  async array() {
     if (this.loaded && this.data && this.data.length > 0) {
       return this.data;
     }

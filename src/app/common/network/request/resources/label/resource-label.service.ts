@@ -11,7 +11,10 @@ import {
   IDelete,
   IUpdate,
 } from '../../cache/cache.interface';
-import { GetResourceLabelsParams } from './resource-label.params';
+import {
+  GetBatchParams,
+  GetResourceLabelsParams,
+} from './resource-label.params';
 
 export class ResourceLabelRequestService
   extends AbstractService<ResourceLabel>
@@ -20,20 +23,6 @@ export class ResourceLabelRequestService
     IUpdate<ResourceLabel>,
     IDelete<ResourceLabel>
 {
-  override async all(
-    params = new GetResourceLabelsParams()
-  ): Promise<ResourceLabel[]> {
-    let data: ResourceLabel[] = [];
-    let index = 1;
-    let paged: PagedList<ResourceLabel>;
-    do {
-      params.PageIndex = index;
-      paged = await this.list(params);
-      data = data.concat(paged.Data);
-      index++;
-    } while (index <= paged.Page.PageCount);
-    return data;
-  }
   private type: HowellBaseTypeRequestService<ResourceLabel>;
   constructor(private basic: HowellBaseRequestService) {
     super();
@@ -63,15 +52,15 @@ export class ResourceLabelRequestService
     return this.type.delete(url);
   }
 
-  list(
+  paged(
     params: GetResourceLabelsParams = new GetResourceLabelsParams()
   ): Promise<PagedList<ResourceLabel>> {
     let url = ResourcesUrl.label().list();
     return this.type.paged(url, params);
   }
 
-  array(labelId: string) {
-    let url = ResourcesUrl.label().batch(labelId);
+  override array(params: GetBatchParams) {
+    let url = ResourcesUrl.label().batch(params.LabelId);
     return this.type.getArray(url);
   }
 }

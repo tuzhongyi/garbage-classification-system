@@ -41,7 +41,7 @@ export class GarbageManagementListIasDeviceRouteBusiness {
 
   data = {
     device: () => {
-      return this.service.device.all().catch(() => {
+      return this.service.device.array().catch(() => {
         return [];
       });
     },

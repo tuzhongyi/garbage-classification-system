@@ -29,7 +29,7 @@ export class EventRecordIllegalVehicleRequestService {
     let url = EventUrl.record.illegalvehicle.item(id);
     return this.type.get(url);
   }
-  async all(
+  async array(
     params: GetIllegalVehicleEventRecordsParams = new GetIllegalVehicleEventRecordsParams()
   ) {
     return ServiceTool.all((_params) => {

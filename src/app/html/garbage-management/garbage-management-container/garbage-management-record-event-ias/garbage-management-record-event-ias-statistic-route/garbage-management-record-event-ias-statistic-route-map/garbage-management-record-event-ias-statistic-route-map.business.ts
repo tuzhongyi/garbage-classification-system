@@ -14,6 +14,6 @@ export class GarbageManagementRecordEventIasStatisticRouteMapBusiness {
     params.DeviceId = args.deviceId;
     params.BeginTime = duration.begin;
     params.EndTime = duration.end;
-    return this.service.device.route.all(params);
+    return this.service.device.route.array(params);
   }
 }

@@ -9,6 +9,6 @@ export class GarbageManagementRankingRecordEventIasGridService {
   load(divisionId?: string) {
     let params = new GetGridCellsParams();
     params.AncestorId = divisionId;
-    return this.service.all(params);
+    return this.service.array(params);
   }
 }

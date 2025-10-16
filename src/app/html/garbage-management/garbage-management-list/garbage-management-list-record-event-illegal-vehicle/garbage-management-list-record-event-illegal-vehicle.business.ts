@@ -19,6 +19,6 @@ export class GarbageManagementListRecordEventIllegalVehicleBusiness {
     params.BeginTime = duration.begin;
     params.EndTime = duration.end;
     params.DivisionIds = [division.Id];
-    return this.service.record.IllegalVehicle.all(params);
+    return this.service.record.IllegalVehicle.array(params);
   }
 }

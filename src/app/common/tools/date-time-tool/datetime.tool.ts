@@ -1,6 +1,7 @@
 import { TimeUnit } from '../../enum/time-unit.enum';
 import { Duration } from '../../network/model/garbage-station/duration.model';
 import { DateTimeEqualsTool } from './date-time-equals.tool';
+import { DateTimeFullTool } from './date-time-full.tool';
 import { DateTimeAllTool } from './datetime-all.tool';
 import { DateTimeDayTool } from './datetime-day.tool';
 import { DateTimeMonthTool } from './datetime-month.tool';
@@ -19,6 +20,7 @@ export class DateTimeTool {
   static month = new DateTimeMonthTool();
   static is = new DateTimeEqualsTool();
   static all = new DateTimeAllTool();
+  static full = new DateTimeFullTool();
 
   static TimeUnit(unit: TimeUnit, date: Date, firstDay = 1): Duration {
     switch (unit) {

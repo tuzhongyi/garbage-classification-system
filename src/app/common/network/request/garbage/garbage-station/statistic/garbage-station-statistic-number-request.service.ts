@@ -31,7 +31,7 @@ export class GarbageStationStatisticNumberRequestService extends AbstractService
     let url = GarbageStationUrl.statistic(stationId).number.basic();
     return this.basicType.get(url);
   }
-  list(
+  paged(
     params: GetGarbageStationStatisticNumbersParams
   ): Promise<PagedList<GarbageStationNumberStatistic>> {
     let url = GarbageStationUrl.statistic().number.list();

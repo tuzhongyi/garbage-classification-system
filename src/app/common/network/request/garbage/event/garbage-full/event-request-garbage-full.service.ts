@@ -25,7 +25,7 @@ export class EventRecordGarbageFullRequestService {
     let url = EventUrl.record.garbagefull.item(id);
     return this.type.get(url);
   }
-  async all(
+  async array(
     params: GetEventRecordGarbageFullParams = new GetEventRecordGarbageFullParams()
   ) {
     return ServiceTool.all((_params) => {

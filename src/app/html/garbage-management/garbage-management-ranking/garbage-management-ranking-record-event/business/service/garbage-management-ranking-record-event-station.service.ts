@@ -22,13 +22,13 @@ export class GarbageManagementRankingRecordEventStationService {
   async today(divisionId: string) {
     let params = new GetGarbageStationStatisticNumbersParams();
     params.DivisionId = divisionId;
-    return this.service.statistic.number.cache.all(params);
+    return this.service.statistic.number.cache.array(params);
   }
 
   private stations(divisionId: string) {
     let params = new GetGarbageStationsParams();
     params.AncestorId = divisionId;
-    return this.service.cache.all(params);
+    return this.service.cache.array(params);
   }
 
   async history(divisionId: string, unit: TimeUnit, date: Date) {
@@ -38,6 +38,6 @@ export class GarbageManagementRankingRecordEventStationService {
     params.BeginTime = duration.begin;
     params.EndTime = duration.end;
     params.GarbageStationIds = stations.map((x) => x.Id);
-    return this.service.statistic.number.history.cache.list(params);
+    return this.service.statistic.number.history.cache.array(params);
   }
 }

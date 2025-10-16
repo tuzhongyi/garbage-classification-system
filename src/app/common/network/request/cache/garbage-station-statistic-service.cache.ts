@@ -26,7 +26,7 @@ export class GarbageStationStatisticServiceCache extends ServiceCache<GarbageSta
     return super.get(id);
   }
 
-  override async list(
+  override async paged(
     args?: GetGarbageStationStatisticNumbersParams
   ): Promise<PagedList<GarbageStationNumberStatistic>> {
     try {
@@ -57,7 +57,7 @@ export class GarbageStationStatisticServiceCache extends ServiceCache<GarbageSta
       }
     } catch (error) {}
 
-    return this.service.list!(args).then((result) => {
+    return this.service.paged!(args).then((result) => {
       result.Data.forEach((item) => {
         this.saveItem(item.Id, item);
       });

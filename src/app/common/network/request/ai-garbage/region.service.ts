@@ -26,7 +26,7 @@ export class AIGarbageRegionsRequestService {
     this.type = this.basic.type(AIGarbageRegion);
   }
 
-  async all(
+  async array(
     params: GetAIGarbageStationRegionsParams = new GetAIGarbageStationRegionsParams()
   ) {
     let data: AIGarbageRegion[] = [];

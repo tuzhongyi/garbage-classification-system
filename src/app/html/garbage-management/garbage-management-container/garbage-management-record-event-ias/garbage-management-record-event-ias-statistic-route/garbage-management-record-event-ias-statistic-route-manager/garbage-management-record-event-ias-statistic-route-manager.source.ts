@@ -15,7 +15,7 @@ export class GarbageManagementRecordEventIasStatisticRouteManagerSource {
 
   private init = {
     device: () => {
-      this.service.device.all().then((x) => {
+      this.service.device.array().then((x) => {
         this.devices = x;
       });
     },

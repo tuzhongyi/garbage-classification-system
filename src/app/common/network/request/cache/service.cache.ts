@@ -1,6 +1,6 @@
-import { ClassConstructor, plainToInstance } from 'class-transformer';
+import { ClassConstructor } from 'class-transformer';
 
-import { wait } from '../../../tools/tools';
+import { wait2 } from '../../../tools/tools';
 import { PagedList } from '../../model/page_list.model';
 import { IParams, PagedParams } from '../IParams.interface';
 import { AppCache, IData, IService } from './cache.interface';
@@ -15,7 +15,6 @@ export interface IServiceCache {
 
 export class ServiceCache<T extends IData> implements IServiceCache {
   cache: AppCache;
-  loaded = false;
   loading = false;
 
   constructor(
@@ -42,42 +41,6 @@ export class ServiceCache<T extends IData> implements IServiceCache {
     return datas;
   }
 
-  private doTimeout(time: number) {
-    if (time < 0) time = 0;
-    setTimeout(() => {
-      this.loaded = false;
-    }, time);
-  }
-
-  protected wait(reject: (t: T[]) => void, timeout = 1) {
-    setTimeout(() => {
-      if (this.loaded) {
-        let data = this.load();
-        if (!data) {
-          if (!this.loading) {
-            if (this.init) {
-              this.all().then(() => {
-                this.doTimeout(this.timeout - 1000);
-              });
-            }
-          }
-          this.wait(reject, timeout);
-          return;
-        }
-        reject(data);
-      } else {
-        if (!this.loading) {
-          if (this.init) {
-            this.all().then(() => {
-              this.doTimeout(this.timeout - 1000);
-            });
-          }
-        }
-        this.wait(reject, timeout);
-      }
-    }, timeout);
-  }
-
   load() {
     return this.cache.get(this.key) as T[] | undefined;
   }
@@ -86,70 +49,65 @@ export class ServiceCache<T extends IData> implements IServiceCache {
   }
   clear() {
     this.loading = false;
-    this.loaded = false;
     this.cache.del(this.key);
   }
 
-  list(args?: IParams): Promise<PagedList<T>> {
-    return this.service.list!(args).then((result) => {
-      let datas = this.load();
-      if (this.type) {
-        result.Data = plainToInstance(this.type, result.Data);
-      }
-      result.Data.forEach((item) => {
-        if (!datas) datas = [];
-        let index = datas.findIndex((x) => x.Id === item.Id);
-        if (index >= 0) {
-          datas[index] = item;
+  all(...args: any): Promise<T[]> {
+    return new Promise<T[]>((resolve) => {
+      wait2(() => {
+        return this.loading === false;
+      }).then(() => {
+        let datas = this.load();
+        if (datas && datas.length > 0) {
+          resolve(datas);
         } else {
-          datas.push(item);
+          this.loading = true;
+          this.service
+            .all()
+            .then((datas) => {
+              this.save([...datas]);
+              resolve(datas);
+            })
+            .finally(() => {
+              this.loading = false;
+            });
         }
       });
-      return result;
     });
   }
 
-  async all(params?: IParams): Promise<T[]> {
+  paged(params: PagedParams): Promise<PagedList<T>> {
+    return new Promise<PagedList<T>>((resolve) => {
+      this.array(params).then((datas) => {
+        let paged = this.getPaged(datas, params);
+        resolve(paged);
+      });
+    });
+  }
+
+  async array(params: IParams): Promise<T[]> {
     return new Promise<T[]>((resolve) => {
-      wait(
-        () => {
-          return this.loading === false;
-        },
-        () => {
-          this.loading = true;
-          let datas = this.load();
-          if (datas && datas.length > 0) {
-            if (params) {
-              datas = this.filter(datas, params);
-            }
-            resolve(datas);
-            this.loading = false;
-            return;
-          }
-          this.service.all(params as PagedParams).then((datas) => {
-            this.save([...datas]);
-            this.loaded = true;
-            if (params) {
-              datas = this.filter([...datas], params);
-            }
-            resolve(datas);
-            this.loading = false;
-          });
-        }
-      );
+      this.all().then((datas) => {
+        datas = this.filter(datas, params);
+        resolve(datas);
+      });
     });
   }
 
   async get(id: string): Promise<T> {
-    return this.service.get(id).then((x) => {
-      let datas = this.load();
-      if (!datas) datas = [];
-      let index = datas.findIndex((x) => x.Id == id);
-      if (index < 0) {
-        datas.push(x);
-        this.save(datas);
-      }
-      return x;
+    return new Promise<T>((resolve) => {
+      this.all().then((datas) => {
+        let index = datas.findIndex((x) => x.Id == id);
+        if (index < 0) {
+          this.service.get(id).then((data) => {
+            datas.push(data);
+            this.save(datas);
+            resolve(data);
+          });
+        } else {
+          resolve(datas[index]);
+        }
+      });
     });
   }
 

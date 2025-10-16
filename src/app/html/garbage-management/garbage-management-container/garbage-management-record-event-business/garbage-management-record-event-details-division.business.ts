@@ -6,6 +6,7 @@ import {
   GetDivisionStatisticNumbersParamsV2,
 } from '../../../../common/network/request/garbage/division/division-request.params';
 import { DivisionRequestService } from '../../../../common/network/request/garbage/division/division-request.service';
+import { BusinessTool } from '../../../../common/tools/business-tool/business.tool';
 import { DateTimeTool } from '../../../../common/tools/date-time-tool/datetime.tool';
 import { GarbageManagementRecordEventDetailsConverter } from './garbage-management-record-event-details.converter';
 
@@ -24,8 +25,33 @@ export class GarbageManagementRecordEventDetailsDivisionBusiness {
     let data = await this.service.statistic.number.get(divisionId);
     return this.converter.division(data);
   }
-
   async history(divisionId: string, interval: Duration, unit: TimeUnit) {
+    let data = await this._history(divisionId, interval, unit);
+    let times = DateTimeTool.full.unit(interval.begin, unit);
+
+    let _unit = unit;
+    switch (unit) {
+      case TimeUnit.Day:
+      case TimeUnit.Hour:
+        _unit = TimeUnit.Hour;
+        break;
+      case TimeUnit.Week:
+      default:
+        _unit = TimeUnit.Day;
+        break;
+    }
+
+    data = BusinessTool.full(data, times, _unit, (index: number) =>
+      this.converter.create(divisionId, times[index])
+    );
+
+    return data;
+  }
+  private async _history(
+    divisionId: string,
+    interval: Duration,
+    unit: TimeUnit
+  ) {
     let params = new GetDivisionEventNumbersParams();
     params.BeginTime = interval.begin;
     params.EndTime = interval.end;
@@ -69,7 +95,7 @@ export class GarbageManagementRecordEventDetailsDivisionBusiness {
     params.EndTime = interval.end;
     params.TimeUnit = TimeUnit.Month;
     params.DivisionIds = [divisionId];
-    let list = await this.service.statistic.number.history.array(params);
+    let list = await this.service.statistic.number.history.list(params);
     let data = list.map((x) => this.converter.division(x));
     let today = await this.today(divisionId);
     let now = new Date();

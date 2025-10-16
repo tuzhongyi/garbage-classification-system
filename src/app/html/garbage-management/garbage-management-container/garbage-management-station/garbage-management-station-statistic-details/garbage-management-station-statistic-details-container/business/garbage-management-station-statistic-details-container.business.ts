@@ -35,6 +35,6 @@ export class GarbageManagementStationStatisticDetailsContainerBusiness {
     } else {
       params.TimeUnit = TimeUnit.Day;
     }
-    return this.service.statistic.number.history.array(params);
+    return this.service.statistic.number.history.list(params);
   }
 }

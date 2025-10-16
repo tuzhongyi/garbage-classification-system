@@ -15,7 +15,7 @@ export class IasDeviceRouteRequestService {
     let url = IasUrl.device.route.list();
     return this.basic.paged<IasGpsItem>(url, IasGpsItem, params);
   }
-  all(params = new GetIasDeviceRoutesParams()) {
+  array(params = new GetIasDeviceRoutesParams()) {
     return ServiceTool.all((p) => {
       return this.list(p);
     }, params);

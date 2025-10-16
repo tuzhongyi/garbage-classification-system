@@ -6,6 +6,7 @@ import {
   GetGarbageStationVolumesParams,
 } from '../../../../common/network/request/garbage/garbage-station/garbage-station-request.params';
 import { GarbageStationRequestService } from '../../../../common/network/request/garbage/garbage-station/garbage-station-request.service';
+import { BusinessTool } from '../../../../common/tools/business-tool/business.tool';
 import { DateTimeTool } from '../../../../common/tools/date-time-tool/datetime.tool';
 import { GarbageManagementRecordEventDetailsConverter } from './garbage-management-record-event-details.converter';
 
@@ -25,15 +26,34 @@ export class GarbageManagementRecordEventDetailsStationBusiness {
     let params = new GetGarbageStationVolumesParams();
     params.BeginTime = duration.begin;
     params.EndTime = duration.end;
-    params.TimeUnit = unit;
-    let paged = await this.service.eventNumber.history.list(stationId, params);
-    let data = await paged.Data.map((x) =>
-      this.converter.statistic(stationId, x)
-    );
-    if (DateTimeTool.is.today(duration.end)) {
-      let today = await this.today(stationId);
-      return data.concat(today);
+    switch (unit) {
+      case TimeUnit.Year:
+        params.TimeUnit = TimeUnit.Month;
+        break;
+      case TimeUnit.Day:
+      case TimeUnit.Hour:
+        params.TimeUnit = TimeUnit.Hour;
+        break;
+      case TimeUnit.Week:
+      case TimeUnit.Month:
+      default:
+        params.TimeUnit = TimeUnit.Day;
+        break;
     }
+    let paged = await this.service.eventNumber.history.list(stationId, params);
+    if (paged.Data.length == 0) {
+      return [];
+    }
+    let data = paged.Data.map((x) => this.converter.statistic(stationId, x));
+    if (DateTimeTool.is.than.unit(duration.end, new Date(), params.TimeUnit)) {
+      let today = await this.today(stationId);
+      data = data.concat(today);
+    }
+    let times = DateTimeTool.full.unit(duration.begin, unit);
+    data = BusinessTool.full(data, times, params.TimeUnit, (index: number) =>
+      this.converter.create(stationId, times[index])
+    );
+
     return data;
   }
   async year(stationId: string, interval: Duration) {
@@ -42,7 +62,7 @@ export class GarbageManagementRecordEventDetailsStationBusiness {
     params.EndTime = interval.end;
     params.TimeUnit = TimeUnit.Month;
     params.GarbageStationIds = [stationId];
-    let list = await this.service.statistic.number.history.array(params);
+    let list = await this.service.statistic.number.history.list(params);
     let data = list.map((x) => this.converter.station(x));
     let today = await this.today(stationId);
     let now = new Date();

@@ -24,13 +24,13 @@ export class GarbageManagementRankingRecordEventDivisionService {
   private children(divisionId: string) {
     let params = new GetDivisionsParams();
     params.ParentId = divisionId;
-    return this.service.cache.all(params);
+    return this.service.cache.array(params);
   }
 
   private async today(divisions: Division[]) {
     let params = new GetDivisionStatisticNumbersParams();
     params.Ids = divisions.map((x) => x.Id);
-    let paged = await this.service.statistic.number.cache.list(params);
+    let paged = await this.service.statistic.number.cache.paged(params);
     return paged.Data;
   }
 
@@ -41,6 +41,6 @@ export class GarbageManagementRankingRecordEventDivisionService {
     params.EndTime = duration.end;
     params.DivisionIds = divisions.map((x) => x.Id);
     params.TimeUnit = unit;
-    return this.service.statistic.number.history.cache.all(params);
+    return this.service.statistic.number.history.cache.array(params);
   }
 }

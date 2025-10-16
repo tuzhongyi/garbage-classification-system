@@ -13,6 +13,6 @@ export class SelectGarbageStationBusiness {
     if (types.length > 0) {
       params.StationTypes = types;
     }
-    return this.service.cache.all(params);
+    return this.service.cache.array(params);
   }
 }

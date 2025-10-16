@@ -10,7 +10,7 @@ export class GarbageStationMumberRequestService {
     this.basicType = basic.type(Member);
   }
   private basicType: HowellBaseTypeRequestService<Member>;
-  all(stationId: string): Promise<Member[]> {
+  array(stationId: string): Promise<Member[]> {
     let url = GarbageStationUrl.member(stationId).basic();
     return this.basicType.getArray(url);
   }

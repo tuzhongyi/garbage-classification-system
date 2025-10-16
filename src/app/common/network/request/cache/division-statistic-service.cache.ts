@@ -28,7 +28,7 @@ export class DivisionStatisticServiceCache extends ServiceCache<DivisionNumberSt
     return super.get(id);
   }
 
-  override async list(
+  override async paged(
     args?: GetDivisionStatisticNumbersParams
   ): Promise<PagedList<DivisionNumberStatistic>> {
     try {
@@ -48,7 +48,7 @@ export class DivisionStatisticServiceCache extends ServiceCache<DivisionNumberSt
       }
     } catch (error) {}
 
-    return this.service.list!(args).then((result) => {
+    return this.service.paged!(args).then((result) => {
       result.Data.forEach((item) => {
         this.saveItem(item.Id, item);
       });

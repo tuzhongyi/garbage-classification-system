@@ -53,7 +53,7 @@ export class CollectionDivisionRequestService extends AbstractService<Division> 
     let url = GarbageVehicleDivisionUrl.item(divisionId);
     return this.type.delete(url);
   }
-  list(
+  paged(
     params: GetDivisionsParams = new GetDivisionsParams()
   ): Promise<PagedList<Division>> {
     let url = GarbageVehicleDivisionUrl.list();

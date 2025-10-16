@@ -36,7 +36,7 @@ export class GarbageManagementChartPieRecordStatisticContainerDivisionService {
     params.EndTime = duration.end;
     params.TimeUnit = unit;
     params.DivisionIds = [divisionId];
-    let array = await this.service.statistic.number.history.array(params);
+    let array = await this.service.statistic.number.history.list(params);
     return array.find((x) => x.Id === divisionId);
   }
 }

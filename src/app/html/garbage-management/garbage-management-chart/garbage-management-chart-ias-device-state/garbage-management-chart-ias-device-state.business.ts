@@ -6,6 +6,6 @@ export class GarbageManagementChartIasDeviceStateBusiness {
   constructor(private service: IasRequestService) {}
 
   load() {
-    return this.service.device.all();
+    return this.service.device.array();
   }
 }

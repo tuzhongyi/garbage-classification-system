@@ -59,7 +59,7 @@ export class GarbageManagementMapDataBusiness {
 
     let _default = await this.default.get();
     let divisions = await this.service.division.cache.all();
-    let grids = await this.service.grid.all();
+    let grids = await this.service.grid.array();
 
     let ids: IIdModel[] = [_default, ...divisions, ...grids];
     let _divisions = await this.service.map.division.array(_default.Id);
@@ -82,7 +82,7 @@ export class GarbageManagementMapDataBusiness {
   }
   async grid() {
     let datas = await this.load();
-    let grids = await this.service.grid.all();
+    let grids = await this.service.grid.array();
     let ids = grids.map((x) => x.Id);
     return datas.filter((x) => ids.includes(x.id));
   }

@@ -22,7 +22,13 @@ export class IasEventRequestService extends AbstractService<IasEventRecord> {
   }
   private type: HowellBaseTypeRequestService<IasEventRecord>;
 
-  list(
+  override array(
+    params: GetIasEventsParams = new GetIasEventsParams()
+  ): Promise<IasEventRecord[]> {
+    return super.array(params);
+  }
+
+  paged(
     params: GetIasEventsParams = new GetIasEventsParams()
   ): Promise<PagedList<IasEventRecord>> {
     let url = IasUrl.event.list();

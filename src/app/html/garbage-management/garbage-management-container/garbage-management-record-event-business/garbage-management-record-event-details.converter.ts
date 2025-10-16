@@ -85,4 +85,11 @@ export class GarbageManagementRecordEventDetailsConverter {
     model.Time = input.BeginTime;
     return model;
   }
+
+  create(id: string, time: Date) {
+    let model = new EventNumberStatisticModel();
+    model.Id = id;
+    model.Time = time;
+    return model;
+  }
 }

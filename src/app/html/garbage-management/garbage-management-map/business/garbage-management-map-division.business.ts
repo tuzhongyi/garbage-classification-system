@@ -13,7 +13,7 @@ export class GarbageManagementMapDivisionBusiness {
     let division = await this.global.division.default;
     let params = new GetDivisionsParams();
     params.ParentId = division.Id;
-    let stations = await this.service.all(params);
+    let stations = await this.service.array(params);
 
     return stations;
   }

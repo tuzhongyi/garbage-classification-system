@@ -26,7 +26,7 @@ export class GarbageManagementRecordEventIllegalVehicleListManagerBusiness {
       params.PlateNo = plate;
       params.PageIndex = 1;
       params.PageSize = 1;
-      let paged = await this.service.vehicle.list(params);
+      let paged = await this.service.vehicle.paged(params);
       return paged.Data[0];
     } catch (error) {
       return undefined;

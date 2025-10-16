@@ -42,7 +42,7 @@ export class GarbageManagementListRecordEventGarbageFullBusiness {
       params.EndTime = duration.end;
       params.DivisionIds = [divisionId];
       params.IsHandle = false;
-      return this.service.record.GarbageFull.all(params);
+      return this.service.record.GarbageFull.array(params);
     },
   };
 }

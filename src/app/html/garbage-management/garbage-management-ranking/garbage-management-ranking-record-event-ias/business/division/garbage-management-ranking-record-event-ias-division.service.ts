@@ -9,6 +9,6 @@ export class GarbageManagementRankingRecordEventIasDivisionService {
   load(divisionId?: string) {
     let params = new GetDivisionsParams();
     params.ParentId = divisionId;
-    return this.service.cache.all(params);
+    return this.service.cache.array(params);
   }
 }

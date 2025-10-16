@@ -65,6 +65,6 @@ export class GarbageStationTableBusiness {
     params.CommunityName = args.communityName;
     params.Name = args.stationName;
 
-    return this.stationService.list(params);
+    return this.stationService.paged(params);
   }
 }

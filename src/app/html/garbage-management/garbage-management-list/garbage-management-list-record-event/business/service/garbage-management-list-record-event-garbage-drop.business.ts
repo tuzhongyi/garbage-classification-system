@@ -45,7 +45,7 @@ export class GarbageManagementListRecordEventGarbageDropBusiness {
       if (stationIds.length > 0) {
         params.StationIds = stationIds;
       }
-      return this.service.record.GarbageDrop.all(params);
+      return this.service.record.GarbageDrop.array(params);
     },
   };
 }

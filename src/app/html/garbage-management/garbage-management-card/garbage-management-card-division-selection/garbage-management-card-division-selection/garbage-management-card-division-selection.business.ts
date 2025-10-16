@@ -29,7 +29,7 @@ export class GarbageManagementCardDivisionSelectionBusiness {
     let _default = await this.global.division.default;
     let params = new GetDivisionsParams();
     params.ParentId = _default.Id;
-    return this.service.all(params);
+    return this.service.array(params);
   }
 
   select(data: IDivision) {

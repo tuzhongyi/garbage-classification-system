@@ -57,7 +57,7 @@ export class GarbageStationRequestService extends AbstractService<GarbageStation
     let url = GarbageStationUrl.item(id);
     return this.typeBasic.delete(url);
   }
-  list(
+  paged(
     params: GetGarbageStationsParams = new GetGarbageStationsParams()
   ): Promise<PagedList<GarbageStation>> {
     let url = GarbageStationUrl.list();

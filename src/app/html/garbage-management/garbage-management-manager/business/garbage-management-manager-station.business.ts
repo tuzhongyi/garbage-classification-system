@@ -24,7 +24,7 @@ export class GarbageManagementManagerStationBusiness {
     let params = new GetGarbageStationsParams();
     params.AncestorId = division.Id;
     params.StationTypes = [...ObjectTool.model.GarbageStation.types];
-    let stations = await this.service.all(params);
+    let stations = await this.service.array(params);
     this.service.cache.save(stations);
     let statistic = await this.statistic.all(stations);
     let models: GarbageStationViewModel[] = [];
@@ -53,7 +53,7 @@ export class GarbageManagementManagerStationBusiness {
     all: (datas: GarbageStation[]) => {
       let params = new GetGarbageStationStatisticNumbersParams();
       params.Ids = datas.map((x) => x.Id);
-      return this.service.statistic.number.all(params);
+      return this.service.statistic.number.array(params);
     },
     get: (stationId: string) => {
       return this.service.statistic.number.get(stationId);

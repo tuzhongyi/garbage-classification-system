@@ -10,26 +10,30 @@ export interface IData {
 
 export interface IService<T extends IIdModel> {
   cache: ServiceCache<T>;
-  list: (params?: IParams, ...args: any[]) => Promise<PagedList<T>>;
-  all: <P extends PagedParams>(params?: P, ...args: any[]) => Promise<T[]>;
+  paged: (params?: IParams, ...args: any[]) => Promise<PagedList<T>>;
+  all: () => Promise<T[]>;
+  array: <P extends PagedParams>(params?: P, ...args: any[]) => Promise<T[]>;
   get: (id: string, ...args: any[]) => Promise<T>;
 }
 export abstract class AbstractService<T extends IIdModel>
   implements IService<T>
 {
-  all<P extends PagedParams>(
+  all(): Promise<T[]> {
+    return this.array();
+  }
+  array<P extends PagedParams>(
     params = new PagedParams(),
     ...args: any[]
   ): Promise<T[]> {
     return ServiceTool.all<P, T>(
       (_params, _args) => {
-        return this.list(_params, _args);
+        return this.paged(_params, _args);
       },
       params as P,
       args
     );
   }
-  abstract list(params?: IParams, ...args: any[]): Promise<PagedList<T>>;
+  abstract paged(params?: IParams, ...args: any[]): Promise<PagedList<T>>;
   abstract get(id: string, ...args: any[]): Promise<T>;
 }
 export interface AbstractService<T extends IIdModel> {

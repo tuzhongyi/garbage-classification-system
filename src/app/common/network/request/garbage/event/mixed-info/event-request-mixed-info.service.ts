@@ -25,7 +25,7 @@ export class EventRecordMixedIntoRequestService {
     let url = EventUrl.record.mixedinto.item(id);
     return this.type.get(url);
   }
-  async all(
+  async array(
     params: GetEventRecordMixedIntoParams = new GetEventRecordMixedIntoParams()
   ) {
     return ServiceTool.all((_params) => {

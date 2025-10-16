@@ -13,6 +13,6 @@ export class GarbageManagementMapGridBusiness {
     let division = await this.global.division.selected;
     let params = new GetGridCellsParams();
     params.AncestorId = division.Id;
-    return this.service.all(params);
+    return this.service.array(params);
   }
 }

@@ -17,7 +17,9 @@ export class ResourceCameraService {
     this.type = this.basic.type(AICamera);
   }
 
-  async all(params: GetResourceCamerasParams = new GetResourceCamerasParams()) {
+  async array(
+    params: GetResourceCamerasParams = new GetResourceCamerasParams()
+  ) {
     let data: AICamera[] = [];
     let index = 1;
     let paged: PagedList<AICamera>;

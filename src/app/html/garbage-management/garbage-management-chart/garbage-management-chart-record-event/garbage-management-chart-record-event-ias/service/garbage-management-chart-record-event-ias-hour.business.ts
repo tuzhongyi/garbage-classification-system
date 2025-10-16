@@ -48,6 +48,6 @@ export class GarbageManagementChartRecordEventIasHourBusiness {
     params.EndTime = duration.end;
     params.EventType = 103;
 
-    return this.service.event.cache.all(params);
+    return this.service.event.cache.array(params);
   }
 }

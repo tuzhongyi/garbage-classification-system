@@ -1,4 +1,4 @@
-import { PagedParams } from '../../IParams.interface';
+import { IParams, PagedParams } from '../../IParams.interface';
 
 /**获取资源标签列表请求参数 */
 export class GetResourceLabelsParams extends PagedParams {
@@ -6,4 +6,7 @@ export class GetResourceLabelsParams extends PagedParams {
   ResourceLabelIds?: string[];
   /**标签名称，支持LIKE(可选) */
   LabelName?: string;
+}
+export class GetBatchParams implements IParams {
+  LabelId!: string;
 }

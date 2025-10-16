@@ -48,7 +48,7 @@ export class GarbageManagementVehicleListTableBusiness {
       if (args.divisionId) {
         params.DivisionId = args.divisionId;
       }
-      return this.service.list(params);
+      return this.service.paged(params);
     },
   };
 }

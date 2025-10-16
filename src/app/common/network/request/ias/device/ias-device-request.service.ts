@@ -23,7 +23,7 @@ export class IasDeviceRequestService {
     return this.type.get(url);
   }
 
-  all(params: GetIasDevicesParams = new GetIasDevicesParams()) {
+  array(params: GetIasDevicesParams = new GetIasDevicesParams()) {
     return ServiceTool.all((_params) => {
       return this.list(_params);
     }, params);

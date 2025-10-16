@@ -13,6 +13,6 @@ export class SelectDivisionBusiness {
   async load(divisionId?: string) {
     let params = new GetDivisionsParams();
     params.ParentId = divisionId ?? (await this.global.division.default).Id;
-    return this.service.cache.all(params);
+    return this.service.cache.array(params);
   }
 }

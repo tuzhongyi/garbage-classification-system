@@ -15,7 +15,7 @@ export class ResourceEncodeDeviceService {
   }
   private type: HowellBaseTypeRequestService<EncodeDevice>;
 
-  async all(
+  async array(
     params: GetResourceEncodeDevicesParams = new GetResourceEncodeDevicesParams()
   ) {
     let data: EncodeDevice[] = [];

@@ -21,7 +21,7 @@ export class EventRecordGarbageDropRequestService {
 
   type: HowellBaseTypeRequestService<GarbageDropEventRecord>;
 
-  async all(
+  async array(
     params: GetGarbageDropEventRecordsParams = new GetGarbageDropEventRecordsParams()
   ) {
     return ServiceTool.all((_params) => {

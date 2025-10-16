@@ -16,7 +16,7 @@ export class IasAccessPointRequestService extends AbstractService<IasAccessPoint
 
   private type: HowellBaseTypeRequestService<IasAccessPoint>;
 
-  override list(
+  override paged(
     params = new GetIasAccessPointsParams()
   ): Promise<PagedList<IasAccessPoint>> {
     let url = IasUrl.access.point.list();

@@ -17,6 +17,6 @@ export class GarbageManagementChartStationCountBusiness {
   private datas(divisionId: string) {
     let params = new GetGarbageStationsParams();
     params.AncestorId = divisionId;
-    return this.service.cache.all(params);
+    return this.service.cache.array(params);
   }
 }

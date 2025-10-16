@@ -43,7 +43,7 @@ export class VehicleRequestService extends AbstractService<Vehicle> {
     let url = VehicleUrl.item(vehicleId);
     return this.type.delete(url);
   }
-  list(
+  paged(
     params: GetVehiclesParams = new GetVehiclesParams()
   ): Promise<PagedList<Vehicle>> {
     let url = VehicleUrl.list();

@@ -53,7 +53,7 @@ export class GarbageManagementListRecordEventBusiness {
     if (types.length > 0) {
       let params = new GetGarbageStationsParams();
       params.StationTypes = types;
-      let stations = await this.station.cache.all(params);
+      let stations = await this.station.cache.array(params);
       stationIds = stations.map((s) => s.Id);
     }
 

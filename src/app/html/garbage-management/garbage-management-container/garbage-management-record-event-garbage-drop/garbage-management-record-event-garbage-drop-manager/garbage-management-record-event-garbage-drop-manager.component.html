@@ -22,6 +22,13 @@
       >
         细分图表
       </div>
+      <div
+        class="button-bracket"
+        [class.selected]="index == Index.item"
+        (click)="on.index(Index.item)"
+      >
+        滞留详情
+      </div>
     </div>
   </div>
   <div class="garbage-management-record-event-garbage-drop-manager-body">
@@ -36,5 +43,8 @@
     <howell-garbage-management-record-event-garbage-drop-statistic-details-manager
       *ngIf="index == Index.details"
     ></howell-garbage-management-record-event-garbage-drop-statistic-details-manager>
+    <howell-garbage-management-record-event-garbage-drop-details-manager
+      *ngIf="index == Index.item"
+    ></howell-garbage-management-record-event-garbage-drop-details-manager>
   </div>
 </div>

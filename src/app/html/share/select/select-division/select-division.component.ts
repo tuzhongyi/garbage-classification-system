@@ -20,6 +20,7 @@ import { SelectDivisionBusiness } from './select-division.business';
   providers: [SelectDivisionBusiness],
 })
 export class SelectDivisionComponent {
+  @Input() default = false;
   @Input() selected?: Division;
   @Output() selectedChange = new EventEmitter<Division>();
   @Input() selectedId?: string;
@@ -39,6 +40,10 @@ export class SelectDivisionComponent {
       .load(parentId)
       .then((x) => {
         this.datas = x;
+        if (this.default && this.datas.length > 0) {
+          this.selected = this.datas[0];
+          this.on.change();
+        }
       })
       .finally(() => {
         this.loaded = true;

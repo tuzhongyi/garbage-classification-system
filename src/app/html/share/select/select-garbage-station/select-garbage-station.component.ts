@@ -23,6 +23,7 @@ import { SelectGarbageStationBusiness } from './select-garbage-station.business'
   providers: [SelectGarbageStationBusiness],
 })
 export class SelectGarbageStationComponent implements OnInit, OnChanges {
+  @Input() default = false;
   @Input() selected?: GarbageStation;
   @Output() selectedChange = new EventEmitter<GarbageStation>();
   @Input() selectedId?: string;
@@ -37,6 +38,10 @@ export class SelectGarbageStationComponent implements OnInit, OnChanges {
   private load(divisionId?: string, types: StationType[] = []) {
     this.business.load(divisionId, types).then((x) => {
       this.datas = x;
+      if (this.default && this.datas.length > 0) {
+        this.selected = this.datas[0];
+        this.on.change();
+      }
     });
   }
   private change = {

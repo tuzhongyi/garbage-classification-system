@@ -1,6 +1,7 @@
 import { VideoArgs } from '../../../../../html/share/video/video-multiple/video-multiple.model';
 import { Camera } from '../../../../network/model/garbage-station/camera.model';
 import { CameraImageUrl } from '../../../../network/model/url-model/camera-image-url.model';
+import { DateTimeTool } from '../../../date-time-tool/datetime.tool';
 import { CameraImageUrlTool } from './camera-image-url.tool';
 import { CameraPictureUrlTool } from './camera-picture-url.tool';
 import { CameraRecordUrlTool } from './camera-record-url.tool';
@@ -16,12 +17,24 @@ export class CameraTool {
     url.ImageUrl = camera.ImageUrl ?? '';
     return url;
   }
-  video(camera: Camera) {
+  preview(camera: Camera) {
     let video = new VideoArgs();
     video.image = camera.ImageUrl ?? '';
     video.preview = {
       cameraId: camera.Id,
+      cameraName: camera.Name,
       stream: 1,
+    };
+    return video;
+  }
+  playback(camera: Camera, time: Date) {
+    let video = new VideoArgs();
+    video.image = camera.ImageUrl ?? '';
+    video.playback = {
+      cameraId: camera.Id,
+      cameraName: camera.Name,
+      stream: 1,
+      duration: DateTimeTool.before(time),
     };
     return video;
   }

@@ -35,7 +35,7 @@ export class GarbageManagementManagerMapController {
     multiple: (data: GarbageStation) => {
       if (!data.Cameras) return;
       let videos = data.Cameras.map((x) => {
-        return ObjectTool.model.camera.video(x);
+        return ObjectTool.model.camera.preview(x);
       });
       this.window.video.multiple.open(data.Name, videos, VideoType.ws, data.Id);
     },

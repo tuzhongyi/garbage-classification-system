@@ -1,0 +1,25 @@
+<div class="line-time-axis-chart">
+  <div class="line-time-axis-chart-content">
+    <div #echarts class="echarts"></div>
+    <!-- <div class="height98 fill-width p-r-20" [options]="option" EChartLine></div> -->
+  </div>
+
+  <howell-garbage-drop-duration-panel
+    class="panel"
+    *ngIf="panel.line.display"
+    [model]="panel.line.model"
+    [ngStyle]="{ top: panel.line.position.y, left: panel.line.position.x }"
+  ></howell-garbage-drop-duration-panel>
+
+  <howell-garbage-drop-event-panel
+    class="panel"
+    *ngIf="panel.scatter.display"
+    [src]="panel.scatter.src"
+    [ngStyle]="{
+      bottom: panel.scatter.position.y,
+      left: panel.scatter.position.x
+    }"
+    (click)="onEventPanelClicked()"
+  >
+  </howell-garbage-drop-event-panel>
+</div>

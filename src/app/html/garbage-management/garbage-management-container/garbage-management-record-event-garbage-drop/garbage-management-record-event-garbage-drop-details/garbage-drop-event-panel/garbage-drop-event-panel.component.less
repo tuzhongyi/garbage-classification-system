@@ -1,0 +1,35 @@
+.garbage-drop-event-panel {
+
+  padding: 10px;
+  border-radius: 6px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 190px;
+  height: 100px;
+  cursor: pointer;
+  background-color: #1D1471;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: calc(100% - 20px) calc(100% - 20px);
+
+
+  .operation {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xxx-large;
+    opacity: 0.7;
+    color: white;
+  }
+
+  &:hover {
+    .operation {
+      opacity: 1;
+    }
+  }
+
+
+}

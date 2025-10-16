@@ -9,27 +9,27 @@ export class GarbageStationServiceCache extends ServiceCache<GarbageStation> {
   constructor(key: string, service: IService<GarbageStation>) {
     super(key, service, GarbageStation);
   }
-  override async get(id: string): Promise<GarbageStation> {
-    return new Promise((reject) => {
-      this.wait((data) => {
-        let result = data.find((x) => x.Id === id);
-        if (result) {
-          reject(result);
-          return;
-        }
-        this.service.get(id).then((x) => {
-          let datas = this.load();
-          if (!datas) datas = [];
-          let index = datas.findIndex((x) => x.Id == id);
-          if (index < 0) {
-            datas.push(x);
-            this.save(datas);
-          }
-          reject(x);
-        });
-      });
-    });
-  }
+  // override async get(id: string): Promise<GarbageStation> {
+  //   return new Promise((reject) => {
+  //     this.wait((data) => {
+  //       let result = data.find((x) => x.Id === id);
+  //       if (result) {
+  //         reject(result);
+  //         return;
+  //       }
+  //       this.service.get(id).then((x) => {
+  //         let datas = this.load();
+  //         if (!datas) datas = [];
+  //         let index = datas.findIndex((x) => x.Id == id);
+  //         if (index < 0) {
+  //           datas.push(x);
+  //           this.save(datas);
+  //         }
+  //         reject(x);
+  //       });
+  //     });
+  //   });
+  // }
 
   override async list(
     args?: GetGarbageStationsParams

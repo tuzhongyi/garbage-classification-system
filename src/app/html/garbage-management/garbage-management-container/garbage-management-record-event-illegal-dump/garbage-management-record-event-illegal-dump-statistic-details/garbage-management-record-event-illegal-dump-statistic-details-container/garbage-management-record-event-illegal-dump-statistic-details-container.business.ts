@@ -70,7 +70,7 @@ export class GarbageManagementRecordEventIllegalDumpStatisticDetailsContainerBus
     }
     let model = this.converter.Convert(
       data,
-      [EventType.IllegalDrop],
+      [EventType.IllegalDrop2],
       args.unit
     );
     return model;

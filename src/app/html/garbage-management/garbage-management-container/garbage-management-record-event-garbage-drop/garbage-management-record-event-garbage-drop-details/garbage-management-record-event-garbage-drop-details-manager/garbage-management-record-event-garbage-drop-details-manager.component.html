@@ -1,0 +1,121 @@
+<div class="garbage-management-record-event-garbage-drop-details-manager">
+  <div
+    class="garbage-management-record-event-garbage-drop-details-manager-head"
+  >
+    <div class="forms">
+      <div class="form-item">
+        <div class="form-item-text">选择时间</div>
+        <div class="form-item-value">
+          <date-time-control [(date)]="chart.args.date"></date-time-control>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-item-text">行政区域</div>
+        <div class="form-item-value">
+          <hw-select [(selected)]="chart.args.divisionId" [nullable]="true">
+            <howell-division-select
+              [default]="true"
+              [(selectedId)]="chart.args.divisionId"
+            ></howell-division-select>
+          </hw-select>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-item-text">投放点</div>
+        <div class="form-item-value">
+          <hw-select [(selected)]="chart.args.stationId" [nullable]="true">
+            <howell-garbage-station-select
+              [default]="true"
+              [divisionId]="chart.args.divisionId"
+              [(selectedId)]="chart.args.stationId"
+              [types]="chart.station.types"
+            ></howell-garbage-station-select>
+          </hw-select>
+        </div>
+      </div>
+
+      <div class="form-item submit">
+        <button class="button-border-blue" (click)="on.search()">查询</button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="garbage-management-record-event-garbage-drop-details-manager-body"
+  >
+    <howell-garbage-management-record-event-garbage-drop-details-container
+      [args]="chart.args"
+      [load]="chart.load"
+      (media)="on.media($event)"
+      (statistic)="on.statistic($event)"
+    ></howell-garbage-management-record-event-garbage-drop-details-container>
+    <howell-window
+      [model]="window.image"
+      *ngIf="window.image.show"
+      [style]="window.image.style"
+      [title]="window.image.title"
+      [button]="false"
+    >
+      <div ngProjectAs="window-head-operation" class="button-group">
+        <div class="button" title="下载视频" (click)="on.download.video()">
+          <i class="howell-icon-videodownload"></i>
+        </div>
+        <div class="button" title="下载图片" (click)="on.download.image()">
+          <i class="howell-icon-picturedownload"></i>
+        </div>
+        <div class="button" title="播放视频" (click)="window.image.on.play()">
+          <i class="howell-icon-video"></i>
+        </div>
+        <div class="button close" (click)="window.image.show = false">
+          <i class="howell-icon-Close"></i>
+        </div>
+      </div>
+      <app-picture [src]="window.image.data?.ImageUrl"></app-picture>
+    </howell-window>
+    <howell-window
+      [model]="window.video.multiple"
+      *ngIf="window.video.multiple.show"
+      [style]="window.video.multiple.style"
+      [title]="window.video.multiple.title"
+    >
+      <div class="window-video-multiple">
+        <div class="window-video-multiple-body">
+          <howell-video-multiple
+            [datas]="window.video.multiple.datas"
+            [playable]="false"
+            (play)="window.video.multiple.on.play($event)"
+          ></howell-video-multiple>
+        </div>
+        <div class="window-video-multiple-foot">
+          <div class="window-video-multiple-statistic">
+            垃圾堆数
+            <span
+              [ngClass]="{
+                'text-orange':
+                  (window.video.multiple.statistic?.GarbageCount ?? 0) > 0,
+                'text-green':
+                  (window.video.multiple.statistic?.GarbageCount ?? 0) == 0
+              }"
+              >{{ window.video.multiple.statistic?.GarbageCount ?? 0 }}</span
+            >
+            堆
+          </div>
+          <div class="window-video-multiple-time">
+            {{ window.video.multiple.date | date : Language.yyyyMMddHHmm }}
+          </div>
+        </div>
+      </div>
+    </howell-window>
+    <howell-window
+      [model]="window.video.single"
+      *ngIf="window.video.single.show"
+      [style]="window.video.single.style"
+      [title]="window.video.single.title"
+      [mask]="false"
+    >
+      <howell-video
+        [playback]="window.video.single.playback"
+        (opened)="window.video.single.play()"
+      ></howell-video>
+    </howell-window>
+  </div>
+</div>

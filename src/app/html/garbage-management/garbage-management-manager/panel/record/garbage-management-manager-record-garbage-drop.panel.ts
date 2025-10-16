@@ -1,5 +1,6 @@
 import { WindowViewModel } from '../../../../../common/components/window/window.model';
 import { GarbageDropEventRecord } from '../../../../../common/network/model/garbage-station/event-record/garbage-drop-event-record.model';
+import { IEventRecord } from '../../../../../common/network/model/garbage-station/event-record/garbage-event-record.model';
 import { PagedArgs } from '../../../../../common/network/model/model.interface';
 import { PagedList } from '../../../../../common/network/model/page_list.model';
 import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
@@ -38,7 +39,7 @@ export class GarbageManagementManagerRecordGarbageDropPanel extends WindowViewMo
       this.window.task.complete.open(data);
     },
     video: {
-      single: (data: GarbageDropEventRecord) => {
+      single: (data: IEventRecord) => {
         let videos = ObjectTool.model.record.garbagedrop.videos(data);
         if (videos.length > 0) {
           let video = videos[0];

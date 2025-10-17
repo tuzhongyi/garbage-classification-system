@@ -7,9 +7,9 @@ import { DateTimePickerView } from '../../../../../../common/directives/date-tim
 import { TimeUnit } from '../../../../../../common/enum/time-unit.enum';
 import { Language } from '../../../../../../common/tools/language';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
-import { SelectGarbageStationComponent } from '../../../../../share/select/select-garbage-station/select-garbage-station.component';
 
 import { StationType } from '../../../../../../common/enum/station-type.enum';
+import { SelectSearchGarbageStationComponent } from '../../../../../share/select/select-garbage-station-search/select-garbage-station-search.component';
 import { GarbageManagementRecordEventMixedIntoStatisticDetailsArgs } from '../garbage-management-record-event-mixed-into-statistic-details-container/business/garbage-management-record-event-mixed-into-statistic-details-container.model';
 import { GarbageManagementRecordEventMixedIntoStatisticDetailsContainerComponent } from '../garbage-management-record-event-mixed-into-statistic-details-container/garbage-management-record-event-mixed-into-statistic-details-container.component';
 
@@ -22,7 +22,7 @@ import { GarbageManagementRecordEventMixedIntoStatisticDetailsContainerComponent
     DateTimeControlComponent,
     HowellSelectComponent,
     SelectDivisionComponent,
-    SelectGarbageStationComponent,
+    SelectSearchGarbageStationComponent,
     GarbageManagementRecordEventMixedIntoStatisticDetailsContainerComponent,
   ],
   templateUrl:

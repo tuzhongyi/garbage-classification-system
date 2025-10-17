@@ -7,7 +7,7 @@ import { StationType } from '../../../../../../common/enum/station-type.enum';
 import { GarbageFullEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/garbage-full-event-record.model';
 import { PagedArgs } from '../../../../../../common/network/model/model.interface';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
-import { SelectGarbageStationComponent } from '../../../../../share/select/select-garbage-station/select-garbage-station.component';
+import { SelectSearchGarbageStationComponent } from '../../../../../share/select/select-garbage-station-search/select-garbage-station-search.component';
 import { GarbageManagementRecordEventGarbageFullListTableComponent } from '../garbage-management-record-event-garbage-full-list-table/garbage-management-record-event-garbage-full-list-table.component';
 import { GarbageManagementRecordEventGarbageFullListTableArgs } from '../garbage-management-record-event-garbage-full-list-table/garbage-management-record-event-garbage-full-list-table.model';
 
@@ -18,7 +18,7 @@ import { GarbageManagementRecordEventGarbageFullListTableArgs } from '../garbage
     FormsModule,
     DateTimeControlComponent,
     SelectDivisionComponent,
-    SelectGarbageStationComponent,
+    SelectSearchGarbageStationComponent,
     HowellSelectComponent,
     GarbageManagementRecordEventGarbageFullListTableComponent,
   ],

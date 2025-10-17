@@ -7,7 +7,7 @@ import { StationType } from '../../../../../../common/enum/station-type.enum';
 import { IllegalDropEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/illegal-drop-event-record.model';
 import { PagedArgs } from '../../../../../../common/network/model/model.interface';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
-import { SelectGarbageStationComponent } from '../../../../../share/select/select-garbage-station/select-garbage-station.component';
+import { SelectSearchGarbageStationComponent } from '../../../../../share/select/select-garbage-station-search/select-garbage-station-search.component';
 import { GarbageManagementRecordEventIllegalDumpListTableComponent } from '../garbage-management-record-event-illegal-dump-list-table/garbage-management-record-event-illegal-dump-list-table.component';
 import { GarbageManagementRecordEventIllegalDumpListTableArgs } from '../garbage-management-record-event-illegal-dump-list-table/garbage-management-record-event-illegal-dump-list-table.model';
 
@@ -18,7 +18,7 @@ import { GarbageManagementRecordEventIllegalDumpListTableArgs } from '../garbage
     FormsModule,
     DateTimeControlComponent,
     SelectDivisionComponent,
-    SelectGarbageStationComponent,
+    SelectSearchGarbageStationComponent,
     HowellSelectComponent,
     GarbageManagementRecordEventIllegalDumpListTableComponent,
   ],

@@ -10,6 +10,7 @@ export class GarbageManagementRecordEventGarbageFullListTableArgs {
   stationId?: string;
   stationname?: string;
   communityname?: string;
+  handle?: boolean;
 }
 export class GarbageFullEventRecordViewModel extends GarbageFullEventRecord {
   images: string[] = [];

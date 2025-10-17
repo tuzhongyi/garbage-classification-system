@@ -102,6 +102,9 @@ export class GarbageManagementRecordEventMixedIntoListTableBusiness {
       if (args.communityname) {
         params.CommunityName = args.communityname;
       }
+      if (args.handle != undefined) {
+        params.IsHandle = args.handle;
+      }
       return this.service.event.record.MixedInto.list(params);
     },
   };

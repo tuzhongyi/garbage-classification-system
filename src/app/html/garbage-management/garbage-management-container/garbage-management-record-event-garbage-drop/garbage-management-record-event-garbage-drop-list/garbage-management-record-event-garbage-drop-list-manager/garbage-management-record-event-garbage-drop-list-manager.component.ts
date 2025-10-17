@@ -7,9 +7,10 @@ import { StationType } from '../../../../../../common/enum/station-type.enum';
 import { GarbageDropEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/garbage-drop-event-record.model';
 import { PagedArgs } from '../../../../../../common/network/model/model.interface';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
-import { SelectGarbageStationComponent } from '../../../../../share/select/select-garbage-station/select-garbage-station.component';
+import { SelectSearchGarbageStationComponent } from '../../../../../share/select/select-garbage-station-search/select-garbage-station-search.component';
 import { GarbageManagementRecordEventGarbageDropListTableComponent } from '../garbage-management-record-event-garbage-drop-list-table/garbage-management-record-event-garbage-drop-list-table.component';
 import { GarbageManagementRecordEventGarbageDropListTableArgs } from '../garbage-management-record-event-garbage-drop-list-table/garbage-management-record-event-garbage-drop-list-table.model';
+import { GarbageManagementRecordEventGarbageDropListManagerSource } from './garbage-management-record-event-garbage-drop-list-manager.source';
 
 @Component({
   selector: 'howell-garbage-management-record-event-garbage-drop-list-manager',
@@ -18,7 +19,7 @@ import { GarbageManagementRecordEventGarbageDropListTableArgs } from '../garbage
     FormsModule,
     DateTimeControlComponent,
     SelectDivisionComponent,
-    SelectGarbageStationComponent,
+    SelectSearchGarbageStationComponent,
     HowellSelectComponent,
     GarbageManagementRecordEventGarbageDropListTableComponent,
   ],
@@ -34,6 +35,39 @@ export class GarbageManagementRecordEventGarbageDropListManagerComponent {
   @Output() complete = new EventEmitter<GarbageDropEventRecord>();
 
   constructor() {}
+
+  source = new GarbageManagementRecordEventGarbageDropListManagerSource();
+
+  state = {
+    value: undefined as number | undefined,
+    on: {
+      change: () => {
+        this.table.args.handle = undefined;
+        this.table.args.timeout = undefined;
+        switch (this.state.value) {
+          case 0:
+            this.table.args.handle = false;
+            break;
+          case 1:
+            this.table.args.handle = true;
+            break;
+          case 2:
+            this.table.args.timeout = true;
+            break;
+          case 3:
+            this.table.args.timeout = true;
+            this.table.args.handle = false;
+            break;
+          case 4:
+            this.table.args.timeout = true;
+            this.table.args.handle = true;
+            break;
+          default:
+            break;
+        }
+      },
+    },
+  };
 
   table = {
     args: new GarbageManagementRecordEventGarbageDropListTableArgs(),

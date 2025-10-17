@@ -1,0 +1,114 @@
+.select-search {
+  width: 100%;
+  height: 36px;
+  position: relative;
+  border: 1px solid #286cf1;
+  padding: 0 35px 0 10px;
+  box-sizing: border-box;
+
+  background-color: rgba(24, 3, 113, 0.3);
+  color: #ddf4ff;
+  overflow: visible;
+
+  background-image: url(../../../../../assets/image/select-arrow.png);
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  min-width: 200px;
+
+
+  &.clearable {
+    padding-right: 50px;
+  }
+
+
+  &-selection {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    cursor: pointer;
+    white-space: nowrap;
+
+  }
+
+
+  &-input {
+    position: absolute;
+    left: -1px;
+    top: 100%;
+    height: 100%;
+    width: calc(100% + 2px);
+    display: none;
+    z-index: 999;
+
+    background-color: #1E005B;
+
+    &.show {
+      display: block;
+    }
+
+    &-text {
+      width: 100%;
+      height: 100%;
+
+      input {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    &-button,
+    &-clean {
+      position: absolute;
+      height: 100%;
+      aspect-ratio: 1;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &-clean {
+      right: 30px;
+    }
+
+  }
+
+  &-list {
+
+    position: absolute;
+    top: calc(200% - 1px);
+    left: -1px;
+    width: calc(100% + 2px);
+    border: 1px solid #286cf1;
+    box-sizing: border-box;
+    background-color: #1E005B;
+    max-height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 999;
+
+
+    display: none;
+    flex-direction: column;
+
+    &-option {
+      width: 100%;
+      padding: 10px;
+      cursor: pointer;
+      white-space: nowrap;
+
+      &:hover {
+        background-color: #2F61D2;
+      }
+
+    }
+
+    &.show {
+      display: flex;
+    }
+  }
+}

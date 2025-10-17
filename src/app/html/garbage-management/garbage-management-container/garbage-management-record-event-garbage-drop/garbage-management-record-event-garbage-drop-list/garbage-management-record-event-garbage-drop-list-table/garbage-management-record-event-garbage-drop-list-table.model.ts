@@ -1,3 +1,4 @@
+import { CompareRange } from '../../../../../../common/network/model/garbage-station/compare-range.model';
 import { GarbageDropEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/garbage-drop-event-record.model';
 import { GarbageStation } from '../../../../../../common/network/model/garbage-station/garbage-station.model';
 import { DateTimeTool } from '../../../../../../common/tools/date-time-tool/datetime.tool';
@@ -9,9 +10,9 @@ export class GarbageManagementRecordEventGarbageDropListTableArgs {
   stationId?: string;
   stationname?: string;
   communityname?: string;
-  stay?: number;
-  handle?: number;
-  timeout?: number;
+  stay?: CompareRange<number>;
+  handle?: boolean;
+  timeout?: boolean;
 }
 export class GarbageDropEventRecordViewModel extends GarbageDropEventRecord {
   images: string[] = [];

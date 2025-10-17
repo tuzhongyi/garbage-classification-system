@@ -1,0 +1,92 @@
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
+import { SelectDirective } from '../../../../common/components/select/hw-select/select.directive';
+import { StationType } from '../../../../common/enum/station-type.enum';
+import { GarbageStation } from '../../../../common/network/model/garbage-station/garbage-station.model';
+import { SelectGarbageStationBusiness } from '../select-garbage-station/select-garbage-station.business';
+import { SelectSearchComponent } from '../select-search/select-search.component';
+
+@Component({
+  selector: 'howell-select-search-garbage-station',
+  imports: [CommonModule, SelectSearchComponent],
+  templateUrl: './select-garbage-station-search.component.html',
+  styleUrl: './select-garbage-station-search.component.less',
+  providers: [SelectGarbageStationBusiness],
+})
+export class SelectSearchGarbageStationComponent implements OnInit, OnChanges {
+  @Input() default = false;
+  @Input() clearable = false;
+  @Input() selected?: GarbageStation;
+  @Output() selectedChange = new EventEmitter<GarbageStation>();
+  @Input() selectedId?: string;
+  @Output() selectedIdChange = new EventEmitter<string>();
+  @Input() divisionId?: string;
+  @Input() types: StationType[] = [];
+  @Output() element = new EventEmitter<SelectDirective>();
+
+  constructor(private business: SelectGarbageStationBusiness) {}
+
+  datas: GarbageStation[] = [];
+
+  private load(divisionId?: string, types: StationType[] = []) {
+    this.business.load(divisionId, types).then((x) => {
+      this.datas = x;
+      if (this.default && this.datas.length > 0) {
+        this.selected = this.datas[0];
+        this.on.change();
+      }
+    });
+  }
+  private change = {
+    selectedId: (simple: SimpleChange) => {
+      if (simple && !simple.firstChange) {
+        if (this.selectedId) {
+          this.selected = this.datas.find((x) => x.Id === this.selectedId);
+        } else {
+          this.selected = undefined;
+        }
+        this.selectedChange.emit(this.selected);
+      }
+    },
+    divisionId: (simple: SimpleChange) => {
+      if (simple && !simple.firstChange) {
+        this.load(this.divisionId, this.types);
+      }
+    },
+    types: (simple: SimpleChange) => {
+      if (simple && !simple.firstChange) {
+        this.load(this.divisionId, this.types);
+      }
+    },
+  };
+
+  ngOnInit(): void {
+    this.load(this.divisionId, this.types);
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.change.selectedId(changes['selectedId']);
+    this.change.divisionId(changes['divisionId']);
+    this.change.types(changes['types']);
+  }
+
+  on = {
+    change: () => {
+      this.selectedChange.emit(this.selected);
+
+      this.selectedId = this.selected?.Id;
+      this.selectedIdChange.emit(this.selectedId);
+    },
+    element: (e: SelectDirective) => {
+      this.element.emit(e);
+    },
+  };
+}

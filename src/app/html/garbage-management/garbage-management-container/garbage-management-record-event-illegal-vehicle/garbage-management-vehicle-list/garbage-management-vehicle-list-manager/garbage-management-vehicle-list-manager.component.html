@@ -4,7 +4,7 @@
   >
     <div class="forms">
       <div class="form-item">
-        <div class="form-item-text">行政区域</div>
+        <div class="form-item-text">行政区域:</div>
         <div class="form-item-value">
           <hw-select [(selected)]="table.args.divisionId" [nullable]="true">
             <howell-division-select
@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="form-item">
-        <div class="form-item-text">车辆类型</div>
+        <div class="form-item-text">车辆类型:</div>
         <div class="form-item-value">
           <select [(ngModel)]="table.args.type">
             <option [ngValue]="undefined">全部</option>
@@ -25,7 +25,7 @@
         </div>
       </div>
       <div class="form-item">
-        <div class="form-item-text">车牌颜色</div>
+        <div class="form-item-text">车牌颜色:</div>
         <div class="form-item-value">
           <select [(ngModel)]="table.args.color">
             <option [ngValue]="undefined">全部</option>
@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="form-item">
-        <div class="form-item-text">车牌号码</div>
+        <div class="form-item-text">车牌号码:</div>
         <div class="form-item-value">
           <input type="text" [(ngModel)]="table.args.plate" />
         </div>

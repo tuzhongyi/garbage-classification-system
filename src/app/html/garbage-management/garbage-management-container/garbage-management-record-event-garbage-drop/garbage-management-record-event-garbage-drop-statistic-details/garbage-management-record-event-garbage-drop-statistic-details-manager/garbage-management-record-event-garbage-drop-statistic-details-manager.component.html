@@ -6,7 +6,7 @@
   >
     <div class="forms">
       <div class="form-item">
-        <div class="form-item-text">选择时间</div>
+        <div class="form-item-text">选择时间:</div>
         <div class="form-item-value date">
           <date-time-control
             [week]="date.week"
@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="form-item">
-        <div class="form-item-text">行政区域</div>
+        <div class="form-item-text">行政区域:</div>
         <div class="form-item-value">
           <hw-select [(selected)]="chart.args.divisionId" [nullable]="true">
             <howell-division-select
@@ -28,14 +28,15 @@
         </div>
       </div>
       <div class="form-item">
-        <div class="form-item-text">投放点</div>
+        <div class="form-item-text">投放点:</div>
         <div class="form-item-value">
           <hw-select [(selected)]="chart.args.stationId" [nullable]="true">
-            <howell-garbage-station-select
+            <howell-select-search-garbage-station
+              [clearable]="true"
               [divisionId]="chart.args.divisionId"
               [(selectedId)]="chart.args.stationId"
               [types]="chart.station.types"
-            ></howell-garbage-station-select>
+            ></howell-select-search-garbage-station>
           </hw-select>
         </div>
       </div>

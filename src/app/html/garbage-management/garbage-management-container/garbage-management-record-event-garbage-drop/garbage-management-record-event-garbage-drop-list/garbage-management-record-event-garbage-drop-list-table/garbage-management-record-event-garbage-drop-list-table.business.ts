@@ -149,6 +149,16 @@ export class GarbageManagementRecordEventGarbageDropListTableBusiness {
       if (args.communityname) {
         params.CommunityName = args.communityname;
       }
+      if (args.handle != undefined) {
+        params.IsHandle = args.handle;
+      }
+      if (args.timeout != undefined) {
+        params.IsTimeout = args.timeout;
+      }
+      if (args.stay) {
+        params.TakeMinutes = args.stay;
+      }
+
       return this.service.event.record.GarbageDrop.list(params);
     },
   };

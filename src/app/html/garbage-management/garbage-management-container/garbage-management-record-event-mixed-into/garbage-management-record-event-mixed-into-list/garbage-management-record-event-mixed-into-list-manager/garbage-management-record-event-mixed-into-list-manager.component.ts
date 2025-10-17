@@ -7,7 +7,7 @@ import { StationType } from '../../../../../../common/enum/station-type.enum';
 import { MixedIntoEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/mixed-into-event-record.model';
 import { PagedArgs } from '../../../../../../common/network/model/model.interface';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
-import { SelectGarbageStationComponent } from '../../../../../share/select/select-garbage-station/select-garbage-station.component';
+import { SelectSearchGarbageStationComponent } from '../../../../../share/select/select-garbage-station-search/select-garbage-station-search.component';
 import { GarbageManagementRecordEventMixedIntoListTableComponent } from '../garbage-management-record-event-mixed-into-list-table/garbage-management-record-event-mixed-into-list-table.component';
 import { GarbageManagementRecordEventMixedIntoListTableArgs } from '../garbage-management-record-event-mixed-into-list-table/garbage-management-record-event-mixed-into-list-table.model';
 
@@ -18,7 +18,7 @@ import { GarbageManagementRecordEventMixedIntoListTableArgs } from '../garbage-m
     FormsModule,
     DateTimeControlComponent,
     SelectDivisionComponent,
-    SelectGarbageStationComponent,
+    SelectSearchGarbageStationComponent,
     HowellSelectComponent,
     GarbageManagementRecordEventMixedIntoListTableComponent,
   ],

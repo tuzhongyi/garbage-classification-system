@@ -1,0 +1,39 @@
+<div class="select-search" [class.clearable]="clearable">
+  <div
+    class="select-search-selection"
+    hw-select-content
+    (click)="on.open($event)"
+  >
+    {{ selected?.Name }}
+  </div>
+
+  <div
+    class="select-search-input"
+    [class.show]="show"
+    (click)="on.stop($event)"
+  >
+    <div class="select-search-input-text">
+      <input type="text" [(ngModel)]="name" />
+    </div>
+    <div
+      class="select-search-input-clean button"
+      *ngIf="!!name"
+      (click)="on.clean()"
+    >
+      <i class="howell-icon-Close"></i>
+    </div>
+    <div class="select-search-input-button button" (click)="on.search()">
+      <i class="mdi mdi-magnify"></i>
+    </div>
+  </div>
+  <div class="select-search-list" [class.show]="show" (click)="on.stop($event)">
+    <div
+      class="select-search-list-option"
+      *ngFor="let item of datas"
+      (click)="on.select(item)"
+      [title]="item.Name"
+    >
+      {{ item.Name }}
+    </div>
+  </div>
+</div>

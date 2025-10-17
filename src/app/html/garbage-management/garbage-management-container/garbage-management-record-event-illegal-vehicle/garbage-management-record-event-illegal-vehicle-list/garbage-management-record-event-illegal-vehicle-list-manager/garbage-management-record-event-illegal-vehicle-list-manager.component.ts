@@ -12,7 +12,7 @@ import { PagedList } from '../../../../../../common/network/model/page_list.mode
 import { CameraImageUrl } from '../../../../../../common/network/model/url-model/camera-image-url.model';
 import { ObjectTool } from '../../../../../../common/tools/object-tool/object.tool';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
-import { SelectGarbageStationComponent } from '../../../../../share/select/select-garbage-station/select-garbage-station.component';
+import { SelectSearchGarbageStationComponent } from '../../../../../share/select/select-garbage-station-search/select-garbage-station-search.component';
 import { GarbageManagementRecordEventIllegalVehicleListTableComponent } from '../garbage-management-record-event-illegal-vehicle-list-table/garbage-management-record-event-illegal-vehicle-list-table.component';
 import { GarbageManagementRecordEventIllegalVehicleListTableArgs } from '../garbage-management-record-event-illegal-vehicle-list-table/garbage-management-record-event-illegal-vehicle-list-table.model';
 import { GarbageManagementRecordEventIllegalVehicleListManagerBusiness } from './garbage-management-record-event-illegal-vehicle-list-manager.business';
@@ -26,7 +26,7 @@ import { GarbageManagementRecordEventIllegalVehicleListConfirmWindow } from './g
     FormsModule,
     DateTimeControlComponent,
     SelectDivisionComponent,
-    SelectGarbageStationComponent,
+    SelectSearchGarbageStationComponent,
     HowellSelectComponent,
     WindowConfirmComponent,
     GarbageManagementRecordEventIllegalVehicleListTableComponent,

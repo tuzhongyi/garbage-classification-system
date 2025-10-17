@@ -2,7 +2,7 @@
   <div class="garbage-management-station-statistic-details-manager-head">
     <div class="forms">
       <div class="form-item">
-        <div class="form-item-text">选择时间</div>
+        <div class="form-item-text">选择时间:</div>
         <div class="form-item-value date">
           <date-time-control
             [week]="date.week"
@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="form-item">
-        <div class="form-item-text">类型</div>
+        <div class="form-item-text">类型:</div>
         <div class="form-item-value">
           <select [(ngModel)]="chart.args.type">
             <option *ngFor="let item of source.types" [ngValue]="item.Id">
@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="form-item">
-        <div class="form-item-text">投放点</div>
+        <div class="form-item-text">投放点:</div>
         <div class="form-item-value stations">
           <howell-select-multiple
             [datas]="source.stations"

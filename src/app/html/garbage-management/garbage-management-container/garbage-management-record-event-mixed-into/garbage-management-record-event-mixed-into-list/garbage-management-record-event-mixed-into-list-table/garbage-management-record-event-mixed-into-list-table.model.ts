@@ -10,6 +10,7 @@ export class GarbageManagementRecordEventMixedIntoListTableArgs {
   stationId?: string;
   stationname?: string;
   communityname?: string;
+  handle?: boolean;
 }
 export class MixedIntoEventRecordViewModel extends MixedIntoEventRecord {
   images: string[] = [];

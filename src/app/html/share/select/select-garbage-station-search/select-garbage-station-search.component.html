@@ -1,0 +1,9 @@
+<div class="select-garbage-station-search">
+  <howell-select-search
+    [datas]="datas"
+    [clearable]="clearable"
+    (element)="on.element($event)"
+    [(selected)]="selected"
+    (selectedChange)="on.change()"
+  ></howell-select-search>
+</div>

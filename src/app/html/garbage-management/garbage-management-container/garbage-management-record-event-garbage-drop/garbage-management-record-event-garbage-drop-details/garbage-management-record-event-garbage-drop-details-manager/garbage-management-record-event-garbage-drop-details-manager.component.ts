@@ -9,7 +9,7 @@ import { IllegalDropEventRecord } from '../../../../../../common/network/model/g
 import { Language } from '../../../../../../common/tools/language';
 import { ObjectTool } from '../../../../../../common/tools/object-tool/object.tool';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
-import { SelectGarbageStationComponent } from '../../../../../share/select/select-garbage-station/select-garbage-station.component';
+import { SelectSearchGarbageStationComponent } from '../../../../../share/select/select-garbage-station-search/select-garbage-station-search.component';
 import { VideoComponent } from '../../../../../share/video/component/video.component';
 import { VideoMultipleComponent } from '../../../../../share/video/video-multiple/video-multiple.component';
 import { HowellWindowComponent } from '../../../../../share/window/window.component';
@@ -27,7 +27,7 @@ import { GarbageManagementRecordEventGarbageDropDetailsManagerWindow } from './g
     DateTimeControlComponent,
     HowellSelectComponent,
     SelectDivisionComponent,
-    SelectGarbageStationComponent,
+    SelectSearchGarbageStationComponent,
     GarbageManagementRecordEventGarbageDropDetailsContainerComponent,
     HowellWindowComponent,
     PictureComponent,

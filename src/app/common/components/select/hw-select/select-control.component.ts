@@ -22,6 +22,7 @@ import { SelectDirective } from './select.directive';
 export class HowellSelectComponent implements OnInit, AfterViewChecked {
   @Input() nullable: boolean = false;
   @Input() nulltext = '请选择';
+  @Input() input_element?: SelectDirective;
 
   @Input() public set style(v: any) {
     if (this._style === undefined) {
@@ -67,8 +68,10 @@ export class HowellSelectComponent implements OnInit, AfterViewChecked {
   current?: ElementRef<HTMLDivElement>;
 
   get element() {
-    if (this.element_directive) {
-      return this.element_directive.nativeElement;
+    if (this.input_element) {
+      return this.input_element;
+    } else if (this.element_directive) {
+      return this.element_directive;
     } else if (this.element_select) {
       return this.element_select.nativeElement;
     } else if (this.current) {

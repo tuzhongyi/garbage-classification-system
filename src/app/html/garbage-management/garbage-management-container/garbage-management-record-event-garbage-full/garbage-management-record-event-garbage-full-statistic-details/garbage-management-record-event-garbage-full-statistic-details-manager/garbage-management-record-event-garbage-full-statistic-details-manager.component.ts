@@ -8,7 +8,7 @@ import { StationType } from '../../../../../../common/enum/station-type.enum';
 import { TimeUnit } from '../../../../../../common/enum/time-unit.enum';
 import { Language } from '../../../../../../common/tools/language';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
-import { SelectGarbageStationComponent } from '../../../../../share/select/select-garbage-station/select-garbage-station.component';
+import { SelectSearchGarbageStationComponent } from '../../../../../share/select/select-garbage-station-search/select-garbage-station-search.component';
 import { GarbageManagementRecordEventGarbageFullStatisticDetailsArgs } from '../garbage-management-record-event-garbage-full-statistic-details-container/business/garbage-management-record-event-garbage-full-statistic-details-container.model';
 import { GarbageManagementRecordEventGarbageFullStatisticDetailsContainerComponent } from '../garbage-management-record-event-garbage-full-statistic-details-container/garbage-management-record-event-garbage-full-statistic-details-container.component';
 
@@ -21,7 +21,7 @@ import { GarbageManagementRecordEventGarbageFullStatisticDetailsContainerCompone
     DateTimeControlComponent,
     HowellSelectComponent,
     SelectDivisionComponent,
-    SelectGarbageStationComponent,
+    SelectSearchGarbageStationComponent,
     GarbageManagementRecordEventGarbageFullStatisticDetailsContainerComponent,
   ],
   templateUrl:

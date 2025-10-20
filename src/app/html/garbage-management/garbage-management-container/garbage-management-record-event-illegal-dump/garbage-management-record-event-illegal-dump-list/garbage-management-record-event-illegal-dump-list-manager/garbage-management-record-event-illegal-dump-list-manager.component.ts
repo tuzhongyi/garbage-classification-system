@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DateTimeControlComponent } from '../../../../../../common/components/date-time/date-time-control/date-time-control.component';
 import { HowellSelectComponent } from '../../../../../../common/components/select/hw-select/select-control.component';
@@ -8,6 +16,7 @@ import { IllegalDropEventRecord } from '../../../../../../common/network/model/g
 import { PagedArgs } from '../../../../../../common/network/model/model.interface';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
 import { SelectSearchGarbageStationComponent } from '../../../../../share/select/select-garbage-station-search/select-garbage-station-search.component';
+import { GarbageManagementRecordEventIllegalDumpArgs } from '../../garbage-management-record-event-illegal-dump.model';
 import { GarbageManagementRecordEventIllegalDumpListTableComponent } from '../garbage-management-record-event-illegal-dump-list-table/garbage-management-record-event-illegal-dump-list-table.component';
 import { GarbageManagementRecordEventIllegalDumpListTableArgs } from '../garbage-management-record-event-illegal-dump-list-table/garbage-management-record-event-illegal-dump-list-table.model';
 
@@ -27,7 +36,12 @@ import { GarbageManagementRecordEventIllegalDumpListTableArgs } from '../garbage
   styleUrl:
     './garbage-management-record-event-illegal-dump-list-manager.component.less',
 })
-export class GarbageManagementRecordEventIllegalDumpListManagerComponent {
+export class GarbageManagementRecordEventIllegalDumpListManagerComponent
+  implements OnChanges
+{
+  @Input() args: GarbageManagementRecordEventIllegalDumpArgs = {};
+  @Output() argsChange =
+    new EventEmitter<GarbageManagementRecordEventIllegalDumpArgs>();
   @Output() image = new EventEmitter<PagedArgs<IllegalDropEventRecord>>();
   @Output() video = new EventEmitter<IllegalDropEventRecord>();
 
@@ -45,7 +59,34 @@ export class GarbageManagementRecordEventIllegalDumpListManagerComponent {
     type: 'station',
   };
 
+  private change = {
+    args: (simple: SimpleChange) => {
+      if (simple) {
+        if (this.table.args.stationId != this.args.stationId) {
+          this.table.args.stationId = this.args.stationId;
+        }
+        if (this.table.args.divisionId != this.args.divisionId) {
+          this.table.args.divisionId = this.args.divisionId;
+        }
+      }
+    },
+  };
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.change.args(changes['args']);
+  }
+
   on = {
+    change: {
+      station: () => {
+        this.args.stationId = this.table.args.stationId;
+        this.argsChange.emit(this.args);
+      },
+      division: () => {
+        this.args.divisionId = this.table.args.divisionId;
+        this.argsChange.emit(this.args);
+      },
+    },
     search: () => {
       this.table.load.emit(this.table.args);
     },

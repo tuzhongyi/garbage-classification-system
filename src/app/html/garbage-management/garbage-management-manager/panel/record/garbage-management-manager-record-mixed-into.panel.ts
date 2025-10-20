@@ -4,6 +4,7 @@ import { PagedArgs } from '../../../../../common/network/model/model.interface';
 import { PagedList } from '../../../../../common/network/model/page_list.model';
 import { DateTimeTool } from '../../../../../common/tools/date-time-tool/datetime.tool';
 import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
+import { GarbageManagementRecordEventMixedIntoArgs } from '../../../garbage-management-container/garbage-management-record-event-mixed-into/garbage-management-record-event-mixed-into.model';
 import { GarbageManagementManagerBusiness } from '../../business/garbage-management-manager.business';
 import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
 import { VideoType } from '../../window/video/garbage-management-manager-video.window';
@@ -24,7 +25,12 @@ export class GarbageManagementManagerRecordMixedIntoPanel extends WindowViewMode
   };
   title = '混合投放';
 
-  open() {
+  args: GarbageManagementRecordEventMixedIntoArgs = {};
+
+  open(args?: GarbageManagementRecordEventMixedIntoArgs) {
+    if (args) {
+      this.args = args;
+    }
     this.show = true;
   }
 

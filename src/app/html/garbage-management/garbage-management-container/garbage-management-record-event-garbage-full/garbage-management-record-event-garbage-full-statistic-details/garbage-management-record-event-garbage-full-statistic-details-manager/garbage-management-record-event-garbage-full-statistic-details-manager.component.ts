@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DateTimeControlComponent } from '../../../../../../common/components/date-time/date-time-control/date-time-control.component';
 import { HowellSelectComponent } from '../../../../../../common/components/select/hw-select/select-control.component';
@@ -9,6 +17,7 @@ import { TimeUnit } from '../../../../../../common/enum/time-unit.enum';
 import { Language } from '../../../../../../common/tools/language';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
 import { SelectSearchGarbageStationComponent } from '../../../../../share/select/select-garbage-station-search/select-garbage-station-search.component';
+import { GarbageManagementRecordEventGarbageFullArgs } from '../../garbage-management-record-event-garbage-full.model';
 import { GarbageManagementRecordEventGarbageFullStatisticDetailsArgs } from '../garbage-management-record-event-garbage-full-statistic-details-container/business/garbage-management-record-event-garbage-full-statistic-details-container.model';
 import { GarbageManagementRecordEventGarbageFullStatisticDetailsContainerComponent } from '../garbage-management-record-event-garbage-full-statistic-details-container/garbage-management-record-event-garbage-full-statistic-details-container.component';
 
@@ -29,7 +38,13 @@ import { GarbageManagementRecordEventGarbageFullStatisticDetailsContainerCompone
   styleUrl:
     './garbage-management-record-event-garbage-full-statistic-details-manager.component.less',
 })
-export class GarbageManagementRecordEventGarbageFullStatisticDetailsManagerComponent {
+export class GarbageManagementRecordEventGarbageFullStatisticDetailsManagerComponent
+  implements OnChanges
+{
+  @Input() args: GarbageManagementRecordEventGarbageFullArgs = {};
+  @Output() argsChange =
+    new EventEmitter<GarbageManagementRecordEventGarbageFullArgs>();
+  constructor() {}
   TimeUnit = TimeUnit;
   date = {
     format: Language.YearMonthDay,
@@ -47,7 +62,32 @@ export class GarbageManagementRecordEventGarbageFullStatisticDetailsManagerCompo
     },
   };
 
+  private change = {
+    args: (simple: SimpleChange) => {
+      if (simple) {
+        if (this.args) {
+          this.chart.args.stationId = this.args.stationId;
+          this.chart.args.divisionId = this.args.divisionId;
+        }
+      }
+    },
+  };
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.change.args(changes['args']);
+  }
+
   on = {
+    change: {
+      station: () => {
+        this.args.stationId = this.chart.args.stationId;
+        this.argsChange.emit(this.args);
+      },
+      division: () => {
+        this.args.divisionId = this.chart.args.divisionId;
+        this.argsChange.emit(this.args);
+      },
+    },
     search: () => {
       this.chart.load.emit(this.chart.args);
     },

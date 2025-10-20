@@ -12,13 +12,18 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WheelHorizontalScrollDirective } from '../../../../common/directives/wheel-horizontal-scroll/wheel-horizontal-scroll.directive';
+import { EventType } from '../../../../common/enum/event-type.enum';
 import { TimeUnit } from '../../../../common/enum/time-unit.enum';
-import { IIdNameModel } from '../../../../common/network/model/model.interface';
+import { DivisionNumberStatistic } from '../../../../common/network/model/garbage-station/division-number-statistic.model';
+import { GarbageStationNumberStatistic } from '../../../../common/network/model/garbage-station/garbage-station-number-statistic.model';
 import { GarbageManagementRankingComponent } from '../component/garbage-management-ranking.component';
 import { IGarbageManagementRankingData } from '../component/garbage-management-ranking.model';
 import { GarbageManagementRankingRecordEventProviders } from './business/garbage-management-ranking-record-event-provider';
 import { GarbageManagementRankingRecordEventBusiness } from './business/garbage-management-ranking-record-event.business';
-import { GarbageManagementRankingRecordEventIndex } from './garbage-management-ranking-record-event.model';
+import {
+  GarbageManagementRankingRecordEventArgs,
+  GarbageManagementRankingRecordEventIndex,
+} from './garbage-management-ranking-record-event.model';
 
 @Component({
   selector: 'howell-garbage-management-ranking-record-event',
@@ -49,7 +54,8 @@ export class GarbageManagementRankingRecordEventComponent
   @Input() index = GarbageManagementRankingRecordEventIndex.illegaldrop;
   @Output() indexChange =
     new EventEmitter<GarbageManagementRankingRecordEventIndex>();
-  @Output() itemclick = new EventEmitter<IIdNameModel>();
+  @Output() itemclick =
+    new EventEmitter<GarbageManagementRankingRecordEventArgs>();
 
   constructor(private business: GarbageManagementRankingRecordEventBusiness) {}
 
@@ -89,6 +95,27 @@ export class GarbageManagementRankingRecordEventComponent
     });
   }
 
+  private get = {
+    type: () => {
+      switch (this.index) {
+        case GarbageManagementRankingRecordEventIndex.garbagefull:
+          return EventType.GarbageFull;
+        case GarbageManagementRankingRecordEventIndex.illegaldrop:
+          return EventType.IllegalDrop;
+        case GarbageManagementRankingRecordEventIndex.illegaldump:
+          return EventType.IllegalDrop2;
+        case GarbageManagementRankingRecordEventIndex.illegalvehicle:
+          return EventType.IllegalVehicle;
+        case GarbageManagementRankingRecordEventIndex.mixedinto:
+          return EventType.MixedInto;
+        case GarbageManagementRankingRecordEventIndex.garbagedropcount:
+        case GarbageManagementRankingRecordEventIndex.garbagedropduration:
+        default:
+          return EventType.GarbageDrop;
+      }
+    },
+  };
+
   on = {
     change: (index: GarbageManagementRankingRecordEventIndex) => {
       this.index = index;
@@ -97,7 +124,15 @@ export class GarbageManagementRankingRecordEventComponent
     },
     item: {
       click: (data: IGarbageManagementRankingData) => {
-        this.itemclick.emit(data.data);
+        let args: GarbageManagementRankingRecordEventArgs = {
+          type: this.get.type(),
+        };
+        if (data.data instanceof DivisionNumberStatistic) {
+          args.divisionId = data.data.Id;
+        } else if (data.data instanceof GarbageStationNumberStatistic) {
+          args.stationId = data.data.Id;
+        }
+        this.itemclick.emit(args);
       },
     },
   };

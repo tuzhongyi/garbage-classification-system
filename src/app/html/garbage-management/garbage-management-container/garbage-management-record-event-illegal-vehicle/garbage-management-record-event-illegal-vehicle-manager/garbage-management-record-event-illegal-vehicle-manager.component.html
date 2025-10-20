@@ -34,6 +34,7 @@
   <div class="garbage-management-record-event-illegal-vehicle-manager-body">
     <howell-garbage-management-record-event-illegal-vehicle-list-manager
       *ngIf="index == Index.list"
+      [(args)]="args"
       (image)="on.image($event)"
       (video)="on.video.single($event)"
       (videoall)="on.video.all($event)"
@@ -42,9 +43,11 @@
 
     <howell-garbage-management-record-event-illegal-vehicle-statistic-details-manager
       *ngIf="index == Index.details"
+      [(args)]="args"
     ></howell-garbage-management-record-event-illegal-vehicle-statistic-details-manager>
     <howell-garbage-management-vehicle-list-manager
       *ngIf="index == Index.vehicle"
+      [(args)]="args"
       (image)="on.image($event)"
     ></howell-garbage-management-vehicle-list-manager>
   </div>

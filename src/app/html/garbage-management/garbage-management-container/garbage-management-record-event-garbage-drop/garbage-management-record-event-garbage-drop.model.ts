@@ -2,5 +2,9 @@ export enum GarbageManagementRecordEventGarbageDropIndex {
   list,
   total,
   details,
-  item,
+  duration,
+}
+export interface GarbageManagementRecordEventGarbageDropArgs {
+  stationId?: string;
+  divisionId?: string;
 }

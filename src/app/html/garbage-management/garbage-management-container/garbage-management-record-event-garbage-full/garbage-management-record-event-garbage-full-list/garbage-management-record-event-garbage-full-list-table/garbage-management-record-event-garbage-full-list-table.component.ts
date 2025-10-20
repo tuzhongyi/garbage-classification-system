@@ -59,7 +59,7 @@ export class GarbageManagementRecordEventGarbageFullListTableComponent
     '150px',
     '150px',
     '150px',
-    '150px',
+    '200px',
   ];
 
   selected?: GarbageFullEventRecordViewModel;

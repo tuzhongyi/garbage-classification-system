@@ -1,6 +1,6 @@
-<div class="garbage-management-record-event-garbage-drop-details-manager">
+<div class="garbage-management-record-event-garbage-drop-duration-manager">
   <div
-    class="garbage-management-record-event-garbage-drop-details-manager-head"
+    class="garbage-management-record-event-garbage-drop-duration-manager-head"
   >
     <div class="forms">
       <div class="form-item">
@@ -12,9 +12,12 @@
       <div class="form-item">
         <div class="form-item-text">行政区域:</div>
         <div class="form-item-value">
-          <hw-select [(selected)]="chart.args.divisionId" [nullable]="true">
+          <hw-select
+            [(selected)]="chart.args.divisionId"
+            [nullable]="true"
+            (selectedChange)="on.change.division()"
+          >
             <howell-division-select
-              [default]="true"
               [(selectedId)]="chart.args.divisionId"
             ></howell-division-select>
           </hw-select>
@@ -23,7 +26,11 @@
       <div class="form-item">
         <div class="form-item-text">投放点:</div>
         <div class="form-item-value">
-          <hw-select [(selected)]="chart.args.stationId" [nullable]="true">
+          <hw-select
+            [(selected)]="chart.args.stationId"
+            [nullable]="false"
+            (selectedChange)="on.change.station()"
+          >
             <howell-select-search-garbage-station
               [default]="true"
               [divisionId]="chart.args.divisionId"
@@ -40,14 +47,27 @@
     </div>
   </div>
   <div
-    class="garbage-management-record-event-garbage-drop-details-manager-body"
+    class="garbage-management-record-event-garbage-drop-duration-manager-body"
   >
-    <howell-garbage-management-record-event-garbage-drop-details-container
-      [args]="chart.args"
-      [load]="chart.load"
-      (media)="on.media($event)"
-      (statistic)="on.statistic($event)"
-    ></howell-garbage-management-record-event-garbage-drop-details-container>
+    <div
+      class="garbage-management-record-event-garbage-drop-duration-manager-body-info"
+    >
+      <howell-garbage-management-record-event-garbage-drop-duration-info
+        [args]="chart.args"
+        [load]="chart.load"
+      >
+      </howell-garbage-management-record-event-garbage-drop-duration-info>
+    </div>
+    <div
+      class="garbage-management-record-event-garbage-drop-duration-manager-body-chart"
+    >
+      <howell-garbage-management-record-event-garbage-drop-duration-container
+        [args]="chart.args"
+        [load]="chart.load"
+        (media)="on.media($event)"
+        (statistic)="on.statistic($event)"
+      ></howell-garbage-management-record-event-garbage-drop-duration-container>
+    </div>
     <howell-window
       [model]="window.image"
       *ngIf="window.image.show"
@@ -83,6 +103,7 @@
             [datas]="window.video.multiple.datas"
             [playable]="false"
             (play)="window.video.multiple.on.play($event)"
+            (error)="on.error()"
           ></howell-video-multiple>
         </div>
         <div class="window-video-multiple-foot">

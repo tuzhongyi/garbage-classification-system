@@ -4,6 +4,7 @@ import { IEventRecord } from '../../../../../common/network/model/garbage-statio
 import { PagedArgs } from '../../../../../common/network/model/model.interface';
 import { PagedList } from '../../../../../common/network/model/page_list.model';
 import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
+import { GarbageManagementRecordEventGarbageDropArgs } from '../../../garbage-management-container/garbage-management-record-event-garbage-drop/garbage-management-record-event-garbage-drop.model';
 import { GarbageManagementManagerBusiness } from '../../business/garbage-management-manager.business';
 import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
 import { VideoType } from '../../window/video/garbage-management-manager-video.window';
@@ -23,8 +24,12 @@ export class GarbageManagementManagerRecordGarbageDropPanel extends WindowViewMo
     zIndex: '1',
   };
   title = '垃圾滞留';
+  args: GarbageManagementRecordEventGarbageDropArgs = {};
 
-  open() {
+  open(args?: GarbageManagementRecordEventGarbageDropArgs) {
+    if (args) {
+      this.args = args;
+    }
     this.show = true;
   }
 

@@ -1,6 +1,7 @@
 import { EventEmitter } from '@angular/core';
 import { EventType } from '../../../../../../common/enum/event-type.enum';
 import { StationState } from '../../../../../../common/enum/station-state.enum';
+import { StationType } from '../../../../../../common/enum/station-type.enum';
 import { Flags } from '../../../../../../common/tools/flags';
 import { Language } from '../../../../../../common/tools/language';
 import { GarbageStationViewModel } from '../../../../../../common/view-model/garbage-station.view-model';
@@ -189,6 +190,32 @@ class InfoContent implements GarbageManagementMapAMapInfoEvent {
     return html;
   }
 
+  private enable = {
+    time: (data: GarbageStationViewModel) => {
+      return (
+        data.StationType == StationType.Garbage ||
+        data.StationType == StationType.Plus ||
+        data.StationType == StationType.Smart ||
+        data.StationType == StationType.IllegalDump
+      );
+    },
+    mixedinto: (data: GarbageStationViewModel) => {
+      return (
+        data.StationType == StationType.Garbage ||
+        data.StationType == StationType.Plus ||
+        data.StationType == StationType.Smart
+      );
+    },
+    illegaldrop: (data: GarbageStationViewModel) => {
+      return (
+        data.StationType == StationType.Garbage ||
+        data.StationType == StationType.Plus ||
+        data.StationType == StationType.Smart ||
+        data.StationType == StationType.IllegalDump
+      );
+    },
+  };
+
   private statistic(data: GarbageStationViewModel) {
     let html = document.createElement('div');
     html.className = 'amap-garbage-station-statistic';
@@ -204,45 +231,51 @@ class InfoContent implements GarbageManagementMapAMapInfoEvent {
     html.appendChild(camera);
 
     if (data.Statistic) {
-      let time = Language.Time(data.Statistic.CurrentGarbageTime, 'minute');
-      let _time = this.item.statistic(
-        'howell-icon-garbagebags text-orange',
-        time || '0分钟'
-      );
-      _time.title = '查看垃圾滞留信息';
-      _time.addEventListener('click', () => {
-        this.garbagedrop.emit(this.data);
-      });
-      html.appendChild(_time);
+      if (this.enable.time(data)) {
+        let time = Language.Time(data.Statistic.CurrentGarbageTime, 'minute');
+        let _time = this.item.statistic(
+          'howell-icon-garbagebags text-orange',
+          time || '0分钟'
+        );
+        _time.title = '查看垃圾滞留信息';
+        _time.addEventListener('click', () => {
+          this.garbagedrop.emit(this.data);
+        });
+        html.appendChild(_time);
+      }
 
       if (data.Statistic.TodayEventNumbers) {
-        let mixedinto = data.Statistic.TodayEventNumbers.find(
-          (x) => x.EventType === EventType.MixedInto
-        );
-        if (mixedinto) {
-          let _mixedinto = this.item.statistic(
-            'howell-icon-mixlittering text-pink',
-            mixedinto.DayNumber
+        if (this.enable.mixedinto(data)) {
+          let mixedinto = data.Statistic.TodayEventNumbers.find(
+            (x) => x.EventType === EventType.MixedInto
           );
-          _mixedinto.title = '查看混合投放信息';
-          _mixedinto.addEventListener('click', () => {
-            this.mixedinto.emit(this.data);
-          });
-          html.appendChild(_mixedinto);
+          if (mixedinto) {
+            let _mixedinto = this.item.statistic(
+              'howell-icon-mixlittering text-pink',
+              mixedinto.DayNumber
+            );
+            _mixedinto.title = '查看混合投放信息';
+            _mixedinto.addEventListener('click', () => {
+              this.mixedinto.emit(this.data);
+            });
+            html.appendChild(_mixedinto);
+          }
         }
-        let illegaldrop = data.Statistic.TodayEventNumbers.find(
-          (x) => x.EventType === EventType.IllegalDrop
-        );
-        if (illegaldrop) {
-          let _illegaldrop = this.item.statistic(
-            'howell-icon-nolittering text-cyan',
-            illegaldrop.DayNumber
+        if (this.enable.illegaldrop(data)) {
+          let illegaldrop = data.Statistic.TodayEventNumbers.find(
+            (x) => x.EventType === EventType.IllegalDrop
           );
-          _illegaldrop.title = '查看垃圾乱倒信息';
-          _illegaldrop.addEventListener('click', () => {
-            this.illegaldrop.emit(this.data);
-          });
-          html.appendChild(_illegaldrop);
+          if (illegaldrop) {
+            let _illegaldrop = this.item.statistic(
+              'howell-icon-nolittering text-cyan',
+              illegaldrop.DayNumber
+            );
+            _illegaldrop.title = '查看垃圾乱倒信息';
+            _illegaldrop.addEventListener('click', () => {
+              this.illegaldrop.emit(this.data);
+            });
+            html.appendChild(_illegaldrop);
+          }
         }
       }
     }

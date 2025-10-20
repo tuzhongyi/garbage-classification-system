@@ -1,4 +1,4 @@
-export function wait(
+export function waiting(
   whether: () => boolean,
   reject: () => void,
   timepoll = 100
@@ -7,18 +7,18 @@ export function wait(
     if (whether()) {
       reject();
     } else {
-      wait(whether, reject, timepoll);
+      waiting(whether, reject, timepoll);
     }
   }, timepoll);
 }
-export function wait2(
+export function wait(
   whether: () => boolean,
   timepoll = 10,
   timeout = 1000 * 1 * 60
 ) {
   return new Promise<void>((resolve, reject) => {
     let stop = false;
-    wait(
+    waiting(
       () => {
         return whether() || stop;
       },

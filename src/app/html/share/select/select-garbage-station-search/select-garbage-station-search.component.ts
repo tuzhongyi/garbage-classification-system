@@ -12,6 +12,7 @@ import {
 import { SelectDirective } from '../../../../common/components/select/hw-select/select.directive';
 import { StationType } from '../../../../common/enum/station-type.enum';
 import { GarbageStation } from '../../../../common/network/model/garbage-station/garbage-station.model';
+import { wait } from '../../../../common/tools/wait.tools';
 import { SelectGarbageStationBusiness } from '../select-garbage-station/select-garbage-station.business';
 import { SelectSearchComponent } from '../select-search/select-search.component';
 
@@ -24,6 +25,7 @@ import { SelectSearchComponent } from '../select-search/select-search.component'
 })
 export class SelectSearchGarbageStationComponent implements OnInit, OnChanges {
   @Input() default = false;
+  @Input() delay = false;
   @Input() clearable = false;
   @Input() selected?: GarbageStation;
   @Output() selectedChange = new EventEmitter<GarbageStation>();
@@ -36,25 +38,47 @@ export class SelectSearchGarbageStationComponent implements OnInit, OnChanges {
   constructor(private business: SelectGarbageStationBusiness) {}
 
   datas: GarbageStation[] = [];
+  loaded = false;
 
   private load(divisionId?: string, types: StationType[] = []) {
-    this.business.load(divisionId, types).then((x) => {
-      this.datas = x;
-      if (this.default && this.datas.length > 0) {
-        this.selected = this.datas[0];
-        this.on.change();
-      }
-    });
+    this.loaded = false;
+    this.business
+      .load(divisionId, types)
+      .then((x) => {
+        this.datas = x;
+        if (this.selected) {
+          this.selected = this.datas.find((x) => x.Id === this.selected?.Id);
+          this.on.change();
+        } else {
+          if (this.default && this.datas.length > 0) {
+            this.selected = this.datas[0];
+            this.on.change();
+          }
+        }
+      })
+      .finally(() => {
+        this.loaded = true;
+      });
   }
   private change = {
     selectedId: (simple: SimpleChange) => {
-      if (simple && !simple.firstChange) {
-        if (this.selectedId) {
-          this.selected = this.datas.find((x) => x.Id === this.selectedId);
-        } else {
-          this.selected = undefined;
-        }
-        this.selectedChange.emit(this.selected);
+      if (simple) {
+        wait(() => {
+          return this.loaded;
+        }).then(() => {
+          if (this.selectedId) {
+            this.selected = this.datas.find((x) => x.Id === this.selectedId);
+          } else {
+            this.selected = undefined;
+          }
+          if (!this.selected) {
+            if (this.default) {
+              this.selected = this.datas[0];
+              this.on.change();
+            }
+          }
+          this.selectedChange.emit(this.selected);
+        });
       }
     },
     divisionId: (simple: SimpleChange) => {
@@ -70,12 +94,14 @@ export class SelectSearchGarbageStationComponent implements OnInit, OnChanges {
   };
 
   ngOnInit(): void {
-    this.load(this.divisionId, this.types);
+    if (this.delay == false) {
+      this.load(this.divisionId, this.types);
+    }
   }
   ngOnChanges(changes: SimpleChanges): void {
-    this.change.selectedId(changes['selectedId']);
     this.change.divisionId(changes['divisionId']);
     this.change.types(changes['types']);
+    this.change.selectedId(changes['selectedId']);
   }
 
   on = {

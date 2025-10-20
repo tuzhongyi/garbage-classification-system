@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TimeUnit } from '../../../../common/enum/time-unit.enum';
-import { IIdNameModel } from '../../../../common/network/model/model.interface';
 import { GarbageManagementRankingRecordEventComponent } from '../../garbage-management-ranking/garbage-management-ranking-record-event/garbage-management-ranking-record-event.component';
-import { GarbageManagementRankingRecordEventIndex } from '../../garbage-management-ranking/garbage-management-ranking-record-event/garbage-management-ranking-record-event.model';
+import {
+  GarbageManagementRankingRecordEventArgs,
+  GarbageManagementRankingRecordEventIndex,
+} from '../../garbage-management-ranking/garbage-management-ranking-record-event/garbage-management-ranking-record-event.model';
 import { GarbageManagementCardComponent } from '../component/garbage-management-card.component';
 
 @Component({
@@ -27,7 +29,8 @@ export class GarbageManagementCardRankingRecordEventComponent {
   ];
   @Input() unit = TimeUnit.Day;
   @Input() index = GarbageManagementRankingRecordEventIndex.illegaldrop;
-  @Output() itemclick = new EventEmitter<IIdNameModel>();
+  @Output() itemclick =
+    new EventEmitter<GarbageManagementRankingRecordEventArgs>();
 
   get title() {
     return `${this.language.unit()}${this.language.index()}排名`;
@@ -76,7 +79,7 @@ export class GarbageManagementCardRankingRecordEventComponent {
       this.index = index;
     },
     item: {
-      click: (data: IIdNameModel) => {
+      click: (data: GarbageManagementRankingRecordEventArgs) => {
         this.itemclick.emit(data);
       },
     },

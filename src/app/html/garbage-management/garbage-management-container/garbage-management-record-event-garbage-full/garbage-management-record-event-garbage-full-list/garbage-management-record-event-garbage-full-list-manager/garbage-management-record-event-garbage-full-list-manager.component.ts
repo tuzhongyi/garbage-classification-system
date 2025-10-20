@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DateTimeControlComponent } from '../../../../../../common/components/date-time/date-time-control/date-time-control.component';
 import { HowellSelectComponent } from '../../../../../../common/components/select/hw-select/select-control.component';
@@ -8,6 +16,7 @@ import { GarbageFullEventRecord } from '../../../../../../common/network/model/g
 import { PagedArgs } from '../../../../../../common/network/model/model.interface';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
 import { SelectSearchGarbageStationComponent } from '../../../../../share/select/select-garbage-station-search/select-garbage-station-search.component';
+import { GarbageManagementRecordEventGarbageFullArgs } from '../../garbage-management-record-event-garbage-full.model';
 import { GarbageManagementRecordEventGarbageFullListTableComponent } from '../garbage-management-record-event-garbage-full-list-table/garbage-management-record-event-garbage-full-list-table.component';
 import { GarbageManagementRecordEventGarbageFullListTableArgs } from '../garbage-management-record-event-garbage-full-list-table/garbage-management-record-event-garbage-full-list-table.model';
 
@@ -27,7 +36,12 @@ import { GarbageManagementRecordEventGarbageFullListTableArgs } from '../garbage
   styleUrl:
     './garbage-management-record-event-garbage-full-list-manager.component.less',
 })
-export class GarbageManagementRecordEventGarbageFullListManagerComponent {
+export class GarbageManagementRecordEventGarbageFullListManagerComponent
+  implements OnChanges
+{
+  @Input() args: GarbageManagementRecordEventGarbageFullArgs = {};
+  @Output() argsChange =
+    new EventEmitter<GarbageManagementRecordEventGarbageFullArgs>();
   @Output() image = new EventEmitter<PagedArgs<GarbageFullEventRecord>>();
   @Output() video = new EventEmitter<GarbageFullEventRecord>();
   @Output() videoall = new EventEmitter<GarbageFullEventRecord>();
@@ -47,7 +61,34 @@ export class GarbageManagementRecordEventGarbageFullListManagerComponent {
     type: 'station',
   };
 
+  private change = {
+    args: (simple: SimpleChange) => {
+      if (simple) {
+        if (this.table.args.stationId != this.args.stationId) {
+          this.table.args.stationId = this.args.stationId;
+        }
+        if (this.table.args.divisionId != this.args.divisionId) {
+          this.table.args.divisionId = this.args.divisionId;
+        }
+      }
+    },
+  };
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.change.args(changes['args']);
+  }
+
   on = {
+    change: {
+      station: () => {
+        this.args.stationId = this.table.args.stationId;
+        this.argsChange.emit(this.args);
+      },
+      division: () => {
+        this.args.divisionId = this.table.args.divisionId;
+        this.argsChange.emit(this.args);
+      },
+    },
     search: () => {
       this.table.load.emit(this.table.args);
     },

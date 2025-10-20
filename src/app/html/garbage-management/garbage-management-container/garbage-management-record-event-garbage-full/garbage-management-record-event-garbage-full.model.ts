@@ -3,3 +3,7 @@ export enum GarbageManagementRecordEventGarbageFullIndex {
   total,
   details,
 }
+export interface GarbageManagementRecordEventGarbageFullArgs {
+  stationId?: string;
+  divisionId?: string;
+}

@@ -1,6 +1,6 @@
 import { ClassConstructor } from 'class-transformer';
 
-import { wait2 } from '../../../tools/tools';
+import { wait } from '../../../tools/wait.tools';
 import { PagedList } from '../../model/page_list.model';
 import { IParams, PagedParams } from '../IParams.interface';
 import { AppCache, IData, IService } from './cache.interface';
@@ -54,7 +54,7 @@ export class ServiceCache<T extends IData> implements IServiceCache {
 
   all(...args: any): Promise<T[]> {
     return new Promise<T[]>((resolve) => {
-      wait2(() => {
+      wait(() => {
         return this.loading === false;
       }).then(() => {
         let datas = this.load();

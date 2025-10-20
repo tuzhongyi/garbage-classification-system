@@ -1,4 +1,4 @@
-.garbage-management-record-event-garbage-drop-details-manager {
+.garbage-management-record-event-garbage-drop-duration-manager {
   width: 100%;
   height: 100%;
   display: flex;
@@ -22,6 +22,18 @@
     width: 100%;
     flex-grow: 1;
     position: relative;
+
+    &-info {
+      width: 100%;
+      height: 90px;
+      padding: 0 60px 0 35px;
+      box-sizing: border-box;
+    }
+
+    &-chart {
+      width: 100%;
+      height: calc(100% - 90px);
+    }
 
     .window {
       &-video {

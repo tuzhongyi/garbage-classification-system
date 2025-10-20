@@ -1,5 +1,5 @@
 import { MapHelper } from '../../../../../../../../common/helper/map/map.helper';
-import { wait } from '../../../../../../../../common/tools/tools';
+import { wait } from '../../../../../../../../common/tools/wait.tools';
 import { PromiseValue } from '../../../../../../../../common/view-models/value.promise';
 import { GarbageManagementRecordEventIasStatisticRouteAMapPathController } from './garbage-management-record-event-ias-statistic-route-amap-path.controller';
 
@@ -14,21 +14,16 @@ export class GarbageManagementRecordEventIasStatisticRouteAMapController {
 
   private init() {
     let key = 'route_map_container';
-    wait(
-      () => {
-        return !!document.getElementById(key);
-      },
-      () => {
-        MapHelper.amap.get(key).then((x) => {
-          this.map.set(x);
-          this.path.set(
-            new GarbageManagementRecordEventIasStatisticRouteAMapPathController(
-              x
-            )
-          );
-        });
-      }
-    );
+    wait(() => {
+      return !!document.getElementById(key);
+    }).then(() => {
+      MapHelper.amap.get(key).then((x) => {
+        this.map.set(x);
+        this.path.set(
+          new GarbageManagementRecordEventIasStatisticRouteAMapPathController(x)
+        );
+      });
+    });
   }
 
   destroy() {

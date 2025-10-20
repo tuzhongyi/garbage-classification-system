@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DateTimeControlComponent } from '../../../../../../common/components/date-time/date-time-control/date-time-control.component';
 import { HowellSelectComponent } from '../../../../../../common/components/select/hw-select/select-control.component';
@@ -9,6 +17,7 @@ import { TimeUnit } from '../../../../../../common/enum/time-unit.enum';
 import { Language } from '../../../../../../common/tools/language';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
 import { SelectSearchGarbageStationComponent } from '../../../../../share/select/select-garbage-station-search/select-garbage-station-search.component';
+import { GarbageManagementRecordEventIllegalDropArgs } from '../../garbage-management-record-event-illegal-drop.model';
 import { GarbageManagementRecordEventIllegalDropStatisticDetailsContainerComponent } from '../garbage-management-record-event-illegal-drop-statistic-details-container/garbage-management-record-event-illegal-drop-statistic-details-container.component';
 import { GarbageManagementRecordEventIllegalDropStatisticDetailsArgs } from '../garbage-management-record-event-illegal-drop-statistic-details-container/garbage-management-record-event-illegal-drop-statistic-details-container.model';
 
@@ -29,7 +38,15 @@ import { GarbageManagementRecordEventIllegalDropStatisticDetailsArgs } from '../
   styleUrl:
     './garbage-management-record-event-illegal-drop-statistic-details-manager.component.less',
 })
-export class GarbageManagementRecordEventIllegalDropStatisticDetailsManagerComponent {
+export class GarbageManagementRecordEventIllegalDropStatisticDetailsManagerComponent
+  implements OnChanges
+{
+  @Input() args: GarbageManagementRecordEventIllegalDropArgs = {};
+  @Output() argsChange =
+    new EventEmitter<GarbageManagementRecordEventIllegalDropArgs>();
+
+  constructor() {}
+
   TimeUnit = TimeUnit;
   date = {
     format: Language.YearMonthDay,
@@ -47,7 +64,34 @@ export class GarbageManagementRecordEventIllegalDropStatisticDetailsManagerCompo
     },
   };
 
+  private change = {
+    args: (simple: SimpleChange) => {
+      if (simple) {
+        if (this.chart.args.stationId != this.args.stationId) {
+          this.chart.args.stationId = this.args.stationId;
+        }
+        if (this.chart.args.divisionId != this.args.divisionId) {
+          this.chart.args.divisionId = this.args.divisionId;
+        }
+      }
+    },
+  };
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.change.args(changes['args']);
+  }
+
   on = {
+    change: {
+      station: () => {
+        this.args.stationId = this.chart.args.stationId;
+        this.argsChange.emit(this.args);
+      },
+      division: () => {
+        this.args.divisionId = this.chart.args.divisionId;
+        this.argsChange.emit(this.args);
+      },
+    },
     search: () => {
       this.chart.load.emit(this.chart.args);
     },

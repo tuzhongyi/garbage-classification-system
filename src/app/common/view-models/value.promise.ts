@@ -1,4 +1,4 @@
-import { wait } from '../tools/tools';
+import { wait } from '../tools/wait.tools';
 
 export class PromiseValue<T> {
   private _value?: T;
@@ -7,16 +7,13 @@ export class PromiseValue<T> {
       if (this._value) {
         resolve(this._value);
       } else {
-        wait(
-          () => {
-            return !!this._value;
-          },
-          () => {
-            if (this._value) {
-              resolve(this._value);
-            }
+        wait(() => {
+          return !!this._value;
+        }).then(() => {
+          if (this._value) {
+            resolve(this._value);
           }
-        );
+        });
       }
     });
   }

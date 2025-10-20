@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DateTimeControlComponent } from '../../../../../../common/components/date-time/date-time-control/date-time-control.component';
@@ -13,6 +21,7 @@ import { CameraImageUrl } from '../../../../../../common/network/model/url-model
 import { ObjectTool } from '../../../../../../common/tools/object-tool/object.tool';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
 import { SelectSearchGarbageStationComponent } from '../../../../../share/select/select-garbage-station-search/select-garbage-station-search.component';
+import { GarbageManagementRecordEventIllegalVehicleArgs } from '../../garbage-management-record-event-illegal-vehicle.model';
 import { GarbageManagementRecordEventIllegalVehicleListTableComponent } from '../garbage-management-record-event-illegal-vehicle-list-table/garbage-management-record-event-illegal-vehicle-list-table.component';
 import { GarbageManagementRecordEventIllegalVehicleListTableArgs } from '../garbage-management-record-event-illegal-vehicle-list-table/garbage-management-record-event-illegal-vehicle-list-table.model';
 import { GarbageManagementRecordEventIllegalVehicleListManagerBusiness } from './garbage-management-record-event-illegal-vehicle-list-manager.business';
@@ -37,7 +46,12 @@ import { GarbageManagementRecordEventIllegalVehicleListConfirmWindow } from './g
     './garbage-management-record-event-illegal-vehicle-list-manager.component.less',
   providers: [GarbageManagementRecordEventIllegalVehicleListManagerBusiness],
 })
-export class GarbageManagementRecordEventIllegalVehicleListManagerComponent {
+export class GarbageManagementRecordEventIllegalVehicleListManagerComponent
+  implements OnChanges
+{
+  @Input() args: GarbageManagementRecordEventIllegalVehicleArgs = {};
+  @Output() argsChange =
+    new EventEmitter<GarbageManagementRecordEventIllegalVehicleArgs>();
   @Output() image = new EventEmitter<PagedList<CameraImageUrl>>();
   @Output() video = new EventEmitter<IllegalVehicleEventRecord>();
   @Output() videoall = new EventEmitter<IllegalVehicleEventRecord>();
@@ -62,7 +76,34 @@ export class GarbageManagementRecordEventIllegalVehicleListManagerComponent {
     type: 'station',
   };
 
+  private change = {
+    args: (simple: SimpleChange) => {
+      if (simple) {
+        if (this.table.args.stationId != this.args.stationId) {
+          this.table.args.stationId = this.args.stationId;
+        }
+        if (this.table.args.divisionId != this.args.divisionId) {
+          this.table.args.divisionId = this.args.divisionId;
+        }
+      }
+    },
+  };
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.change.args(changes['args']);
+  }
+
   on = {
+    change: {
+      station: () => {
+        this.args.stationId = this.table.args.stationId;
+        this.argsChange.emit(this.args);
+      },
+      division: () => {
+        this.args.divisionId = this.table.args.divisionId;
+        this.argsChange.emit(this.args);
+      },
+    },
     search: () => {
       this.table.load.emit(this.table.args);
     },

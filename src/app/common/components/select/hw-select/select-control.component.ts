@@ -40,25 +40,20 @@ export class HowellSelectComponent implements OnInit, AfterViewChecked {
     return this._selected;
   }
   @Input() public set selected(v: any | undefined | null) {
-    if (v === null) {
+    if (v === null || v === '') {
       this._selected = undefined;
     } else {
       this._selected = v;
     }
-    this.selectedChange.emit(v);
+    if (this.inited) {
+      this.selectedChange.emit(v);
+    }
   }
   @Output() selectedChange: EventEmitter<any> = new EventEmitter();
 
   constructor(public detector: ChangeDetectorRef) {}
-  ngAfterViewChecked(): void {
-    if (this.nullable) {
-      if (this.selected === undefined) {
-        if (this.element) {
-          this.element.value = '';
-        }
-      }
-    }
-  }
+
+  private inited = false;
 
   @ContentChild(SelectDirective)
   element_directive?: SelectDirective;
@@ -88,8 +83,18 @@ export class HowellSelectComponent implements OnInit, AfterViewChecked {
     return false;
   }
 
-  ngOnInit(): void {}
-
+  ngOnInit(): void {
+    this.inited = true;
+  }
+  ngAfterViewChecked(): void {
+    if (this.nullable) {
+      if (this.selected === undefined) {
+        if (this.element) {
+          this.element.value = '';
+        }
+      }
+    }
+  }
   onclear(e: Event) {
     this.selected = undefined;
 

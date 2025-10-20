@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { HowellSelectComponent } from '../../../../../../common/components/select/hw-select/select-control.component';
@@ -10,6 +18,7 @@ import { PagedList } from '../../../../../../common/network/model/page_list.mode
 import { CameraImageUrl } from '../../../../../../common/network/model/url-model/camera-image-url.model';
 import { SelectDivisionComponent } from '../../../../../share/select/select-division/select-division.component';
 import { HowellWindowComponent } from '../../../../../share/window/window.component';
+import { GarbageManagementRecordEventIllegalVehicleArgs } from '../../garbage-management-record-event-illegal-vehicle.model';
 import { GarbageManagementVehicleDetailsComponent } from '../garbage-management-vehicle-details/garbage-management-vehicle-details.component';
 import { GarbageManagementVehicleListTableComponent } from '../garbage-management-vehicle-list-table/garbage-management-vehicle-list-table.component';
 import { GarbageManagementVehicleListTableArgs } from '../garbage-management-vehicle-list-table/garbage-management-vehicle-list-table.model';
@@ -33,12 +42,17 @@ import { GarbageManagementVehicleListManagerWindow } from './garbage-management-
   styleUrl: './garbage-management-vehicle-list-manager.component.less',
   providers: [GarbageManagementVehicleListManagerBusiness],
 })
-export class GarbageManagementVehicleListManagerComponent {
+export class GarbageManagementVehicleListManagerComponent implements OnChanges {
+  @Input() args: GarbageManagementRecordEventIllegalVehicleArgs = {};
+  @Output() argsChange =
+    new EventEmitter<GarbageManagementRecordEventIllegalVehicleArgs>();
+
   @Output() image = new EventEmitter<PagedList<CameraImageUrl>>();
   constructor(
     private business: GarbageManagementVehicleListManagerBusiness,
     private toastr: ToastrService
   ) {}
+
   source = new GarbageManagementVehicleListManagerSource();
   window = new GarbageManagementVehicleListManagerWindow();
   table = {
@@ -46,7 +60,27 @@ export class GarbageManagementVehicleListManagerComponent {
     load: new EventEmitter<GarbageManagementVehicleListTableArgs>(),
   };
 
+  private change = {
+    args: (simple: SimpleChange) => {
+      if (simple) {
+        if (this.table.args.divisionId != this.args.divisionId) {
+          this.table.args.divisionId = this.args.divisionId;
+        }
+      }
+    },
+  };
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.change.args(changes['args']);
+  }
+
   on = {
+    change: {
+      division: () => {
+        this.args.divisionId = this.table.args.divisionId;
+        this.argsChange.emit(this.args);
+      },
+    },
     search: () => {
       this.table.load.emit(this.table.args);
     },

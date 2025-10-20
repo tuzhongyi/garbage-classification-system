@@ -1,18 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IllegalDropEventRecord } from '../../../../../common/network/model/garbage-station/event-record/illegal-drop-event-record.model';
 import { PagedArgs } from '../../../../../common/network/model/model.interface';
 import { GarbageManagementRecordEventIllegalDumpListManagerComponent } from '../garbage-management-record-event-illegal-dump-list/garbage-management-record-event-illegal-dump-list-manager/garbage-management-record-event-illegal-dump-list-manager.component';
 import { GarbageManagementRecordEventIllegalDumpStatisticDetailsManagerComponent } from '../garbage-management-record-event-illegal-dump-statistic-details/garbage-management-record-event-illegal-dump-statistic-details-manager/garbage-management-record-event-illegal-dump-statistic-details-manager.component';
-import { GarbageManagementRecordEventIllegalDumpStatisticTotalManagerComponent } from '../garbage-management-record-event-illegal-dump-statistic-total/garbage-management-record-event-illegal-dump-statistic-total-manager/garbage-management-record-event-illegal-dump-statistic-total-manager.component';
-import { GarbageManagementRecordEventIllegalDumpIndex } from '../garbage-management-record-event-illegal-dump.model';
+import {
+  GarbageManagementRecordEventIllegalDumpArgs,
+  GarbageManagementRecordEventIllegalDumpIndex,
+} from '../garbage-management-record-event-illegal-dump.model';
 
 @Component({
   selector: 'howell-garbage-management-record-event-illegal-dump-manager',
   imports: [
     CommonModule,
     GarbageManagementRecordEventIllegalDumpListManagerComponent,
-    GarbageManagementRecordEventIllegalDumpStatisticTotalManagerComponent,
     GarbageManagementRecordEventIllegalDumpStatisticDetailsManagerComponent,
   ],
   templateUrl:
@@ -21,6 +22,7 @@ import { GarbageManagementRecordEventIllegalDumpIndex } from '../garbage-managem
     './garbage-management-record-event-illegal-dump-manager.component.less',
 })
 export class GarbageManagementRecordEventIllegalDumpManagerComponent {
+  @Input() args: GarbageManagementRecordEventIllegalDumpArgs = {};
   @Output() image = new EventEmitter<PagedArgs<IllegalDropEventRecord>>();
   @Output() video = new EventEmitter<IllegalDropEventRecord>();
   index = GarbageManagementRecordEventIllegalDumpIndex.list;

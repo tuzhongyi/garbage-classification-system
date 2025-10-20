@@ -1,0 +1,37 @@
+<div class="garbage-management-record-event-garbage-drop-duration-info">
+  <div
+    class="garbage-management-record-event-garbage-drop-duration-info-item"
+    *ngFor="let item of datas"
+  >
+    <div
+      class="garbage-management-record-event-garbage-drop-duration-info-item-title"
+    >
+      {{ item.title }}
+    </div>
+    <div
+      class="garbage-management-record-event-garbage-drop-duration-info-item-content"
+      *ngIf="item.contents.length === 0"
+    >
+      <div
+        class="garbage-management-record-event-garbage-drop-duration-info-item-content-value"
+      >
+        -
+      </div>
+    </div>
+    <div
+      class="garbage-management-record-event-garbage-drop-duration-info-item-content"
+      *ngFor="let content of item.contents"
+    >
+      <div
+        class="garbage-management-record-event-garbage-drop-duration-info-item-content-value"
+      >
+        {{ content.value }}
+      </div>
+      <div
+        class="garbage-management-record-event-garbage-drop-duration-info-item-content-unit"
+      >
+        {{ content.unit }}
+      </div>
+    </div>
+  </div>
+</div>

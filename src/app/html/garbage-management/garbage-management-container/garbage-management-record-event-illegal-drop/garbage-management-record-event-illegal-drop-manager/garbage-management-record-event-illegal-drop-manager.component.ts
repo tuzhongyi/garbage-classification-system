@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IllegalDropEventRecord } from '../../../../../common/network/model/garbage-station/event-record/illegal-drop-event-record.model';
 import { PagedArgs } from '../../../../../common/network/model/model.interface';
+import { GarbageManagementRecordEventGarbageDropArgs } from '../../garbage-management-record-event-garbage-drop/garbage-management-record-event-garbage-drop.model';
 import { GarbageManagementRecordEventIllegalDropListManagerComponent } from '../garbage-management-record-event-illegal-drop-list/garbage-management-record-event-illegal-drop-list-manager/garbage-management-record-event-illegal-drop-list-manager.component';
 import { GarbageManagementRecordEventIllegalDropStatisticDetailsManagerComponent } from '../garbage-management-record-event-illegal-drop-statistic-details/garbage-management-record-event-illegal-drop-statistic-details-manager/garbage-management-record-event-illegal-drop-statistic-details-manager.component';
 import { GarbageManagementRecordEventIllegalDropStatisticTotalManagerComponent } from '../garbage-management-record-event-illegal-drop-statistic-total/garbage-management-record-event-illegal-drop-statistic-total-manager/garbage-management-record-event-illegal-drop-statistic-total-manager.component';
@@ -21,6 +22,7 @@ import { GarbageManagementRecordEventIllegalDropIndex } from '../garbage-managem
     './garbage-management-record-event-illegal-drop-manager.component.less',
 })
 export class GarbageManagementRecordEventIllegalDropManagerComponent {
+  @Input() args: GarbageManagementRecordEventGarbageDropArgs = {};
   @Output() image = new EventEmitter<PagedArgs<IllegalDropEventRecord>>();
   @Output() video = new EventEmitter<IllegalDropEventRecord>();
   index = GarbageManagementRecordEventIllegalDropIndex.list;

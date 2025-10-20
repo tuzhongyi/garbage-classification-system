@@ -1,4 +1,4 @@
-import { wait2 } from '../../../tools/tools';
+import { wait } from '../../../tools/wait.tools';
 import { IasEventRecord } from '../../model/ias/ias-event-record.model';
 import { GetIasEventsParams } from '../ias/event/ias-event-request.params';
 import { IService } from './cache.interface';
@@ -11,7 +11,7 @@ export class IasEventServiceCache extends ServiceCache<IasEventRecord> {
 
   override array(params: GetIasEventsParams): Promise<IasEventRecord[]> {
     return new Promise<IasEventRecord[]>((resolve) => {
-      wait2(() => {
+      wait(() => {
         return this.loading === false;
       }).then(() => {
         let datas = this.load();

@@ -2,14 +2,22 @@ import { EventEmitter } from '@angular/core';
 import { ComponentTool } from '../../../../../../common/tools/component-tool/component.tool';
 import { GarbageManagementCardChartPieRecordStatisticComponent } from '../../../../garbage-management-card/garbage-management-card-chart-pie-record-statistic/garbage-management-card-chart-pie-record-statistic.component';
 import { GarbageManagementCardRankingRecordEventComponent } from '../../../../garbage-management-card/garbage-management-card-ranking-record-event/garbage-management-card-ranking-record-event.component';
-import { GarbageManagementRankingRecordEventIndex } from '../../../../garbage-management-ranking/garbage-management-ranking-record-event/garbage-management-ranking-record-event.model';
+import {
+  GarbageManagementRankingRecordEventArgs,
+  GarbageManagementRankingRecordEventIndex,
+} from '../../../../garbage-management-ranking/garbage-management-ranking-record-event/garbage-management-ranking-record-event.model';
 import { GarbageManagementManagerCardItem } from '../../../garbage-management-manager.model';
 import { GarbageManagementManagerCardCommonController } from '../common/garbage-management-manager-card-common.controller';
 import { GarbageManagementManagerCardAbstract } from '../garbage-management-manager-card.abstract';
 
 export class GarbageManagementManagerCardHomeLeftController extends GarbageManagementManagerCardAbstract {
   event = {
-    recordopen: new EventEmitter<number>(),
+    record: {
+      type: new EventEmitter<number>(),
+    },
+    statistic: {
+      click: new EventEmitter<GarbageManagementRankingRecordEventArgs>(),
+    },
   };
   constructor(
     common: GarbageManagementManagerCardCommonController,
@@ -28,7 +36,7 @@ export class GarbageManagementManagerCardHomeLeftController extends GarbageManag
       component: GarbageManagementCardChartPieRecordStatisticComponent,
       args: {
         load: this.load,
-        itemclick: this.event.recordopen,
+        itemclick: this.event.record.type,
       },
       single: true,
       selector: 'app-garbage-management-card-chart-pie-record-statistic',
@@ -45,6 +53,7 @@ export class GarbageManagementManagerCardHomeLeftController extends GarbageManag
           GarbageManagementRankingRecordEventIndex.garbagedropcount,
         ],
         index: GarbageManagementRankingRecordEventIndex.mixedinto,
+        itemclick: this.event.statistic.click,
       },
     },
     {
@@ -56,6 +65,7 @@ export class GarbageManagementManagerCardHomeLeftController extends GarbageManag
           GarbageManagementRankingRecordEventIndex.illegalvehicle,
         ],
         index: GarbageManagementRankingRecordEventIndex.illegaldump,
+        itemclick: this.event.statistic.click,
       },
     },
   ];

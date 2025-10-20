@@ -115,6 +115,7 @@
     [style]="panel.record.illegaldrop.style"
   >
     <howell-garbage-management-record-event-illegal-drop-manager
+      [args]="panel.record.illegaldrop.args"
       (image)="panel.record.illegaldrop.on.image($event)"
       (video)="panel.record.illegaldrop.on.video($event)"
     >
@@ -127,6 +128,7 @@
     [style]="panel.record.illegaldump.style"
   >
     <howell-garbage-management-record-event-illegal-dump-manager
+      [args]="panel.record.illegaldump.args"
       (image)="panel.record.illegaldump.on.image($event)"
       (video)="panel.record.illegaldump.on.video($event)"
     >
@@ -139,6 +141,7 @@
     [style]="panel.record.illegalvehicle.style"
   >
     <howell-garbage-management-record-event-illegal-vehicle-manager
+      [args]="panel.record.illegalvehicle.args"
       (image)="panel.record.illegalvehicle.on.image($event)"
       (video)="panel.record.illegalvehicle.on.video.single($event)"
       (videoall)="panel.record.illegalvehicle.on.video.multiple($event)"
@@ -153,6 +156,7 @@
     [style]="panel.record.mixedinto.style"
   >
     <howell-garbage-management-record-event-mixed-into-manager
+      [args]="panel.record.mixedinto.args"
       (image)="panel.record.mixedinto.on.image($event)"
       (video)="panel.record.mixedinto.on.video.single($event)"
       (videoall)="panel.record.mixedinto.on.video.multiple($event)"
@@ -166,6 +170,7 @@
     [style]="panel.record.garbagefull.style"
   >
     <howell-garbage-management-record-event-garbage-full-manager
+      [args]="panel.record.garbagefull.args"
       (image)="panel.record.garbagefull.on.image($event)"
       (video)="panel.record.garbagefull.on.video.single($event)"
       (videoall)="panel.record.garbagefull.on.video.multiple($event)"
@@ -180,6 +185,7 @@
     [style]="panel.record.garbagedrop.style"
   >
     <howell-garbage-management-record-event-garbage-drop-manager
+      [args]="panel.record.garbagedrop.args"
       (image)="panel.record.garbagedrop.on.image($event)"
       (video)="panel.record.garbagedrop.on.video.single($event)"
       (videoall)="panel.record.garbagedrop.on.video.multiple($event)"

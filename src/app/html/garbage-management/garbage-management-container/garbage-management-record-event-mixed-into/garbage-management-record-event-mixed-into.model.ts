@@ -3,3 +3,7 @@ export enum GarbageManagementRecordEventMixedIntoIndex {
   total,
   details,
 }
+export interface GarbageManagementRecordEventMixedIntoArgs {
+  stationId?: string;
+  divisionId?: string;
+}

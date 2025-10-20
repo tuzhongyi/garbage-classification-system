@@ -1,4 +1,4 @@
-import { wait } from '../../../tools/tools';
+import { wait } from '../../../tools/wait.tools';
 
 export class PictureElement<T> {
   set(e: T) {
@@ -11,16 +11,13 @@ export class PictureElement<T> {
       if (this._element) {
         resolve(this._element);
       } else {
-        wait(
-          () => {
-            return !!this._element;
-          },
-          () => {
-            if (this._element) {
-              resolve(this._element);
-            }
+        wait(() => {
+          return !!this._element;
+        }).then(() => {
+          if (this._element) {
+            resolve(this._element);
           }
-        );
+        });
       }
     });
   }

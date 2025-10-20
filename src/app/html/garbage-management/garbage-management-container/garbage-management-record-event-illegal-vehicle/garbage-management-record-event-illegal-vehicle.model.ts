@@ -4,3 +4,7 @@ export enum GarbageManagementRecordEventIllegalVehicleIndex {
   details,
   vehicle,
 }
+export interface GarbageManagementRecordEventIllegalVehicleArgs {
+  stationId?: string;
+  divisionId?: string;
+}

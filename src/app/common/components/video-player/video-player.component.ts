@@ -20,7 +20,7 @@ import { UserConfigType } from '../../enum/user-config-type.enum';
 import { UserRequestService } from '../../network/request/user/user-request.service';
 import { LocalStorageService } from '../../storage/local.storage';
 import { Base64 } from '../../tools/base64/base64.tool.js';
-import { wait } from '../../tools/tools';
+import { wait } from '../../tools/wait.tools.js';
 import { VideoModel } from './video.model';
 
 @Component({
@@ -135,14 +135,11 @@ export class VideoPlayerComponent
 
   onLoad(event: Event) {
     this.loadRuleState().then(() => {
-      wait(
-        () => {
-          return !!this.player;
-        },
-        () => {
-          this.eventRegist();
-        }
-      );
+      wait(() => {
+        return !!this.player;
+      }).then(() => {
+        this.eventRegist();
+      });
     });
   }
 

@@ -15,7 +15,7 @@ import { TimeUnit } from '../../../../../../common/enum/time-unit.enum';
 import { IllegalDropEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/illegal-drop-event-record.model';
 import { GarbageStationGarbageCountStatistic } from '../../../../../../common/network/model/garbage-station/garbage-station-sarbage-count-statistic.model';
 import { Language } from '../../../../../../common/tools/language';
-import { wait2 } from '../../../../../../common/tools/tools';
+import { wait } from '../../../../../../common/tools/wait.tools';
 import { GarbageDropDurationPanelComponent } from '../garbage-drop-duration-panel/garbage-drop-duration-panel.component';
 import { GarbageDropDurationPanelModel } from '../garbage-drop-duration-panel/garbage-drop-duration-panel.model';
 import { GarbageDropEventPanelComponent } from '../garbage-drop-event-panel/garbage-drop-event-panel.component';
@@ -84,7 +84,7 @@ export class LineZoomChartComponent implements OnInit, AfterViewInit {
   loaded = false;
   inited = false;
   ngAfterViewInit(): void {
-    wait2(() => {
+    wait(() => {
       if (this.echarts) {
         let div = this.echarts.nativeElement as HTMLDivElement;
         return div.offsetWidth > 0 && div.offsetHeight > 0;
@@ -336,7 +336,7 @@ export class LineZoomChartComponent implements OnInit, AfterViewInit {
     option.series[SerieIndex.offline].data = offline;
     option.series[SerieIndex.target].data = target;
     option.series[SerieIndex.record].data = records;
-    console.log(option);
+
     return option;
   }
 
@@ -346,7 +346,7 @@ export class LineZoomChartComponent implements OnInit, AfterViewInit {
     if (this.chart) {
       this.chart.resize();
       let option = this.optionProcess(data, opt);
-      console.log(option);
+
       this.chart.setOption(option);
     }
   }

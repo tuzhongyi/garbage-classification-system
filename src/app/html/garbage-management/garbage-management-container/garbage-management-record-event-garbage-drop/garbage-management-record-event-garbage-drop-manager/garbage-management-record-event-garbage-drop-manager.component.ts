@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { GarbageDropEventRecord } from '../../../../../common/network/model/garbage-station/event-record/garbage-drop-event-record.model';
 import { PagedArgs } from '../../../../../common/network/model/model.interface';
-import { GarbageManagementRecordEventGarbageDropDetailsManagerComponent } from '../garbage-management-record-event-garbage-drop-details/garbage-management-record-event-garbage-drop-details-manager/garbage-management-record-event-garbage-drop-details-manager.component';
+import { GarbageManagementRecordEventGarbageDropDurationManagerComponent } from '../garbage-management-record-event-garbage-drop-duration/garbage-management-record-event-garbage-drop-duration-manager/garbage-management-record-event-garbage-drop-duration-manager.component';
 import { GarbageManagementRecordEventGarbageDropListManagerComponent } from '../garbage-management-record-event-garbage-drop-list/garbage-management-record-event-garbage-drop-list-manager/garbage-management-record-event-garbage-drop-list-manager.component';
 import { GarbageManagementRecordEventGarbageDropStatisticDetailsManagerComponent } from '../garbage-management-record-event-garbage-drop-statistic-details/garbage-management-record-event-garbage-drop-statistic-details-manager/garbage-management-record-event-garbage-drop-statistic-details-manager.component';
-import { GarbageManagementRecordEventGarbageDropIndex } from '../garbage-management-record-event-garbage-drop.model';
+import {
+  GarbageManagementRecordEventGarbageDropArgs,
+  GarbageManagementRecordEventGarbageDropIndex,
+} from '../garbage-management-record-event-garbage-drop.model';
 
 @Component({
   selector: 'howell-garbage-management-record-event-garbage-drop-manager',
@@ -13,7 +16,7 @@ import { GarbageManagementRecordEventGarbageDropIndex } from '../garbage-managem
     CommonModule,
     GarbageManagementRecordEventGarbageDropListManagerComponent,
     GarbageManagementRecordEventGarbageDropStatisticDetailsManagerComponent,
-    GarbageManagementRecordEventGarbageDropDetailsManagerComponent,
+    GarbageManagementRecordEventGarbageDropDurationManagerComponent,
   ],
   templateUrl:
     './garbage-management-record-event-garbage-drop-manager.component.html',
@@ -21,6 +24,7 @@ import { GarbageManagementRecordEventGarbageDropIndex } from '../garbage-managem
     './garbage-management-record-event-garbage-drop-manager.component.less',
 })
 export class GarbageManagementRecordEventGarbageDropManagerComponent {
+  @Input() args: GarbageManagementRecordEventGarbageDropArgs = {};
   @Output() image = new EventEmitter<PagedArgs<GarbageDropEventRecord>>();
   @Output() video = new EventEmitter<GarbageDropEventRecord>();
   @Output() videoall = new EventEmitter<GarbageDropEventRecord>();

@@ -7,7 +7,7 @@ import { SizeTool } from '../../../../../../common/tools/size-tool/size.tool';
 import { VideoPlaybackArgs } from '../../../../../share/video/component/video.model';
 import { VideoArgs } from '../../../../../share/video/video-multiple/video-multiple.model';
 
-export class GarbageManagementRecordEventGarbageDropDetailsManagerWindow {
+export class GarbageManagementRecordEventGarbageDropDurationManagerWindow {
   image = new ImageWindow();
   video = {
     single: new VideoSingleWindow(),
@@ -68,17 +68,20 @@ class VideoMultipleWindow extends WindowViewModel {
     zIndex: '100',
   };
   title = '';
+  stationId?: string;
   datas: VideoArgs[] = [];
   statistic?: GarbageStationGarbageCountStatistic;
   date?: Date;
 
   open(
     title: string,
+    stationId: string,
     datas: VideoArgs[],
     date?: Date,
     statistic?: GarbageStationGarbageCountStatistic
   ) {
     this.title = title;
+    this.stationId = stationId;
     this.datas = datas;
     this.statistic = statistic;
     this.date = date;

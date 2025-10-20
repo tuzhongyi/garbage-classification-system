@@ -1,10 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MixedIntoEventRecord } from '../../../../../common/network/model/garbage-station/event-record/mixed-into-event-record.model';
 import { PagedArgs } from '../../../../../common/network/model/model.interface';
 import { GarbageManagementRecordEventMixedIntoListManagerComponent } from '../garbage-management-record-event-mixed-into-list/garbage-management-record-event-mixed-into-list-manager/garbage-management-record-event-mixed-into-list-manager.component';
 import { GarbageManagementRecordEventMixedIntoStatisticDetailsManagerComponent } from '../garbage-management-record-event-mixed-into-statistic-details/garbage-management-record-event-mixed-into-statistic-details-manager/garbage-management-record-event-mixed-into-statistic-details-manager.component';
-import { GarbageManagementRecordEventMixedIntoIndex } from '../garbage-management-record-event-mixed-into.model';
+import {
+  GarbageManagementRecordEventMixedIntoArgs,
+  GarbageManagementRecordEventMixedIntoIndex,
+} from '../garbage-management-record-event-mixed-into.model';
 
 @Component({
   selector: 'howell-garbage-management-record-event-mixed-into-manager',
@@ -19,6 +22,7 @@ import { GarbageManagementRecordEventMixedIntoIndex } from '../garbage-managemen
     './garbage-management-record-event-mixed-into-manager.component.less',
 })
 export class GarbageManagementRecordEventMixedIntoManagerComponent {
+  @Input() args: GarbageManagementRecordEventMixedIntoArgs = {};
   @Output() image = new EventEmitter<PagedArgs<MixedIntoEventRecord>>();
   @Output() video = new EventEmitter<MixedIntoEventRecord>();
   @Output() videoall = new EventEmitter<MixedIntoEventRecord>();

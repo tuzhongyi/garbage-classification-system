@@ -9,14 +9,14 @@ import {
 
 @Component({
   selector:
-    'howell-garbage-management-record-event-garbage-drop-details-container',
+    'howell-garbage-management-record-event-garbage-drop-duration-container',
   imports: [CommonModule, LineZoomChartComponent],
   templateUrl:
-    './garbage-management-record-event-garbage-drop-details-container.component.html',
+    './garbage-management-record-event-garbage-drop-duration-container.component.html',
   styleUrl:
-    './garbage-management-record-event-garbage-drop-details-container.component.less',
+    './garbage-management-record-event-garbage-drop-duration-container.component.less',
 })
-export class GarbageManagementRecordEventGarbageDropDetailsContainerComponent {
+export class GarbageManagementRecordEventGarbageDropDurationContainerComponent {
   @Input() args?: LineZoomChartInputArgs;
   @Input() load?: EventEmitter<LineZoomChartInputArgs>;
   @Output() media = new EventEmitter<IllegalDropEventRecord>();

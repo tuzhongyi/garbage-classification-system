@@ -3,6 +3,7 @@ import { GarbageFullEventRecord } from '../../../../../common/network/model/garb
 import { PagedArgs } from '../../../../../common/network/model/model.interface';
 import { PagedList } from '../../../../../common/network/model/page_list.model';
 import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
+import { GarbageManagementRecordEventGarbageFullArgs } from '../../../garbage-management-container/garbage-management-record-event-garbage-full/garbage-management-record-event-garbage-full.model';
 import { GarbageManagementManagerBusiness } from '../../business/garbage-management-manager.business';
 import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
 import { VideoType } from '../../window/video/garbage-management-manager-video.window';
@@ -23,7 +24,12 @@ export class GarbageManagementManagerRecordGarbageFullPanel extends WindowViewMo
   };
   title = '垃圾满溢';
 
-  open() {
+  args: GarbageManagementRecordEventGarbageFullArgs = {};
+
+  open(args?: GarbageManagementRecordEventGarbageFullArgs) {
+    if (args) {
+      this.args = args;
+    }
     this.show = true;
   }
 

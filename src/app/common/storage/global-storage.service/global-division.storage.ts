@@ -2,7 +2,7 @@ import { EventEmitter } from '@angular/core';
 
 import { IDivision } from '../../network/model/garbage-station/division.model';
 import { EnumTool } from '../../tools/enum-tool/enum.tool';
-import { wait2 } from '../../tools/tools';
+import { wait } from '../../tools/wait.tools';
 import { LocalStorageService } from '../local.storage';
 
 export class GlobalStorageDivisionController {
@@ -15,7 +15,7 @@ export class GlobalStorageDivisionController {
       if (this._default) {
         resolve(this._default);
       } else {
-        wait2(() => {
+        wait(() => {
           return !!this.localStorage.user;
         }).then((x) => {
           let user = this.localStorage.user;
@@ -63,7 +63,7 @@ export class GlobalStorageDivisionController {
         this._selected = this._default;
         resolve(this._selected);
       } else {
-        wait2(() => {
+        wait(() => {
           return !!this._selected;
         }).then((x) => {
           if (this._selected) {

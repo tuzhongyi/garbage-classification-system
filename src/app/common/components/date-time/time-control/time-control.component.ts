@@ -11,7 +11,7 @@ import {
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { wait } from '../../../tools/tools';
+import { wait } from '../../../tools/wait.tools';
 import { TimeItem, TimeModel } from './time-control.model';
 
 declare let $: any;
@@ -44,30 +44,21 @@ export class TimeControlComponent implements OnInit, AfterViewInit {
   second?: ElementRef;
 
   ngAfterViewInit(): void {
-    wait(
-      () => {
-        return !!this.hour;
-      },
-      () => {
-        this.wheel(this.hour!.nativeElement);
-      }
-    );
-    wait(
-      () => {
-        return !!this.minute;
-      },
-      () => {
-        this.wheel(this.minute!.nativeElement);
-      }
-    );
-    wait(
-      () => {
-        return !!this.second;
-      },
-      () => {
-        this.wheel(this.second!.nativeElement);
-      }
-    );
+    wait(() => {
+      return !!this.hour;
+    }).then(() => {
+      this.wheel(this.hour!.nativeElement);
+    });
+    wait(() => {
+      return !!this.minute;
+    }).then(() => {
+      this.wheel(this.minute!.nativeElement);
+    });
+    wait(() => {
+      return !!this.second;
+    }).then(() => {
+      this.wheel(this.second!.nativeElement);
+    });
   }
 
   ngOnInit(): void {}

@@ -24,8 +24,8 @@
       </div>
       <div
         class="button-bracket"
-        [class.selected]="index == Index.item"
-        (click)="on.index(Index.item)"
+        [class.selected]="index == Index.duration"
+        (click)="on.index(Index.duration)"
       >
         滞留详情
       </div>
@@ -34,6 +34,7 @@
   <div class="garbage-management-record-event-garbage-drop-manager-body">
     <howell-garbage-management-record-event-garbage-drop-list-manager
       *ngIf="index == Index.list"
+      [(args)]="args"
       (image)="on.image($event)"
       (video)="on.video.single($event)"
       (videoall)="on.video.all($event)"
@@ -42,9 +43,11 @@
 
     <howell-garbage-management-record-event-garbage-drop-statistic-details-manager
       *ngIf="index == Index.details"
+      [(args)]="args"
     ></howell-garbage-management-record-event-garbage-drop-statistic-details-manager>
-    <howell-garbage-management-record-event-garbage-drop-details-manager
-      *ngIf="index == Index.item"
-    ></howell-garbage-management-record-event-garbage-drop-details-manager>
+    <howell-garbage-management-record-event-garbage-drop-duration-manager
+      *ngIf="index == Index.duration"
+      [(args)]="args"
+    ></howell-garbage-management-record-event-garbage-drop-duration-manager>
   </div>
 </div>

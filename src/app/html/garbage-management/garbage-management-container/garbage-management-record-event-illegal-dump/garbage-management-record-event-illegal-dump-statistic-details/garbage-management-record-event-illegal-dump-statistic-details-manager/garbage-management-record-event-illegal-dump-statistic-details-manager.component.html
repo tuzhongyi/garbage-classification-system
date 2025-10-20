@@ -20,7 +20,11 @@
       <div class="form-item">
         <div class="form-item-text">行政区域:</div>
         <div class="form-item-value">
-          <hw-select [(selected)]="chart.args.divisionId" [nullable]="true">
+          <hw-select
+            [(selected)]="chart.args.divisionId"
+            [nullable]="true"
+            (selectedChange)="on.change.division()"
+          >
             <howell-division-select
               [(selectedId)]="chart.args.divisionId"
             ></howell-division-select>
@@ -30,7 +34,11 @@
       <div class="form-item">
         <div class="form-item-text">投放点:</div>
         <div class="form-item-value">
-          <hw-select [(selected)]="chart.args.stationId" [nullable]="true">
+          <hw-select
+            [(selected)]="chart.args.stationId"
+            [nullable]="true"
+            (selectedChange)="on.change.station()"
+          >
             <howell-select-search-garbage-station
               [clearable]="true"
               [divisionId]="chart.args.divisionId"

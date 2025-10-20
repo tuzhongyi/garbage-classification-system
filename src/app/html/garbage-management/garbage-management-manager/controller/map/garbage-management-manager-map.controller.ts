@@ -54,19 +54,19 @@ export class GarbageManagementManagerMapController {
     },
     mixedinto: (data: GarbageStationViewModel) => {
       this.current = data;
-      this.panel.record.mixedinto.open();
+      this.panel.record.mixedinto.open({ stationId: data.Id });
     },
     illegaldrop: (data: GarbageStationViewModel) => {
       this.current = data;
-      this.panel.record.illegaldrop.open();
+      this.panel.record.illegaldrop.open({ stationId: data.Id });
     },
     garbagefull: (data: GarbageStationViewModel) => {
       this.current = data;
-      this.panel.record.garbagefull.open();
+      this.panel.record.garbagefull.open({ stationId: data.Id });
     },
     garbagedrop: (data: GarbageStationViewModel) => {
       this.current = data;
-      this.panel.record.garbagedrop.open();
+      this.panel.record.garbagedrop.open({ stationId: data.Id });
     },
     error: (data: GarbageStationViewModel) => {
       this.current = data;

@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Division } from '../../../../common/network/model/garbage-station/division.model';
-import { wait } from '../../../../common/tools/tools';
+import { wait } from '../../../../common/tools/wait.tools';
 import { SelectDivisionBusiness } from './select-division.business';
 
 @Component({
@@ -58,15 +58,12 @@ export class SelectDivisionComponent {
     selectedId: (simple: SimpleChange) => {
       if (simple) {
         if (this.selectedId) {
-          wait(
-            () => {
-              return this.loaded;
-            },
-            () => {
-              this.selected = this.datas.find((x) => x.Id === this.selectedId);
-              this.selectedChange.emit(this.selected);
-            }
-          );
+          wait(() => {
+            return this.loaded;
+          }).then(() => {
+            this.selected = this.datas.find((x) => x.Id === this.selectedId);
+            this.selectedChange.emit(this.selected);
+          });
         }
       }
     },

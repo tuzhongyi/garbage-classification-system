@@ -4,6 +4,7 @@ import { PagedArgs } from '../../../../../common/network/model/model.interface';
 import { PagedList } from '../../../../../common/network/model/page_list.model';
 import { DateTimeTool } from '../../../../../common/tools/date-time-tool/datetime.tool';
 import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
+import { GarbageManagementRecordEventIllegalDumpArgs } from '../../../garbage-management-container/garbage-management-record-event-illegal-dump/garbage-management-record-event-illegal-dump.model';
 import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
 
 export class GarbageManagementManagerRecordIllegalDumpPanel extends WindowViewModel {
@@ -18,8 +19,12 @@ export class GarbageManagementManagerRecordIllegalDumpPanel extends WindowViewMo
     zIndex: '1',
   };
   title = '垃圾偷倒';
+  args: GarbageManagementRecordEventIllegalDumpArgs = {};
 
-  open() {
+  open(args?: GarbageManagementRecordEventIllegalDumpArgs) {
+    if (args) {
+      this.args = args;
+    }
     this.show = true;
   }
 

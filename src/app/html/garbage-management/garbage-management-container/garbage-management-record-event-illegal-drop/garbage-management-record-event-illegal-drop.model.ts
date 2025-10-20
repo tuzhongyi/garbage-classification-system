@@ -3,3 +3,7 @@ export enum GarbageManagementRecordEventIllegalDropIndex {
   total,
   details,
 }
+export interface GarbageManagementRecordEventIllegalDropArgs {
+  stationId?: string;
+  divisionId?: string;
+}

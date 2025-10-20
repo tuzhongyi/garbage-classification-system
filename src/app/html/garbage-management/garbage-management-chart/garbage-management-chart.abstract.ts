@@ -1,6 +1,6 @@
 import { ElementRef } from '@angular/core';
 import * as echarts from 'echarts';
-import { wait } from '../../../common/tools/tools';
+import { wait } from '../../../common/tools/wait.tools';
 import { PromiseValue } from '../../../common/view-models/value.promise';
 
 export interface ChartItem<T = number> {
@@ -20,21 +20,18 @@ export abstract class GarbageManagementChartAbstract {
   }
 
   protected view() {
-    wait(
-      () => {
-        return (
-          !!this.element &&
-          this.element.nativeElement.clientWidth > 0 &&
-          this.element.nativeElement.clientHeight > 0
-        );
-      },
-      () => {
-        if (this.element) {
-          let chart = echarts.init(this.element.nativeElement);
-          this.chart.set(chart);
-        }
+    wait(() => {
+      return (
+        !!this.element &&
+        this.element.nativeElement.clientWidth > 0 &&
+        this.element.nativeElement.clientHeight > 0
+      );
+    }).then(() => {
+      if (this.element) {
+        let chart = echarts.init(this.element.nativeElement);
+        this.chart.set(chart);
       }
-    );
+    });
   }
   protected destroy(): void {
     this.chart.get().then((chart) => {

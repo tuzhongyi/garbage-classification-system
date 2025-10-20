@@ -91,7 +91,7 @@ export class GarbageManagementManagerCardController {
       controller.right.event.record.details.subscribe((data) => {
         this.window.task.complete.open(data);
       });
-      controller.left.event.recordopen.subscribe((x) => {
+      controller.left.event.record.type.subscribe((x) => {
         switch (x) {
           case EventType.GarbageFull:
             this.panel.record.garbagefull.open();
@@ -115,6 +115,27 @@ export class GarbageManagementManagerCardController {
             this.panel.record.ias.open();
             break;
 
+          default:
+            break;
+        }
+      });
+      controller.left.event.statistic.click.subscribe((x) => {
+        switch (x.type) {
+          case EventType.IllegalDrop2:
+            this.panel.record.illegaldump.open(x);
+            break;
+          case EventType.IllegalVehicle:
+            this.panel.record.illegalvehicle.open(x);
+            break;
+          case EventType.MixedInto:
+            this.panel.record.mixedinto.open(x);
+            break;
+          case EventType.GarbageFull:
+            this.panel.record.garbagefull.open(x);
+            break;
+          case EventType.GarbageDrop:
+            this.panel.record.garbagedrop.open(x);
+            break;
           default:
             break;
         }

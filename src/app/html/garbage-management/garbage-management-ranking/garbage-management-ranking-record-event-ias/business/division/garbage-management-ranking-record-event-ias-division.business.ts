@@ -8,7 +8,7 @@ import { GetIasEventNumbersParams } from '../../../../../../common/network/reque
 import { IasRequestService } from '../../../../../../common/network/request/ias/ias-request.service';
 import { GlobalStorageService } from '../../../../../../common/storage/global.storage';
 import { DateTimeTool } from '../../../../../../common/tools/date-time-tool/datetime.tool';
-import { wait } from '../../../../../../common/tools/tools';
+import { wait } from '../../../../../../common/tools/wait.tools';
 import { GarbageManagementRankingRecordEventIasDivisionService } from './garbage-management-ranking-record-event-ias-division.service';
 
 @Injectable()
@@ -40,14 +40,11 @@ export class GarbageManagementRankingRecordEventIasDivisionBusiness {
 
     return new Promise<KeyValue<Division, EventNumberStatistic[]>[]>(
       (resolve) => {
-        wait(
-          () => {
-            return keyvalues.length === divisions.length;
-          },
-          () => {
-            resolve(keyvalues);
-          }
-        );
+        wait(() => {
+          return keyvalues.length === divisions.length;
+        }).then(() => {
+          resolve(keyvalues);
+        });
       }
     );
   }

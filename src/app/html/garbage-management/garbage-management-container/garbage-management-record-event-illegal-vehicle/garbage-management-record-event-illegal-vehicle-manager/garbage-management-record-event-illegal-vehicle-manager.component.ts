@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IllegalVehicleEventRecord } from '../../../../../common/network/model/garbage-station/event-record/illegal-vehicle-event-record.model';
 import { PagedList } from '../../../../../common/network/model/page_list.model';
 import { CameraImageUrl } from '../../../../../common/network/model/url-model/camera-image-url.model';
 import { GarbageManagementRecordEventIllegalVehicleListManagerComponent } from '../garbage-management-record-event-illegal-vehicle-list/garbage-management-record-event-illegal-vehicle-list-manager/garbage-management-record-event-illegal-vehicle-list-manager.component';
 import { GarbageManagementRecordEventIllegalVehicleStatisticDetailsManagerComponent } from '../garbage-management-record-event-illegal-vehicle-statistic-details/garbage-management-record-event-illegal-vehicle-statistic-details-manager/garbage-management-record-event-illegal-vehicle-statistic-details-manager.component';
-import { GarbageManagementRecordEventIllegalVehicleIndex } from '../garbage-management-record-event-illegal-vehicle.model';
+import {
+  GarbageManagementRecordEventIllegalVehicleArgs,
+  GarbageManagementRecordEventIllegalVehicleIndex,
+} from '../garbage-management-record-event-illegal-vehicle.model';
 import { GarbageManagementVehicleListManagerComponent } from '../garbage-management-vehicle-list/garbage-management-vehicle-list-manager/garbage-management-vehicle-list-manager.component';
 
 @Component({
@@ -22,6 +25,7 @@ import { GarbageManagementVehicleListManagerComponent } from '../garbage-managem
     './garbage-management-record-event-illegal-vehicle-manager.component.less',
 })
 export class GarbageManagementRecordEventIllegalVehicleManagerComponent {
+  @Input() args: GarbageManagementRecordEventIllegalVehicleArgs = {};
   @Output() image = new EventEmitter<PagedList<CameraImageUrl>>();
   @Output() video = new EventEmitter<IllegalVehicleEventRecord>();
   @Output() videoall = new EventEmitter<IllegalVehicleEventRecord>();

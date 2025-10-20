@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { GarbageStationRequestService } from '../../../../../../common/network/request/garbage/garbage-station/garbage-station-request.service';
 
 @Injectable()
-export class GarbageManagementRecordEventGarbageDropDetailsManagerBusiness {
+export class GarbageManagementRecordEventGarbageDropDurationManagerBusiness {
   constructor(private service: GarbageStationRequestService) {}
 
   get(stationId: string) {
     return this.service.cache.get(stationId);
+  }
+
+  capture(stationId: string) {
+    return this.service.manualCapture(stationId);
   }
 
   download = {

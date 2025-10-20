@@ -1,5 +1,5 @@
 import { ComponentTool } from '../../../../../common/tools/component-tool/component.tool';
-import { wait } from '../../../../../common/tools/tools';
+import { wait } from '../../../../../common/tools/wait.tools';
 import {
   GarbageManagementManagerCardItem,
   IGarbageManagementManagerCard,
@@ -27,34 +27,31 @@ export abstract class GarbageManagementManagerCardAbstract
 
   private init() {
     return new Promise<IGarbageManagementManagerCardElement[]>((resolve) => {
-      wait(
-        () => {
-          return !!this.ctors && this.ctors.length > 0;
-        },
-        () => {
-          let elements = [];
-          for (let i = 0; i < this.ctors.length; i++) {
-            const ctor = this.ctors[i];
-            let element: HTMLElement;
-            if (ctor.single && ctor.selector) {
-              if (this.common.elements.has(ctor.selector)) {
-                element = this.common.elements.get(ctor.selector)!;
-              } else {
-                element = this.create(ctor);
-                this.common.elements.set(ctor.selector, element);
-              }
+      wait(() => {
+        return !!this.ctors && this.ctors.length > 0;
+      }).then(() => {
+        let elements = [];
+        for (let i = 0; i < this.ctors.length; i++) {
+          const ctor = this.ctors[i];
+          let element: HTMLElement;
+          if (ctor.single && ctor.selector) {
+            if (this.common.elements.has(ctor.selector)) {
+              element = this.common.elements.get(ctor.selector)!;
             } else {
               element = this.create(ctor);
+              this.common.elements.set(ctor.selector, element);
             }
-
-            elements.push({
-              element: element,
-              class: ctor.class,
-            });
+          } else {
+            element = this.create(ctor);
           }
-          resolve(elements);
+
+          elements.push({
+            element: element,
+            class: ctor.class,
+          });
         }
-      );
+        resolve(elements);
+      });
     });
   }
 }

@@ -27,6 +27,7 @@
   <div class="garbage-management-record-event-mixed-into-manager-body">
     <howell-garbage-management-record-event-mixed-into-list-manager
       *ngIf="index == Index.list"
+      [(args)]="args"
       (image)="on.image($event)"
       (video)="on.video.single($event)"
       (videoall)="on.video.all($event)"
@@ -35,6 +36,7 @@
 
     <howell-garbage-management-record-event-mixed-into-statistic-details-manager
       *ngIf="index == Index.details"
+      [(args)]="args"
     ></howell-garbage-management-record-event-mixed-into-statistic-details-manager>
   </div>
 </div>

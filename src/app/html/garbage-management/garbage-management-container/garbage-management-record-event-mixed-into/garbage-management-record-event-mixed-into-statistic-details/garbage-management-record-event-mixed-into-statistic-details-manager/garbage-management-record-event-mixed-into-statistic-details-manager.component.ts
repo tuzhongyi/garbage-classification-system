@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DateTimeControlComponent } from '../../../../../../common/components/date-time/date-time-control/date-time-control.component';
 import { HowellSelectComponent } from '../../../../../../common/components/select/hw-select/select-control.component';
@@ -10,6 +18,7 @@ import { SelectDivisionComponent } from '../../../../../share/select/select-divi
 
 import { StationType } from '../../../../../../common/enum/station-type.enum';
 import { SelectSearchGarbageStationComponent } from '../../../../../share/select/select-garbage-station-search/select-garbage-station-search.component';
+import { GarbageManagementRecordEventMixedIntoArgs } from '../../garbage-management-record-event-mixed-into.model';
 import { GarbageManagementRecordEventMixedIntoStatisticDetailsArgs } from '../garbage-management-record-event-mixed-into-statistic-details-container/business/garbage-management-record-event-mixed-into-statistic-details-container.model';
 import { GarbageManagementRecordEventMixedIntoStatisticDetailsContainerComponent } from '../garbage-management-record-event-mixed-into-statistic-details-container/garbage-management-record-event-mixed-into-statistic-details-container.component';
 
@@ -30,7 +39,14 @@ import { GarbageManagementRecordEventMixedIntoStatisticDetailsContainerComponent
   styleUrl:
     './garbage-management-record-event-mixed-into-statistic-details-manager.component.less',
 })
-export class GarbageManagementRecordEventMixedIntoStatisticDetailsManagerComponent {
+export class GarbageManagementRecordEventMixedIntoStatisticDetailsManagerComponent
+  implements OnChanges
+{
+  @Input() args: GarbageManagementRecordEventMixedIntoArgs = {};
+  @Output() argsChange =
+    new EventEmitter<GarbageManagementRecordEventMixedIntoArgs>();
+
+  constructor() {}
   TimeUnit = TimeUnit;
   date = {
     format: Language.YearMonthDay,
@@ -48,7 +64,34 @@ export class GarbageManagementRecordEventMixedIntoStatisticDetailsManagerCompone
     },
   };
 
+  private change = {
+    args: (simple: SimpleChange) => {
+      if (simple) {
+        if (this.chart.args.stationId != this.args.stationId) {
+          this.chart.args.stationId = this.args.stationId;
+        }
+        if (this.chart.args.divisionId != this.args.divisionId) {
+          this.chart.args.divisionId = this.args.divisionId;
+        }
+      }
+    },
+  };
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.change.args(changes['args']);
+  }
+
   on = {
+    change: {
+      station: () => {
+        this.args.stationId = this.chart.args.stationId;
+        this.argsChange.emit(this.args);
+      },
+      division: () => {
+        this.args.divisionId = this.chart.args.divisionId;
+        this.argsChange.emit(this.args);
+      },
+    },
     search: () => {
       this.chart.load.emit(this.chart.args);
     },

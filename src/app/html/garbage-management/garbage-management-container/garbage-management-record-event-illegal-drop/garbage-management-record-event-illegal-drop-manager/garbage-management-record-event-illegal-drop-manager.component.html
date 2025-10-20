@@ -27,6 +27,7 @@
   <div class="garbage-management-record-event-illegal-drop-manager-body">
     <howell-garbage-management-record-event-illegal-drop-list-manager
       *ngIf="index == Index.list"
+      [(args)]="args"
       (image)="on.image($event)"
       (video)="on.video($event)"
     ></howell-garbage-management-record-event-illegal-drop-list-manager>
@@ -35,6 +36,7 @@
     ></howell-garbage-management-record-event-illegal-drop-statistic-total-manager>
     <howell-garbage-management-record-event-illegal-drop-statistic-details-manager
       *ngIf="index == Index.details"
+      [(args)]="args"
     ></howell-garbage-management-record-event-illegal-drop-statistic-details-manager>
   </div>
 </div>

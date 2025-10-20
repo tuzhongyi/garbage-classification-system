@@ -8,11 +8,9 @@ import { MixedIntoEventRecord } from '../../../../../../common/network/model/gar
 import { PagedArgs } from '../../../../../../common/network/model/model.interface';
 import { Page } from '../../../../../../common/network/model/page_list.model';
 import { PagedTableAbstractComponent } from '../../../../../../common/tools/component-tool/table-abstract.component';
+import { MixedIntoEventRecordViewModel } from '../../../../../../common/view-model/record/mixed-into-event-record.view-model';
 import { GarbageManagementRecordEventMixedIntoListTableBusiness } from './garbage-management-record-event-mixed-into-list-table.business';
-import {
-  GarbageManagementRecordEventMixedIntoListTableArgs,
-  MixedIntoEventRecordViewModel,
-} from './garbage-management-record-event-mixed-into-list-table.model';
+import { GarbageManagementRecordEventMixedIntoListTableArgs } from './garbage-management-record-event-mixed-into-list-table.model';
 
 @Component({
   selector: 'howell-garbage-management-record-event-mixed-into-list-table',

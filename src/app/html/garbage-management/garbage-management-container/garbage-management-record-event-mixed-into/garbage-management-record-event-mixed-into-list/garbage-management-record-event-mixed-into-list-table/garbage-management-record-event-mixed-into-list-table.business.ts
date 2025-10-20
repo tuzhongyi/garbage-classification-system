@@ -1,37 +1,28 @@
 import { Injectable } from '@angular/core';
-import { MixedIntoEventRecord } from '../../../../../../common/network/model/garbage-station/event-record/mixed-into-event-record.model';
 import { PagedList } from '../../../../../../common/network/model/page_list.model';
-import { DivisionRequestService } from '../../../../../../common/network/request/garbage/division/division-request.service';
 import { EventRequestService } from '../../../../../../common/network/request/garbage/event/event-request.service';
 import { GetEventRecordMixedIntoParams } from '../../../../../../common/network/request/garbage/event/mixed-info/event-request-mixed-info.params';
 import { GarbageStationRequestService } from '../../../../../../common/network/request/garbage/garbage-station/garbage-station-request.service';
 import { PicturesUrl } from '../../../../../../common/network/url/aiop/medium/pictures/pictures.url';
-import { DivisionViewModelConverter } from '../../../../../../common/view-model/division.view-model';
 import {
-  GarbageManagementRecordEventMixedIntoListTableArgs,
   MixedIntoEventRecordViewModel,
-} from './garbage-management-record-event-mixed-into-list-table.model';
+  MixedIntoEventRecordViewModelConverter,
+} from '../../../../../../common/view-model/record/mixed-into-event-record.view-model';
+import { GarbageManagementRecordEventMixedIntoListTableArgs } from './garbage-management-record-event-mixed-into-list-table.model';
 
 @Injectable()
 export class GarbageManagementRecordEventMixedIntoListTableBusiness {
   constructor(
     event: EventRequestService,
     station: GarbageStationRequestService,
-    division: DivisionRequestService,
-    converter: DivisionViewModelConverter
+    private converter: MixedIntoEventRecordViewModelConverter
   ) {
-    this.service = { event, station, division };
-    this.converter = { division: converter };
+    this.service = { event, station };
   }
-
-  converter: {
-    division: DivisionViewModelConverter;
-  };
 
   private service: {
     event: EventRequestService;
     station: GarbageStationRequestService;
-    division: DivisionRequestService;
   };
 
   async load(
@@ -42,7 +33,7 @@ export class GarbageManagementRecordEventMixedIntoListTableBusiness {
     let datas = await this.data.load(index, size, args);
     let paged = new PagedList<MixedIntoEventRecordViewModel>();
     paged.Page = datas.Page;
-    paged.Data = datas.Data.map((x) => this.convert.record(x));
+    paged.Data = datas.Data.map((x) => this.converter.convert(x));
     return paged;
   }
 
@@ -53,29 +44,6 @@ export class GarbageManagementRecordEventMixedIntoListTableBusiness {
     image: (key: string, name: string, time: Date) => {
       let url = PicturesUrl.jpg(key);
       this.service.station.download.image(url, name, time);
-    },
-  };
-
-  private convert = {
-    record: (data: MixedIntoEventRecord) => {
-      let vm = new MixedIntoEventRecordViewModel();
-      vm = Object.assign(vm, data);
-      vm.GarbageStation = this.service.station.cache.get(data.Data.StationId);
-      if (vm.Data.DivisionId) {
-        vm.Division = this.service.division.cache
-          .get(vm.Data.DivisionId)
-          .then((division) => {
-            return this.converter.division.convert(division);
-          });
-      }
-
-      vm.images = data.ImageUrl ? [data.ImageUrl] : [];
-
-      if (data.Data.HandleImageUrl) {
-        vm.images.push(data.Data.HandleImageUrl);
-      }
-
-      return vm;
     },
   };
 

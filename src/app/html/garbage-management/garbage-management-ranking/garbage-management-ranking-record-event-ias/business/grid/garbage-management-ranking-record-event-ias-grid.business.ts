@@ -9,7 +9,7 @@ import { GridCell } from '../../../../../../common/network/model/garbage-station
 import { GetIasEventNumbersParams } from '../../../../../../common/network/request/ias/event/ias-event-request.params';
 import { IasRequestService } from '../../../../../../common/network/request/ias/ias-request.service';
 import { DateTimeTool } from '../../../../../../common/tools/date-time-tool/datetime.tool';
-import { wait } from '../../../../../../common/tools/tools';
+import { wait } from '../../../../../../common/tools/wait.tools';
 import { GarbageManagementRankingRecordEventIasGridService } from './garbage-management-ranking-record-event-ias-grid.service';
 
 @Injectable()
@@ -41,14 +41,11 @@ export class GarbageManagementRankingRecordEventIasGridBusiness {
 
     return new Promise<KeyValue<GridCell, EventNumberStatistic[]>[]>(
       (resolve) => {
-        wait(
-          () => {
-            return keyvalues.length === grids.length;
-          },
-          () => {
-            resolve(keyvalues);
-          }
-        );
+        wait(() => {
+          return keyvalues.length === grids.length;
+        }).then(() => {
+          resolve(keyvalues);
+        });
       }
     );
   }

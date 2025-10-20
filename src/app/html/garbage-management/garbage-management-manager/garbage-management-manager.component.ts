@@ -11,7 +11,7 @@ import { PicturePolygonMultipleComponent } from '../../../common/components/pict
 import { GarbageDropEventRecord } from '../../../common/network/model/garbage-station/event-record/garbage-drop-event-record.model';
 import { GarbageStation } from '../../../common/network/model/garbage-station/garbage-station.model';
 import { GlobalStorageService } from '../../../common/storage/global.storage';
-import { wait } from '../../../common/tools/tools';
+import { wait } from '../../../common/tools/wait.tools';
 import { HowellPanelComponent } from '../../share/panel/panel.component';
 import { VideoMultipleComponent } from '../../share/video/video-multiple/video-multiple.component';
 import { VideoWindowComponent } from '../../share/video/video-window/video-window.component';
@@ -183,7 +183,7 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
           this.card.load.event.emit();
           return this.destroyed;
         },
-        () => {},
+
         60 * 1000
       );
     },
@@ -217,33 +217,27 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
       let items = element.querySelectorAll(
         '.garbage-management-manager-card-item'
       );
-      wait(
-        () => {
-          items = element.querySelectorAll(
-            '.garbage-management-manager-card-item'
-          );
-          return items.length > 0;
-        },
-        () => {
-          this.controller.card.load.left(items);
-        }
-      );
+      wait(() => {
+        items = element.querySelectorAll(
+          '.garbage-management-manager-card-item'
+        );
+        return items.length > 0;
+      }).then(() => {
+        this.controller.card.load.left(items);
+      });
     },
     right: (element: HTMLElement) => {
       let items = element.querySelectorAll(
         '.garbage-management-manager-card-item'
       );
-      wait(
-        () => {
-          items = element.querySelectorAll(
-            '.garbage-management-manager-card-item'
-          );
-          return items.length > 0;
-        },
-        () => {
-          this.controller.card.load.right(items);
-        }
-      );
+      wait(() => {
+        items = element.querySelectorAll(
+          '.garbage-management-manager-card-item'
+        );
+        return items.length > 0;
+      }).then(() => {
+        this.controller.card.load.right(items);
+      });
     },
   };
 }

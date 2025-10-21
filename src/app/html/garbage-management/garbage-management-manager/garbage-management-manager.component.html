@@ -18,6 +18,7 @@
       (mixedinto)="map.on.mixedinto($event)"
       (garbagefull)="map.on.garbagefull($event)"
       (illegaldrop)="map.on.illegaldrop($event)"
+      (illegalvehicle)="map.on.illegalvehicle($event)"
     ></howell-garbage-management-map>
     <div class="garbage-management-manager-map-mask"></div>
   </div>
@@ -175,6 +176,9 @@
       (video)="panel.record.garbagefull.on.video.single($event)"
       (videoall)="panel.record.garbagefull.on.video.multiple($event)"
       (complete)="panel.record.garbagefull.on.complete($event)"
+      (stationimage)="panel.record.garbagefull.on.station.image($event)"
+      (stationvideo)="panel.record.garbagefull.on.station.video($event)"
+      (stationposition)="panel.record.garbagefull.on.station.position($event)"
     >
     </howell-garbage-management-record-event-garbage-full-manager>
   </howell-panel>
@@ -277,9 +281,9 @@
     [title]="window.video.ws.title"
     [style]="window.video.ws.style"
     [mask]="window.video.ws.mask"
-    [playback]="video.playback"
-    [preview]="video.preview"
-    (opened)="video.play()"
+    [playback]="medium.playback"
+    [preview]="medium.preview"
+    (opened)="medium.play()"
   >
   </howell-video-window>
   <howell-window

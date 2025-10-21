@@ -45,7 +45,7 @@ export class GarbageManagementManagerStationBusiness {
     return this.service.cache.get(id);
   }
 
-  pictures(stationId: string) {
+  capture(stationId: string) {
     return this.service.manualCapture(stationId);
   }
 

@@ -80,7 +80,7 @@ export class GarbageManagementManagerVideoMultipleWindow extends WindowViewModel
         if (this.stationId) {
           this.loading = true;
           this.business.station
-            .pictures(this.stationId)
+            .capture(this.stationId)
             .then((pictures) => {
               this.datas = pictures.map((picture) => {
                 return ObjectTool.model.camera.picture.video(picture);

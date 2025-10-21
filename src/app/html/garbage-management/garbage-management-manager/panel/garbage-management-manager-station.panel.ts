@@ -57,7 +57,7 @@ export class GarbageManagementManagerStationPanel extends WindowViewModel {
       this.window.video.multiple.loading = true;
       this.window.video.multiple.title = data.Name;
       this.business.station
-        .pictures(data.Id)
+        .capture(data.Id)
         .then((pictures) => {
           this.window.video.multiple.datas = pictures.map((picture) => {
             return ObjectTool.model.camera.picture.video(picture);

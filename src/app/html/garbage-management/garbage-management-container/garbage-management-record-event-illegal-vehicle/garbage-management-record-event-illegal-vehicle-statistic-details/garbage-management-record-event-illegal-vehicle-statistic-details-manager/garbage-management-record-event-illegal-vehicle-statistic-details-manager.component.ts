@@ -55,7 +55,7 @@ export class GarbageManagementRecordEventIllegalVehicleStatisticDetailsManagerCo
     args: new GarbageManagementRecordEventIllegalVehicleStatisticDetailsArgs(),
     load: new EventEmitter<GarbageManagementRecordEventIllegalVehicleStatisticDetailsArgs>(),
     station: {
-      types: [StationType.IllegalDump],
+      types: [StationType.IllegalVehicle],
     },
   };
   private change = {

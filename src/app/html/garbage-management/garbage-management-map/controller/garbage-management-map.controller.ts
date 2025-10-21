@@ -28,6 +28,9 @@ export class GarbageManagementMapController {
       x.event.illegaldrop.subscribe((data) => {
         this.station.event.illegaldrop.emit(data);
       });
+      x.event.illegalvehicle.subscribe((data) => {
+        this.station.event.illegalvehicle.emit(data);
+      });
       x.event.garbagefull.subscribe((data) => {
         this.station.event.garbagefull.emit(data);
       });
@@ -72,6 +75,7 @@ export class GarbageManagementMapController {
       camera: new EventEmitter<GarbageStationViewModel>(),
       mixedinto: new EventEmitter<GarbageStationViewModel>(),
       illegaldrop: new EventEmitter<GarbageStationViewModel>(),
+      illegalvehicle: new EventEmitter<GarbageStationViewModel>(),
       garbagefull: new EventEmitter<GarbageStationViewModel>(),
       garbagedrop: new EventEmitter<GarbageStationViewModel>(),
       error: new EventEmitter<GarbageStationViewModel>(),

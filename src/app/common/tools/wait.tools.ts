@@ -25,7 +25,9 @@ export function wait(
       () => {
         if (stop) {
           console.warn('wait2 timeout');
-          reject();
+          if (reject) {
+            reject();
+          }
         } else {
           resolve();
         }

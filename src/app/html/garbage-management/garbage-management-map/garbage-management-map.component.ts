@@ -45,6 +45,7 @@ export class GarbageManagementMapComponent
   @Output() camera = new EventEmitter<GarbageStationViewModel>();
   @Output() mixedinto = new EventEmitter<GarbageStationViewModel>();
   @Output() illegaldrop = new EventEmitter<GarbageStationViewModel>();
+  @Output() illegalvehicle = new EventEmitter<GarbageStationViewModel>();
   @Output() garbagefull = new EventEmitter<GarbageStationViewModel>();
   @Output() garbagedrop = new EventEmitter<GarbageStationViewModel>();
   @Output() error = new EventEmitter<GarbageStationViewModel>();
@@ -87,6 +88,9 @@ export class GarbageManagementMapComponent
       });
       this.controller.station.event.illegaldrop.subscribe((data) => {
         this.illegaldrop.emit(data);
+      });
+      this.controller.station.event.illegalvehicle.subscribe((data) => {
+        this.illegalvehicle.emit(data);
       });
       this.controller.station.event.garbagefull.subscribe((data) => {
         this.garbagefull.emit(data);

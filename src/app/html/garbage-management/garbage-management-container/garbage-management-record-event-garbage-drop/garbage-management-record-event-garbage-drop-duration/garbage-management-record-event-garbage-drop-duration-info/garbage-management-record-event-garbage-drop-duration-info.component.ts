@@ -5,6 +5,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  Output,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { EventType } from '../../../../../../common/enum/event-type.enum';
@@ -32,6 +33,7 @@ export class GarbageManagementRecordEventGarbageDropDurationInfoComponent
   @Input() args?: GarbageManagementRecordEventGarbageDropDurationInfoArgs;
   @Input('load')
   _load?: EventEmitter<GarbageManagementRecordEventGarbageDropDurationInfoArgs>;
+  @Output() inited = new EventEmitter<void>();
 
   constructor(
     private business: GarbageManagementRecordEventGarbageDropDurationInfoBusiness
@@ -52,6 +54,9 @@ export class GarbageManagementRecordEventGarbageDropDurationInfoComponent
 
   ngOnInit(): void {
     this.regist();
+    setTimeout(() => {
+      this.inited.emit();
+    });
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

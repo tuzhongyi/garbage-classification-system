@@ -8,6 +8,13 @@
       >
         列表
       </div>
+      <div
+        class="button-bracket"
+        [class.selected]="index == Index.station"
+        (click)="on.index(Index.station)"
+      >
+        投放点
+      </div>
       <!-- <div
         class="button-bracket"
         [class.selected]="index == Index.total"
@@ -33,6 +40,13 @@
       (videoall)="on.video.all($event)"
       (complete)="on.complete($event)"
     ></howell-garbage-management-record-event-garbage-full-list-manager>
+    <howell-garbage-management-record-event-garbage-full-station
+      *ngIf="index == Index.station"
+      [(args)]="args"
+      (image)="on.station.image($event)"
+      (video)="on.station.video($event)"
+      (position)="on.station.position($event)"
+    ></howell-garbage-management-record-event-garbage-full-station>
 
     <howell-garbage-management-record-event-garbage-full-statistic-details-manager
       *ngIf="index == Index.details"

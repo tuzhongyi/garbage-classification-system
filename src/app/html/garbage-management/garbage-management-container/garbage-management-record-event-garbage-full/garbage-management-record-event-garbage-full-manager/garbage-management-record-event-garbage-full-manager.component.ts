@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { GarbageFullEventRecord } from '../../../../../common/network/model/garbage-station/event-record/garbage-full-event-record.model';
+import { GarbageStation } from '../../../../../common/network/model/garbage-station/garbage-station.model';
 import { PagedArgs } from '../../../../../common/network/model/model.interface';
 import { GarbageManagementRecordEventGarbageFullListManagerComponent } from '../garbage-management-record-event-garbage-full-list/garbage-management-record-event-garbage-full-list-manager/garbage-management-record-event-garbage-full-list-manager.component';
+import { GarbageManagementRecordEventGarbageFullStationComponent } from '../garbage-management-record-event-garbage-full-station/garbage-management-record-event-garbage-full-station.component';
 import { GarbageManagementRecordEventGarbageFullStatisticDetailsManagerComponent } from '../garbage-management-record-event-garbage-full-statistic-details/garbage-management-record-event-garbage-full-statistic-details-manager/garbage-management-record-event-garbage-full-statistic-details-manager.component';
 import {
   GarbageManagementRecordEventGarbageFullArgs,
@@ -15,6 +17,7 @@ import {
     CommonModule,
     GarbageManagementRecordEventGarbageFullListManagerComponent,
     GarbageManagementRecordEventGarbageFullStatisticDetailsManagerComponent,
+    GarbageManagementRecordEventGarbageFullStationComponent,
   ],
   templateUrl:
     './garbage-management-record-event-garbage-full-manager.component.html',
@@ -27,6 +30,10 @@ export class GarbageManagementRecordEventGarbageFullManagerComponent {
   @Output() video = new EventEmitter<GarbageFullEventRecord>();
   @Output() videoall = new EventEmitter<GarbageFullEventRecord>();
   @Output() complete = new EventEmitter<GarbageFullEventRecord>();
+  @Output() stationimage: EventEmitter<PagedArgs<GarbageStation>> =
+    new EventEmitter();
+  @Output() stationposition: EventEmitter<GarbageStation> = new EventEmitter();
+  @Output() stationvideo: EventEmitter<GarbageStation> = new EventEmitter();
 
   index = GarbageManagementRecordEventGarbageFullIndex.list;
   Index = GarbageManagementRecordEventGarbageFullIndex;
@@ -48,6 +55,17 @@ export class GarbageManagementRecordEventGarbageFullManagerComponent {
     },
     complete: (data: GarbageFullEventRecord) => {
       this.complete.emit(data);
+    },
+    station: {
+      image: (data: PagedArgs<GarbageStation>) => {
+        this.stationimage.emit(data);
+      },
+      position: (data: GarbageStation) => {
+        this.stationposition.emit(data);
+      },
+      video: (data: GarbageStation) => {
+        this.stationvideo.emit(data);
+      },
     },
   };
 }

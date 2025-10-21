@@ -9,6 +9,7 @@ export interface GarbageManagementMapAMapInfoEvent {
   camera: EventEmitter<GarbageStationViewModel>;
   mixedinto: EventEmitter<GarbageStationViewModel>;
   illegaldrop: EventEmitter<GarbageStationViewModel>;
+  illegalvehicle: EventEmitter<GarbageStationViewModel>;
   garbagefull: EventEmitter<GarbageStationViewModel>;
   garbagedrop: EventEmitter<GarbageStationViewModel>;
   error: EventEmitter<GarbageStationViewModel>;

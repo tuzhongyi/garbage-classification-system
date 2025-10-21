@@ -68,7 +68,7 @@ export class GarbageManagementRecordEventIllegalVehicleListManagerComponent
     args: new GarbageManagementRecordEventIllegalVehicleListTableArgs(),
     load: new EventEmitter<GarbageManagementRecordEventIllegalVehicleListTableArgs>(),
     station: {
-      types: [StationType.IllegalDump],
+      types: [StationType.IllegalVehicle],
     },
   };
 

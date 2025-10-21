@@ -12,6 +12,7 @@ export class GarbageManagementMapAMapInfoDetailsController {
     camera: new EventEmitter<GarbageStationViewModel>(),
     mixedinto: new EventEmitter<GarbageStationViewModel>(),
     illegaldrop: new EventEmitter<GarbageStationViewModel>(),
+    illegalvehicle: new EventEmitter<GarbageStationViewModel>(),
     garbagefull: new EventEmitter<GarbageStationViewModel>(),
     garbagedrop: new EventEmitter<GarbageStationViewModel>(),
     error: new EventEmitter<GarbageStationViewModel>(),
@@ -43,6 +44,9 @@ export class GarbageManagementMapAMapInfoDetailsController {
     });
     content.illegaldrop.subscribe((data) => {
       this.event.illegaldrop.emit(data);
+    });
+    content.illegalvehicle.subscribe((data) => {
+      this.event.illegalvehicle.emit(data);
     });
     content.garbagefull.subscribe((data) => {
       this.event.garbagefull.emit(data);
@@ -88,8 +92,10 @@ class InfoContent implements GarbageManagementMapAMapInfoEvent {
   camera = new EventEmitter<GarbageStationViewModel>();
   mixedinto = new EventEmitter<GarbageStationViewModel>();
   illegaldrop = new EventEmitter<GarbageStationViewModel>();
+  illegalvehicle = new EventEmitter<GarbageStationViewModel>();
   garbagefull = new EventEmitter<GarbageStationViewModel>();
   garbagedrop = new EventEmitter<GarbageStationViewModel>();
+
   error = new EventEmitter<GarbageStationViewModel>();
 
   constructor(private data: GarbageStationViewModel) {}
@@ -214,6 +220,9 @@ class InfoContent implements GarbageManagementMapAMapInfoEvent {
         data.StationType == StationType.IllegalDump
       );
     },
+    illegalvehicle: (data: GarbageStationViewModel) => {
+      return data.StationType == StationType.IllegalVehicle;
+    },
   };
 
   private statistic(data: GarbageStationViewModel) {
@@ -275,6 +284,22 @@ class InfoContent implements GarbageManagementMapAMapInfoEvent {
               this.illegaldrop.emit(this.data);
             });
             html.appendChild(_illegaldrop);
+          }
+        }
+        if (this.enable.illegalvehicle(data)) {
+          let illegalvehicle = data.Statistic.TodayEventNumbers.find(
+            (x) => x.EventType === EventType.IllegalVehicle
+          );
+          if (illegalvehicle) {
+            let _illegalvehicle = this.item.statistic(
+              'mdi mdi-car text-red',
+              illegalvehicle.DayNumber
+            );
+            _illegalvehicle.title = '查看非法清运信息';
+            _illegalvehicle.addEventListener('click', () => {
+              this.illegalvehicle.emit(this.data);
+            });
+            html.appendChild(_illegalvehicle);
           }
         }
       }

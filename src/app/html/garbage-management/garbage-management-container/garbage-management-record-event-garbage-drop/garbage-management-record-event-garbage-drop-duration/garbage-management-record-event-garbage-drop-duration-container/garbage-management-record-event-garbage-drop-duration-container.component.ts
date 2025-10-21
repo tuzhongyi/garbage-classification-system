@@ -21,6 +21,7 @@ export class GarbageManagementRecordEventGarbageDropDurationContainerComponent {
   @Input() load?: EventEmitter<LineZoomChartInputArgs>;
   @Output() media = new EventEmitter<IllegalDropEventRecord>();
   @Output() statistic = new EventEmitter<LineZoomChartArgs>();
+  @Output() inited = new EventEmitter<void>();
 
   on = {
     media: (data: IllegalDropEventRecord) => {
@@ -30,6 +31,9 @@ export class GarbageManagementRecordEventGarbageDropDurationContainerComponent {
       multiple: (args: LineZoomChartArgs) => {
         this.statistic.emit(args);
       },
+    },
+    inited: () => {
+      this.inited.emit();
     },
   };
 }

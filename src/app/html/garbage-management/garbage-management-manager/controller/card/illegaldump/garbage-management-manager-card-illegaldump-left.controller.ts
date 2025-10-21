@@ -2,12 +2,20 @@ import { EventEmitter } from '@angular/core';
 import { ComponentTool } from '../../../../../../common/tools/component-tool/component.tool';
 import { GarbageManagementCardChartPieRecordStatisticComponent } from '../../../../garbage-management-card/garbage-management-card-chart-pie-record-statistic/garbage-management-card-chart-pie-record-statistic.component';
 import { GarbageManagementCardRankingRecordEventComponent } from '../../../../garbage-management-card/garbage-management-card-ranking-record-event/garbage-management-card-ranking-record-event.component';
-import { GarbageManagementRankingRecordEventIndex } from '../../../../garbage-management-ranking/garbage-management-ranking-record-event/garbage-management-ranking-record-event.model';
+import {
+  GarbageManagementRankingRecordEventArgs,
+  GarbageManagementRankingRecordEventIndex,
+} from '../../../../garbage-management-ranking/garbage-management-ranking-record-event/garbage-management-ranking-record-event.model';
 import { GarbageManagementManagerCardItem } from '../../../garbage-management-manager.model';
 import { GarbageManagementManagerCardCommonController } from '../common/garbage-management-manager-card-common.controller';
 import { GarbageManagementManagerCardAbstract } from '../garbage-management-manager-card.abstract';
 
 export class GarbageManagementManagerCardIllegalDumpLeftController extends GarbageManagementManagerCardAbstract {
+  event = {
+    statistic: {
+      click: new EventEmitter<GarbageManagementRankingRecordEventArgs>(),
+    },
+  };
   constructor(
     common: GarbageManagementManagerCardCommonController,
     tool: ComponentTool,
@@ -34,6 +42,7 @@ export class GarbageManagementManagerCardIllegalDumpLeftController extends Garba
         load: this.load,
         display: [GarbageManagementRankingRecordEventIndex.illegaldump],
         index: GarbageManagementRankingRecordEventIndex.illegaldump,
+        itemclick: this.event.statistic.click,
       },
       class: ['span-2'],
     },

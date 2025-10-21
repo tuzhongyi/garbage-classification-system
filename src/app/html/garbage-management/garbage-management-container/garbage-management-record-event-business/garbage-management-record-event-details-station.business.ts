@@ -45,9 +45,13 @@ export class GarbageManagementRecordEventDetailsStationBusiness {
       return [];
     }
     let data = paged.Data.map((x) => this.converter.statistic(stationId, x));
-    if (DateTimeTool.is.than.unit(duration.end, new Date(), params.TimeUnit)) {
-      let today = await this.today(stationId);
-      data = data.concat(today);
+    if (params.TimeUnit != TimeUnit.Day) {
+      if (
+        DateTimeTool.is.than.unit(duration.end, new Date(), params.TimeUnit)
+      ) {
+        let today = await this.today(stationId);
+        data = data.concat(today);
+      }
     }
     let times = DateTimeTool.full.unit(duration.begin, unit);
     data = BusinessTool.full(data, times, params.TimeUnit, (index: number) =>

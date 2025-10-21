@@ -7,7 +7,6 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -19,7 +18,7 @@ import { SelectDirective } from './select.directive';
   templateUrl: './select-control.component.html',
   styleUrls: ['./select-control.component.less'],
 })
-export class HowellSelectComponent implements OnInit, AfterViewChecked {
+export class HowellSelectComponent implements AfterViewChecked {
   @Input() nullable: boolean = false;
   @Input() nulltext = '请选择';
   @Input() input_element?: SelectDirective;
@@ -45,15 +44,10 @@ export class HowellSelectComponent implements OnInit, AfterViewChecked {
     } else {
       this._selected = v;
     }
-    if (this.inited) {
-      this.selectedChange.emit(v);
-    }
   }
   @Output() selectedChange: EventEmitter<any> = new EventEmitter();
 
   constructor(public detector: ChangeDetectorRef) {}
-
-  private inited = false;
 
   @ContentChild(SelectDirective)
   element_directive?: SelectDirective;
@@ -83,9 +77,6 @@ export class HowellSelectComponent implements OnInit, AfterViewChecked {
     return false;
   }
 
-  ngOnInit(): void {
-    this.inited = true;
-  }
   ngAfterViewChecked(): void {
     if (this.nullable) {
       if (this.selected === undefined) {
@@ -97,7 +88,7 @@ export class HowellSelectComponent implements OnInit, AfterViewChecked {
   }
   onclear(e: Event) {
     this.selected = undefined;
-
+    this.selectedChange.emit(this.selected);
     e.stopImmediatePropagation();
   }
 }

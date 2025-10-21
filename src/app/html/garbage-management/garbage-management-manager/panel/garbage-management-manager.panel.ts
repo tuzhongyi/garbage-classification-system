@@ -18,6 +18,10 @@ export class GarbageManagementManagerPanel {
     business: GarbageManagementManagerBusiness
   ) {
     this.station = new GarbageManagementManagerStationPanel(window, business);
-    this.record = new GarbageManagementManagerRecordPanel(window, business);
+    this.record = new GarbageManagementManagerRecordPanel(
+      window,
+      business,
+      this.station
+    );
   }
 }

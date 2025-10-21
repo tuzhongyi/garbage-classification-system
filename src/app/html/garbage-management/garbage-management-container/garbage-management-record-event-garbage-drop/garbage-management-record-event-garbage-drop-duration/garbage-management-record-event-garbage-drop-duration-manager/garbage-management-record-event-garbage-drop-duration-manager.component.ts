@@ -102,13 +102,16 @@ export class GarbageManagementRecordEventGarbageDropDurationManagerComponent
     },
   };
 
-  private init() {
-    wait(() => {
-      return !!this.chart.args.stationId;
-    }).then(() => {
-      this.on.search();
-    });
-  }
+  private init = {
+    did: false,
+    do: () => {
+      wait(() => {
+        return !!this.chart.args.stationId && this.init.did;
+      }).then(() => {
+        this.on.search();
+      });
+    },
+  };
   private change = {
     args: (simple: SimpleChange) => {
       if (simple) {
@@ -133,10 +136,13 @@ export class GarbageManagementRecordEventGarbageDropDurationManagerComponent
   }
 
   ngOnInit(): void {
-    this.init();
+    this.init.do();
   }
 
   on = {
+    inited: () => {
+      this.init.did = true;
+    },
     change: {
       station: () => {
         this.args.stationId = this.chart.args.stationId;

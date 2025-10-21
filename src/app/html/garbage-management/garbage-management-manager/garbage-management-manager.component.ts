@@ -93,8 +93,8 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
   get statistic() {
     return this.controller.statistic;
   }
-  get video() {
-    return this.controller.video;
+  get medium() {
+    return this.controller.medium;
   }
   get map() {
     return this.controller.map;

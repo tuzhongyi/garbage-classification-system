@@ -1,17 +1,18 @@
 import { WindowViewModel } from '../../../../../common/components/window/window.model';
 import { GarbageFullEventRecord } from '../../../../../common/network/model/garbage-station/event-record/garbage-full-event-record.model';
+import { GarbageStation } from '../../../../../common/network/model/garbage-station/garbage-station.model';
 import { PagedArgs } from '../../../../../common/network/model/model.interface';
 import { PagedList } from '../../../../../common/network/model/page_list.model';
 import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
 import { GarbageManagementRecordEventGarbageFullArgs } from '../../../garbage-management-container/garbage-management-record-event-garbage-full/garbage-management-record-event-garbage-full.model';
-import { GarbageManagementManagerBusiness } from '../../business/garbage-management-manager.business';
 import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
 import { VideoType } from '../../window/video/garbage-management-manager-video.window';
+import { GarbageManagementManagerStationPanel } from '../garbage-management-manager-station.panel';
 
 export class GarbageManagementManagerRecordGarbageFullPanel extends WindowViewModel {
   constructor(
     private window: GarbageManagementManagerWindow,
-    private business: GarbageManagementManagerBusiness
+    private station: GarbageManagementManagerStationPanel
   ) {
     super();
   }
@@ -60,6 +61,18 @@ export class GarbageManagementManagerRecordGarbageFullPanel extends WindowViewMo
           VideoType.ws,
           data.Data.StationId
         );
+      },
+    },
+    station: {
+      image: (data: PagedArgs<GarbageStation>) => {
+        this.station.on.image(data);
+      },
+      video: (data: GarbageStation) => {
+        this.station.on.video(data);
+      },
+      position: (data: GarbageStation) => {
+        this.show = false;
+        this.station.on.position(data);
       },
     },
   };

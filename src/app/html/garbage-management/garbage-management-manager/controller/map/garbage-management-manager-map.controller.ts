@@ -60,6 +60,10 @@ export class GarbageManagementManagerMapController {
       this.current = data;
       this.panel.record.illegaldrop.open({ stationId: data.Id });
     },
+    illegalvehicle: (data: GarbageStationViewModel) => {
+      this.current = data;
+      this.panel.record.illegalvehicle.open({ stationId: data.Id });
+    },
     garbagefull: (data: GarbageStationViewModel) => {
       this.current = data;
       this.panel.record.garbagefull.open({ stationId: data.Id });

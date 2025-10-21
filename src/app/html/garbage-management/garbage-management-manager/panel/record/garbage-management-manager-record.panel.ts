@@ -1,5 +1,6 @@
 import { GarbageManagementManagerBusiness } from '../../business/garbage-management-manager.business';
 import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
+import { GarbageManagementManagerStationPanel } from '../garbage-management-manager-station.panel';
 import { GarbageManagementManagerRecordGarbageDropPanel } from './garbage-management-manager-record-garbage-drop.panel';
 import { GarbageManagementManagerRecordGarbageFullPanel } from './garbage-management-manager-record-garbage-full.panel';
 import { GarbageManagementManagerRecordIasPanel } from './garbage-management-manager-record-ias.panel';
@@ -18,7 +19,8 @@ export class GarbageManagementManagerRecordPanel {
   illegalvehicle: GarbageManagementManagerRecordIllegalVehiclePanel;
   constructor(
     window: GarbageManagementManagerWindow,
-    business: GarbageManagementManagerBusiness
+    business: GarbageManagementManagerBusiness,
+    station: GarbageManagementManagerStationPanel
   ) {
     this.ias = new GarbageManagementManagerRecordIasPanel(window);
     this.mixedinto = new GarbageManagementManagerRecordMixedIntoPanel(
@@ -27,7 +29,7 @@ export class GarbageManagementManagerRecordPanel {
     );
     this.garbagefull = new GarbageManagementManagerRecordGarbageFullPanel(
       window,
-      business
+      station
     );
     this.garbagedrop = new GarbageManagementManagerRecordGarbageDropPanel(
       window,

@@ -50,6 +50,7 @@ export class LineZoomChartComponent implements OnInit, AfterViewInit {
   @Output() media: EventEmitter<IllegalDropEventRecord> = new EventEmitter();
 
   @Output() ondblclick: EventEmitter<LineZoomChartArgs> = new EventEmitter();
+  @Output('inited') _inited = new EventEmitter<void>();
 
   constructor(private business: LineZoomChartBusiness) {}
 
@@ -80,6 +81,7 @@ export class LineZoomChartComponent implements OnInit, AfterViewInit {
           });
       });
     }
+    this._inited.emit();
   }
   loaded = false;
   inited = false;
@@ -157,7 +159,7 @@ export class LineZoomChartComponent implements OnInit, AfterViewInit {
     this.panel.line.display = trigger.data > 0;
 
     if (this.panel.line.display) {
-      this.panel.line.position.x = trigger.event.offsetX - 105 + 'px';
+      this.panel.line.position.x = trigger.event.offsetX + 'px';
       this.panel.line.position.y = '-70px';
       // trigger.event.offsetY - 82 - 20 - 5 + 'px';
       if (this.data) {

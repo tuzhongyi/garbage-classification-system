@@ -49,6 +49,9 @@ export class SelectSearchGarbageStationComponent implements OnInit, OnChanges {
         if (this.selected) {
           this.selected = this.datas.find((x) => x.Id === this.selected?.Id);
           this.on.change();
+        } else if (this.selectedId) {
+          this.selected = this.datas.find((x) => x.Id === this.selectedId);
+          this.selectedChange.emit(this.selected);
         } else {
           if (this.default && this.datas.length > 0) {
             this.selected = this.datas[0];

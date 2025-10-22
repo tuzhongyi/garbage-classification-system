@@ -29,29 +29,33 @@ export abstract class GarbageManagementManagerCardAbstract
     return new Promise<IGarbageManagementManagerCardElement[]>((resolve) => {
       wait(() => {
         return !!this.ctors && this.ctors.length > 0;
-      }).then(() => {
-        let elements = [];
-        for (let i = 0; i < this.ctors.length; i++) {
-          const ctor = this.ctors[i];
-          let element: HTMLElement;
-          if (ctor.single && ctor.selector) {
-            if (this.common.elements.has(ctor.selector)) {
-              element = this.common.elements.get(ctor.selector)!;
+      })
+        .then(() => {
+          let elements = [];
+          for (let i = 0; i < this.ctors.length; i++) {
+            const ctor = this.ctors[i];
+            let element: HTMLElement;
+            if (ctor.single && ctor.selector) {
+              if (this.common.elements.has(ctor.selector)) {
+                element = this.common.elements.get(ctor.selector)!;
+              } else {
+                element = this.create(ctor);
+                this.common.elements.set(ctor.selector, element);
+              }
             } else {
               element = this.create(ctor);
-              this.common.elements.set(ctor.selector, element);
             }
-          } else {
-            element = this.create(ctor);
-          }
 
-          elements.push({
-            element: element,
-            class: ctor.class,
-          });
-        }
-        resolve(elements);
-      });
+            elements.push({
+              element: element,
+              class: ctor.class,
+            });
+          }
+          resolve(elements);
+        })
+        .catch(() => {
+          console.warn('GarbageManagementManagerCardAbstract init wait error');
+        });
     });
   }
 }

@@ -22,10 +22,8 @@ export class GarbageManagementManagerRecordIllegalVehiclePanel extends WindowVie
 
   args: GarbageManagementRecordEventIllegalVehicleArgs = {};
 
-  open(args?: GarbageManagementRecordEventIllegalVehicleArgs) {
-    if (args) {
-      this.args = args;
-    }
+  open(args: GarbageManagementRecordEventIllegalVehicleArgs) {
+    this.args = args;
     this.show = true;
   }
 

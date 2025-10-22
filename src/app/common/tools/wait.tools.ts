@@ -1,20 +1,22 @@
 export function waiting(
   whether: () => boolean,
-  reject: () => void,
+  resolve: () => void,
   timepoll = 100
 ) {
   setTimeout(() => {
     if (whether()) {
-      reject();
+      resolve();
     } else {
-      waiting(whether, reject, timepoll);
+      waiting(whether, resolve, timepoll);
     }
   }, timepoll);
 }
 export function wait(
+  this: any,
   whether: () => boolean,
   timepoll = 10,
-  timeout = 1000 * 1 * 60
+  timeout = 1000 * 1 * 60,
+  stopable = true
 ) {
   return new Promise<void>((resolve, reject) => {
     let stop = false;
@@ -24,17 +26,15 @@ export function wait(
       },
       () => {
         if (stop) {
-          console.warn('wait2 timeout');
-          if (reject) {
-            reject();
-          }
+          console.warn('wait2 timeout', this);
+          reject();
         } else {
           resolve();
         }
       },
       timepoll
     );
-    if (timeout) {
+    if (stopable && timeout) {
       setTimeout(() => {
         stop = true;
       }, timeout);

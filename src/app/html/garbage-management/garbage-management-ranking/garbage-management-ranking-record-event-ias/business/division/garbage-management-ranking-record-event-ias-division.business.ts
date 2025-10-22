@@ -42,9 +42,15 @@ export class GarbageManagementRankingRecordEventIasDivisionBusiness {
       (resolve) => {
         wait(() => {
           return keyvalues.length === divisions.length;
-        }).then(() => {
-          resolve(keyvalues);
-        });
+        })
+          .then(() => {
+            resolve(keyvalues);
+          })
+          .catch(() => {
+            console.warn(
+              'GarbageManagementRankingRecordEventIasDivisionBusiness load wait error'
+            );
+          });
       }
     );
   }

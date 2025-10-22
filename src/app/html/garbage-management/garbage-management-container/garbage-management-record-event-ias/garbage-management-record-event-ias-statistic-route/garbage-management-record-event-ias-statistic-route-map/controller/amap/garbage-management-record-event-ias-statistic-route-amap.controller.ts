@@ -16,14 +16,22 @@ export class GarbageManagementRecordEventIasStatisticRouteAMapController {
     let key = 'route_map_container';
     wait(() => {
       return !!document.getElementById(key);
-    }).then(() => {
-      MapHelper.amap.get(key).then((x) => {
-        this.map.set(x);
-        this.path.set(
-          new GarbageManagementRecordEventIasStatisticRouteAMapPathController(x)
+    })
+      .then(() => {
+        MapHelper.amap.get(key).then((x) => {
+          this.map.set(x);
+          this.path.set(
+            new GarbageManagementRecordEventIasStatisticRouteAMapPathController(
+              x
+            )
+          );
+        });
+      })
+      .catch(() => {
+        console.warn(
+          'GarbageManagementRecordEventIasStatisticRouteAMapController init wait error'
         );
       });
-    });
   }
 
   destroy() {

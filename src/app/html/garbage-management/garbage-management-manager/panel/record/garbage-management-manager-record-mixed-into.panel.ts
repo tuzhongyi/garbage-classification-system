@@ -27,10 +27,8 @@ export class GarbageManagementManagerRecordMixedIntoPanel extends WindowViewMode
 
   args: GarbageManagementRecordEventMixedIntoArgs = {};
 
-  open(args?: GarbageManagementRecordEventMixedIntoArgs) {
-    if (args) {
-      this.args = args;
-    }
+  open(args: GarbageManagementRecordEventMixedIntoArgs) {
+    this.args = args;
     this.show = true;
   }
 

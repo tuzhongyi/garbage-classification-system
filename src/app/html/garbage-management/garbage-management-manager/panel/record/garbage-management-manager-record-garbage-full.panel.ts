@@ -27,10 +27,8 @@ export class GarbageManagementManagerRecordGarbageFullPanel extends WindowViewMo
 
   args: GarbageManagementRecordEventGarbageFullArgs = {};
 
-  open(args?: GarbageManagementRecordEventGarbageFullArgs) {
-    if (args) {
-      this.args = args;
-    }
+  open(args: GarbageManagementRecordEventGarbageFullArgs) {
+    this.args = args;
     this.show = true;
   }
 

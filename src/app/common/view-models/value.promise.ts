@@ -7,9 +7,14 @@ export class PromiseValue<T> {
       if (this._value) {
         resolve(this._value);
       } else {
-        wait(() => {
-          return !!this._value;
-        }).then(() => {
+        wait(
+          () => {
+            return !!this._value;
+          },
+          undefined,
+          undefined,
+          false
+        ).then(() => {
           if (this._value) {
             resolve(this._value);
           }

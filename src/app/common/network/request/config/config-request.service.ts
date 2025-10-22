@@ -9,6 +9,14 @@ import { Config } from '../../model/garbage-station/config.interface';
 export class ConfigRequestService {
   constructor(private http: HttpClient) {}
 
+  version() {
+    return firstValueFrom(
+      this.http.get<{ version: string }>(
+        `assets/config/version.json?t=${new Date().getTime()}`
+      )
+    );
+  }
+
   getAIIcons() {
     return this.http.get<any>('assets/ai-icon.json');
   }

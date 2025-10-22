@@ -107,9 +107,15 @@ export class GarbageManagementRecordEventGarbageDropDurationManagerComponent
     do: () => {
       wait(() => {
         return !!this.chart.args.stationId && this.init.did;
-      }).then(() => {
-        this.on.search();
-      });
+      })
+        .then(() => {
+          this.on.search();
+        })
+        .catch(() => {
+          console.warn(
+            'GarbageManagementRecordEventGarbageDropDurationManagerComponent init failed'
+          );
+        });
     },
   };
   private change = {

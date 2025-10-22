@@ -56,23 +56,27 @@ export class ServiceCache<T extends IData> implements IServiceCache {
     return new Promise<T[]>((resolve) => {
       wait(() => {
         return this.loading === false;
-      }).then(() => {
-        let datas = this.load();
-        if (datas && datas.length > 0) {
-          resolve(datas);
-        } else {
-          this.loading = true;
-          this.service
-            .all()
-            .then((datas) => {
-              this.save([...datas]);
-              resolve(datas);
-            })
-            .finally(() => {
-              this.loading = false;
-            });
-        }
-      });
+      })
+        .then(() => {
+          let datas = this.load();
+          if (datas && datas.length > 0) {
+            resolve(datas);
+          } else {
+            this.loading = true;
+            this.service
+              .all()
+              .then((datas) => {
+                this.save([...datas]);
+                resolve(datas);
+              })
+              .finally(() => {
+                this.loading = false;
+              });
+          }
+        })
+        .catch(() => {
+          console.error('ServiceCache all wait error');
+        });
     });
   }
 

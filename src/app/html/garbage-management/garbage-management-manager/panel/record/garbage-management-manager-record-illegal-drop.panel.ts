@@ -21,10 +21,8 @@ export class GarbageManagementManagerRecordIllegalDropPanel extends WindowViewMo
   title = '垃圾乱投';
   args: GarbageManagementRecordEventIllegalDropArgs = {};
 
-  open(args?: GarbageManagementRecordEventIllegalDropArgs) {
-    if (args) {
-      this.args = args;
-    }
+  open(args: GarbageManagementRecordEventIllegalDropArgs) {
+    this.args = args;
     this.show = true;
   }
 

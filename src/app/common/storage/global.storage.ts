@@ -7,6 +7,7 @@ import { LocalStorageService } from './local.storage';
   providedIn: 'root',
 })
 export class GlobalStorageService {
+  version = '1.0.0.0';
   system?: SystemType; // 垃圾清运
 
   password?: string;
@@ -16,7 +17,6 @@ export class GlobalStorageService {
 
   division: GlobalStorageDivisionController;
   interval = new GlobalStorageIntervalController();
-
 
   constructor(private localStorage: LocalStorageService) {
     this.division = new GlobalStorageDivisionController(this.localStorage);

@@ -13,23 +13,27 @@ export class IasEventServiceCache extends ServiceCache<IasEventRecord> {
     return new Promise<IasEventRecord[]>((resolve) => {
       wait(() => {
         return this.loading === false;
-      }).then(() => {
-        let datas = this.load();
-        if (datas && datas.length > 0) {
-          resolve(datas);
-        } else {
-          this.loading = true;
-          this.service
-            .array(params)
-            .then((datas) => {
-              this.save([...datas]);
-              resolve(datas);
-            })
-            .finally(() => {
-              this.loading = false;
-            });
-        }
-      });
+      })
+        .then(() => {
+          let datas = this.load();
+          if (datas && datas.length > 0) {
+            resolve(datas);
+          } else {
+            this.loading = true;
+            this.service
+              .array(params)
+              .then((datas) => {
+                this.save([...datas]);
+                resolve(datas);
+              })
+              .finally(() => {
+                this.loading = false;
+              });
+          }
+        })
+        .catch(() => {
+          console.warn('IasEventServiceCache array wait error');
+        });
     });
   }
 

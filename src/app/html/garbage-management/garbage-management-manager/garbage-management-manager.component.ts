@@ -181,11 +181,21 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
       wait(
         () => {
           this.card.load.event.emit();
+          this.business.version().then((x) => {
+            if (this.global.version !== x) {
+              location.replace(window.location.href);
+            }
+          });
           return this.destroyed;
         },
-
-        60 * 1000
-      );
+        60 * 1000,
+        undefined,
+        false
+      ).catch(() => {
+        console.warn(
+          'GarbageManagementManagerComponent card load event wait error'
+        );
+      });
     },
     panel: () => {
       this.panel.station.event.move.subscribe((x) => {
@@ -222,9 +232,15 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
           '.garbage-management-manager-card-item'
         );
         return items.length > 0;
-      }).then(() => {
-        this.controller.card.load.left(items);
-      });
+      })
+        .then(() => {
+          this.controller.card.load.left(items);
+        })
+        .catch(() => {
+          console.warn(
+            'GarbageManagementManagerComponent load left wait error'
+          );
+        });
     },
     right: (element: HTMLElement) => {
       let items = element.querySelectorAll(
@@ -235,9 +251,15 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
           '.garbage-management-manager-card-item'
         );
         return items.length > 0;
-      }).then(() => {
-        this.controller.card.load.right(items);
-      });
+      })
+        .then(() => {
+          this.controller.card.load.right(items);
+        })
+        .catch(() => {
+          console.warn(
+            'GarbageManagementManagerComponent load right wait error'
+          );
+        });
     },
   };
 }

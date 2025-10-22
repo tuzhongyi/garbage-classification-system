@@ -46,19 +46,31 @@ export class TimeControlComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     wait(() => {
       return !!this.hour;
-    }).then(() => {
-      this.wheel(this.hour!.nativeElement);
-    });
+    })
+      .then(() => {
+        this.wheel(this.hour!.nativeElement);
+      })
+      .catch(() => {
+        console.warn('TimeControlComponent ngAfterViewInit wait hour error');
+      });
     wait(() => {
       return !!this.minute;
-    }).then(() => {
-      this.wheel(this.minute!.nativeElement);
-    });
+    })
+      .then(() => {
+        this.wheel(this.minute!.nativeElement);
+      })
+      .catch(() => {
+        console.warn('TimeControlComponent ngAfterViewInit wait minute error');
+      });
     wait(() => {
       return !!this.second;
-    }).then(() => {
-      this.wheel(this.second!.nativeElement);
-    });
+    })
+      .then(() => {
+        this.wheel(this.second!.nativeElement);
+      })
+      .catch(() => {
+        console.warn('TimeControlComponent ngAfterViewInit wait second error');
+      });
   }
 
   ngOnInit(): void {}

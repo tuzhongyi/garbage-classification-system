@@ -20,13 +20,18 @@ export abstract class GarbageManagementChartAbstract {
   }
 
   protected view() {
-    wait(() => {
-      return (
-        !!this.element &&
-        this.element.nativeElement.clientWidth > 0 &&
-        this.element.nativeElement.clientHeight > 0
-      );
-    }).then(() => {
+    wait(
+      () => {
+        return (
+          !!this.element &&
+          this.element.nativeElement.clientWidth > 0 &&
+          this.element.nativeElement.clientHeight > 0
+        );
+      },
+      undefined,
+      undefined,
+      false
+    ).then(() => {
       if (this.element) {
         let chart = echarts.init(this.element.nativeElement);
         this.chart.set(chart);

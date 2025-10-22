@@ -110,7 +110,6 @@ export class GarbageManagementRecordEventGarbageDropListManagerComponent
         if (this.table.args.divisionId != this.args.divisionId) {
           this.table.args.divisionId = this.args.divisionId;
         }
-        this.table.args.handle = !(this.args.stationId || this.args.divisionId);
       }
     },
   };

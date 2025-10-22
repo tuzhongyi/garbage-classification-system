@@ -137,9 +137,13 @@ export class VideoPlayerComponent
     this.loadRuleState().then(() => {
       wait(() => {
         return !!this.player;
-      }).then(() => {
-        this.eventRegist();
-      });
+      })
+        .then(() => {
+          this.eventRegist();
+        })
+        .catch(() => {
+          console.warn('VideoPlayerComponent onLoad wait player error');
+        });
     });
   }
 

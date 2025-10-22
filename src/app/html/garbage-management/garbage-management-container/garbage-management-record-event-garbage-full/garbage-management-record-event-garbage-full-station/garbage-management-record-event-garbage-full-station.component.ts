@@ -55,9 +55,6 @@ export class GarbageManagementRecordEventGarbageFullStationComponent
   private change = {
     args: (simple: SimpleChange) => {
       if (simple) {
-        if (this.table.args.stationId != this.args.stationId) {
-          this.table.args.stationId = this.args.stationId;
-        }
         if (this.table.args.divisionId != this.args.divisionId) {
           this.table.args.divisionId = this.args.divisionId;
         }

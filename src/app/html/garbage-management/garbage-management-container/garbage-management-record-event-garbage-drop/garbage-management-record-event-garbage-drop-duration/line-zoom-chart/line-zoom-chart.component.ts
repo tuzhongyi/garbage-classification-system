@@ -92,66 +92,70 @@ export class LineZoomChartComponent implements OnInit, AfterViewInit {
         return div.offsetWidth > 0 && div.offsetHeight > 0;
       }
       return false;
-    }).then(async () => {
-      if (this.loaded == false) {
-        this.loaded = true;
-        if (this.echarts) {
-          this.chart = echarts.init(this.echarts.nativeElement, 'dark');
-          this.chart.on('click', 'series.line', (trigger: any) => {
-            this.showLinePanel(trigger);
-          });
-          this.chart.on('click', 'series.scatter', (trigger: any) => {
-            this.showScatterPanel(trigger);
-          });
+    })
+      .then(async () => {
+        if (this.loaded == false) {
+          this.loaded = true;
+          if (this.echarts) {
+            this.chart = echarts.init(this.echarts.nativeElement, 'dark');
+            this.chart.on('click', 'series.line', (trigger: any) => {
+              this.showLinePanel(trigger);
+            });
+            this.chart.on('click', 'series.scatter', (trigger: any) => {
+              this.showScatterPanel(trigger);
+            });
 
-          this.chart.getZr().on('click', () => {
-            this.panel.line.display = false;
-            this.panel.scatter.display = false;
-          });
-          this.chart.getZr().on('dblclick', (params: any) => {
-            if (!this.args) return;
-            if (this.chart && this.data) {
-              // console.log(params);
-              let pointInPixel = [params.offsetX, params.offsetY];
-              let grid = this.chart.convertFromPixel(
-                { seriesIndex: 0 },
-                pointInPixel
-              );
-              let index = grid[0];
-              let data = this.data.count.find((x) => x.index == index);
-              let model: LineZoomChartArgs;
+            this.chart.getZr().on('click', () => {
+              this.panel.line.display = false;
+              this.panel.scatter.display = false;
+            });
+            this.chart.getZr().on('dblclick', (params: any) => {
+              if (!this.args) return;
+              if (this.chart && this.data) {
+                // console.log(params);
+                let pointInPixel = [params.offsetX, params.offsetY];
+                let grid = this.chart.convertFromPixel(
+                  { seriesIndex: 0 },
+                  pointInPixel
+                );
+                let index = grid[0];
+                let data = this.data.count.find((x) => x.index == index);
+                let model: LineZoomChartArgs;
 
-              if (data) {
-                model = {
-                  date: data.time,
-                  statistic: data.value,
-                };
-              } else {
-                let xData = this.xAxisData[index];
-                let statistic = new GarbageStationGarbageCountStatistic();
-                statistic.BeginTime = xData.date;
-                statistic.GarbageCount = 0;
-                statistic.Id = this.args.stationId ?? '';
-                model = {
-                  date: xData.date,
-                  statistic: statistic,
-                };
+                if (data) {
+                  model = {
+                    date: data.time,
+                    statistic: data.value,
+                  };
+                } else {
+                  let xData = this.xAxisData[index];
+                  let statistic = new GarbageStationGarbageCountStatistic();
+                  statistic.BeginTime = xData.date;
+                  statistic.GarbageCount = 0;
+                  statistic.Id = this.args.stationId ?? '';
+                  model = {
+                    date: xData.date,
+                    statistic: statistic,
+                  };
+                }
+
+                this.ondblclick.emit(model);
               }
-
-              this.ondblclick.emit(model);
-            }
-          });
+            });
+          }
+          if (this.args) {
+            this.data = await this.business.load(
+              this.args.stationId,
+              this.args.date,
+              this.unit
+            );
+            this.setOption(this.data, option);
+          }
         }
-        if (this.args) {
-          this.data = await this.business.load(
-            this.args.stationId,
-            this.args.date,
-            this.unit
-          );
-          this.setOption(this.data, option);
-        }
-      }
-    });
+      })
+      .catch(() => {
+        console.warn('LineZoomChartComponent ngAfterViewInit wait error');
+      });
   }
 
   showLinePanel(trigger: any) {

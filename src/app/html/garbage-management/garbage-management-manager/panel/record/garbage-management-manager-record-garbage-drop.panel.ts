@@ -26,10 +26,8 @@ export class GarbageManagementManagerRecordGarbageDropPanel extends WindowViewMo
   title = '垃圾滞留';
   args: GarbageManagementRecordEventGarbageDropArgs = {};
 
-  open(args?: GarbageManagementRecordEventGarbageDropArgs) {
-    if (args) {
-      this.args = args;
-    }
+  open(args: GarbageManagementRecordEventGarbageDropArgs) {
+    this.args = args;
     this.show = true;
   }
 

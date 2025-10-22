@@ -17,39 +17,43 @@ export class GlobalStorageDivisionController {
       } else {
         wait(() => {
           return !!this.localStorage.user;
-        }).then((x) => {
-          let user = this.localStorage.user;
-          let role =
-            user.Role && user.Role.length > 0 ? user.Role[0] : undefined;
-          let resource =
-            user.Resources && user.Resources.length > 0
-              ? user.Resources[0]
-              : undefined;
+        })
+          .then((x) => {
+            let user = this.localStorage.user;
+            let role =
+              user.Role && user.Role.length > 0 ? user.Role[0] : undefined;
+            let resource =
+              user.Resources && user.Resources.length > 0
+                ? user.Resources[0]
+                : undefined;
 
-          if (role) {
-            if (
-              role.UserData === 1 &&
-              role.StaticData === 1 &&
-              role.PictureData === 1
-            ) {
-              resolve({} as IDivision);
-              return;
+            if (role) {
+              if (
+                role.UserData === 1 &&
+                role.StaticData === 1 &&
+                role.PictureData === 1
+              ) {
+                resolve({} as IDivision);
+                return;
+              }
             }
-          }
 
-          if (resource) {
-            this._default = {
-              Id: resource.Id,
-              Name: resource.Name,
-              DivisionType: EnumTool.resource.to.division(
-                resource.ResourceType
-              ),
-            };
-            resolve(this._default);
-          } else {
-            reject(new Error('resource of user is null'));
-          }
-        });
+            if (resource) {
+              this._default = {
+                Id: resource.Id,
+                Name: resource.Name,
+                DivisionType: EnumTool.resource.to.division(
+                  resource.ResourceType
+                ),
+              };
+              resolve(this._default);
+            } else {
+              reject(new Error('resource of user is null'));
+            }
+          })
+          .catch(() => {
+            console.warn('GlobalStorageDivisionController default wait error');
+          });
       }
     });
   }
@@ -65,11 +69,15 @@ export class GlobalStorageDivisionController {
       } else {
         wait(() => {
           return !!this._selected;
-        }).then((x) => {
-          if (this._selected) {
-            resolve(this._selected);
-          }
-        });
+        })
+          .then((x) => {
+            if (this._selected) {
+              resolve(this._selected);
+            }
+          })
+          .catch(() => {
+            console.warn('GlobalStorageDivisionController selected wait error');
+          });
         this.default.then((x) => {
           this._selected = x;
           resolve(this._selected);

@@ -43,9 +43,15 @@ export class GarbageManagementRankingRecordEventIasGridBusiness {
       (resolve) => {
         wait(() => {
           return keyvalues.length === grids.length;
-        }).then(() => {
-          resolve(keyvalues);
-        });
+        })
+          .then(() => {
+            resolve(keyvalues);
+          })
+          .catch(() => {
+            console.warn(
+              'GarbageManagementRankingRecordEventIasGridBusiness load wait error'
+            );
+          });
       }
     );
   }

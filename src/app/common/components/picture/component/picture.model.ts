@@ -13,11 +13,15 @@ export class PictureElement<T> {
       } else {
         wait(() => {
           return !!this._element;
-        }).then(() => {
-          if (this._element) {
-            resolve(this._element);
-          }
-        });
+        })
+          .then(() => {
+            if (this._element) {
+              resolve(this._element);
+            }
+          })
+          .catch(() => {
+            console.warn('PictureElement get wait error');
+          });
       }
     });
   }

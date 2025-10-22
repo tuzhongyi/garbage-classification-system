@@ -68,20 +68,26 @@ export class SelectSearchGarbageStationComponent implements OnInit, OnChanges {
       if (simple) {
         wait(() => {
           return this.loaded;
-        }).then(() => {
-          if (this.selectedId) {
-            this.selected = this.datas.find((x) => x.Id === this.selectedId);
-          } else {
-            this.selected = undefined;
-          }
-          if (!this.selected) {
-            if (this.default) {
-              this.selected = this.datas[0];
-              this.on.change();
+        })
+          .then(() => {
+            if (this.selectedId) {
+              this.selected = this.datas.find((x) => x.Id === this.selectedId);
+            } else {
+              this.selected = undefined;
             }
-          }
-          this.selectedChange.emit(this.selected);
-        });
+            if (!this.selected) {
+              if (this.default) {
+                this.selected = this.datas[0];
+                this.on.change();
+              }
+            }
+            this.selectedChange.emit(this.selected);
+          })
+          .catch(() => {
+            console.warn(
+              'SelectSearchGarbageStationComponent change.selectedId wait timeout'
+            );
+          });
       }
     },
     divisionId: (simple: SimpleChange) => {

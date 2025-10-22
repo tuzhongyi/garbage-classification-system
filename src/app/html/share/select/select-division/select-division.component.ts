@@ -60,10 +60,16 @@ export class SelectDivisionComponent {
         if (this.selectedId) {
           wait(() => {
             return this.loaded;
-          }).then(() => {
-            this.selected = this.datas.find((x) => x.Id === this.selectedId);
-            this.selectedChange.emit(this.selected);
-          });
+          })
+            .then(() => {
+              this.selected = this.datas.find((x) => x.Id === this.selectedId);
+              this.selectedChange.emit(this.selected);
+            })
+            .catch(() => {
+              console.warn(
+                'SelectDivisionComponent change.selectedId wait timeout'
+              );
+            });
         }
       }
     },

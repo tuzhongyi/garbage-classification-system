@@ -188,9 +188,7 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
           });
           return this.destroyed;
         },
-        60 * 1000,
-        undefined,
-        false
+        { interval: 60 * 1000, stopable: false }
       ).catch(() => {
         console.warn(
           'GarbageManagementManagerComponent card load event wait error'

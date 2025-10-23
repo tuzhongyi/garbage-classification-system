@@ -1,23 +1,35 @@
 export function waiting(
   whether: () => boolean,
   resolve: () => void,
-  timepoll = 100
+  interval = 100
 ) {
   setTimeout(() => {
     if (whether()) {
       resolve();
     } else {
-      waiting(whether, resolve, timepoll);
+      waiting(whether, resolve, interval);
     }
-  }, timepoll);
+  }, interval);
 }
 export function wait(
   this: any,
   whether: () => boolean,
-  timepoll = 10,
-  timeout = 1000 * 1 * 60,
-  stopable = true
+  args?: {
+    interval?: number;
+    timeout?: number;
+    stopable?: boolean;
+  }
 ) {
+  let opts = {
+    interval: 10,
+    timeout: 1000 * 1 * 60,
+    stopable: true,
+  };
+  opts = {
+    ...opts,
+    ...args,
+  };
+
   return new Promise<void>((resolve, reject) => {
     let stop = false;
     waiting(
@@ -32,12 +44,12 @@ export function wait(
           resolve();
         }
       },
-      timepoll
+      opts.interval
     );
-    if (stopable && timeout) {
+    if (opts.stopable && opts.timeout) {
       setTimeout(() => {
         stop = true;
-      }, timeout);
+      }, opts.timeout);
     }
   });
 }

@@ -93,7 +93,7 @@ export class GarbageStationStatisticTableService {
 
   async getStations(divisionId: string) {
     let params = new GetGarbageStationsParams();
-    params.DivisionId = divisionId;
+    params.AncestorId = divisionId;
     let paged = await this.station.cache.paged(params);
     return paged.Data;
   }

@@ -11,9 +11,7 @@ export class PromiseValue<T> {
           () => {
             return !!this._value;
           },
-          undefined,
-          undefined,
-          false
+          { stopable: false }
         ).then(() => {
           if (this._value) {
             resolve(this._value);

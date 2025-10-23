@@ -28,9 +28,7 @@ export abstract class GarbageManagementChartAbstract {
           this.element.nativeElement.clientHeight > 0
         );
       },
-      undefined,
-      undefined,
-      false
+      { stopable: false }
     ).then(() => {
       if (this.element) {
         let chart = echarts.init(this.element.nativeElement);

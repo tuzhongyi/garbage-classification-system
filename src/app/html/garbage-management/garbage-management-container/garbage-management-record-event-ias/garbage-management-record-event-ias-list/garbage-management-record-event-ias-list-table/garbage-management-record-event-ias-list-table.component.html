@@ -11,7 +11,7 @@
           <td>责任网格</td>
           <td>发现时间</td>
           <td>描述</td>
-          <td>处置状态</td>
+          <td>状态</td>
           <td>处置人员</td>
           <td>处置时间</td>
           <td class="center"><div>操作</div></td>
@@ -75,7 +75,7 @@
             }"
           >
             @if(item){
-            {{ item.Assignment?.Handled ? "已处置" : "未处置" }}
+            {{ item.Assignment?.Handled ? "已确认" : "未确认" }}
             }
           </td>
           <td>

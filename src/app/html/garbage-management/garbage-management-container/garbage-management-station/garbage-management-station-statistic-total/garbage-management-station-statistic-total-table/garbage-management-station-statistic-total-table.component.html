@@ -26,22 +26,22 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of datas">
-          <th [title]="item.Name">
+          <td [title]="item.Name">
             {{ item.Name }}
-          </th>
-          <th [title]="(item.Committees | async)?.Name">
+          </td>
+          <td [title]="(item.Committees | async)?.Name">
             {{ (item.Committees | async)?.Name }}
-          </th>
-          <th [title]="(item.GarbageStation | async)?.CommunityName">
+          </td>
+          <td [title]="(item.GarbageStation | async)?.CommunityName">
             {{ (item.GarbageStation | async)?.CommunityName }}
-          </th>
-          <th [title]="(item.County | async)?.Name">
+          </td>
+          <td [title]="(item.County | async)?.Name">
             {{ (item.County | async)?.Name }}
-          </th>
-          <th class="current" [title]="item.GarbageRatioTd.format">
+          </td>
+          <td class="current" [title]="item.GarbageRatioTd.format">
             {{ item.GarbageRatioTd.format }}
-          </th>
-          <th class="signal">
+          </td>
+          <td class="signal">
             <i
               class="mdi"
               [ngClass]="{
@@ -52,16 +52,16 @@
               }"
               [style.color]=""
             ></i>
-          </th>
-          <th class="differ">
+          </td>
+          <td class="differ">
             <div *ngIf="item.GarbageRatioTd.differ != 0">
               {{ Math.abs(item.GarbageRatioTd.differ).toFixed(2) }}
             </div>
-          </th>
-          <th class="current" [title]="item.AvgGarbageTimeTd.format">
+          </td>
+          <td class="current" [title]="item.AvgGarbageTimeTd.format">
             {{ item.AvgGarbageTimeTd.format }}
-          </th>
-          <th class="signal">
+          </td>
+          <td class="signal">
             <i
               class="mdi"
               [ngClass]="{
@@ -71,15 +71,15 @@
                 'text-green': item.AvgGarbageTimeTd.differ < 0
               }"
             ></i>
-          </th>
-          <th class="differ">
+          </td>
+          <td class="differ">
             <span>{{ Math.abs(item.AvgGarbageTimeTd.differ).toFixed(2) }}</span
             >%
-          </th>
-          <th class="current" [title]="item.MaxGarbageTimeTd.format">
+          </td>
+          <td class="current" [title]="item.MaxGarbageTimeTd.format">
             {{ item.MaxGarbageTimeTd.format }}
-          </th>
-          <th class="signal">
+          </td>
+          <td class="signal">
             <i
               class="mdi"
               [ngClass]="{
@@ -89,15 +89,15 @@
                 'text-green': item.MaxGarbageTimeTd.differ < 0
               }"
             ></i>
-          </th>
-          <th class="differ">
+          </td>
+          <td class="differ">
             <span>{{ Math.abs(item.MaxGarbageTimeTd.differ).toFixed(2) }}</span
             >%
-          </th>
-          <th class="current" [title]="item.GarbageDurationTd.format">
+          </td>
+          <td class="current" [title]="item.GarbageDurationTd.format">
             {{ item.GarbageDurationTd.format }}
-          </th>
-          <th class="signal">
+          </td>
+          <td class="signal">
             <i
               class="mdi"
               [ngClass]="{
@@ -107,15 +107,15 @@
                 'text-green': item.GarbageDurationTd.differ < 0
               }"
             ></i>
-          </th>
-          <th class="differ">
+          </td>
+          <td class="differ">
             <span>{{ Math.abs(item.GarbageDurationTd.differ).toFixed(2) }}</span
             >%
-          </th>
-          <th class="current">
+          </td>
+          <td class="current">
             {{ item.IllegalDropTd.value }}
-          </th>
-          <th class="signal">
+          </td>
+          <td class="signal">
             <i
               class="mdi"
               [ngClass]="{
@@ -125,18 +125,18 @@
                 'text-green': item.IllegalDropTd.differ < 0
               }"
             ></i>
-          </th>
-          <th class="differ number">
+          </td>
+          <td class="differ number">
             <div *ngIf="item.IllegalDropTd.differ != 0">
               <div>
                 {{ Math.abs(item.IllegalDropTd.differ).toFixed(0) }}
               </div>
             </div>
-          </th>
-          <th class="current">
+          </td>
+          <td class="current">
             {{ item.MixedIntoTd.value }}
-          </th>
-          <th class="signal">
+          </td>
+          <td class="signal">
             <i
               class="mdi"
               [ngClass]="{
@@ -146,14 +146,14 @@
                 'text-green': item.MixedIntoTd.differ < 0
               }"
             ></i>
-          </th>
-          <th class="differ number">
+          </td>
+          <td class="differ number">
             <div *ngIf="item.MixedIntoTd.differ != 0">
               <div>
                 {{ Math.abs(item.MixedIntoTd.differ).toFixed(0) }}
               </div>
             </div>
-          </th>
+          </td>
         </tr>
       </tbody>
     </table>

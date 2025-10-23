@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
+import { PathTool } from '../../../tools/path-tool/path.tool';
 import { Config } from '../../model/garbage-station/config.interface';
 
 @Injectable({
@@ -12,7 +13,7 @@ export class ConfigRequestService {
   version() {
     return firstValueFrom(
       this.http.get<{ version: string }>(
-        `assets/config/version.json?t=${new Date().getTime()}`
+        `${PathTool.config.version}?t=${new Date().getTime()}`
       )
     );
   }

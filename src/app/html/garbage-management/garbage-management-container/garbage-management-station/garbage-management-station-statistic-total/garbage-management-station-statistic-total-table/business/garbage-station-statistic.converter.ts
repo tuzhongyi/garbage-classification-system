@@ -59,15 +59,15 @@ export class GarbageStationStatisticConverter {
 
     model.AvgGarbageTimeTd.value = model.AvgGarbageTime ?? 0;
     model.AvgGarbageTimeTd.format =
-      Language.Time(model.AvgGarbageTime ?? 0) ?? '';
+      Language.Time(model.AvgGarbageTime ?? 0, 'minute') ?? '';
 
     model.MaxGarbageTimeTd.value = model.MaxGarbageTime ?? 0;
     model.MaxGarbageTimeTd.format =
-      Language.Time(model.MaxGarbageTime ?? 0) ?? '';
+      Language.Time(model.MaxGarbageTime ?? 0, 'minute') ?? '';
 
     model.GarbageDurationTd.value = model.GarbageDuration ?? 0;
     model.GarbageDurationTd.format =
-      Language.Time(model.GarbageDuration ?? 0) ?? '';
+      Language.Time(model.GarbageDuration ?? 0, 'minute') ?? '';
 
     if (model.EventNumbers) {
       for (let i = 0; i < model.EventNumbers.length; i++) {

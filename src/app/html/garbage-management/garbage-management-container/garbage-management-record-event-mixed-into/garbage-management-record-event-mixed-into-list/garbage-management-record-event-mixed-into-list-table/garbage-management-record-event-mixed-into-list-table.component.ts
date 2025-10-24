@@ -70,7 +70,7 @@ export class GarbageManagementRecordEventMixedIntoListTableComponent
         this.loadData(1, this.pageSize);
       });
     }
-    this.loadData(1, this.pageSize);
+    this.loadData(-1, this.pageSize);
   }
 
   async loadData(index: number, size: number) {

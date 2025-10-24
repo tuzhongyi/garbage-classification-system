@@ -60,7 +60,7 @@ export class GarbageManagementRecordEventIasListTableComponent
 
   ngOnInit(): void {
     this.regist();
-    this.loadData(1, this.pageSize);
+    this.loadData(-1, this.pageSize);
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

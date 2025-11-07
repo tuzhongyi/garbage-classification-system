@@ -72,4 +72,9 @@ export class GarbageManagementMapAMapController {
       x.setFitView(datas, true);
     });
   }
+  zoom() {
+    this.map.get().then((x) => {
+      x.setZoom(GarbageManagementMapAMapConfig.zoom.marker[0] + 1);
+    });
+  }
 }

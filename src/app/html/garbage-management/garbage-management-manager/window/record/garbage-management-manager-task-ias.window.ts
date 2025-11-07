@@ -6,7 +6,7 @@ export class GarbageManagementManagerTaskIasWindow extends WindowViewModel {
   style = {
     ...SizeTool.window.large,
 
-    zIndex: '1',
+    zIndex: '2',
   };
   title = '暴露垃圾事件';
   data?: IasEventRecord;

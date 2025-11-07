@@ -1,8 +1,8 @@
 import { formatDate } from '@angular/common';
 import { EventEmitter } from '@angular/core';
 import { IasEventRecord } from '../../../../../../common/network/model/ias/ias-event-record.model';
+import { GeoTool } from '../../../../../../common/tools/geo-tool/geo.tool';
 import { Language } from '../../../../../../common/tools/language';
-import { ObjectTool } from '../../../../../../common/tools/object-tool/object.tool';
 import { GarbageManagementMapAMapInfoController } from '../info/garbage-management-map-amap-marker-info.controller';
 import { GarbageManagementMapAMapInfo } from '../info/garbage-management-map-amap-marker-info.model';
 import { GarbageManagementMapAMapRecordMarkerLayerController } from './garbage-management-map-amap-record-marker-layer.controller';
@@ -26,16 +26,7 @@ export class GarbageManagementMapAMapRecordController {
   private info: GarbageManagementMapAMapInfoController;
   private regist() {
     this.marker.event.mouseover.subscribe((data) => {
-      let content = `时间：${formatDate(
-        data.EventTime,
-        Language.yyyyMMddHHmmss,
-        'en'
-      )}<br/>地址：${data.Address ?? '无'}`;
-      let info: GarbageManagementMapAMapInfo = {
-        Name: content,
-        Location: ObjectTool.model.GisPoint.to(data.Location),
-      };
-      this.info.add(info);
+      this.select(data);
     });
     this.marker.event.mouseout.subscribe((station) => {
       this.info.remove();
@@ -51,5 +42,25 @@ export class GarbageManagementMapAMapRecordController {
 
   clear() {
     this.marker.clear();
+  }
+  select(data: IasEventRecord) {
+    let content = `时间：${formatDate(
+      data.EventTime,
+      Language.yyyyMMddHHmmss,
+      'en'
+    )}<br/>地址：${data.Address ?? '无'}`;
+    let position: [number, number] = GeoTool.point.convert.wgs84.to.gcj02(
+      data.Location?.Longitude ?? 121.31,
+      data.Location?.Latitude ?? 31.121
+    );
+    let info: GarbageManagementMapAMapInfo = {
+      Name: content,
+      Location: [...position],
+    };
+    this.info.add(info);
+  }
+
+  blur() {
+    this.info.remove();
   }
 }

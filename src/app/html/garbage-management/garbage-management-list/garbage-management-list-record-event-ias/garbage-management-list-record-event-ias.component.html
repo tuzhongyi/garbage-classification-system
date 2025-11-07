@@ -2,6 +2,7 @@
   <div
     class="garbage-management-list-record-event-ias-item"
     *ngFor="let item of datas"
+    (click)="on.click(item)"
   >
     <div class="garbage-management-list-record-event-ias-item-name">
       {{ item.GridCellName }}

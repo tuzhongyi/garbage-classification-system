@@ -11,7 +11,7 @@ class DetailsWindow extends WindowViewModel {
   style = {
     ...SizeTool.window.large,
 
-    zIndex: '1',
+    zIndex: '2',
   };
 
   title = '车辆信息';

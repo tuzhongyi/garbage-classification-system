@@ -14,7 +14,7 @@ export class GarbageManagementManagerTaskIllegalVehicleWindow extends WindowView
   style = {
     ...SizeTool.window.large,
 
-    zIndex: '1',
+    zIndex: '2',
   };
   title = '处置工单';
   data?: IllegalVehicleEventRecord;

@@ -6,7 +6,7 @@ export class GarbageManagementManagerStreetWindow extends WindowViewModel {
     width: '100%',
     transform: 'translate(0,0)',
     top: '85px',
-    zIndex: '1',
+    zIndex: '2',
   };
   title = '巡逻车辆';
   online?: boolean = undefined;

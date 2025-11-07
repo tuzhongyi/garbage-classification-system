@@ -1,15 +1,20 @@
 import { EventType } from '../../../../../common/enum/event-type.enum';
 import { IEventRecord } from '../../../../../common/network/model/garbage-station/event-record/garbage-event-record.model';
 import { IllegalVehicleEventRecord } from '../../../../../common/network/model/garbage-station/event-record/illegal-vehicle-event-record.model';
+import { GarbageStation } from '../../../../../common/network/model/garbage-station/garbage-station.model';
 import { IasEventRecord } from '../../../../../common/network/model/ias/ias-event-record.model';
 import { GarbageManagementRankingRecordEventArgs } from '../../../garbage-management-ranking/garbage-management-ranking-record-event/garbage-management-ranking-record-event.model';
+import { GarbageManagementManagerBusiness } from '../../business/garbage-management-manager.business';
 import { GarbageManagementManagerPanel } from '../../panel/garbage-management-manager.panel';
 import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
+import { GarbageManagementManagerMapController } from '../map/garbage-management-manager-map.controller';
 
 export class GarbageManagementManagerCardEventTrigger {
   constructor(
     private panel: GarbageManagementManagerPanel,
-    private window: GarbageManagementManagerWindow
+    private window: GarbageManagementManagerWindow,
+    private map: GarbageManagementManagerMapController,
+    private business: GarbageManagementManagerBusiness
   ) {}
 
   record = {
@@ -68,6 +73,19 @@ export class GarbageManagementManagerCardEventTrigger {
     task: (data: IEventRecord) => {
       this.window.task.complete.open(data);
     },
+    position: async (data: IEventRecord) => {
+      let station: GarbageStation;
+
+      if (data.Data.GisPoint) {
+        station = new GarbageStation();
+        station.Id = data.Data.StationId;
+        station.GisPoint = data.Data.GisPoint;
+      } else {
+        station = await this.business.station.get(data.Data.StationId);
+      }
+
+      this.map.select.emit(station);
+    },
   };
 
   ias = {
@@ -82,6 +100,9 @@ export class GarbageManagementManagerCardEventTrigger {
     },
     statistic: () => {
       this.panel.record.ias.show = true;
+    },
+    position: (data: IasEventRecord) => {
+      this.map.select.emit(data);
     },
   };
   vehicle = {

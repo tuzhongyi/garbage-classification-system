@@ -15,7 +15,7 @@ export class GarbageManagementMapController {
   private regist() {
     this.amap.record.get().then((x) => {
       x.event.dblclick.subscribe((data) => {
-        this.record.event.dblclick.emit(data);
+        this.ias.record.event.dblclick.emit(data);
       });
     });
     this.amap.station.get().then((x) => {
@@ -107,28 +107,42 @@ export class GarbageManagementMapController {
       });
     },
   };
-  device = {
-    load: (datas: IasDevice[]) => {
-      this.amap.device.get().then((x) => {
-        x.clear();
-        x.load(datas);
-      });
+  ias = {
+    device: {
+      load: (datas: IasDevice[]) => {
+        this.amap.device.get().then((x) => {
+          x.clear();
+          x.load(datas);
+        });
+      },
     },
-  };
-  record = {
-    event: {
-      dblclick: new EventEmitter<IasEventRecord>(),
-    },
-    load: (datas: IasEventRecord[]) => {
-      this.amap.record.get().then((x) => {
-        x.clear();
-        x.load(datas);
-      });
-    },
-    clear: () => {
-      this.amap.record.get().then((x) => {
-        x.clear();
-      });
+    record: {
+      event: {
+        dblclick: new EventEmitter<IasEventRecord>(),
+      },
+      load: (datas: IasEventRecord[]) => {
+        this.amap.record.get().then((x) => {
+          x.clear();
+          x.load(datas);
+        });
+      },
+      clear: () => {
+        this.amap.record.get().then((x) => {
+          x.clear();
+        });
+      },
+      select: (data: IasEventRecord) => {
+        this.amap.record.get().then((x) => {
+          x.blur();
+          x.select(data);
+          this.amap.zoom();
+        });
+      },
+      blur: () => {
+        this.amap.record.get().then((x) => {
+          x.blur();
+        });
+      },
     },
   };
 }

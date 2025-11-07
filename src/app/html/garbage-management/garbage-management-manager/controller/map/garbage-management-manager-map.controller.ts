@@ -3,6 +3,7 @@ import { Camera } from '../../../../../common/network/model/garbage-station/came
 import { IDivision } from '../../../../../common/network/model/garbage-station/division.model';
 import { GarbageStation } from '../../../../../common/network/model/garbage-station/garbage-station.model';
 import { IasDevice } from '../../../../../common/network/model/ias/ias-device.model';
+import { IasEventRecord } from '../../../../../common/network/model/ias/ias-event-record.model';
 import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
 import { GarbageStationViewModel } from '../../../../../common/view-model/garbage-station.view-model';
 import { GarbageManagementManagerPanel } from '../../panel/garbage-management-manager.panel';
@@ -16,7 +17,9 @@ export class GarbageManagementManagerMapController {
     private window: GarbageManagementManagerWindow
   ) {}
   move = new EventEmitter<[number, number]>();
-  select = new EventEmitter<GarbageStation | IasDevice | IDivision>();
+  select = new EventEmitter<
+    GarbageStation | IasDevice | IDivision | IasEventRecord
+  >();
   load = new EventEmitter<void>();
   refresh = false;
 

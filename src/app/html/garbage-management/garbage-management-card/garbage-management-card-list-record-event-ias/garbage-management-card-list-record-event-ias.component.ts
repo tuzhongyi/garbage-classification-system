@@ -17,6 +17,7 @@ import { GarbageManagementCardComponent } from '../component/garbage-management-
 export class GarbageManagementCardListRecordEventIasComponent {
   @Input() load?: EventEmitter<void>;
   @Output() task = new EventEmitter<IasEventRecord>();
+  @Output() itemclick = new EventEmitter<IasEventRecord>();
   title = '暴露垃圾事件记录';
 
   count = 0;
@@ -29,6 +30,9 @@ export class GarbageManagementCardListRecordEventIasComponent {
     },
     task: (data: IasEventRecord) => {
       this.task.emit(data);
+    },
+    click: (data: IasEventRecord) => {
+      this.itemclick.emit(data);
     },
   };
 }

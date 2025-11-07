@@ -15,6 +15,7 @@ import { IDivision } from '../../../common/network/model/garbage-station/divisio
 import { GarbageStation } from '../../../common/network/model/garbage-station/garbage-station.model';
 import { IasDevice } from '../../../common/network/model/ias/ias-device.model';
 import { IasEventRecord } from '../../../common/network/model/ias/ias-event-record.model';
+import { GeoTool } from '../../../common/tools/geo-tool/geo.tool';
 import { GarbageStationViewModel } from '../../../common/view-model/garbage-station.view-model';
 import { GarbageManagementMapBusiness } from './business/garbage-management-map.business';
 import { GarbageManagementMapController } from './controller/garbage-management-map.controller';
@@ -34,7 +35,9 @@ export class GarbageManagementMapComponent
   @Input() stations: GarbageStationViewModel[] = [];
   @Input() records: IasEventRecord[] = [];
   @Input() eventables = [EventType.GarbageFull, EventType.GarbageDrop];
-  @Input() select?: EventEmitter<GarbageStation | IasDevice | IDivision>;
+  @Input() select?: EventEmitter<
+    GarbageStation | IasDevice | IDivision | IasEventRecord
+  >;
   @Input() move?: EventEmitter<[number, number]>;
   @Input() refresh = false;
 
@@ -62,7 +65,9 @@ export class GarbageManagementMapComponent
           if (data instanceof GarbageStation) {
             this.on.select.station(data);
           } else if (data instanceof IasDevice) {
-            this.on.select.ias(data);
+            this.on.select.ias.device(data);
+          } else if (data instanceof IasEventRecord) {
+            this.on.select.ias.record(data);
           } else {
             this.on.select.division(data);
           }
@@ -77,7 +82,7 @@ export class GarbageManagementMapComponent
       }
     },
     output: () => {
-      this.controller.record.event.dblclick.subscribe((data) => {
+      this.controller.ias.record.event.dblclick.subscribe((data) => {
         this.recorddblclick.emit(data);
       });
       this.controller.station.event.camera.subscribe((data) => {
@@ -129,6 +134,7 @@ export class GarbageManagementMapComponent
       if (simple && !simple.firstChange) {
         if (this.refresh) {
           this.controller.station.blur();
+          this.controller.ias.record.blur();
           this.refresh = false;
           setTimeout(() => {
             this.refreshChange.emit(this.refresh);
@@ -165,10 +171,10 @@ export class GarbageManagementMapComponent
       this.controller.station.eventable(datas);
     },
     device: (datas: IasDevice[]) => {
-      this.controller.device.load(datas);
+      this.controller.ias.device.load(datas);
     },
     record: (datas: IasEventRecord[]) => {
-      this.controller.record.load(datas);
+      this.controller.ias.record.load(datas);
     },
   };
   ngOnChanges(changes: SimpleChanges): void {
@@ -189,13 +195,25 @@ export class GarbageManagementMapComponent
 
   private on = {
     select: {
-      ias: (data: IasDevice) => {
-        if (data.Location) {
-          this.controller.move([
-            data.Location.Longitude,
-            data.Location.Latitude,
-          ]);
-        }
+      ias: {
+        device: (data: IasDevice) => {
+          if (data.Location) {
+            this.controller.move([
+              data.Location.Longitude,
+              data.Location.Latitude,
+            ]);
+          }
+        },
+        record: (data: IasEventRecord) => {
+          this.controller.ias.record.select(data);
+          if (data.Location) {
+            let position = GeoTool.point.convert.wgs84.to.gcj02(
+              data.Location.Longitude,
+              data.Location.Latitude
+            );
+            this.controller.move(position);
+          }
+        },
       },
       station: (data: GarbageStation) => {
         this.controller.station.blur();

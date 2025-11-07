@@ -8,6 +8,7 @@
       *ngIf="loading || count > 0"
       (loaded)="on.loaded($event)"
       (task)="on.task($event)"
+      (itemclick)="on.click($event)"
     ></howell-garbage-management-list-record-event-ias>
     <div *ngIf="!loading && count === 0" class="no-data">无记录</div>
   </howell-garbage-management-card>

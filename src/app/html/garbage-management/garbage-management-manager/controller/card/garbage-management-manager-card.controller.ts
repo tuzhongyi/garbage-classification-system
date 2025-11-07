@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { IEventRecord } from '../../../../../common/network/model/garbage-station/event-record/garbage-event-record.model';
 import { ComponentTool } from '../../../../../common/tools/component-tool/component.tool';
+import { GarbageManagementManagerBusiness } from '../../business/garbage-management-manager.business';
 import {
   GarbageManagementManagerIndex,
   IGarbageManagementManagerCardController,
@@ -8,6 +8,7 @@ import {
 } from '../../garbage-management-manager.model';
 import { GarbageManagementManagerPanel } from '../../panel/garbage-management-manager.panel';
 import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
+import { GarbageManagementManagerMapController } from '../map/garbage-management-manager-map.controller';
 import { GarbageManagementManagerCardCommonController } from './common/garbage-management-manager-card-common.controller';
 import { GarbageManagementManagerCardEventTrigger } from './garbage-management-manager-card.trigger';
 import { GarbageManagementManagerCardHomeController } from './home/garbage-management-manager-card-home.controller';
@@ -18,16 +19,19 @@ import { GarbageManagementManagerCardVehicleController } from './vehicle/garbage
 
 @Injectable()
 export class GarbageManagementManagerCardController {
-  event = {
-    position: new EventEmitter<IEventRecord>(),
-  };
-
   constructor(
     private tool: ComponentTool,
     panel: GarbageManagementManagerPanel,
-    window: GarbageManagementManagerWindow
+    window: GarbageManagementManagerWindow,
+    map: GarbageManagementManagerMapController,
+    business: GarbageManagementManagerBusiness
   ) {
-    this.trigger = new GarbageManagementManagerCardEventTrigger(panel, window);
+    this.trigger = new GarbageManagementManagerCardEventTrigger(
+      panel,
+      window,
+      map,
+      business
+    );
     this.init.load();
   }
 
@@ -115,7 +119,7 @@ export class GarbageManagementManagerCardController {
   private regist = {
     home: (controller: GarbageManagementManagerCardHomeController) => {
       controller.right.event.record.position.subscribe((data) => {
-        this.event.position.emit(data);
+        this.trigger.record.position(data);
       });
       controller.right.event.record.details.subscribe((data) => {
         this.trigger.record.task(data);
@@ -142,6 +146,10 @@ export class GarbageManagementManagerCardController {
       controller.right.event.task.subscribe((x) => {
         this.trigger.ias.task(x);
       });
+      controller.right.event.position.subscribe((x) => {
+        // this.event.position.emit(x);
+        this.trigger.ias.position(x);
+      });
     },
     vehicle: (controller: GarbageManagementManagerCardVehicleController) => {
       controller.right.event.task.subscribe((data) => {
@@ -155,7 +163,7 @@ export class GarbageManagementManagerCardController {
       controller: GarbageManagementManagerCardIllegalDumpController
     ) => {
       controller.right.event.record.position.subscribe((data) => {
-        this.event.position.emit(data);
+        this.trigger.record.position(data);
       });
       controller.right.event.record.details.subscribe((data) => {
         this.trigger.record.task(data);

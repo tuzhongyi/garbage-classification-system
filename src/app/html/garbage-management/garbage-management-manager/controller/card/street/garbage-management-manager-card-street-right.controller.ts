@@ -12,6 +12,7 @@ import { GarbageManagementManagerCardAbstract } from '../garbage-management-mana
 export class GarbageManagementManagerCardStreetRightController extends GarbageManagementManagerCardAbstract {
   event = {
     task: new EventEmitter<IasEventRecord>(),
+    position: new EventEmitter<IasEventRecord>(),
   };
 
   constructor(
@@ -44,6 +45,7 @@ export class GarbageManagementManagerCardStreetRightController extends GarbageMa
       args: {
         load: this.load,
         task: this.event.task,
+        itemclick: this.event.position,
       },
     },
   ];

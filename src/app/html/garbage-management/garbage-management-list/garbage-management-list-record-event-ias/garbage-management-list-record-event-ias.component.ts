@@ -26,6 +26,7 @@ export class GarbageManagementListRecordEventIasComponent
   @Input() unit = TimeUnit.Day;
   @Output() loaded = new EventEmitter<IasEventRecord[]>();
   @Output() task = new EventEmitter<IasEventRecord>();
+  @Output() itemclick = new EventEmitter<IasEventRecord>();
   constructor(private business: GarbageManagementListRecordEventIasBusiness) {}
 
   datas: IasEventRecord[] = [];
@@ -62,6 +63,9 @@ export class GarbageManagementListRecordEventIasComponent
   on = {
     task: (item: IasEventRecord) => {
       this.task.emit(item);
+    },
+    click: (item: IasEventRecord) => {
+      this.itemclick.emit(item);
     },
   };
 }

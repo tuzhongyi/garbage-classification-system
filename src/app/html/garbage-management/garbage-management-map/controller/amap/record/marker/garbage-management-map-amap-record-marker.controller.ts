@@ -1,4 +1,5 @@
 import { IasEventRecord } from '../../../../../../../common/network/model/ias/ias-event-record.model';
+import { GeoTool } from '../../../../../../../common/tools/geo-tool/geo.tool';
 import {
   IMapIcon,
   MapPointEvent,
@@ -17,10 +18,11 @@ export class GarbageManagementMapAMapRecordMarkerController {
   private selected = false;
 
   private create(data: IasEventRecord, icon: AMap.LabelMarkerIconOptions) {
-    let position: [number, number] = [
+    let position: [number, number] = GeoTool.point.convert.wgs84.to.gcj02(
       data.Location?.Longitude ?? 121.31,
-      data.Location?.Latitude ?? 31.121,
-    ];
+      data.Location?.Latitude ?? 31.121
+    );
+
     let marker = new AMap.LabelMarker({
       icon: icon,
       position: position,

@@ -11,15 +11,15 @@ export interface IData {
 export interface IService<T extends IIdModel> {
   cache: ServiceCache<T>;
   paged: (params?: IParams, ...args: any[]) => Promise<PagedList<T>>;
-  all: () => Promise<T[]>;
+  all: (...args: any[]) => Promise<T[]>;
   array: <P extends PagedParams>(params?: P, ...args: any[]) => Promise<T[]>;
   get: (id: string, ...args: any[]) => Promise<T>;
 }
 export abstract class AbstractService<T extends IIdModel>
   implements IService<T>
 {
-  all(): Promise<T[]> {
-    return this.array();
+  all(args?: any): Promise<T[]> {
+    return this.array(args);
   }
   array<P extends PagedParams>(
     params = new PagedParams(),

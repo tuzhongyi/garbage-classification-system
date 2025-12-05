@@ -19,6 +19,33 @@
           ></date-time-control>
         </div>
       </div>
+      <div class="form-item">
+        <div class="form-item-text">责任网格:</div>
+        <div class="form-item-value">
+          <hw-select [(selected)]="table.args.gridcellId" [nullable]="true">
+            <howell-grid-cell-select
+              [(selectedId)]="table.args.gridcellId"
+            ></howell-grid-cell-select>
+          </hw-select>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-item-text">是否高频:</div>
+        <div class="form-item-value">
+          <hw-select [(selected)]="table.args.timeout" [nullable]="true">
+            <select [(ngModel)]="table.args.timeout">
+              <option [ngValue]="true">是</option>
+              <option [ngValue]="false">否</option>
+            </select>
+          </hw-select>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-item-text">关键词:</div>
+        <div class="form-item-value">
+          <input type="text" [(ngModel)]="table.args.address" />
+        </div>
+      </div>
       <div class="form-item submit">
         <button class="button-border-blue" (click)="on.search()">查询</button>
       </div>
@@ -32,6 +59,7 @@
       (image)="on.image($event)"
       (task)="on.task($event)"
       (video)="on.video($event)"
+      (association)="on.association($event)"
     ></howell-garbage-management-record-event-ias-list-table>
   </div>
 </div>

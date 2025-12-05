@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { Camera } from '../../../../../common/network/model/garbage-station/camera.model';
 import { IDivision } from '../../../../../common/network/model/garbage-station/division.model';
 import { GarbageStation } from '../../../../../common/network/model/garbage-station/garbage-station.model';
@@ -6,16 +6,12 @@ import { IasDevice } from '../../../../../common/network/model/ias/ias-device.mo
 import { IasEventRecord } from '../../../../../common/network/model/ias/ias-event-record.model';
 import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
 import { GarbageStationViewModel } from '../../../../../common/view-model/garbage-station.view-model';
-import { GarbageManagementManagerPanel } from '../../panel/garbage-management-manager.panel';
-import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
+import { GarbageManagementStreetIndex } from '../../../garbage-management-street/garbage-management-street.model';
+import { GarbageManagementManagerComponent } from '../../garbage-management-manager.component';
 import { VideoType } from '../../window/video/garbage-management-manager-video.window';
 
-@Injectable()
 export class GarbageManagementManagerMapController {
-  constructor(
-    private panel: GarbageManagementManagerPanel,
-    private window: GarbageManagementManagerWindow
-  ) {}
+  constructor(private that: GarbageManagementManagerComponent) {}
   move = new EventEmitter<[number, number]>();
   select = new EventEmitter<
     GarbageStation | IasDevice | IDivision | IasEventRecord
@@ -24,6 +20,13 @@ export class GarbageManagementManagerMapController {
   refresh = false;
 
   current?: GarbageStationViewModel;
+
+  private get panel() {
+    return this.that.panel;
+  }
+  private get window() {
+    return this.that.window;
+  }
 
   private video = {
     single: (camera: Camera) => {
@@ -78,6 +81,14 @@ export class GarbageManagementManagerMapController {
     error: (data: GarbageStationViewModel) => {
       this.current = data;
       this.panel.station.show = true;
+    },
+    device: {
+      dblclick: (data: IasDevice) => {
+        this.panel.street.clear();
+        this.panel.street.args.deviceId = data.Id;
+        this.panel.street.index = GarbageManagementStreetIndex.route;
+        this.panel.street.show = true;
+      },
     },
   };
 }

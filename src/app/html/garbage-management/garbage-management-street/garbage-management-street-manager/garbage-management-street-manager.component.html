@@ -1,0 +1,31 @@
+<div class="garbage-management-street-manager">
+  <div class="garbage-management-street-manager-head">
+    <div class="button-group">
+      <div
+        class="button-bracket"
+        [class.selected]="index == Index.list"
+        (click)="on.index(Index.list)"
+      >
+        列表
+      </div>
+      <div
+        class="button-bracket"
+        [class.selected]="index == Index.route"
+        (click)="on.index(Index.route)"
+      >
+        线路统计
+      </div>
+    </div>
+  </div>
+  <div class="garbage-management-street-manager-body">
+    <howell-garbage-management-street-device-manager
+      *ngIf="index == Index.list"
+      [online]="args.online"
+      (position)="on.position($event)"
+    ></howell-garbage-management-street-device-manager>
+    <howell-garbage-management-street-device-route-manager
+      *ngIf="index == Index.route"
+      [deviceId]="args.deviceId"
+    ></howell-garbage-management-street-device-route-manager>
+  </div>
+</div>

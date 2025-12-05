@@ -8,11 +8,12 @@ export class SizeWindowTool {
 
   large = {
     width: HtmlTool.screen.has.head.from.height(
-      screen.availHeight * 0.85,
+      screen.availHeight * 0.75,
       16 / 9,
-      76
+      66 + 10 + (20 + 1) * 2, // header + gap + (padding + border) * 2
+      (20 + 2) * 2
     ),
-    height: '85%',
+    height: `${screen.availHeight * 0.75}px`,
   };
   middle = {
     width: '56%',

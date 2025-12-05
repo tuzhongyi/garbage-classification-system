@@ -6,12 +6,11 @@
     <howell-garbage-management-map
       [stations]="data.stations"
       [devices]="data.devices"
-      [records]="data.records"
+      [exposeds]="data.exposeds"
       [eventables]="data.eventables"
       [select]="map.select"
       [move]="map.move"
       [(refresh)]="map.refresh"
-      (recorddblclick)="window.task.ias.open($event)"
       (camera)="map.on.camera($event)"
       (error)="map.on.error($event)"
       (garbagedrop)="map.on.garbagedrop($event)"
@@ -19,6 +18,8 @@
       (garbagefull)="map.on.garbagefull($event)"
       (illegaldrop)="map.on.illegaldrop($event)"
       (illegalvehicle)="map.on.illegalvehicle($event)"
+      (exposeddblclick)="window.task.ias.open($event)"
+      (devicedblclick)="map.on.device.dblclick($event)"
     ></howell-garbage-management-map>
     <div class="garbage-management-manager-map-mask"></div>
   </div>
@@ -62,7 +63,9 @@
     *ngIf="navigation.index == Index.street"
   >
     <howell-garbage-management-state-record-ias
-      [count]="data.records.length"
+      [exposed]="data.count.ias.exposed"
+      [timeout]="data.count.ias.timeout"
+      (selectedChange)="data.on.ias($event)"
     ></howell-garbage-management-state-record-ias>
   </div>
 
@@ -103,10 +106,11 @@
     [title]="panel.street.title"
     [style]="panel.street.style"
   >
-    <howell-garbage-management-street-device-manager
-      [online]="panel.street.online"
+    <howell-garbage-management-street-manager
+      [args]="panel.street.args"
+      [index]="panel.street.index"
       (position)="panel.street.on.position($event)"
-    ></howell-garbage-management-street-device-manager>
+    ></howell-garbage-management-street-manager>
   </howell-panel>
 
   <howell-panel
@@ -203,18 +207,35 @@
     [style]="panel.record.ias.style"
   >
     <howell-garbage-management-record-event-ias-manager
+      [args]="panel.record.ias.args"
       (task)="window.task.ias.open($event)"
       (position)="panel.record.ias.on.position($event)"
       (image)="panel.record.ias.on.image($event)"
       (video)="panel.record.ias.on.video($event)"
+      (association)="panel.record.ias.on.association($event)"
     ></howell-garbage-management-record-event-ias-manager>
   </howell-panel>
 
+  <howell-window
+    [model]="window.association"
+    *ngIf="window.association.show"
+    [style]="window.association.style"
+    [title]="window.association.title"
+  >
+    <howell-garbage-management-record-event-ias-list-table-association
+      [args]="window.association.args"
+      (task)="window.task.ias.open($event)"
+      (position)="panel.record.ias.on.position($event)"
+      (image)="panel.record.ias.on.image($event)"
+      (video)="panel.record.ias.on.video($event)"
+    ></howell-garbage-management-record-event-ias-list-table-association>
+  </howell-window>
   <howell-window
     [model]="window.task.complete"
     *ngIf="window.task.complete.show"
     [style]="window.task.complete.style"
     [title]="window.task.complete.title"
+    [mask]="!window.opened"
   >
     <event-handle-complete
       [data]="window.task.complete.data"
@@ -225,6 +246,7 @@
     [model]="window.task.ias"
     [title]="window.task.ias.title"
     [style]="window.task.ias.style"
+    [mask]="!window.opened"
   >
     <howell-garbage-management-record-event-ias-task-manager
       [data]="window.task.ias.data"
@@ -235,6 +257,7 @@
     [model]="window.task.illegalvehicle"
     [title]="window.task.illegalvehicle.title"
     [style]="window.task.illegalvehicle.style"
+    [mask]="!window.opened"
   >
     <howell-garbage-management-record-event-illegal-vehicle-task-manager
       [data]="window.task.illegalvehicle.data"
@@ -242,11 +265,13 @@
       (video)="window.task.illegalvehicle.on.video($event)"
     ></howell-garbage-management-record-event-illegal-vehicle-task-manager>
   </howell-window>
+
   <howell-window
     [model]="window.picture"
     *ngIf="window.picture.show"
     [style]="window.picture.style"
     [title]="window.picture.title"
+    [mask]="!window.opened"
   >
     <howell-container-page
       [page]="window.picture.page"
@@ -263,6 +288,7 @@
     *ngIf="window.video.multiple.show"
     [style]="window.video.multiple.style"
     [title]="window.video.multiple.title"
+    [mask]="!window.opened"
   >
     <div class="video-multiple-window">
       <howell-video-multiple
@@ -291,6 +317,7 @@
     *ngIf="window.video.mkv.show && window.video.mkv.data"
     [style]="window.video.mkv.style"
     [title]="window.video.mkv.title"
+    [mask]="!window.opened"
   >
     <div class="video-mkv-window">
       <video
@@ -299,5 +326,16 @@
         controls
       ></video>
     </div>
+  </howell-window>
+  <howell-window
+    [model]="window.map"
+    *ngIf="window.map.show"
+    [style]="window.map.style"
+    [title]="window.map.title"
+    [mask]="!window.opened"
+  >
+    <howell-garbage-management-manager-map
+      [data]="window.map.data"
+    ></howell-garbage-management-manager-map>
   </howell-window>
 </div>

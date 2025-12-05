@@ -14,7 +14,8 @@ export class GarbageManagementMapAMapController {
   division = new PromiseValue<GarbageManagementMapAMapDivisionController>();
   station = new PromiseValue<GarbageManagementMapAMapStationController>();
   device = new PromiseValue<GarbageManagementMapAMapDeviceController>();
-  record = new PromiseValue<GarbageManagementMapAMapRecordController>();
+  exposed = new PromiseValue<GarbageManagementMapAMapRecordController>();
+  timeout = new PromiseValue<GarbageManagementMapAMapRecordController>();
   constructor() {
     MapHelper.amap
       .get('map-container', { showBuildingBlock: false, showLabel: false })
@@ -42,8 +43,11 @@ export class GarbageManagementMapAMapController {
         let device = new GarbageManagementMapAMapDeviceController(map);
         this.device.set(device);
 
-        let record = new GarbageManagementMapAMapRecordController(map);
-        this.record.set(record);
+        let exposed = new GarbageManagementMapAMapRecordController(map);
+        this.exposed.set(exposed);
+
+        let timeout = new GarbageManagementMapAMapRecordController(map);
+        this.timeout.set(timeout);
       });
   }
 

@@ -1,3 +1,4 @@
+import { GisPoint } from '../../../model/garbage-station/gis-point.model';
 import { DurationParams, PagedDurationParams } from '../../IParams.interface';
 
 export class GetIasEventsParams extends PagedDurationParams {
@@ -9,6 +10,16 @@ export class GetIasEventsParams extends PagedDurationParams {
   EmergencyType?: number;
   /**	String[]	区划列表	O	*/
   DivisionIds?: string[];
+  /**	String[]	网格列表	O	*/
+  GridCellIds?: string[];
+  /**	String	地址	O	*/
+  Address?: string;
+  /**	Boolean	是否已超时处置	O	*/
+  IsTimeout?: boolean;
+  /**	GisPoint	照片Gis坐标	D	*/
+  Location?: GisPoint;
+  /**	Double	单位：米，必须与Location一起出现	D	*/
+  LocationDistance?: number;
   /**	String	升序属性，不区分大小写	O	*/
   Asc?: string;
   /**	String	降序属性，不区分大小写	O	*/

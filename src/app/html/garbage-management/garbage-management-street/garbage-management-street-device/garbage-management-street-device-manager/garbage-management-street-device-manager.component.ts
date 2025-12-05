@@ -11,7 +11,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { HowellSelectComponent } from '../../../../../common/components/select/hw-select/select-control.component';
 import { IasDevice } from '../../../../../common/network/model/ias/ias-device.model';
-import { SelectDivisionComponent } from '../../../../share/select/select-division/select-division.component';
+import { SelectGridCellComponent } from '../../../../share/select/select-grid-cell/select-grid-cell.component';
 import { GarbageManagementStreetDeviceTableArgs } from '../garbage-management-street-device-table/business/garbage-management-street-device-table.model';
 import { GarbageManagementStreetDeviceTableComponent } from '../garbage-management-street-device-table/garbage-management-street-device-table.component';
 
@@ -20,7 +20,7 @@ import { GarbageManagementStreetDeviceTableComponent } from '../garbage-manageme
   imports: [
     CommonModule,
     FormsModule,
-    SelectDivisionComponent,
+    SelectGridCellComponent,
     HowellSelectComponent,
     GarbageManagementStreetDeviceTableComponent,
   ],

@@ -9,7 +9,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { ChartType } from '../../../../common/enum/chart-type.enum copy';
+import { ChartType } from '../../../../common/enum/chart-type.enum';
 import { ObjectTool } from '../../../../common/tools/object-tool/object.tool';
 import { GarbageManagementChartLineEChartOption } from '../garbage-management-chart-line/garbage-management-chart-line-echart.option';
 import {

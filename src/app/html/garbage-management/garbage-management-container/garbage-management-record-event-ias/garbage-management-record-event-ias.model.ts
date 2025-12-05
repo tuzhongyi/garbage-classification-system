@@ -1,5 +1,7 @@
 export enum GarbageManagementRecordEventIasManagerIndex {
   list,
   details,
-  route,
+}
+export interface GarbageManagementRecordEventIasArgs {
+  timeout?: boolean;
 }

@@ -9,7 +9,7 @@ export class GarbageManagementManagerIasBusiness {
   async device() {
     return this.service.device.array();
   }
-  record(date = new Date()) {
+  record(date: Date) {
     let duration = DateTimeTool.all.day(date);
     let params = new GetIasEventsParams();
     params.BeginTime = duration.begin;

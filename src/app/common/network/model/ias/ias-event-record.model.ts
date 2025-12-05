@@ -60,4 +60,14 @@ export class IasEventRecord implements IIdModel {
   GridCellName?: string;
   /**	String	设备名称	O */
   DeviceName?: string;
+  /**
+   * Int32
+   * 一段时间内的重复次数，默认：0，大于指定次数后将超时处置属性设置为true
+   * O
+   */
+  PeriodRepeatTimes?: number;
+  /**	Boolean	多次重复，默认：null	O */
+  IsTimeout?: boolean;
+  /**	String[]	关联的事件ID列表	O */
+  AssociationRecordIds?: string[];
 }

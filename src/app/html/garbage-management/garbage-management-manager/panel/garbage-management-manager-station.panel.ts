@@ -5,18 +5,14 @@ import { GarbageStation } from '../../../../common/network/model/garbage-station
 import { PagedArgs } from '../../../../common/network/model/model.interface';
 import { PagedList } from '../../../../common/network/model/page_list.model';
 import { ObjectTool } from '../../../../common/tools/object-tool/object.tool';
-import { GarbageManagementManagerBusiness } from '../business/garbage-management-manager.business';
-import { GarbageManagementManagerWindow } from '../window/garbage-management-manager.window';
+import { GarbageManagementManagerComponent } from '../garbage-management-manager.component';
 
 export class GarbageManagementManagerStationPanel extends WindowViewModel {
   event = {
     move: new EventEmitter<[number, number]>(),
     select: new EventEmitter<GarbageStation>(),
   };
-  constructor(
-    private window: GarbageManagementManagerWindow,
-    private business: GarbageManagementManagerBusiness
-  ) {
+  constructor(private that: GarbageManagementManagerComponent) {
     super();
   }
   style = {
@@ -31,6 +27,13 @@ export class GarbageManagementManagerStationPanel extends WindowViewModel {
   args = {
     type: undefined as StationType | undefined,
   };
+
+  private get business() {
+    return this.that.business;
+  }
+  private get window() {
+    return this.that.window;
+  }
 
   private clear() {
     this.args.type = undefined;

@@ -1,11 +1,10 @@
-import { formatDate } from '@angular/common';
 import { EventEmitter } from '@angular/core';
 import { IasEventRecord } from '../../../../../../common/network/model/ias/ias-event-record.model';
 import { GeoTool } from '../../../../../../common/tools/geo-tool/geo.tool';
-import { Language } from '../../../../../../common/tools/language';
 import { GarbageManagementMapAMapInfoController } from '../info/garbage-management-map-amap-marker-info.controller';
 import { GarbageManagementMapAMapInfo } from '../info/garbage-management-map-amap-marker-info.model';
 import { GarbageManagementMapAMapRecordMarkerLayerController } from './garbage-management-map-amap-record-marker-layer.controller';
+import { GarbageManagementMapAMapRecordInfoContentController } from './info/garbage-management-map-amap-record-info-content.controller';
 
 export class GarbageManagementMapAMapRecordController {
   event = {
@@ -24,6 +23,7 @@ export class GarbageManagementMapAMapRecordController {
 
   private marker: GarbageManagementMapAMapRecordMarkerLayerController;
   private info: GarbageManagementMapAMapInfoController;
+  private content = new GarbageManagementMapAMapRecordInfoContentController();
   private regist() {
     this.marker.event.mouseover.subscribe((data) => {
       this.select(data);
@@ -44,17 +44,12 @@ export class GarbageManagementMapAMapRecordController {
     this.marker.clear();
   }
   select(data: IasEventRecord) {
-    let content = `时间：${formatDate(
-      data.EventTime,
-      Language.yyyyMMddHHmmss,
-      'en'
-    )}<br/>地址：${data.Address ?? '无'}`;
     let position: [number, number] = GeoTool.point.convert.wgs84.to.gcj02(
       data.Location?.Longitude ?? 121.31,
       data.Location?.Latitude ?? 31.121
     );
     let info: GarbageManagementMapAMapInfo = {
-      Name: content,
+      Name: this.content.load(data),
       Location: [...position],
     };
     this.info.add(info);

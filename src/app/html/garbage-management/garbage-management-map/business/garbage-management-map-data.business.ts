@@ -26,7 +26,6 @@ export class GarbageManagementMapDataBusiness {
     grid: GridCellRequestService;
   };
 
-  datas = new PromiseValue<MapDivision[]>();
   default = new PromiseValue<IDivision>();
 
   private init() {
@@ -52,11 +51,7 @@ export class GarbageManagementMapDataBusiness {
     return result;
   }
 
-  private async load() {
-    if (this.datas.exists) {
-      return this.datas.get();
-    }
-
+  async load() {
     let _default = await this.default.get();
     let divisions = await this.service.division.cache.all();
     let grids = await this.service.grid.array();
@@ -64,32 +59,32 @@ export class GarbageManagementMapDataBusiness {
     let ids: IIdModel[] = [_default, ...divisions, ...grids];
     let _divisions = await this.service.map.division.array(_default.Id);
     _divisions = this.conditions(_divisions, ids, (a, b) => a.id === b.Id);
-    this.datas.set(_divisions);
+
     return _divisions;
   }
 
-  async current() {
+  async current(datas: MapDivision[]) {
     let _default = await this.default.get();
-    let datas = await this.load();
     return datas.find((x) => x.id === _default.Id)!;
   }
 
-  async division() {
-    let datas = await this.load();
+  async division(datas: MapDivision[]) {
     let divisions = await this.service.division.cache.all();
     let ids = divisions.map((x) => x.Id);
     return datas.filter((x) => ids.includes(x.id));
   }
-  async grid() {
-    let datas = await this.load();
+  async grid(datas: MapDivision[]) {
     let grids = await this.service.grid.array();
     let ids = grids.map((x) => x.Id);
     return datas.filter((x) => ids.includes(x.id));
   }
 
-  async get(id: string) {
-    let datas = await this.load();
-    return datas.find((x) => x.id === id);
+  // async get(id: string, datas:MapDivision[]) {
+  //   return datas.find((x) => x.id === id);
+  // }
+
+  get(id: string) {
+    return this.service.map.division.item(id);
   }
 
   async array(ids: string[]) {

@@ -21,40 +21,56 @@ import {
   styleUrl: './garbage-management-state-record-ias.component.less',
 })
 export class GarbageManagementStateRecordIasComponent implements OnChanges {
-  @Input() count = 0;
-  @Input() selected = true;
-  @Output() selectedChange = new EventEmitter<boolean>();
+  @Input() exposed = 0;
+  @Input() timeout = 0;
+  @Input() selected: [boolean, boolean] = [true, true];
+  @Output() selectedChange = new EventEmitter<[boolean, boolean]>();
 
   constructor() {
-    this.data = this.init();
+    this.datas = this.init();
   }
 
-  data: GarbageManagementStateItem;
+  datas: GarbageManagementStateItem[] = [];
 
   private init() {
-    let data = new GarbageManagementStateItem();
-    data.color = GarbageManagementStateItemColor.cyan;
-    data.name = '暴露垃圾';
-    data.show = true;
-    data.value = 0;
-    return data;
+    let exposed = new GarbageManagementStateItem();
+    exposed.color = GarbageManagementStateItemColor.cyan;
+    exposed.name = '暴露垃圾';
+    exposed.show = true;
+    exposed.value = 0;
+
+    let timeout = new GarbageManagementStateItem();
+    timeout.color = GarbageManagementStateItemColor.green;
+    timeout.name = '高频事件';
+    timeout.show = true;
+    timeout.value = 0;
+
+    return [exposed, timeout];
   }
 
   private change = {
-    count: (simple: SimpleChange) => {
+    exposed: (simple: SimpleChange) => {
       if (simple) {
-        this.data.value = this.count;
+        this.datas[0].value = this.exposed;
+        this.datas[1].value = this.timeout;
+      }
+    },
+    timeout: (simple: SimpleChange) => {
+      if (simple) {
+        this.datas[0].value = this.exposed;
+        this.datas[1].value = this.timeout;
       }
     },
   };
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.change.count(changes['count']);
+    this.change.exposed(changes['exposed']);
+    this.change.timeout(changes['timeout']);
   }
 
   on = {
-    click: () => {
-      this.selected = !this.selected;
+    click: (index: number) => {
+      this.selected[index] = !this.selected[index];
       this.selectedChange.emit(this.selected);
     },
   };

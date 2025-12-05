@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PaginatorComponent } from '../../../../../../common/components/paginator/paginator.component';
+import { Duration } from '../../../../../../common/network/model/garbage-station/duration.model';
 import { IasEventRecord } from '../../../../../../common/network/model/ias/ias-event-record.model';
 import { PagedArgs } from '../../../../../../common/network/model/model.interface';
 import { Page } from '../../../../../../common/network/model/page_list.model';
@@ -35,6 +36,10 @@ export class GarbageManagementRecordEventIasListTableComponent
   @Output() position = new EventEmitter<IasEventRecord>();
   @Output() task = new EventEmitter<IasEventRecord>();
   @Output() video = new EventEmitter<IasEventRecord>();
+  @Output() association = new EventEmitter<{
+    duration: Duration;
+    data: IasEventRecord;
+  }>();
 
   constructor(
     private business: GarbageManagementRecordEventIasListTableBusiness
@@ -42,7 +47,7 @@ export class GarbageManagementRecordEventIasListTableComponent
     super();
   }
 
-  widths = ['10%', '10%', '12%', '15%', '15%', '10%', '10%', '10%', '8%'];
+  widths = ['10%', '15%', '12%', 'auto', '12%', '12%', '6%', '6%', '8%'];
 
   selected?: IasEventRecord;
   private subscription = new Subscription();
@@ -134,6 +139,12 @@ export class GarbageManagementRecordEventIasListTableComponent
     },
     video: (e: Event, item: IasEventRecord) => {
       this.video.emit(item);
+      if (this.selected === item) {
+        e.stopImmediatePropagation();
+      }
+    },
+    association: (e: Event, item: IasEventRecord) => {
+      this.association.emit({ duration: this.args.duration, data: item });
       if (this.selected === item) {
         e.stopImmediatePropagation();
       }

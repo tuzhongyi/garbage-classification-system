@@ -234,7 +234,7 @@ export class Language {
     return result.map((x) => Language.CameraUsage(x)).join(',');
   }
 
-  static EventType(type: EventType) {
+  static EventType(type: number) {
     switch (type) {
       case EventType.None:
         return Language.json.EventType.None;
@@ -257,6 +257,8 @@ export class Language {
         return '非法清运';
       case EventType.IllegalDrop2:
         return '垃圾偷倒';
+      case 103:
+        return '暴露垃圾';
       default:
         return Language.json.EventType.Default;
     }

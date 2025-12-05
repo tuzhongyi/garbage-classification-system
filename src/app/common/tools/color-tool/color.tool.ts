@@ -15,6 +15,7 @@ export class ColorTool {
       illegalvehicle: '#f73d3d',
       garbageexposed: '#00b3ff',
       illegaldump: '#b636fd',
+      iastimeout: '#01fd74',
       normal: '#01fd74',
     },
   };

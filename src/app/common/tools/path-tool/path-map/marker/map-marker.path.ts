@@ -29,6 +29,9 @@ export class MapMarkerPath {
     return `${this.basic}-patrol.png`;
   }
   get ias() {
-    return `${this.basic}-ias-record.png`;
+    return {
+      red: `${this.basic}-ias-record-red.png`,
+      orange: `${this.basic}-ias-record-orange.png`,
+    };
   }
 }

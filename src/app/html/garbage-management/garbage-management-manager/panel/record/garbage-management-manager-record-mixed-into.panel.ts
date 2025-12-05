@@ -5,15 +5,11 @@ import { PagedList } from '../../../../../common/network/model/page_list.model';
 import { DateTimeTool } from '../../../../../common/tools/date-time-tool/datetime.tool';
 import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
 import { GarbageManagementRecordEventMixedIntoArgs } from '../../../garbage-management-container/garbage-management-record-event-mixed-into/garbage-management-record-event-mixed-into.model';
-import { GarbageManagementManagerBusiness } from '../../business/garbage-management-manager.business';
-import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
+import { GarbageManagementManagerComponent } from '../../garbage-management-manager.component';
 import { VideoType } from '../../window/video/garbage-management-manager-video.window';
 
 export class GarbageManagementManagerRecordMixedIntoPanel extends WindowViewModel {
-  constructor(
-    private window: GarbageManagementManagerWindow,
-    private business: GarbageManagementManagerBusiness
-  ) {
+  constructor(private that: GarbageManagementManagerComponent) {
     super();
   }
   style = {
@@ -26,6 +22,10 @@ export class GarbageManagementManagerRecordMixedIntoPanel extends WindowViewMode
   title = '混合投放';
 
   args: GarbageManagementRecordEventMixedIntoArgs = {};
+
+  private get window() {
+    return this.that.window;
+  }
 
   open(args: GarbageManagementRecordEventMixedIntoArgs) {
     this.args = args;

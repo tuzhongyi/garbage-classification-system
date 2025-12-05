@@ -15,28 +15,20 @@
       >
         细分图表
       </div>
-      <div
-        class="button-bracket"
-        [class.selected]="index == Index.route"
-        (click)="on.index(Index.route)"
-      >
-        线路统计
-      </div>
     </div>
   </div>
   <div class="garbage-management-station-manager-body">
     <howell-garbage-management-record-event-ias-list-manager
       *ngIf="index == Index.list"
+      [timeout]="args.timeout"
       (task)="on.task($event)"
       (position)="on.position($event)"
       (image)="on.image($event)"
       (video)="on.video($event)"
+      (association)="on.association($event)"
     ></howell-garbage-management-record-event-ias-list-manager>
     <howell-garbage-management-record-event-ias-statistic-details-manager
       *ngIf="index == Index.details"
     ></howell-garbage-management-record-event-ias-statistic-details-manager>
-    <howell-garbage-management-record-event-ias-statistic-route-manager
-      *ngIf="index == Index.route"
-    ></howell-garbage-management-record-event-ias-statistic-route-manager>
   </div>
 </div>

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { GarbageManagementManagerComponent } from '../garbage-management-manager.component';
 import { GarbageManagementManagerCardController } from './card/garbage-management-manager-card.controller';
 import { GarbageManagementManagerDataController } from './data/garbage-management-manager-data.controller';
 import { GarbageManagementManagerMapController } from './map/garbage-management-manager-map.controller';
@@ -8,15 +9,18 @@ import { GarbageManagementManagerStatisticController } from './statistic/garbage
 
 @Injectable()
 export class GarbageManagementManagerController {
-  constructor(
-    public card: GarbageManagementManagerCardController,
-    public data: GarbageManagementManagerDataController,
-    public statistic: GarbageManagementManagerStatisticController,
-    public medium: GarbageManagementManagerMediumController,
-    public map: GarbageManagementManagerMapController
-  ) {
+  card: GarbageManagementManagerCardController;
+  data: GarbageManagementManagerDataController;
+  statistic: GarbageManagementManagerStatisticController;
+  medium: GarbageManagementManagerMediumController;
+  map: GarbageManagementManagerMapController;
+  navigation: GarbageManagementManagerNavigationController;
+  constructor(that: GarbageManagementManagerComponent) {
+    this.card = new GarbageManagementManagerCardController(that);
+    this.data = new GarbageManagementManagerDataController(that);
+    this.statistic = new GarbageManagementManagerStatisticController(that);
+    this.medium = new GarbageManagementManagerMediumController(that);
+    this.map = new GarbageManagementManagerMapController(that);
     this.navigation = new GarbageManagementManagerNavigationController();
   }
-
-  navigation: GarbageManagementManagerNavigationController;
 }

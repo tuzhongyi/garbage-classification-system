@@ -27,9 +27,10 @@ export class GarbageManagementMapAMapRecordMarkerLayerController {
 
   load(datas: IasEventRecord[]) {
     let markers = [];
-    let icon = new GarbageManagementMapAMapRecordMarkerIconController();
+
     for (let i = 0; i < datas.length; i++) {
       const data = datas[i];
+      let icon = new GarbageManagementMapAMapRecordMarkerIconController(data);
       if (ObjectTool.model.GisPoint.valid(data.Location)) {
         let point = new GarbageManagementMapAMapRecordMarkerController(
           data,

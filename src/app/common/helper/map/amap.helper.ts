@@ -1,6 +1,7 @@
 import AMapLoader from '@amap/amap-jsapi-loader';
 import '@amap/amap-jsapi-types';
 import '@amap/amap-loca-types';
+import { wait } from '../../tools/wait.tools';
 
 export class AMapHelper {
   style = 'amap://styles/e8fb567a2f05a53b39e088f6fe186991';
@@ -30,19 +31,31 @@ export class AMapHelper {
     plugins = this.plugins
   ): Promise<AMap.Map> {
     return new Promise<AMap.Map>((resolve) => {
-      this.init(plugins).then((AMap) => {
-        let map = new AMap.Map(id, {
-          mapStyle: this.style,
-          resizeEnable: true,
-          showIndoorMap: false,
-          zooms: [3, 26],
-          zoom: 17,
-          viewMode: '3D',
-          pitch: 45,
-          ...opts,
+      wait(() => {
+        return !!document.getElementById(id);
+      })
+        .then(() => {
+          this.init(plugins)
+            .then((AMap) => {
+              let map = new AMap.Map(id, {
+                mapStyle: this.style,
+                resizeEnable: true,
+                showIndoorMap: false,
+                zooms: [3, 26],
+                zoom: 17,
+                viewMode: '3D',
+                pitch: 40,
+                ...opts,
+              });
+              resolve(map);
+            })
+            .catch((e) => {
+              console.error(`${id} map init error`, e);
+            });
+        })
+        .catch(() => {
+          console.warn(`${id} init wait error`);
         });
-        resolve(map);
-      });
     });
   }
 }

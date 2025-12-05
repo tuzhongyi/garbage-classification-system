@@ -35,4 +35,8 @@ export class IasDevice implements IIdNameModel {
   DivisionName?: string;
   /**	String	接入点ID	M	*/
   AccessPointId!: string;
+  /**	String	网格ID	O */
+  GridCellId?: string;
+  /**	String	网格名称	O */
+  GridCellName?: string;
 }

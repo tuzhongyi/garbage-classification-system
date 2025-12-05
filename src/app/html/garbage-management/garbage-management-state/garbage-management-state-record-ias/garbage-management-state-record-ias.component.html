@@ -1,10 +1,10 @@
 <div class="garbage-management-state-record-ias">
   <howell-garbage-management-state-item
+    *ngFor="let item of datas; let index = index"
     [ngClass]="{
-      selected: selected
+      selected: selected[index]
     }"
-    *ngIf="data.show"
-    [data]="data"
-    (click)="on.click()"
+    [data]="item"
+    (click)="on.click(index)"
   ></howell-garbage-management-state-item>
 </div>

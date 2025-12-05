@@ -36,7 +36,7 @@ export class GarbageManagementStreetDeviceTableComponent
     super();
   }
 
-  widths = ['5%', 'auto', '15%', '10%', '250px', '10%', '10%', '10%'];
+  widths = ['5%', 'auto', '15%', '10%', '250px', '12%', '10%', '10%'];
 
   selected?: IasDevice;
   private subscription = new Subscription();

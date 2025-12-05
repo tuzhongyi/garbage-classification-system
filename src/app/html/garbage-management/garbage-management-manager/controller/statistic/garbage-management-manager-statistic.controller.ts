@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
 import { StationType } from '../../../../../common/enum/station-type.enum';
-import { GarbageManagementManagerPanel } from '../../panel/garbage-management-manager.panel';
+import { GarbageManagementManagerComponent } from '../../garbage-management-manager.component';
 
-@Injectable()
 export class GarbageManagementManagerStatisticController {
-  constructor(private panel: GarbageManagementManagerPanel) {}
+  constructor(private that: GarbageManagementManagerComponent) {}
+
+  private get panel() {
+    return this.that.panel;
+  }
 
   station = {
     open: (type: StationType) => {

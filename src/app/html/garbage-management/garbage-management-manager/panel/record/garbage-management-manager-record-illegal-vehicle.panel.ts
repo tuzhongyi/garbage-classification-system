@@ -4,11 +4,11 @@ import { PagedList } from '../../../../../common/network/model/page_list.model';
 import { CameraImageUrl } from '../../../../../common/network/model/url-model/camera-image-url.model';
 import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
 import { GarbageManagementRecordEventIllegalVehicleArgs } from '../../../garbage-management-container/garbage-management-record-event-illegal-vehicle/garbage-management-record-event-illegal-vehicle.model';
-import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
+import { GarbageManagementManagerComponent } from '../../garbage-management-manager.component';
 import { VideoType } from '../../window/video/garbage-management-manager-video.window';
 
 export class GarbageManagementManagerRecordIllegalVehiclePanel extends WindowViewModel {
-  constructor(private window: GarbageManagementManagerWindow) {
+  constructor(private that: GarbageManagementManagerComponent) {
     super();
   }
   style = {
@@ -21,6 +21,10 @@ export class GarbageManagementManagerRecordIllegalVehiclePanel extends WindowVie
   title = '非法清运';
 
   args: GarbageManagementRecordEventIllegalVehicleArgs = {};
+
+  private get window() {
+    return this.that.window;
+  }
 
   open(args: GarbageManagementRecordEventIllegalVehicleArgs) {
     this.args = args;

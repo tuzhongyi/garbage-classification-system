@@ -1,0 +1,115 @@
+<div class="garbage-management-record-event-ias-list-table-association">
+  <div
+    class="garbage-management-record-event-ias-list-table-association-body table-page"
+  >
+    <table border="0" cellpadding="0" cellspacing="0">
+      <colgroup>
+        <col [ngStyle]="{ width: width }" *ngFor="let width of widths" />
+      </colgroup>
+      <thead>
+        <tr>
+          <td>图片</td>
+          <td>描述</td>
+          <td>报警时间</td>
+          <td>处置时间</td>
+          <td class="center">状态</td>
+          <td class="center"><div>操作</div></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let item of datas; let i = index"
+          [style.height]="100 / page.PageSize + '%'"
+          [ngClass]="{
+            selected: selected === item,
+            nodata: !item,
+            nohover: !item
+          }"
+          (click)="on.select(item)"
+        >
+          <td>
+            @if(item){
+            <div
+              class="img-list"
+              [ngClass]="{ noimage: !item.Resources }"
+              *ngIf="item"
+            >
+              <div
+                *ngFor="let resource of item.Resources; let i = index"
+                class="img"
+                [ngStyle]="{
+                  backgroundImage: resource.ImageUrl
+                    ? 'url(' + resource.ImageUrl + ')'
+                    : 'none'
+                }"
+                (click)="picture.on($event, item, i)"
+              ></div>
+            </div>
+            }
+          </td>
+          <td [title]="item?.Description ?? ''">
+            @if(item){
+            {{ item.Description }}
+            }
+          </td>
+          <td>
+            @if(item){
+            {{ item.EventTime | date : Language.yyyyMMddHHmmss }}
+            }
+          </td>
+          <td>
+            @if(item){
+            {{
+              (item.Assignment?.HandledTime | date : Language.yyyyMMddHHmmss) ||
+                "-"
+            }}
+            }
+          </td>
+          <td
+            [ngClass]="{
+              'text-green': item && item.Assignment?.Handled,
+              'text-yellow': item && !item.Assignment?.Handled
+            }"
+            class="center"
+          >
+            @if(item){
+            {{ item.Assignment?.Handled ? "已确认" : "未确认" }}
+            }
+          </td>
+          <td class="center">
+            @if(item){
+            <div class="operation">
+              <button
+                [disabled]="!item.FileUrl"
+                title="播放视频"
+                (click)="on.video($event, item)"
+              >
+                <i class="howell-icon-video"></i>
+              </button>
+              <button (click)="on.task($event, item)" title="查看工单">
+                <i class="howell-icon-task_misson"></i>
+              </button>
+              <button (click)="on.position($event, item)" title="查看位置">
+                <i class="howell-icon-map6"></i>
+              </button>
+            </div>
+            }
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div
+    class="garbage-management-record-event-ias-list-table-association-foot foot"
+    *ngIf="page"
+  >
+    <div class="foot-info">
+      <div class="info-item">当前数量: {{ page && page.RecordCount }}</div>
+      <div class="info-item">总数量: {{ page && page.TotalRecordCount }}</div>
+    </div>
+
+    <paginator [page]="page" (change)="on.page($event)"> </paginator>
+  </div>
+
+  <div class="loading" *ngIf="loading"></div>
+</div>

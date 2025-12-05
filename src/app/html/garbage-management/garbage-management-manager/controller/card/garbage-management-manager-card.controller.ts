@@ -1,14 +1,10 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { ComponentTool } from '../../../../../common/tools/component-tool/component.tool';
-import { GarbageManagementManagerBusiness } from '../../business/garbage-management-manager.business';
+import { EventEmitter } from '@angular/core';
+import { GarbageManagementManagerComponent } from '../../garbage-management-manager.component';
 import {
   GarbageManagementManagerIndex,
   IGarbageManagementManagerCardController,
   IGarbageManagementManagerCardElement,
 } from '../../garbage-management-manager.model';
-import { GarbageManagementManagerPanel } from '../../panel/garbage-management-manager.panel';
-import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
-import { GarbageManagementManagerMapController } from '../map/garbage-management-manager-map.controller';
 import { GarbageManagementManagerCardCommonController } from './common/garbage-management-manager-card-common.controller';
 import { GarbageManagementManagerCardEventTrigger } from './garbage-management-manager-card.trigger';
 import { GarbageManagementManagerCardHomeController } from './home/garbage-management-manager-card-home.controller';
@@ -17,22 +13,14 @@ import { GarbageManagementManagerCardMixedIntoController } from './mixedinto/gar
 import { GarbageManagementManagerCardStreetController } from './street/garbage-management-manager-card-street.controller';
 import { GarbageManagementManagerCardVehicleController } from './vehicle/garbage-management-manager-card-vehicle.controller';
 
-@Injectable()
 export class GarbageManagementManagerCardController {
-  constructor(
-    private tool: ComponentTool,
-    panel: GarbageManagementManagerPanel,
-    window: GarbageManagementManagerWindow,
-    map: GarbageManagementManagerMapController,
-    business: GarbageManagementManagerBusiness
-  ) {
-    this.trigger = new GarbageManagementManagerCardEventTrigger(
-      panel,
-      window,
-      map,
-      business
-    );
+  constructor(private that: GarbageManagementManagerComponent) {
+    this.trigger = new GarbageManagementManagerCardEventTrigger(that);
     this.init.load();
+  }
+
+  private get tool() {
+    return this.that.tool;
   }
 
   private trigger: GarbageManagementManagerCardEventTrigger;

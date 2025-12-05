@@ -7,13 +7,15 @@
       <thead>
         <tr>
           <td>图片</td>
-          <td>设备名称</td>
+          <td>地址</td>
           <td>责任网格</td>
-          <td>发现时间</td>
           <td>描述</td>
-          <td>状态</td>
-          <td>处置人员</td>
+          <td>报警时间</td>
+
           <td>处置时间</td>
+
+          <td>重复次数</td>
+          <td class="center">状态</td>
           <td class="center"><div>操作</div></td>
         </tr>
       </thead>
@@ -48,9 +50,13 @@
             </div>
             }
           </td>
-          <td>
+          <td
+            [ngClass]="{
+              'text-yellow': item?.IsTimeout
+            }"
+          >
             @if(item){
-            {{ item.DeviceName }}
+            {{ item.Address }}
             } @else{ &nbsp; }
           </td>
           <td>
@@ -58,14 +64,29 @@
             {{ item.GridCellName }}
             }
           </td>
+          <td [title]="item?.Description ?? ''">
+            @if(item){
+            {{ item.Description }}
+            }
+          </td>
           <td>
             @if(item){
             {{ item.EventTime | date : Language.yyyyMMddHHmmss }}
             }
           </td>
-          <td [title]="item?.Description ?? ''">
+          <td>
             @if(item){
-            {{ item.Description }}
+            {{
+              (item.Assignment?.HandledTime | date : Language.yyyyMMddHHmmss) ||
+                "-"
+            }}
+            }
+          </td>
+          <td>
+            @if(item){
+            <div class="button" (click)="on.association($event, item)">
+              {{ item.PeriodRepeatTimes ?? 0 }}
+            </div>
             }
           </td>
           <td
@@ -73,19 +94,10 @@
               'text-green': item && item.Assignment?.Handled,
               'text-yellow': item && !item.Assignment?.Handled
             }"
+            class="center"
           >
             @if(item){
             {{ item.Assignment?.Handled ? "已确认" : "未确认" }}
-            }
-          </td>
-          <td>
-            @if(item){
-            {{ item.Assignment?.Handler }}
-            }
-          </td>
-          <td>
-            @if(item){
-            {{ item.Assignment?.HandledTime | date : Language.yyyyMMddHHmmss }}
             }
           </td>
           <td class="center">
@@ -101,9 +113,9 @@
               <button (click)="on.task($event, item)" title="查看工单">
                 <i class="howell-icon-task_misson"></i>
               </button>
-              <!-- <button (click)="on.position($event, item)">
-                <i class="glyphicon glyphicon-map-marker"></i>
-              </button> -->
+              <button (click)="on.position($event, item)" title="查看位置">
+                <i class="howell-icon-map6"></i>
+              </button>
             </div>
             }
           </td>

@@ -21,6 +21,7 @@ export class GarbageManagementMapAMapStationMarkerLayerController {
       collision: false,
       allowCollision: false,
       zooms: GarbageManagementMapAMapConfig.zoom.marker,
+      zIndex: 11,
     });
     map.add(layer);
     return layer;

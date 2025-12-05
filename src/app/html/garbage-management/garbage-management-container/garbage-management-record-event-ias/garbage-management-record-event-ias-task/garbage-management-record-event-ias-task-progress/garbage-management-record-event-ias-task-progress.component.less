@@ -15,9 +15,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 15px;
+    padding: 0 10px;
     box-sizing: border-box;
-
+    width: calc((100% - (20px * 3) - 10px * 2 * 3) / 4);
 
     &.did {
       border: 1px solid #01fd74;
@@ -26,13 +26,13 @@
     }
 
     &-name {
-      font-size: 20px;
+      font-size: 18px;
       white-space: nowrap;
     }
 
     &-time {
-      width: 180px;
       text-align: right;
+      opacity: 0.9;
     }
   }
 

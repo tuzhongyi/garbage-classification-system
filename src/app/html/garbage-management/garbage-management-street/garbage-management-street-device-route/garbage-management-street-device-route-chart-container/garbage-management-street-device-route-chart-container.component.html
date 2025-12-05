@@ -1,0 +1,24 @@
+<div
+  class="garbage-management-street-device-route-chart-container"
+  *ngIf="loaded"
+>
+  <howell-garbage-management-street-device-route-chart
+    class="garbage-management-street-device-route-chart-container-item panel"
+    [datas]="datas"
+    [args]="args"
+    [statistictype]="RouteStatisticType.Meter"
+  ></howell-garbage-management-street-device-route-chart>
+  <howell-garbage-management-street-device-route-chart
+    class="garbage-management-street-device-route-chart-container-item panel"
+    [datas]="datas"
+    [args]="args"
+    [statistictype]="RouteStatisticType.Speed"
+  ></howell-garbage-management-street-device-route-chart>
+  <howell-garbage-management-street-device-route-chart
+    class="garbage-management-street-device-route-chart-container-item panel"
+    [datas]="datas"
+    [args]="args"
+    [statistictype]="RouteStatisticType.Time"
+  ></howell-garbage-management-street-device-route-chart>
+  <div class="loading" *ngIf="loading"></div>
+</div>

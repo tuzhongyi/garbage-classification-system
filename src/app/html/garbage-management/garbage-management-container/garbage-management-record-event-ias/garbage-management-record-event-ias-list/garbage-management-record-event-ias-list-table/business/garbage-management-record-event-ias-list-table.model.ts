@@ -7,5 +7,7 @@ export class GarbageManagementRecordEventIasListTableArgs
   duration = DateTimeTool.all.day(new Date());
   first?: boolean;
   address?: string;
-  divisionId?: string;
+  gridcellId?: string;
+  timeout?: boolean;
+  ids?: string[];
 }

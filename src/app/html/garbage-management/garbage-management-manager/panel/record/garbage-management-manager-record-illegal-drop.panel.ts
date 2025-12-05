@@ -5,10 +5,10 @@ import { PagedList } from '../../../../../common/network/model/page_list.model';
 import { DateTimeTool } from '../../../../../common/tools/date-time-tool/datetime.tool';
 import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
 import { GarbageManagementRecordEventIllegalDropArgs } from '../../../garbage-management-container/garbage-management-record-event-illegal-drop/garbage-management-record-event-illegal-drop.model';
-import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
+import { GarbageManagementManagerComponent } from '../../garbage-management-manager.component';
 
 export class GarbageManagementManagerRecordIllegalDropPanel extends WindowViewModel {
-  constructor(private window: GarbageManagementManagerWindow) {
+  constructor(private that: GarbageManagementManagerComponent) {
     super();
   }
   style = {
@@ -20,6 +20,10 @@ export class GarbageManagementManagerRecordIllegalDropPanel extends WindowViewMo
   };
   title = '垃圾乱投';
   args: GarbageManagementRecordEventIllegalDropArgs = {};
+
+  private get window() {
+    return this.that.window;
+  }
 
   open(args: GarbageManagementRecordEventIllegalDropArgs) {
     this.args = args;

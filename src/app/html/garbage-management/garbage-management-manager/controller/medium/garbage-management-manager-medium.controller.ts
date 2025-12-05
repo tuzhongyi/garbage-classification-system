@@ -1,18 +1,21 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import { CameraPictureUrl } from '../../../../../common/network/model/url-model/camera-picture-url.model';
 import {
   VideoPlaybackArgs,
   VideoPreviewArgs,
 } from '../../../../share/video/component/video.model';
-import { GarbageManagementManagerBusiness } from '../../business/garbage-management-manager.business';
-import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
+import { GarbageManagementManagerComponent } from '../../garbage-management-manager.component';
 
-@Injectable()
 export class GarbageManagementManagerMediumController {
-  constructor(
-    private window: GarbageManagementManagerWindow,
-    private business: GarbageManagementManagerBusiness
-  ) {}
+  constructor(private that: GarbageManagementManagerComponent) {}
+
+  private get window() {
+    return this.that.window;
+  }
+  private get business() {
+    return this.that.business;
+  }
+
   preview = new EventEmitter<VideoPreviewArgs>();
   playback = new EventEmitter<VideoPlaybackArgs>();
 

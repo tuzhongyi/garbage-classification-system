@@ -1,3 +1,4 @@
+import { EventEmitter } from '@angular/core';
 import { IasDevice } from '../../../../../../common/network/model/ias/ias-device.model';
 import { ObjectTool } from '../../../../../../common/tools/object-tool/object.tool';
 import { GarbageManagementMapAMapInfoController } from '../info/garbage-management-map-amap-marker-info.controller';
@@ -5,6 +6,10 @@ import { GarbageManagementMapAMapInfo } from '../info/garbage-management-map-ama
 import { GarbageManagementMapAMapDeviceMarkerLayerController } from './garbage-management-map-amap-device-marker-layer.controller';
 
 export class GarbageManagementMapAMapDeviceController {
+  event = {
+    dblclick: new EventEmitter<IasDevice>(),
+  };
+
   constructor(map: AMap.Map) {
     this.marker = new GarbageManagementMapAMapDeviceMarkerLayerController(map);
     this.info = new GarbageManagementMapAMapInfoController(map);
@@ -24,6 +29,9 @@ export class GarbageManagementMapAMapDeviceController {
     });
     this.marker.event.mouseout.subscribe((data) => {
       this.info.remove();
+    });
+    this.marker.event.dblclick.subscribe((data) => {
+      this.event.dblclick.emit(data);
     });
   }
 

@@ -54,6 +54,9 @@ export class GarbageManagementMapAMapDeviceMarkerLayerController {
     point.event.click.subscribe((data) => {
       this.event.click.emit(data);
     });
+    point.event.dblclick.subscribe((data) => {
+      this.event.dblclick.emit(data);
+    });
   }
 
   clear() {

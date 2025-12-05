@@ -1,9 +1,11 @@
 import { GarbageStationViewModel } from '../../../../../common/view-model/garbage-station.view-model';
-import { GarbageManagementManagerBusiness } from '../../business/garbage-management-manager.business';
+import { GarbageManagementManagerComponent } from '../../garbage-management-manager.component';
 
 export class GarbageManagementManagerDataLoaderStationController {
-  constructor(private business: GarbageManagementManagerBusiness) {}
-
+  constructor(private that: GarbageManagementManagerComponent) {}
+  private get business() {
+    return this.that.business;
+  }
   private loaded = false;
 
   private datas: GarbageStationViewModel[] = [];

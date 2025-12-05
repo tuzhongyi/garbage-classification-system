@@ -4,5 +4,5 @@ export class GarbageManagementRecordEventIasStatisticDetailsArgs {
   date = new Date();
   unit = TimeUnit.Day;
   deviceId?: string;
-  gridId?: string;
+  gridcellId?: string;
 }

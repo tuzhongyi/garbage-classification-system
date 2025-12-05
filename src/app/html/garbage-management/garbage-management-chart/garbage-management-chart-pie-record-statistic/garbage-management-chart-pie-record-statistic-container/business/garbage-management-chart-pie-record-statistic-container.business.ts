@@ -46,7 +46,8 @@ export class GarbageManagementChartPieRecordStatisticContainerBusiness {
       EventType.IllegalVehicle,
       data.division
     );
-    let garbageexposed = this.convert.ias(data.ias);
+    let garbageexposed = this.convert.ias.exposed(data.ias);
+    let iastimeout = this.convert.ias.timeout(data.ias);
     return [
       mixedinfo,
       garbagefull,
@@ -55,6 +56,7 @@ export class GarbageManagementChartPieRecordStatisticContainerBusiness {
       illegaldump,
       illegalvehicle,
       garbageexposed,
+      iastimeout,
     ];
   }
 
@@ -77,13 +79,24 @@ export class GarbageManagementChartPieRecordStatisticContainerBusiness {
       };
       return item;
     },
-    ias: (data: PagedList<IasEventRecord>) => {
-      let item: ChartItem = {
-        id: 103,
-        name: '暴露垃圾',
-        value: data.Page.TotalRecordCount || 0,
-      };
-      return item;
+    ias: {
+      exposed: (data: PagedList<IasEventRecord>) => {
+        let item: ChartItem = {
+          id: 103,
+          name: '暴露垃圾',
+          value: data.Page.TotalRecordCount || 0,
+        };
+        return item;
+      },
+      timeout: (data: PagedList<IasEventRecord>) => {
+        let timeouts = data.Data.filter((x) => x.IsTimeout);
+        let item: ChartItem = {
+          id: 103.5,
+          name: '高频事件',
+          value: timeouts.length,
+        };
+        return item;
+      },
     },
   };
 }

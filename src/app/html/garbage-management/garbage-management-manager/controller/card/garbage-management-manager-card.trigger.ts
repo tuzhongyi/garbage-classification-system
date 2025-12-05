@@ -4,18 +4,23 @@ import { IllegalVehicleEventRecord } from '../../../../../common/network/model/g
 import { GarbageStation } from '../../../../../common/network/model/garbage-station/garbage-station.model';
 import { IasEventRecord } from '../../../../../common/network/model/ias/ias-event-record.model';
 import { GarbageManagementRankingRecordEventArgs } from '../../../garbage-management-ranking/garbage-management-ranking-record-event/garbage-management-ranking-record-event.model';
-import { GarbageManagementManagerBusiness } from '../../business/garbage-management-manager.business';
-import { GarbageManagementManagerPanel } from '../../panel/garbage-management-manager.panel';
-import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
-import { GarbageManagementManagerMapController } from '../map/garbage-management-manager-map.controller';
+import { GarbageManagementManagerComponent } from '../../garbage-management-manager.component';
 
 export class GarbageManagementManagerCardEventTrigger {
-  constructor(
-    private panel: GarbageManagementManagerPanel,
-    private window: GarbageManagementManagerWindow,
-    private map: GarbageManagementManagerMapController,
-    private business: GarbageManagementManagerBusiness
-  ) {}
+  constructor(private that: GarbageManagementManagerComponent) {}
+
+  private get panel() {
+    return this.that.panel;
+  }
+  private get window() {
+    return this.that.window;
+  }
+  private get map() {
+    return this.that.map;
+  }
+  private get business() {
+    return this.that.business;
+  }
 
   record = {
     type: (type: number) => {
@@ -39,7 +44,10 @@ export class GarbageManagementManagerCardEventTrigger {
           this.panel.record.illegalvehicle.open({});
           break;
         case 103:
-          this.panel.record.ias.open();
+          this.panel.record.ias.open({ timeout: false });
+          break;
+        case 103.5:
+          this.panel.record.ias.open({ timeout: true });
           break;
 
         default:
@@ -95,7 +103,7 @@ export class GarbageManagementManagerCardEventTrigger {
     },
     device: (online: boolean) => {
       this.panel.street.clear();
-      this.panel.street.online = online;
+      this.panel.street.args.online = online;
       this.panel.street.show = true;
     },
     statistic: () => {

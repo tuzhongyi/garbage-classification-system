@@ -36,6 +36,18 @@ export class GarbageManagementRecordEventIasListTableBusiness {
       params.BeginTime = args.duration.begin;
       params.EndTime = args.duration.end;
       params.EventType = 103;
+      if (args.gridcellId) {
+        params.GridCellIds = [args.gridcellId];
+      }
+      if (args.address) {
+        params.Address = args.address;
+      }
+      if (args.timeout != undefined) {
+        params.IsTimeout = args.timeout;
+      }
+      if (args.ids) {
+        params.Ids = [...args.ids];
+      }
       params.Asc = 'EventTime';
       return this.service.event.paged(params);
     },

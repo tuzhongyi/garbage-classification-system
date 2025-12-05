@@ -5,15 +5,11 @@ import { PagedArgs } from '../../../../../common/network/model/model.interface';
 import { PagedList } from '../../../../../common/network/model/page_list.model';
 import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
 import { GarbageManagementRecordEventGarbageDropArgs } from '../../../garbage-management-container/garbage-management-record-event-garbage-drop/garbage-management-record-event-garbage-drop.model';
-import { GarbageManagementManagerBusiness } from '../../business/garbage-management-manager.business';
-import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
+import { GarbageManagementManagerComponent } from '../../garbage-management-manager.component';
 import { VideoType } from '../../window/video/garbage-management-manager-video.window';
 
 export class GarbageManagementManagerRecordGarbageDropPanel extends WindowViewModel {
-  constructor(
-    private window: GarbageManagementManagerWindow,
-    private business: GarbageManagementManagerBusiness
-  ) {
+  constructor(private that: GarbageManagementManagerComponent) {
     super();
   }
   style = {
@@ -25,6 +21,10 @@ export class GarbageManagementManagerRecordGarbageDropPanel extends WindowViewMo
   };
   title = '垃圾滞留';
   args: GarbageManagementRecordEventGarbageDropArgs = {};
+
+  private get window() {
+    return this.that.window;
+  }
 
   open(args: GarbageManagementRecordEventGarbageDropArgs) {
     this.args = args;

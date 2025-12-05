@@ -5,7 +5,7 @@ import { IasDevice } from '../../../../../common/network/model/ias/ias-device.mo
 import { IasEventRecord } from '../../../../../common/network/model/ias/ias-event-record.model';
 import { Flags } from '../../../../../common/tools/flags';
 import { GarbageStationViewModel } from '../../../../../common/view-model/garbage-station.view-model';
-import { GarbageManagementManagerBusiness } from '../../business/garbage-management-manager.business';
+import { GarbageManagementManagerComponent } from '../../garbage-management-manager.component';
 import { GarbageManagementManagerIndex } from '../../garbage-management-manager.model';
 import { GarbageManagementManagerDataFilterController } from './garbage-management-manager-data-filter.controller';
 import { GarbageManagementManagerDataLoaderController } from './garbage-management-manager-data-loader.controller';
@@ -14,14 +14,23 @@ import { GarbageManagementManagerDataLoaderController } from './garbage-manageme
 export class GarbageManagementManagerDataController {
   stations: GarbageStationViewModel[] = [];
   devices: IasDevice[] = [];
-  records: IasEventRecord[] = [];
+  exposeds: IasEventRecord[] = [];
+  timeouts: IasEventRecord[] = [];
   source = {
     stations: [] as GarbageStationViewModel[],
+    records: [] as IasEventRecord[],
+  };
+  count = {
+    ias: {
+      exposed: 0,
+      timeout: 0,
+    },
   };
   eventables = [EventType.GarbageFull, EventType.GarbageDrop];
-  constructor(business: GarbageManagementManagerBusiness) {
-    this.loader = new GarbageManagementManagerDataLoaderController(business);
+  constructor(that: GarbageManagementManagerComponent) {
+    this.loader = new GarbageManagementManagerDataLoaderController(that);
   }
+  private date = new Date();
   private loader: GarbageManagementManagerDataLoaderController;
   private filtration = new GarbageManagementManagerDataFilterController();
   load() {
@@ -152,11 +161,14 @@ export class GarbageManagementManagerDataController {
   on = {
     index: (index: GarbageManagementManagerIndex) => {
       if (index === GarbageManagementManagerIndex.street) {
-        this.loader.record.load().then((x) => {
-          this.records = x;
+        this.loader.exposed.load(this.date).then((datas) => {
+          this.exposeds = datas;
+          this.timeouts = datas.filter((x) => x.IsTimeout);
+          this.count.ias.exposed = this.exposeds.length - this.timeouts.length;
+          this.count.ias.timeout = this.timeouts.length;
         });
       } else {
-        this.records = [];
+        this.exposeds = [];
       }
       this.filter.data.index = index;
       this.filter.eventables.index(index);
@@ -177,6 +189,14 @@ export class GarbageManagementManagerDataController {
         return;
       }
       this.on.index(this.filter.data.index);
+    },
+    ias: (display: [boolean, boolean]) => {
+      if (display[0]) {
+        this.exposeds = [...this.source.records];
+      } else {
+        this.source.records = [...this.exposeds];
+        this.exposeds = [];
+      }
     },
   };
 }

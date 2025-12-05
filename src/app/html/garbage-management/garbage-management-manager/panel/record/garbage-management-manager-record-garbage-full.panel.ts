@@ -5,15 +5,11 @@ import { PagedArgs } from '../../../../../common/network/model/model.interface';
 import { PagedList } from '../../../../../common/network/model/page_list.model';
 import { ObjectTool } from '../../../../../common/tools/object-tool/object.tool';
 import { GarbageManagementRecordEventGarbageFullArgs } from '../../../garbage-management-container/garbage-management-record-event-garbage-full/garbage-management-record-event-garbage-full.model';
-import { GarbageManagementManagerWindow } from '../../window/garbage-management-manager.window';
+import { GarbageManagementManagerComponent } from '../../garbage-management-manager.component';
 import { VideoType } from '../../window/video/garbage-management-manager-video.window';
-import { GarbageManagementManagerStationPanel } from '../garbage-management-manager-station.panel';
 
 export class GarbageManagementManagerRecordGarbageFullPanel extends WindowViewModel {
-  constructor(
-    private window: GarbageManagementManagerWindow,
-    private station: GarbageManagementManagerStationPanel
-  ) {
+  constructor(private that: GarbageManagementManagerComponent) {
     super();
   }
   style = {
@@ -26,6 +22,13 @@ export class GarbageManagementManagerRecordGarbageFullPanel extends WindowViewMo
   title = '垃圾满溢';
 
   args: GarbageManagementRecordEventGarbageFullArgs = {};
+
+  private get window() {
+    return this.that.window;
+  }
+  private get station() {
+    return this.that.panel.station;
+  }
 
   open(args: GarbageManagementRecordEventGarbageFullArgs) {
     this.args = args;

@@ -73,6 +73,7 @@ export class GarbageManagementChartPieRecordStatisticContainerComponent
       ColorTool.station.state.illegalvehicle
     );
     this.colors.set(103, ColorTool.station.state.garbageexposed);
+    this.colors.set(103.5, ColorTool.station.state.iastimeout);
   }
 
   private load() {

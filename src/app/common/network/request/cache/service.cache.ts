@@ -103,11 +103,17 @@ export class ServiceCache<T extends IData> implements IServiceCache {
       this.all().then((datas) => {
         let index = datas.findIndex((x) => x.Id == id);
         if (index < 0) {
-          this.service.get(id).then((data) => {
-            datas.push(data);
-            this.save(datas);
-            resolve(data);
-          });
+          this.loading = true;
+          this.service
+            .get(id)
+            .then((data) => {
+              datas.push(data);
+              this.save(datas);
+              resolve(data);
+            })
+            .finally(() => {
+              this.loading = false;
+            });
         } else {
           resolve(datas[index]);
         }

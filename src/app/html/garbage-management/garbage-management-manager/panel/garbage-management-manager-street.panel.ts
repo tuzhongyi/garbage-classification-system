@@ -1,6 +1,10 @@
 import { EventEmitter } from '@angular/core';
 import { WindowViewModel } from '../../../../common/components/window/window.model';
 import { IasDevice } from '../../../../common/network/model/ias/ias-device.model';
+import {
+  GarbageManagementStreetArgs,
+  GarbageManagementStreetIndex,
+} from '../../garbage-management-street/garbage-management-street.model';
 
 export class GarbageManagementManagerStreetPanel extends WindowViewModel {
   event = {
@@ -15,9 +19,11 @@ export class GarbageManagementManagerStreetPanel extends WindowViewModel {
     zIndex: '1',
   };
   title = '巡逻车辆';
-  online?: boolean = undefined;
+  args: GarbageManagementStreetArgs = {};
+  index = GarbageManagementStreetIndex.list;
   clear() {
-    this.online = undefined;
+    this.index = GarbageManagementStreetIndex.list;
+    this.args = {};
   }
   on = {
     position: (data: IasDevice) => {

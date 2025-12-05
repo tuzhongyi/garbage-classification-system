@@ -33,7 +33,8 @@ export class GarbageManagementMapComponent
 {
   @Input() devices: IasDevice[] = [];
   @Input() stations: GarbageStationViewModel[] = [];
-  @Input() records: IasEventRecord[] = [];
+  @Input() exposeds: IasEventRecord[] = [];
+  @Input() timeouts: IasEventRecord[] = [];
   @Input() eventables = [EventType.GarbageFull, EventType.GarbageDrop];
   @Input() select?: EventEmitter<
     GarbageStation | IasDevice | IDivision | IasEventRecord
@@ -43,7 +44,8 @@ export class GarbageManagementMapComponent
 
   @Output() refreshChange = new EventEmitter<boolean>();
 
-  @Output() recorddblclick = new EventEmitter<IasEventRecord>();
+  @Output() exposeddblclick = new EventEmitter<IasEventRecord>();
+  @Output() devicedblclick = new EventEmitter<IasDevice>();
 
   @Output() camera = new EventEmitter<GarbageStationViewModel>();
   @Output() mixedinto = new EventEmitter<GarbageStationViewModel>();
@@ -67,7 +69,11 @@ export class GarbageManagementMapComponent
           } else if (data instanceof IasDevice) {
             this.on.select.ias.device(data);
           } else if (data instanceof IasEventRecord) {
-            this.on.select.ias.record(data);
+            if (data.IsTimeout) {
+              this.on.select.ias.timeout(data);
+            } else {
+              this.on.select.ias.exposed(data);
+            }
           } else {
             this.on.select.division(data);
           }
@@ -82,8 +88,11 @@ export class GarbageManagementMapComponent
       }
     },
     output: () => {
-      this.controller.ias.record.event.dblclick.subscribe((data) => {
-        this.recorddblclick.emit(data);
+      this.controller.ias.exposed.event.dblclick.subscribe((data) => {
+        this.exposeddblclick.emit(data);
+      });
+      this.controller.ias.device.event.dblclick.subscribe((data) => {
+        this.devicedblclick.emit(data);
       });
       this.controller.station.event.camera.subscribe((data) => {
         this.camera.emit(data);
@@ -120,9 +129,14 @@ export class GarbageManagementMapComponent
         this.load.device(this.devices);
       }
     },
-    records: (simple: SimpleChange) => {
+    exposeds: (simple: SimpleChange) => {
       if (simple && !simple.firstChange) {
-        this.load.record(this.records);
+        this.load.exposed(this.exposeds);
+      }
+    },
+    timeouts: (simple: SimpleChange) => {
+      if (simple && !simple.firstChange) {
+        this.load.timeout(this.timeouts);
       }
     },
     eventables: (simple: SimpleChange) => {
@@ -134,7 +148,8 @@ export class GarbageManagementMapComponent
       if (simple && !simple.firstChange) {
         if (this.refresh) {
           this.controller.station.blur();
-          this.controller.ias.record.blur();
+          this.controller.ias.exposed.blur();
+          this.controller.ias.timeout.blur();
           this.refresh = false;
           setTimeout(() => {
             this.refreshChange.emit(this.refresh);
@@ -145,13 +160,13 @@ export class GarbageManagementMapComponent
   };
   private load = {
     division: async () => {
+      let datas = await this.business.map.load();
       let data = {
-        root: await this.business.map.current(),
+        root: await this.business.map.current(datas),
         grid: await this.business.grid.load(),
         children: await this.business.division.load(),
       };
 
-      let datas = await this.business.map.datas.get();
       let ids = data.grid.map((x) => x.Id);
       let grids = datas.filter((x) => ids.includes(x.id));
       this.controller.root.load(data.root, grids);
@@ -165,23 +180,31 @@ export class GarbageManagementMapComponent
       });
     },
     station: (datas: GarbageStationViewModel[]) => {
+      console.log('load.station');
       this.controller.station.load(datas);
     },
     eventables: (datas: EventType[]) => {
+      console.log('load.eventables');
       this.controller.station.eventable(datas);
     },
     device: (datas: IasDevice[]) => {
+      console.log('load.device');
       this.controller.ias.device.load(datas);
     },
-    record: (datas: IasEventRecord[]) => {
-      this.controller.ias.record.load(datas);
+    exposed: (datas: IasEventRecord[]) => {
+      console.log('load.exposed');
+      this.controller.ias.exposed.load(datas);
+    },
+    timeout: (datas: IasEventRecord[]) => {
+      console.log('load.timeout');
+      this.controller.ias.timeout.load(datas);
     },
   };
   ngOnChanges(changes: SimpleChanges): void {
     this.change.eventables(changes['eventables']);
     this.change.stations(changes['stations']);
     this.change.devices(changes['devices']);
-    this.change.records(changes['records']);
+    this.change.exposeds(changes['exposeds']);
     this.change.refresh(changes['refresh']);
   }
   ngOnInit(): void {
@@ -204,8 +227,18 @@ export class GarbageManagementMapComponent
             ]);
           }
         },
-        record: (data: IasEventRecord) => {
-          this.controller.ias.record.select(data);
+        exposed: (data: IasEventRecord) => {
+          this.controller.ias.exposed.select(data);
+          if (data.Location) {
+            let position = GeoTool.point.convert.wgs84.to.gcj02(
+              data.Location.Longitude,
+              data.Location.Latitude
+            );
+            this.controller.move(position);
+          }
+        },
+        timeout: (data: IasEventRecord) => {
+          this.controller.ias.timeout.select(data);
           if (data.Location) {
             let position = GeoTool.point.convert.wgs84.to.gcj02(
               data.Location.Longitude,

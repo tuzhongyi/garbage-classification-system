@@ -65,9 +65,18 @@ export class GarbageManagementMapAMapConverter {
       array: (datas: (GarbageStationViewModel | IasEventRecord)[]) => {
         let geo: any = {
           type: 'FeatureCollection',
-          features: datas.map((x) => {
-            return this.geo.point.item(x);
-          }),
+          features: datas
+            .filter((x) => {
+              if (x instanceof GarbageStationViewModel) {
+                return !!x.GisPoint;
+              } else if (x instanceof IasEventRecord) {
+                return !!x.Location;
+              }
+              return false;
+            })
+            .map((x) => {
+              return this.geo.point.item(x);
+            }),
         };
         return geo;
       },
@@ -86,11 +95,13 @@ export class GarbageManagementMapAMapConverter {
     },
     from: {
       station: (data: GarbageStationViewModel) => {
-        let point = data.GisPoint!;
+        if (!data.GisPoint) return undefined;
+        let point = data.GisPoint;
         return [point.Longitude, point.Latitude] as [number, number];
       },
       ias: (data: IasEventRecord) => {
-        let point = data.Location!;
+        if (!data.Location) return undefined;
+        let point = data.Location;
         return [point.Longitude, point.Latitude] as [number, number];
       },
     },

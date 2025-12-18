@@ -17,6 +17,7 @@ import { TimeUnit } from '../../../../../common/enum/time-unit.enum';
 import { Language } from '../../../../../common/tools/language';
 import { GarbageManagementStreetDeviceRouteChartContainerComponent } from '../garbage-management-street-device-route-chart-container/garbage-management-street-device-route-chart-container.component';
 import { GarbageManagementStreetDeviceRouteInfoComponent } from '../garbage-management-street-device-route-info/garbage-management-street-device-route-info.component';
+import { GarbageManagementStreetDeviceRouteMapSettingsComponent } from '../garbage-management-street-device-route-map-settings/garbage-management-street-device-route-map-settings.component';
 import { GarbageManagementStreetDeviceRouteMapComponent } from '../garbage-management-street-device-route-map/garbage-management-street-device-route-map.component';
 import {
   GarbageManagementStreetDeviceRouteArgs,
@@ -32,6 +33,7 @@ import { GarbageManagementStreetDeviceRouteManagerSource } from './garbage-manag
     DateTimeControlComponent,
     HowellSelectComponent,
     GarbageManagementStreetDeviceRouteMapComponent,
+    GarbageManagementStreetDeviceRouteMapSettingsComponent,
     GarbageManagementStreetDeviceRouteInfoComponent,
     GarbageManagementStreetDeviceRouteChartContainerComponent,
   ],
@@ -52,6 +54,7 @@ export class GarbageManagementStreetDeviceRouteManagerComponent
   args = new GarbageManagementStreetDeviceRouteArgs();
   load = new EventEmitter<GarbageManagementStreetDeviceRouteArgs>();
 
+  rectified = false;
   TimeUnit = TimeUnit;
   RouteStatisticType = GarbageManagementStreetDeviceRouteType;
   date = {

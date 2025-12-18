@@ -43,4 +43,7 @@ export class Time {
   toMinutes() {
     return this.hour * 60 + this.minute;
   }
+  toSeconds() {
+    return this.hour * 3600 + this.minute * 60 + this.second;
+  }
 }

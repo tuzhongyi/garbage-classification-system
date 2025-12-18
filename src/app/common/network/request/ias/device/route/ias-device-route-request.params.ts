@@ -6,6 +6,8 @@ import {
 export class GetIasDeviceRoutesParams extends PagedDurationParams {
   /**	String	设备ID	M */
   DeviceId!: string;
+
+  Rectified?: boolean;
 }
 export class GetMobileDeviceRoutesStatisticParams extends DurationParams {
   /**	Double	运动时长最小速度，默认3.6，单位：km/h	O */

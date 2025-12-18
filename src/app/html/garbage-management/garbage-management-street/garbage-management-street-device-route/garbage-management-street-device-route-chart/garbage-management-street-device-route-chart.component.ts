@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 
 import { ChartType } from '../../../../../common/enum/chart-type.enum';
+import { TimeUnit } from '../../../../../common/enum/time-unit.enum';
 import { DeviceRoutesStatistic } from '../../../../../common/network/model/ias/device-routes-statistic.model';
 import { ChartTool } from '../../../../../common/tools/chart-tool/chart.tool';
 import { IGarbageManagementChartData } from '../../../garbage-management-chart/garbage-management-chart-line/garbage-management-chart-line.model';
@@ -37,6 +38,7 @@ export class GarbageManagementStreetDeviceRouteChartComponent
     private business: GarbageManagementStreetDeviceRouteChartBusiness
   ) {}
 
+  interval = 1;
   datas: IGarbageManagementChartData[] = [];
   xAxis = ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'];
 
@@ -53,6 +55,12 @@ export class GarbageManagementStreetDeviceRouteChartComponent
           date: args.date,
           first: 1,
         });
+
+        if (args.unit == TimeUnit.Week) {
+          this.interval = 0;
+        } else {
+          this.interval = 1;
+        }
       });
     },
   };

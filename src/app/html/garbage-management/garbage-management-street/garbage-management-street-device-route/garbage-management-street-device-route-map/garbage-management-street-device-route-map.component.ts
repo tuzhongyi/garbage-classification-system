@@ -3,8 +3,11 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
+  SimpleChange,
+  SimpleChanges,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GarbageManagementStreetDeviceRouteArgs } from '../garbage-management-street-device-route.model';
@@ -22,10 +25,11 @@ import { GarbageManagementStreetDeviceRouteMapBusiness } from './garbage-managem
   ],
 })
 export class GarbageManagementStreetDeviceRouteMapComponent
-  implements OnInit, OnDestroy
+  implements OnInit, OnChanges, OnDestroy
 {
   @Input()
   load?: EventEmitter<GarbageManagementStreetDeviceRouteArgs>;
+  @Input() rectified = false;
 
   constructor(
     private business: GarbageManagementStreetDeviceRouteMapBusiness,
@@ -34,22 +38,28 @@ export class GarbageManagementStreetDeviceRouteMapComponent
 
   loaded = false;
   loading = false;
+  private args?: GarbageManagementStreetDeviceRouteArgs;
   private subscription = new Subscription();
   private regist() {
     if (this.load) {
       let sub = this.load.subscribe((x) => {
-        this.data.load(x);
+        this.data.load(x, this.rectified);
       });
       this.subscription.add(sub);
     }
   }
 
   private data = {
-    load: (args: GarbageManagementStreetDeviceRouteArgs) => {
+    load: (
+      args: GarbageManagementStreetDeviceRouteArgs,
+      rectified: boolean
+    ) => {
+      this.args = args;
       this.loading = true;
       this.business
-        .load(args)
+        .load(args, rectified)
         .then((x) => {
+          this.controller.path.clear();
           this.controller.path.load(x);
         })
         .finally(() => {
@@ -59,8 +69,21 @@ export class GarbageManagementStreetDeviceRouteMapComponent
     },
   };
 
+  private change = {
+    rectified: (simple: SimpleChange) => {
+      if (simple) {
+        if (this.args) {
+          this.data.load(this.args, this.rectified);
+        }
+      }
+    },
+  };
+
   ngOnInit(): void {
     this.regist();
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.change.rectified(changes['rectified']);
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

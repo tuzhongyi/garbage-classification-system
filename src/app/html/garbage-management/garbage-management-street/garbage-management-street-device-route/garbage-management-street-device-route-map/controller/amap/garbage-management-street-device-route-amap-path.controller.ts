@@ -1,4 +1,5 @@
 import { EventEmitter } from '@angular/core';
+import { ColorTool } from '../../../../../../../common/tools/color-tool/color.tool';
 import { GeoTool } from '../../../../../../../common/tools/geo-tool/geo.tool';
 
 export class GarbageManagementStreetDeviceRouteAMapPathController {
@@ -6,7 +7,7 @@ export class GarbageManagementStreetDeviceRouteAMapPathController {
   mouseout = new EventEmitter<void>();
   click = new EventEmitter<[number, number]>();
 
-  constructor(private map: AMap.Map) {}
+  constructor(private map: AMap.Map, private index: number) {}
 
   private positions?: AMap.Polyline;
   private points: [number, number][] = [];
@@ -38,7 +39,7 @@ export class GarbageManagementStreetDeviceRouteAMapPathController {
     }
   }
 
-  load(positions: [number, number][]) {
+  load(positions: [number, number][]): AMap.Polyline | undefined {
     if (positions.length === 0) return;
     this.points = positions;
     if (positions.length > 0) {
@@ -48,7 +49,8 @@ export class GarbageManagementStreetDeviceRouteAMapPathController {
       path: [...positions],
       showDir: true,
       strokeWeight: 6,
-      strokeColor: '#32b33e',
+      strokeColor:
+        this.index == 0 ? '#32b33e' : ColorTool.get.index(this.index - 1),
       lineJoin: 'round',
       lineCap: 'round',
       cursor: 'pointer',
@@ -63,11 +65,21 @@ export class GarbageManagementStreetDeviceRouteAMapPathController {
       this.onclick(e);
     });
 
+    // for (let i = 0; i < positions.length; i++) {
+    //   const item = positions[i];
+    //   let marker = new AMap.Marker({
+    //     position: item,
+    //     label: {
+    //       content: `${i}`,
+    //       offset: new AMap.Pixel(0, 10),
+    //       direction: 'top',
+    //     },
+    //   });
+    //   this.map.add(marker);
+    // }
+
     this.map.add(this.positions);
-    this.map.setFitView(this.positions, true);
-    setTimeout(() => {
-      this.map.setFitView(this.positions, true);
-    }, 2 * 1000);
+    return this.positions;
   }
 
   clear() {

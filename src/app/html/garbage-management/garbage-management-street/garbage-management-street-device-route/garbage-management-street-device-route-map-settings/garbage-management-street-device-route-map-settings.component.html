@@ -1,0 +1,37 @@
+<div
+  class="garbage-management-street-device-route-map-settings panel-map"
+  [ngClass]="{
+    'top-left': top && left,
+    'top-right': top && !left,
+    'bottom-left': !top && left,
+    'bottom-right': !top && !left
+  }"
+>
+  <div class="garbage-management-street-device-route-map-settings-button">
+    <div class="button">
+      <i class="howell-icon-settingoutline"></i>
+    </div>
+  </div>
+  <div class="garbage-management-street-device-route-map-settings-content">
+    <div
+      class="garbage-management-street-device-route-map-settings-content-body forms"
+    >
+      <div class="form-item">
+        <div class="form-item-text">
+          <label
+            for="garbage-management-street-device-route-map-settings-rectified"
+            >轨迹纠偏</label
+          >
+        </div>
+        <div class="form-item-value">
+          <input
+            type="checkbox"
+            id="garbage-management-street-device-route-map-settings-rectified"
+            [(ngModel)]="rectified"
+            (change)="on.rectified()"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

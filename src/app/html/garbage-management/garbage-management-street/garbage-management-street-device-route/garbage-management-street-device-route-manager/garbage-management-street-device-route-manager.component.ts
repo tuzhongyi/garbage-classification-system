@@ -105,6 +105,7 @@ export class GarbageManagementStreetDeviceRouteManagerComponent
           this.date.format = Language.YearMonthDay;
           break;
       }
+      this.on.search();
     },
     search: () => {
       if (!this.args.deviceId) {

@@ -4,6 +4,7 @@ import { PromiseValue } from '../../../../../common/view-models/value.promise';
 import { GarbageManagementMapAMapDeviceController } from './device/garbage-management-map-amap-device.controller';
 import { GarbageManagementMapAMapDivisionController } from './division/garbage-management-map-amap-division.controller';
 import { GarbageManagementMapAMapConfig } from './garbage-management-map-amap.config';
+import { GarbageManagementMapAMapHeatmapController } from './heatmap/garbage-management-map-amap-heatmap.controller';
 import { GarbageManagementMapAMapRecordController } from './record/garbage-management-map-amap-record.controller';
 import { GarbageManagementMapAMapRootController } from './root/garbage-management-map-amap-root.controller';
 import { GarbageManagementMapAMapStationController } from './station/garbage-management-map-amap-station.controller';
@@ -16,6 +17,7 @@ export class GarbageManagementMapAMapController {
   device = new PromiseValue<GarbageManagementMapAMapDeviceController>();
   exposed = new PromiseValue<GarbageManagementMapAMapRecordController>();
   timeout = new PromiseValue<GarbageManagementMapAMapRecordController>();
+  heatmap = new PromiseValue<GarbageManagementMapAMapHeatmapController>();
   constructor() {
     MapHelper.amap
       .get('map-container', { showBuildingBlock: false, showLabel: false })
@@ -48,6 +50,9 @@ export class GarbageManagementMapAMapController {
 
         let timeout = new GarbageManagementMapAMapRecordController(map);
         this.timeout.set(timeout);
+
+        let heatmap = new GarbageManagementMapAMapHeatmapController(container);
+        this.heatmap.set(heatmap);
       });
   }
 
@@ -79,6 +84,12 @@ export class GarbageManagementMapAMapController {
   zoom() {
     this.map.get().then((x) => {
       x.setZoom(GarbageManagementMapAMapConfig.zoom.marker[0] + 1);
+    });
+  }
+  destroy() {
+    this.map.get().then((x) => {
+      x.destroy();
+      this.map.clear();
     });
   }
 }

@@ -15,7 +15,10 @@ import { TimeUnit } from '../../../../common/enum/time-unit.enum';
 import { GarbageManagementRankingComponent } from '../component/garbage-management-ranking.component';
 import { IGarbageManagementRankingData } from '../component/garbage-management-ranking.model';
 import { GarbageManagementRankingRecordEventIasBusiness } from './business/garbage-management-ranking-record-event-ias.business';
-import { IasRecordEventStatisticType } from './business/garbage-management-ranking-record-event-ias.model';
+import {
+  IasRecordEventStatisticArgs,
+  IasRecordEventStatisticType,
+} from './business/garbage-management-ranking-record-event-ias.model';
 import { GarbageManagementRankingRecordEventIasProviders } from './business/garbage-management-ranking-record-event-ias.provider';
 
 @Component({
@@ -28,7 +31,7 @@ import { GarbageManagementRankingRecordEventIasProviders } from './business/garb
 export class GarbageManagementRankingRecordEventIasComponent
   implements OnInit, OnChanges, OnDestroy
 {
-  @Input('load') _load?: EventEmitter<void>;
+  @Input('load') _load?: EventEmitter<IasRecordEventStatisticArgs>;
   @Input() unit = TimeUnit.Day;
   @Input() date = new Date();
   @Input() index = IasRecordEventStatisticType.grid;
@@ -40,11 +43,13 @@ export class GarbageManagementRankingRecordEventIasComponent
 
   Index = IasRecordEventStatisticType;
   datas: IGarbageManagementRankingData[] = [];
+  private args: IasRecordEventStatisticArgs = {};
   private subscription = new Subscription();
   private regist() {
     if (this._load) {
-      let sub = this._load.subscribe(() => {
-        this.load();
+      let sub = this._load.subscribe((x) => {
+        this.args = x ?? {};
+        this.load(this.args);
       });
       this.subscription.add(sub);
     }
@@ -52,12 +57,12 @@ export class GarbageManagementRankingRecordEventIasComponent
   private change = {
     unit: (simple: SimpleChange) => {
       if (simple && !simple.firstChange) {
-        this.load();
+        this.load(this.args);
       }
     },
   };
   ngOnInit(): void {
-    this.load();
+    this.load(this.args);
     this.regist();
   }
   ngOnChanges(changes: SimpleChanges): void {
@@ -67,8 +72,8 @@ export class GarbageManagementRankingRecordEventIasComponent
     this.subscription.unsubscribe();
   }
 
-  private load() {
-    this.business.load(this.index, this.unit, this.date).then((x) => {
+  private load(args: IasRecordEventStatisticArgs) {
+    this.business.load(this.index, this.unit, this.date, args).then((x) => {
       this.datas = x;
     });
   }
@@ -77,7 +82,7 @@ export class GarbageManagementRankingRecordEventIasComponent
     change: (index: IasRecordEventStatisticType) => {
       this.index = index;
       this.indexChange.emit(index);
-      this.load();
+      this.load(this.args);
     },
     item: (item: IGarbageManagementRankingData) => {
       this.itemclick.emit(item);

@@ -10,6 +10,7 @@ export class GarbageManagementManagerPanel {
 
   station: GarbageManagementManagerStationPanel;
   record: GarbageManagementManagerRecordPanel;
+
   constructor(that: GarbageManagementManagerComponent) {
     this.station = new GarbageManagementManagerStationPanel(that);
     this.record = new GarbageManagementManagerRecordPanel(that);

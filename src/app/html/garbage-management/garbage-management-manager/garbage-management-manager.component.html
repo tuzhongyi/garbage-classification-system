@@ -8,6 +8,7 @@
       [devices]="data.devices"
       [exposeds]="data.exposeds"
       [eventables]="data.eventables"
+      [heatmap]="data.heatmap"
       [select]="map.select"
       [move]="map.move"
       [(refresh)]="map.refresh"
@@ -38,7 +39,10 @@
       [class]="item.class"
     ></div>
   </div>
-  <div class="garbage-management-manager-state-usage">
+  <div
+    class="garbage-management-manager-state-usage"
+    *ngIf="state.statistic.show"
+  >
     <howell-garbage-management-statistic-station
       [index]="navigation.index"
       [stations]="data.source.stations"
@@ -49,7 +53,7 @@
   </div>
   <div
     class="garbage-management-manager-state-station"
-    *ngIf="navigation.index != Index.street"
+    *ngIf="state.display.station.show"
   >
     <howell-garbage-management-state-station
       [index]="navigation.index"
@@ -60,13 +64,33 @@
   </div>
   <div
     class="garbage-management-manager-state-record-ias"
-    *ngIf="navigation.index == Index.street"
+    *ngIf="state.display.ias.record.show"
   >
     <howell-garbage-management-state-record-ias
       [exposed]="data.count.ias.exposed"
       [timeout]="data.count.ias.timeout"
-      (selectedChange)="data.on.ias($event)"
+      [(exposedSelected)]="state.display.ias.record.exposed"
+      [(timeoutSelected)]="state.display.ias.record.timeout"
+      (exposedSelectedChange)="data.on.ias.exposed($event)"
     ></howell-garbage-management-state-record-ias>
+  </div>
+  <div
+    class="garbage-management-manager-ias-extend-control"
+    *ngIf="state.extend.control.show"
+  >
+    <howell-garbage-management-manager-map-ias-extend-control
+      [(heatmap)]="state.extend.heatmap.show"
+      (heatmapChange)="state.extend.heatmap.on.open()"
+    ></howell-garbage-management-manager-map-ias-extend-control>
+  </div>
+  <div
+    class="garbage-management-manager-ias-extend-heatmap"
+    *ngIf="state.extend.heatmap.show"
+  >
+    <howell-garbage-management-manager-map-ias-extend-heatmap
+      (argsChange)="state.extend.heatmap.on.change($event)"
+      (close)="state.extend.heatmap.on.close()"
+    ></howell-garbage-management-manager-map-ias-extend-heatmap>
   </div>
 
   <div class="garbage-management-manager-controls">

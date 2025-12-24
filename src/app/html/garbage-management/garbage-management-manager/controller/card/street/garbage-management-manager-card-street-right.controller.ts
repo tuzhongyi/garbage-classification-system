@@ -1,9 +1,10 @@
 import { EventEmitter } from '@angular/core';
+import { GridCell } from '../../../../../../common/network/model/garbage-station/grid-cell.model';
 import { IasEventRecord } from '../../../../../../common/network/model/ias/ias-event-record.model';
 import { ColorTool } from '../../../../../../common/tools/color-tool/color.tool';
 import { ComponentTool } from '../../../../../../common/tools/component-tool/component.tool';
 import { GarbageManagementCardChartLineRecordEventIasComponent } from '../../../../garbage-management-card/garbage-management-card-chart-line-record-event-ias/garbage-management-card-chart-line-record-event-ias.component';
-import { GarbageManagementCardDivisionSelectionComponent } from '../../../../garbage-management-card/garbage-management-card-division-selection/garbage-management-card-division-selection/garbage-management-card-division-selection.component';
+import { GarbageManagementCardGridCellSelectionComponent } from '../../../../garbage-management-card/garbage-management-card-grid-cell-selection/garbage-management-card-grid-cell-selection.component';
 import { GarbageManagementCardListRecordEventIasComponent } from '../../../../garbage-management-card/garbage-management-card-list-record-event-ias/garbage-management-card-list-record-event-ias.component';
 import { GarbageManagementManagerCardItem } from '../../../garbage-management-manager.model';
 import { GarbageManagementManagerCardCommonController } from '../common/garbage-management-manager-card-common.controller';
@@ -13,25 +14,24 @@ export class GarbageManagementManagerCardStreetRightController extends GarbageMa
   event = {
     task: new EventEmitter<IasEventRecord>(),
     position: new EventEmitter<IasEventRecord>(),
+    gridcell: new EventEmitter<GridCell>(),
   };
-
+  select = new EventEmitter<GridCell>();
+  load = new EventEmitter<{ gridcellId?: string }>();
   constructor(
     common: GarbageManagementManagerCardCommonController,
-    tool: ComponentTool,
-    load: EventEmitter<void>
+    tool: ComponentTool
   ) {
     super(common, tool);
-    load.subscribe(() => {
-      this.load.emit();
-    });
   }
-  private load = new EventEmitter<void>();
 
   protected override ctors: Array<GarbageManagementManagerCardItem> = [
     {
-      component: GarbageManagementCardDivisionSelectionComponent,
-      single: true,
-      selector: 'app-garbage-management-card-division-selection',
+      component: GarbageManagementCardGridCellSelectionComponent,
+      args: {
+        selectedChange: this.event.gridcell,
+        select: this.select,
+      },
     },
     {
       component: GarbageManagementCardChartLineRecordEventIasComponent,

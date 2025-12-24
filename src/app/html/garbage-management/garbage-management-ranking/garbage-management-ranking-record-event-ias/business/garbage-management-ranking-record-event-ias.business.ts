@@ -7,7 +7,10 @@ import { GridCell } from '../../../../../common/network/model/garbage-station/gr
 import { LocaleCompare } from '../../../../../common/tools/locale-compare';
 import { GarbageManagementRankingRecordEventIasDivisionBusiness } from './division/garbage-management-ranking-record-event-ias-division.business';
 import { GarbageManagementRankingRecordEventIasConverter } from './garbage-management-ranking-record-event-ias.converter';
-import { IasRecordEventStatisticType } from './garbage-management-ranking-record-event-ias.model';
+import {
+  IasRecordEventStatisticArgs,
+  IasRecordEventStatisticType,
+} from './garbage-management-ranking-record-event-ias.model';
 import { GarbageManagementRankingRecordEventIasGridBusiness } from './grid/garbage-management-ranking-record-event-ias-grid.business';
 
 @Injectable()
@@ -25,14 +28,19 @@ export class GarbageManagementRankingRecordEventIasBusiness {
   };
   private converter = new GarbageManagementRankingRecordEventIasConverter();
 
-  async load(type: IasRecordEventStatisticType, unit: TimeUnit, date: Date) {
+  async load(
+    type: IasRecordEventStatisticType,
+    unit: TimeUnit,
+    date: Date,
+    args: IasRecordEventStatisticArgs
+  ) {
     let datas: KeyValue<GridCell | Division, EventNumberStatistic[]>[];
     switch (type) {
       case IasRecordEventStatisticType.division:
         datas = await this.service.division.load(unit, date);
         break;
       case IasRecordEventStatisticType.grid:
-        datas = await this.service.grid.load(unit, date);
+        datas = await this.service.grid.load(unit, date, args);
         break;
       default:
         return [];

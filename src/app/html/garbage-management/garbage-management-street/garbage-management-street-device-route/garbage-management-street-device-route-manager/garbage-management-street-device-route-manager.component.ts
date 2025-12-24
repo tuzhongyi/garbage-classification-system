@@ -53,7 +53,7 @@ export class GarbageManagementStreetDeviceRouteManagerComponent
 
   args = new GarbageManagementStreetDeviceRouteArgs();
   load = new EventEmitter<GarbageManagementStreetDeviceRouteArgs>();
-
+  loaded = false;
   rectified = false;
   TimeUnit = TimeUnit;
   RouteStatisticType = GarbageManagementStreetDeviceRouteType;
@@ -113,6 +113,9 @@ export class GarbageManagementStreetDeviceRouteManagerComponent
         return;
       }
       this.load.emit(this.args);
+    },
+    loaded: () => {
+      this.loaded = true;
     },
   };
 }

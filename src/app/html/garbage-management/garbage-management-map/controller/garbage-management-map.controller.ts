@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { GarbageManagementMapAMapController } from './amap/garbage-management-map-amap.controller';
 import { GarbageManagementMapDivisionController } from './garbage-management-map-division.controller';
 import { GarbageManagementMapIasDeviceController } from './garbage-management-map-ias-device.controller';
+import { GarbageManagementMapIasHeatmapController } from './garbage-management-map-ias-heatmap.controller';
 import { GarbageManagementMapIasRecordController } from './garbage-management-map-ias-record.controller';
 import { GarbageManagementMapRootController } from './garbage-management-map-root.controller';
 import { GarbageManagementMapStationController } from './garbage-management-map-station.controller';
@@ -15,6 +16,7 @@ export class GarbageManagementMapController {
     device: GarbageManagementMapIasDeviceController;
     exposed: GarbageManagementMapIasRecordController;
     timeout: GarbageManagementMapIasRecordController;
+    heatmap: GarbageManagementMapIasHeatmapController;
   };
   constructor(private amap: GarbageManagementMapAMapController) {
     this.root = new GarbageManagementMapRootController(amap);
@@ -24,6 +26,7 @@ export class GarbageManagementMapController {
       device: new GarbageManagementMapIasDeviceController(amap),
       exposed: new GarbageManagementMapIasRecordController(amap),
       timeout: new GarbageManagementMapIasRecordController(amap),
+      heatmap: new GarbageManagementMapIasHeatmapController(amap),
     };
     this.regist();
   }
@@ -47,5 +50,8 @@ export class GarbageManagementMapController {
 
   fit(datas?: any) {
     this.amap.fit(datas);
+  }
+  destroy() {
+    this.amap.destroy();
   }
 }

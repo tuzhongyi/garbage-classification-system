@@ -2,6 +2,7 @@ import { EventType } from '../../../../../common/enum/event-type.enum';
 import { IEventRecord } from '../../../../../common/network/model/garbage-station/event-record/garbage-event-record.model';
 import { IllegalVehicleEventRecord } from '../../../../../common/network/model/garbage-station/event-record/illegal-vehicle-event-record.model';
 import { GarbageStation } from '../../../../../common/network/model/garbage-station/garbage-station.model';
+import { GridCell } from '../../../../../common/network/model/garbage-station/grid-cell.model';
 import { IasEventRecord } from '../../../../../common/network/model/ias/ias-event-record.model';
 import { GarbageManagementRankingRecordEventArgs } from '../../../garbage-management-ranking/garbage-management-ranking-record-event/garbage-management-ranking-record-event.model';
 import { GarbageManagementManagerComponent } from '../../garbage-management-manager.component';
@@ -110,6 +111,9 @@ export class GarbageManagementManagerCardEventTrigger {
       this.panel.record.ias.show = true;
     },
     position: (data: IasEventRecord) => {
+      this.map.select.emit(data);
+    },
+    gridcell: (data?: GridCell) => {
       this.map.select.emit(data);
     },
   };

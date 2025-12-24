@@ -1,3 +1,5 @@
+import { DateTimeTool } from '../../../common/tools/date-time-tool/datetime.tool';
+
 export interface IGarbageManagementManagerCard {
   html: Promise<Array<IGarbageManagementManagerCardElement>>;
 }
@@ -23,4 +25,8 @@ export enum GarbageManagementManagerIndex {
   vehicle,
   illegaldump,
   garbagestation,
+}
+export class GarbageManagementManagerIasHeatmapArgs {
+  duration = DateTimeTool.all.month(new Date());
+  timeout?: boolean;
 }

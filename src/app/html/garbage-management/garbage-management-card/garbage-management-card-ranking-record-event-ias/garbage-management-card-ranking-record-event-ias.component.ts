@@ -3,7 +3,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TimeUnit } from '../../../../common/enum/time-unit.enum';
 import { IGarbageManagementRankingData } from '../../garbage-management-ranking/component/garbage-management-ranking.model';
-import { IasRecordEventStatisticType } from '../../garbage-management-ranking/garbage-management-ranking-record-event-ias/business/garbage-management-ranking-record-event-ias.model';
+import {
+  IasRecordEventStatisticArgs,
+  IasRecordEventStatisticType,
+} from '../../garbage-management-ranking/garbage-management-ranking-record-event-ias/business/garbage-management-ranking-record-event-ias.model';
 import { GarbageManagementRankingRecordEventIasComponent } from '../../garbage-management-ranking/garbage-management-ranking-record-event-ias/garbage-management-ranking-record-event-ias.component';
 import { GarbageManagementCardComponent } from '../component/garbage-management-card.component';
 
@@ -20,7 +23,7 @@ import { GarbageManagementCardComponent } from '../component/garbage-management-
   styleUrl: './garbage-management-card-ranking-record-event-ias.component.less',
 })
 export class GarbageManagementCardRankingRecordEventIasComponent {
-  @Input() load?: EventEmitter<void>;
+  @Input() load?: EventEmitter<IasRecordEventStatisticArgs>;
   @Input() unit = TimeUnit.Day;
   @Input() index = IasRecordEventStatisticType.grid;
   @Output() itemclick = new EventEmitter<IGarbageManagementRankingData>();

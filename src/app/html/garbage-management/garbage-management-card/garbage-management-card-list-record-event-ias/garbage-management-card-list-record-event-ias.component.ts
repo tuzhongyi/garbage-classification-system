@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IasEventRecord } from '../../../../common/network/model/ias/ias-event-record.model';
 import { GarbageManagementListRecordEventIasComponent } from '../../garbage-management-list/garbage-management-list-record-event-ias/garbage-management-list-record-event-ias.component';
+import { GarbageManagementListRecordEventIasArgs } from '../../garbage-management-list/garbage-management-list-record-event-ias/garbage-management-list-record-event-ias.model';
 import { GarbageManagementCardComponent } from '../component/garbage-management-card.component';
 
 @Component({
@@ -15,7 +16,7 @@ import { GarbageManagementCardComponent } from '../component/garbage-management-
   styleUrl: './garbage-management-card-list-record-event-ias.component.less',
 })
 export class GarbageManagementCardListRecordEventIasComponent {
-  @Input() load?: EventEmitter<void>;
+  @Input() load?: EventEmitter<GarbageManagementListRecordEventIasArgs>;
   @Output() task = new EventEmitter<IasEventRecord>();
   @Output() itemclick = new EventEmitter<IasEventRecord>();
   title = '暴露垃圾事件记录';

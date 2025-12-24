@@ -76,14 +76,23 @@ export class GarbageManagementMapAMapDivisionPolygonController {
     }
   }
 
-  load(data: Loca.GeoJSONSource) {
+  load(data: Loca.GeoJSONSource, selected?: string) {
     this.layer.setSource(data);
     this.layer.setStyle(this.style);
     this.loca.add(this.layer);
     this.animation();
+    this.selected = selected;
   }
 
   select(id: string) {
     this.selected = id;
+  }
+
+  blur() {
+    this.selected = undefined;
+    this.loca.remove(this.layer);
+    if (this.handle) {
+      clearInterval(this.handle);
+    }
   }
 }

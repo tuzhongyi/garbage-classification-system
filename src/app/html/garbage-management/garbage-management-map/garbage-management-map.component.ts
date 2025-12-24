@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 import { EventType } from '../../../common/enum/event-type.enum';
 import { IDivision } from '../../../common/network/model/garbage-station/division.model';
 import { GarbageStation } from '../../../common/network/model/garbage-station/garbage-station.model';
+import { GridCell } from '../../../common/network/model/garbage-station/grid-cell.model';
 import { IasDevice } from '../../../common/network/model/ias/ias-device.model';
 import { IasEventRecord } from '../../../common/network/model/ias/ias-event-record.model';
 import { GeoTool } from '../../../common/tools/geo-tool/geo.tool';
@@ -35,9 +36,10 @@ export class GarbageManagementMapComponent
   @Input() stations: GarbageStationViewModel[] = [];
   @Input() exposeds: IasEventRecord[] = [];
   @Input() timeouts: IasEventRecord[] = [];
+  @Input() heatmap: [number, number][] = [];
   @Input() eventables = [EventType.GarbageFull, EventType.GarbageDrop];
   @Input() select?: EventEmitter<
-    GarbageStation | IasDevice | IDivision | IasEventRecord
+    GarbageStation | IasDevice | IDivision | IasEventRecord | GridCell
   >;
   @Input() move?: EventEmitter<[number, number]>;
   @Input() refresh = false;
@@ -74,6 +76,8 @@ export class GarbageManagementMapComponent
             } else {
               this.on.select.ias.exposed(data);
             }
+          } else if (data instanceof GridCell) {
+            this.on.select.gridcell(data);
           } else {
             this.on.select.division(data);
           }
@@ -157,6 +161,11 @@ export class GarbageManagementMapComponent
         }
       }
     },
+    heatmap: (simple: SimpleChange) => {
+      if (simple && !simple.firstChange) {
+        this.load.heatmap(this.heatmap);
+      }
+    },
   };
   private load = {
     division: async () => {
@@ -180,24 +189,23 @@ export class GarbageManagementMapComponent
       });
     },
     station: (datas: GarbageStationViewModel[]) => {
-      console.log('load.station');
       this.controller.station.load(datas);
     },
     eventables: (datas: EventType[]) => {
-      console.log('load.eventables');
       this.controller.station.eventable(datas);
     },
     device: (datas: IasDevice[]) => {
-      console.log('load.device');
       this.controller.ias.device.load(datas);
     },
     exposed: (datas: IasEventRecord[]) => {
-      console.log('load.exposed');
       this.controller.ias.exposed.load(datas);
     },
     timeout: (datas: IasEventRecord[]) => {
-      console.log('load.timeout');
       this.controller.ias.timeout.load(datas);
+    },
+    heatmap: (datas: [number, number][]) => {
+      this.controller.ias.heatmap.clear();
+      this.controller.ias.heatmap.load(datas);
     },
   };
   ngOnChanges(changes: SimpleChanges): void {
@@ -206,6 +214,7 @@ export class GarbageManagementMapComponent
     this.change.devices(changes['devices']);
     this.change.exposeds(changes['exposeds']);
     this.change.refresh(changes['refresh']);
+    this.change.heatmap(changes['heatmap']);
   }
   ngOnInit(): void {
     this.regist.input();
@@ -214,6 +223,7 @@ export class GarbageManagementMapComponent
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.controller.destroy();
   }
 
   private on = {
@@ -258,20 +268,32 @@ export class GarbageManagementMapComponent
           ]);
         }
       },
-      division: (data: IDivision) => {
-        this.controller.division.select(data.Id);
+      division: (data?: IDivision) => {
+        this.controller.root.blur();
+        if (data) {
+          this.controller.division.select(data.Id);
 
-        this.business.map.default.get().then((x) => {
-          if (x.Id === data.Id) {
-            this.controller.fit();
-          } else {
-            this.business.map.get(data.Id).then((x) => {
-              if (x) {
-                this.controller.move([x.center.lon, x.center.lat]);
-              }
-            });
+          this.business.map.default.get().then((x) => {
+            if (x.Id === data.Id) {
+              this.controller.fit();
+            } else {
+              this.business.map.get(data.Id).then((x) => {
+                if (x) {
+                  this.controller.move([x.center.lon, x.center.lat]);
+                }
+              });
+            }
+          });
+        }
+      },
+      gridcell: async (data?: GridCell) => {
+        this.controller.root.blur();
+        if (data) {
+          let map = await this.business.map.get(data.Id);
+          if (map) {
+            this.controller.root.select(map);
           }
-        });
+        }
       },
     },
   };

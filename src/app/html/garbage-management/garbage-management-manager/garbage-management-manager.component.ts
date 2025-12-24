@@ -29,6 +29,8 @@ import { GarbageManagementRecordEventMixedIntoManagerComponent } from '../garbag
 import { GarbageManagementStationManagerComponent } from '../garbage-management-container/garbage-management-station/garbage-management-station-manager/garbage-management-station-manager.component';
 import { GarbageManagementControlButtonListComponent } from '../garbage-management-control/garbage-management-control-button-list/garbage-management-control-button-list.component';
 import { GarbageManagementHeaderComponent } from '../garbage-management-header/component/garbage-management-header.component';
+import { GarbageManagementManagerMapIasExtendControlComponent } from '../garbage-management-manager-map-ias-extend/garbage-management-manager-map-ias-extend-control/garbage-management-manager-map-ias-extend-control.component';
+import { GarbageManagementManagerMapIasExtendHeatmapComponent } from '../garbage-management-manager-map-ias-extend/garbage-management-manager-map-ias-extend-heatmap/garbage-management-manager-map-ias-extend-heatmap.component';
 import { GarbageManagementManagerMapComponent } from '../garbage-management-manager-map/garbage-management-manager-map.component';
 import { GarbageManagementManagerSettingsComponent } from '../garbage-management-manager-settings/garbage-management-manager-settings.component';
 import { GarbageManagementMapComponent } from '../garbage-management-map/garbage-management-map.component';
@@ -78,6 +80,8 @@ import { GarbageManagementManagerWindow } from './window/garbage-management-mana
     GarbageManagementRecordEventIasTaskManagerComponent,
     GarbageManagementRecordEventIllegalVehicleTaskManagerComponent,
     GarbageManagementManagerMapComponent,
+    GarbageManagementManagerMapIasExtendControlComponent,
+    GarbageManagementManagerMapIasExtendHeatmapComponent,
   ],
   providers: [...GarbageManagementManagerProviders],
 })
@@ -100,6 +104,9 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
   get map() {
     return this.controller.map;
   }
+  get state() {
+    return this.controller.state;
+  }
   panel: GarbageManagementManagerPanel;
   private controller: GarbageManagementManagerController;
 
@@ -107,7 +114,7 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
     public window: GarbageManagementManagerWindow,
     public tool: ComponentTool,
     public business: GarbageManagementManagerBusiness,
-    private global: GlobalStorageService
+    public global: GlobalStorageService
   ) {
     this.controller = new GarbageManagementManagerController(this);
     this.panel = new GarbageManagementManagerPanel(this);
@@ -163,6 +170,8 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
           this.load.right(this.right.nativeElement);
         }
         this.data.on.index(x);
+
+        this.state.on.index(x);
       });
     },
     card: () => {

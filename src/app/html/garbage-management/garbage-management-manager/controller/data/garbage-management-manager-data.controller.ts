@@ -16,6 +16,8 @@ export class GarbageManagementManagerDataController {
   devices: IasDevice[] = [];
   exposeds: IasEventRecord[] = [];
   timeouts: IasEventRecord[] = [];
+  heatmap: [number, number][] = [];
+
   source = {
     stations: [] as GarbageStationViewModel[],
     records: [] as IasEventRecord[],
@@ -190,13 +192,16 @@ export class GarbageManagementManagerDataController {
       }
       this.on.index(this.filter.data.index);
     },
-    ias: (display: [boolean, boolean]) => {
-      if (display[0]) {
-        this.exposeds = [...this.source.records];
-      } else {
-        this.source.records = [...this.exposeds];
-        this.exposeds = [];
-      }
+    ias: {
+      exposed: (display: boolean) => {
+        if (display) {
+          this.exposeds = [...this.source.records];
+        } else {
+          this.source.records = [...this.exposeds];
+          this.exposeds = [];
+        }
+      },
+      timeout: (display: boolean) => {},
     },
   };
 }

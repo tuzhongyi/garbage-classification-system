@@ -44,11 +44,13 @@
       <howell-garbage-management-street-device-route-map
         [load]="load"
         [rectified]="rectified"
+        (loaded)="on.loaded()"
       ></howell-garbage-management-street-device-route-map>
       <div
         class="garbage-management-street-device-route-manager-body-map-settings"
       >
         <howell-garbage-management-street-device-route-map-settings
+          *ngIf="loaded"
           [(rectified)]="rectified"
         >
         </howell-garbage-management-street-device-route-map-settings>

@@ -3,13 +3,14 @@ import { GetIasEventsParams } from '../../../../../../common/network/request/ias
 import { IasRequestService } from '../../../../../../common/network/request/ias/ias-request.service';
 import { ArrayTool } from '../../../../../../common/tools/array-tool/array.tool';
 import { DateTimeTool } from '../../../../../../common/tools/date-time-tool/datetime.tool';
+import { GarbageManagementListRecordEventIasArgs } from '../../../../garbage-management-list/garbage-management-list-record-event-ias/garbage-management-list-record-event-ias.model';
 import { IGarbageManagementChartSource } from '../../../garbage-management-chart-line/garbage-management-chart-line.model';
 
 export class GarbageManagementChartRecordEventIasHourBusiness {
   constructor(private service: IasRequestService) {}
 
-  async load(date: Date, deviceId?: string) {
-    let datas = await this.data(date, deviceId);
+  async load(date: Date, args: GarbageManagementListRecordEventIasArgs) {
+    let datas = await this.data(date, args);
     let models = this.convert(date, datas);
     return models;
   }
@@ -41,13 +42,15 @@ export class GarbageManagementChartRecordEventIasHourBusiness {
     return items;
   }
 
-  private data(date: Date, deviceId?: string) {
+  private data(date: Date, args: GarbageManagementListRecordEventIasArgs) {
     let duration = DateTimeTool.all.day(date);
     let params = new GetIasEventsParams();
     params.BeginTime = duration.begin;
     params.EndTime = duration.end;
     params.EventType = 103;
-
+    if (args.gridcellId) {
+      params.GridCellIds = [args.gridcellId];
+    }
     return this.service.event.cache.array(params);
   }
 }

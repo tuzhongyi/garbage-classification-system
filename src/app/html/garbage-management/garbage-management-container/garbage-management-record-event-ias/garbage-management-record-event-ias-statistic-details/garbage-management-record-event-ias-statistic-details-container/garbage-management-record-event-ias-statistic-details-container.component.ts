@@ -62,7 +62,7 @@ export class GarbageManagementRecordEventIasStatisticDetailsContainerComponent
 
   private data = {
     load: (args: GarbageManagementRecordEventIasStatisticDetailsArgs) => {
-      this.business.load(args.unit, args.date, args.deviceId).then((x) => {
+      this.business.load(args.unit, args.date, args).then((x) => {
         this.chart.data = {
           Id: '',
           Name: '',

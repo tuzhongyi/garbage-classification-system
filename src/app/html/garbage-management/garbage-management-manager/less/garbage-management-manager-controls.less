@@ -12,4 +12,18 @@
   }
 
 
+  &-ias-extend-control {
+    position: absolute;
+    top: calc(@top + 78px + @gap);
+    right: calc(@panel-width + @gap * 2);
+  }
+
+  &-ias-extend-heatmap {
+    position: absolute;
+    top: calc(@top);
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - @panel-width * 2 - @gap * 2 - @left - @right);
+
+  }
 }

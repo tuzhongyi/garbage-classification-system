@@ -138,6 +138,9 @@ export class GarbageManagementManagerCardController {
         // this.event.position.emit(x);
         this.trigger.ias.position(x);
       });
+      controller.right.event.gridcell.subscribe((x) => {
+        this.trigger.ias.gridcell(x);
+      });
     },
     vehicle: (controller: GarbageManagementManagerCardVehicleController) => {
       controller.right.event.task.subscribe((data) => {
@@ -164,6 +167,11 @@ export class GarbageManagementManagerCardController {
 
   on = {
     index: async (index: GarbageManagementManagerIndex) => {
+      let street = this.controller.get(index);
+      if (street instanceof GarbageManagementManagerCardStreetController) {
+        street.select();
+      }
+
       this.index = index;
       this.left = [];
       this.right = [];
@@ -171,6 +179,14 @@ export class GarbageManagementManagerCardController {
       if (controller) {
         this.left = await controller.left.html;
         this.right = await controller.right.html;
+      }
+
+      if (index != GarbageManagementManagerIndex.street) {
+        this.that.global.division.default.then((def) => {
+          this.that.map.select.emit(def);
+        });
+      } else {
+        this.right;
       }
     },
   };

@@ -6,6 +6,7 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
+  Output,
   SimpleChange,
   SimpleChanges,
 } from '@angular/core';
@@ -30,6 +31,7 @@ export class GarbageManagementStreetDeviceRouteMapComponent
   @Input()
   load?: EventEmitter<GarbageManagementStreetDeviceRouteArgs>;
   @Input() rectified = false;
+  @Output('loaded') _loaded = new EventEmitter<void>();
 
   constructor(
     private business: GarbageManagementStreetDeviceRouteMapBusiness,
@@ -65,6 +67,7 @@ export class GarbageManagementStreetDeviceRouteMapComponent
         .finally(() => {
           this.loading = false;
           this.loaded = true;
+          this._loaded.emit();
         });
     },
   };

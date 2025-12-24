@@ -10,6 +10,7 @@ import { GetIasEventNumbersParams } from '../../../../../../common/network/reque
 import { IasRequestService } from '../../../../../../common/network/request/ias/ias-request.service';
 import { DateTimeTool } from '../../../../../../common/tools/date-time-tool/datetime.tool';
 import { wait } from '../../../../../../common/tools/wait.tools';
+import { IasRecordEventStatisticArgs } from '../garbage-management-ranking-record-event-ias.model';
 import { GarbageManagementRankingRecordEventIasGridService } from './garbage-management-ranking-record-event-ias-grid.service';
 
 @Injectable()
@@ -27,11 +28,15 @@ export class GarbageManagementRankingRecordEventIasGridBusiness {
     ias: IasRequestService;
   };
 
-  async load(unit: TimeUnit, date: Date) {
+  async load(unit: TimeUnit, date: Date, args: IasRecordEventStatisticArgs) {
     let duration = DateTimeTool.TimeUnit(unit, date);
     let _default = await this.global.division.default;
     let grids = await this.service.grid.load(_default.Id);
     let keyvalues: KeyValue<GridCell, EventNumberStatistic[]>[] = [];
+
+    if (args.gridcellId) {
+      grids = grids.filter((x) => x.Id === args.gridcellId);
+    }
 
     for (let i = 0; i < grids.length; i++) {
       this.item(grids[i], duration).then((x) => {

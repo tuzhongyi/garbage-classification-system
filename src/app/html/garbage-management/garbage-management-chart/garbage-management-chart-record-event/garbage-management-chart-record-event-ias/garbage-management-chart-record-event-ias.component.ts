@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 import { TimeUnit } from '../../../../../common/enum/time-unit.enum';
 import { ChartTool } from '../../../../../common/tools/chart-tool/chart.tool';
 import { Language } from '../../../../../common/tools/language';
+import { GarbageManagementListRecordEventIasArgs } from '../../../garbage-management-list/garbage-management-list-record-event-ias/garbage-management-list-record-event-ias.model';
 import { GarbageManagementChartLineComponent } from '../../garbage-management-chart-line/garbage-management-chart-line.component';
 import {
   IGarbageManagementChartColor,
@@ -21,6 +22,7 @@ import {
   ITimeData,
 } from '../../garbage-management-chart-line/garbage-management-chart-line.model';
 import { GarbageManagementChartRecordEventIasBusiness } from './garbage-management-chart-record-event-ias.business';
+import { IGarbageManagementChartRecordEventIasArgs } from './garbage-management-chart-record-event-ias.model';
 
 @Component({
   selector: 'howell-garbage-management-chart-record-event-ias',
@@ -32,7 +34,8 @@ import { GarbageManagementChartRecordEventIasBusiness } from './garbage-manageme
 export class GarbageManagementChartRecordEventIasComponent
   implements OnInit, OnChanges, OnDestroy
 {
-  @Input('load') _load?: EventEmitter<void>;
+  @Input('load')
+  _load?: EventEmitter<IGarbageManagementChartRecordEventIasArgs>;
   @Input() unit = TimeUnit.Day;
   @Input() color?: IGarbageManagementChartColor;
   @Output() loaded = new EventEmitter<number[]>();
@@ -48,18 +51,24 @@ export class GarbageManagementChartRecordEventIasComponent
   data?: IGarbageManagementChartData;
   interval = 0;
   xAxis = ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'];
+  args: GarbageManagementListRecordEventIasArgs = {};
 
   private subscription = new Subscription();
   private regist() {
     if (this._load) {
-      let sub = this._load.subscribe(() => {
-        this.load(this.unit, this.date);
+      let sub = this._load.subscribe((x) => {
+        this.args = x ?? {};
+        this.load(this.unit, this.date, this.args);
       });
       this.subscription.add(sub);
     }
   }
-  private load(unit: TimeUnit, date: Date) {
-    this.business.load(unit, date).then((x) => {
+  private load(
+    unit: TimeUnit,
+    date: Date,
+    args: GarbageManagementListRecordEventIasArgs
+  ) {
+    this.business.load(unit, date, args).then((x) => {
       this.data = {
         Id: '',
         Name: '',
@@ -95,14 +104,14 @@ export class GarbageManagementChartRecordEventIasComponent
   private change = {
     unit: (simple: SimpleChange) => {
       if (simple && !simple.firstChange) {
-        this.load(this.unit, this.date);
+        this.load(this.unit, this.date, this.args);
       }
     },
   };
 
   ngOnInit(): void {
     this.regist();
-    this.load(this.unit, this.date);
+    this.load(this.unit, this.date, this.args);
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.change.unit(changes['unit']);

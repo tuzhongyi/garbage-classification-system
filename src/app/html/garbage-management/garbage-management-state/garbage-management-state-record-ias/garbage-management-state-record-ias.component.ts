@@ -23,13 +23,18 @@ import {
 export class GarbageManagementStateRecordIasComponent implements OnChanges {
   @Input() exposed = 0;
   @Input() timeout = 0;
-  @Input() selected: [boolean, boolean] = [true, true];
-  @Output() selectedChange = new EventEmitter<[boolean, boolean]>();
+
+  @Input() exposedSelected = true;
+  @Output() exposedSelectedChange = new EventEmitter<boolean>();
+
+  @Input() timeoutSelected = true;
+  @Output() timeoutSelectedChange = new EventEmitter<boolean>();
 
   constructor() {
     this.datas = this.init();
   }
 
+  selected: [boolean, boolean] = [true, true];
   datas: GarbageManagementStateItem[] = [];
 
   private init() {
@@ -61,17 +66,44 @@ export class GarbageManagementStateRecordIasComponent implements OnChanges {
         this.datas[1].value = this.timeout;
       }
     },
+    selected: {
+      exposed: (simple: SimpleChange) => {
+        if (simple) {
+          this.selected[0] = this.exposedSelected;
+        }
+      },
+      timeout: (simple: SimpleChange) => {
+        if (simple) {
+          this.selected[1] = this.timeoutSelected;
+        }
+      },
+    },
   };
 
   ngOnChanges(changes: SimpleChanges): void {
     this.change.exposed(changes['exposed']);
     this.change.timeout(changes['timeout']);
+    this.change.selected.exposed(changes['exposedSelected']);
+    this.change.selected.timeout(changes['timeoutSelected']);
   }
 
   on = {
     click: (index: number) => {
       this.selected[index] = !this.selected[index];
-      this.selectedChange.emit(this.selected);
+
+      switch (index) {
+        case 0:
+          this.exposedSelected = this.selected[index];
+          this.exposedSelectedChange.emit(this.exposedSelected);
+          break;
+        case 1:
+          this.timeoutSelected = this.selected[index];
+          this.timeoutSelectedChange.emit(this.timeoutSelected);
+          break;
+
+        default:
+          break;
+      }
     },
   };
 }

@@ -8,4 +8,15 @@ export class GarbageManagementMapRootController {
       x.load(root, datas);
     });
   }
+
+  select(data: MapDivision) {
+    this.amap.root.get().then((x) => {
+      x.select(data);
+    });
+  }
+  blur() {
+    this.amap.root.get().then((x) => {
+      x.blur();
+    });
+  }
 }

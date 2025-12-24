@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { GetIasEventsParams } from '../../../../common/network/request/ias/event/ias-event-request.params';
 import { IasRequestService } from '../../../../common/network/request/ias/ias-request.service';
 import { DateTimeTool } from '../../../../common/tools/date-time-tool/datetime.tool';
+import { GarbageManagementManagerIasHeatmapArgs } from '../garbage-management-manager.model';
 
 @Injectable()
 export class GarbageManagementManagerIasBusiness {
@@ -16,5 +17,16 @@ export class GarbageManagementManagerIasBusiness {
     params.EndTime = duration.end;
     params.EventType = 103;
     return this.service.event.array(params);
+  }
+
+  heatmap(args: GarbageManagementManagerIasHeatmapArgs) {
+    let params = new GetIasEventsParams();
+    params.BeginTime = args.duration.begin;
+    params.EndTime = args.duration.end;
+    params.EventType = 103;
+    if (args.timeout != undefined) {
+      params.IsTimeout = args.timeout;
+    }
+    return this.service.event.cache.array(params);
   }
 }

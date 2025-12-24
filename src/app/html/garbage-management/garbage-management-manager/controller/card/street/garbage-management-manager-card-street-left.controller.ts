@@ -13,17 +13,14 @@ export class GarbageManagementManagerCardStreetLeftController extends GarbageMan
     device: new EventEmitter<boolean>(),
     record: new EventEmitter<void>(),
   };
+  load = new EventEmitter<{ gridcellId?: string }>();
   constructor(
     common: GarbageManagementManagerCardCommonController,
-    tool: ComponentTool,
-    load: EventEmitter<void>
+    tool: ComponentTool
   ) {
     super(common, tool);
-    load.subscribe(() => {
-      this.load.emit();
-    });
   }
-  private load = new EventEmitter<void>();
+
   protected override ctors: Array<GarbageManagementManagerCardItem> = [
     {
       component: GarbageManagementCardChartPieRecordStatisticComponent,

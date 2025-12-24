@@ -60,6 +60,11 @@ export class IasEventServiceCache extends ServiceCache<IasEventRecord> {
         (x) => x.DivisionId && args.DivisionIds!.includes(x.DivisionId)
       );
     }
+    if (args.GridCellIds && args.GridCellIds.length > 0) {
+      datas = datas.filter(
+        (x) => x.GridCellId && args.GridCellIds!.includes(x.GridCellId)
+      );
+    }
     if (args.EmergencyType) {
       datas = datas.filter((x) => x.EmergencyType === args.EmergencyType);
     }

@@ -57,14 +57,14 @@ export class GarbageManagementStatisticStationComponent
       }
     },
     stations: (simple: SimpleChange) => {
-      if (simple && !simple.firstChange) {
+      if (simple) {
         this.load.station(this.stations);
 
         this.display();
       }
     },
     devices: (simple: SimpleChange) => {
-      if (simple && !simple.firstChange) {
+      if (simple) {
         this.load.device(this.devices);
 
         this.display();

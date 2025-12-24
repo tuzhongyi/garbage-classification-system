@@ -171,6 +171,7 @@ export class GarbageManagementManagerDataController {
         });
       } else {
         this.exposeds = [];
+        this.heatmap = [];
       }
       this.filter.data.index = index;
       this.filter.eventables.index(index);

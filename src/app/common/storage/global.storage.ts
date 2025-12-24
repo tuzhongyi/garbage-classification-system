@@ -7,7 +7,7 @@ import { LocalStorageService } from './local.storage';
   providedIn: 'root',
 })
 export class GlobalStorageService {
-  version = '1.0.1.1';
+  version = '1.0.1.2';
   system?: SystemType; // 垃圾清运
 
   password?: string;

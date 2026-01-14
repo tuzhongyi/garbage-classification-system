@@ -26,7 +26,8 @@
           [ngClass]="{
             selected: selected === item,
             nodata: !item,
-            nohover: !item
+            nohover: !item,
+            timeout: item?.IsTimeout
           }"
           (click)="on.select(item)"
         >
@@ -50,11 +51,7 @@
             </div>
             }
           </td>
-          <td
-            [ngClass]="{
-              'text-yellow': item?.IsTimeout
-            }"
-          >
+          <td>
             @if(item){
             {{ item.Address }}
             } @else{ &nbsp; }

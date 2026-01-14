@@ -11,9 +11,11 @@ import {
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DateTimeControlComponent } from '../../../../../common/components/date-time/date-time-control/date-time-control.component';
+import { TimelineComponent } from '../../../../../common/components/date-time/timeline/timeline.component';
 import { HowellSelectComponent } from '../../../../../common/components/select/hw-select/select-control.component';
 import { DateTimePickerView } from '../../../../../common/directives/date-time-picker/date-time-picker.directive';
 import { TimeUnit } from '../../../../../common/enum/time-unit.enum';
+import { IasGpsItem } from '../../../../../common/network/model/ias/ias-gps-item.model';
 import { Language } from '../../../../../common/tools/language';
 import { GarbageManagementStreetDeviceRouteChartContainerComponent } from '../garbage-management-street-device-route-chart-container/garbage-management-street-device-route-chart-container.component';
 import { GarbageManagementStreetDeviceRouteInfoComponent } from '../garbage-management-street-device-route-info/garbage-management-street-device-route-info.component';
@@ -36,6 +38,7 @@ import { GarbageManagementStreetDeviceRouteManagerSource } from './garbage-manag
     GarbageManagementStreetDeviceRouteMapSettingsComponent,
     GarbageManagementStreetDeviceRouteInfoComponent,
     GarbageManagementStreetDeviceRouteChartContainerComponent,
+    TimelineComponent,
   ],
   templateUrl:
     './garbage-management-street-device-route-manager.component.html',
@@ -114,8 +117,24 @@ export class GarbageManagementStreetDeviceRouteManagerComponent
       }
       this.load.emit(this.args);
     },
-    loaded: () => {
+    loaded: (datas: IasGpsItem[]) => {
       this.loaded = true;
+      this.map.datas = [...datas];
+      this.timeline.datas = datas.map((x) => x.OSDTime!);
     },
+  };
+
+  timeline = {
+    datas: [] as Date[],
+    change: (data: Date) => {
+      this.map.current = this.map.datas.find(
+        (x) => x.OSDTime?.getTime() == data.getTime()
+      );
+    },
+  };
+
+  map = {
+    datas: [] as IasGpsItem[],
+    current: undefined as IasGpsItem | undefined,
   };
 }

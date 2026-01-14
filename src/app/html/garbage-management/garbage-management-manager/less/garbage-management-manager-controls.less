@@ -14,7 +14,7 @@
 
   &-ias-extend-control {
     position: absolute;
-    top: calc(@top + 78px + @gap);
+    top: calc(@top);
     right: calc(@panel-width + @gap * 2);
   }
 
@@ -24,6 +24,12 @@
     left: 50%;
     transform: translateX(-50%);
     width: calc(100% - @panel-width * 2 - @gap * 2 - @left - @right);
+
+    &-settings {
+      position: absolute;
+      top: calc(@top + 36px + @gap);
+      right: calc(@panel-width + @gap * 2);
+    }
 
   }
 }

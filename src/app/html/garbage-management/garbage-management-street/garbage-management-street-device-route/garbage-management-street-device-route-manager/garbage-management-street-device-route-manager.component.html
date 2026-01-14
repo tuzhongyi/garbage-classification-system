@@ -40,12 +40,22 @@
     </div>
   </div>
   <div class="garbage-management-street-device-route-manager-body">
-    <div class="garbage-management-street-device-route-manager-body-map">
-      <howell-garbage-management-street-device-route-map
-        [load]="load"
-        [rectified]="rectified"
-        (loaded)="on.loaded()"
-      ></howell-garbage-management-street-device-route-map>
+    <div class="garbage-management-street-device-route-manager-body-map panel">
+      <div class="garbage-management-street-device-route-manager-body-map-body">
+        <howell-garbage-management-street-device-route-map
+          [load]="load"
+          [rectified]="rectified"
+          (loaded)="on.loaded($event)"
+          [gps]="map.current"
+        ></howell-garbage-management-street-device-route-map>
+      </div>
+      <div class="garbage-management-street-device-route-manager-body-map-foot">
+        <howell-timeline
+          *ngIf="loaded"
+          [datas]="timeline.datas"
+          (change)="timeline.change($event)"
+        ></howell-timeline>
+      </div>
       <div
         class="garbage-management-street-device-route-manager-body-map-settings"
       >

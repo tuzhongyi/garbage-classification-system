@@ -57,6 +57,8 @@ export class GarbageManagementMapComponent
   @Output() garbagedrop = new EventEmitter<GarbageStationViewModel>();
   @Output() error = new EventEmitter<GarbageStationViewModel>();
 
+  @Input() heatmaptext = true;
+
   constructor(
     public controller: GarbageManagementMapController,
     private business: GarbageManagementMapBusiness
@@ -166,6 +168,11 @@ export class GarbageManagementMapComponent
         this.load.heatmap(this.heatmap);
       }
     },
+    heatmaptext: (simple: SimpleChange) => {
+      if (simple && !simple.firstChange) {
+        this.controller.ias.heatmap.set.text(this.heatmaptext);
+      }
+    },
   };
   private load = {
     division: async () => {
@@ -215,6 +222,7 @@ export class GarbageManagementMapComponent
     this.change.exposeds(changes['exposeds']);
     this.change.refresh(changes['refresh']);
     this.change.heatmap(changes['heatmap']);
+    this.change.heatmaptext(changes['heatmaptext']);
   }
   ngOnInit(): void {
     this.regist.input();

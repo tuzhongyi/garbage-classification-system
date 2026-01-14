@@ -45,7 +45,7 @@ export class GarbageManagementManagerCardEventTrigger {
           this.panel.record.illegalvehicle.open({});
           break;
         case 103:
-          this.panel.record.ias.open({ timeout: false });
+          this.panel.record.ias.open({ timeout: undefined });
           break;
         case 103.5:
           this.panel.record.ias.open({ timeout: true });

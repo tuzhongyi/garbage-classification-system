@@ -11,6 +11,10 @@ export class GarbageManagementStreetDeviceRouteMapBusiness {
 
   private interval = 5 * 60; // 5分钟
 
+  device(deviceId: string) {
+    return this.service.device.get(deviceId);
+  }
+
   async load(
     args: GarbageManagementStreetDeviceRouteArgs,
     rectified?: boolean
@@ -23,7 +27,7 @@ export class GarbageManagementStreetDeviceRouteMapBusiness {
     // return datas;
   }
 
-  convert(datas: IasGpsItem[], interval: number) {
+  private convert(datas: IasGpsItem[], interval: number) {
     if (!Array.isArray(datas) || datas.length === 0) {
       return [];
     }

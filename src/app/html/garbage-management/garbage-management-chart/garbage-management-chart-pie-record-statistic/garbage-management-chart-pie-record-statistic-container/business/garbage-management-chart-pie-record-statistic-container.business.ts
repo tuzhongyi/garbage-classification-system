@@ -23,7 +23,10 @@ export class GarbageManagementChartPieRecordStatisticContainerBusiness {
     let division = await this.global.division.selected;
     let data = {
       division: await this.service.division.load(division.Id, args.unit),
-      ias: await this.service.ias.load(division.Id, args.unit),
+      ias: {
+        exposed: await this.service.ias.load(division.Id, args.unit),
+        timeout: await this.service.ias.load(division.Id, args.unit, true),
+      },
     };
     let mixedinfo = this.convert.statistic(EventType.MixedInto, data.division);
     let garbagefull = this.convert.statistic(
@@ -46,8 +49,8 @@ export class GarbageManagementChartPieRecordStatisticContainerBusiness {
       EventType.IllegalVehicle,
       data.division
     );
-    let garbageexposed = this.convert.ias.exposed(data.ias);
-    let iastimeout = this.convert.ias.timeout(data.ias);
+    let garbageexposed = this.convert.ias.exposed(data.ias.exposed);
+    let iastimeout = this.convert.ias.timeout(data.ias.timeout);
     return [
       mixedinfo,
       garbagefull,
@@ -93,7 +96,7 @@ export class GarbageManagementChartPieRecordStatisticContainerBusiness {
         let item: ChartItem = {
           id: 103.5,
           name: '高频事件',
-          value: timeouts.length,
+          value: data.Page.TotalRecordCount || 0,
         };
         return item;
       },

@@ -14,4 +14,11 @@ export class GarbageManagementMapIasHeatmapController {
       x.clear();
     });
   }
+  set = {
+    text: (enabled: boolean) => {
+      this.amap.heatmap.get().then((x) => {
+        x.set.text(enabled);
+      });
+    },
+  };
 }

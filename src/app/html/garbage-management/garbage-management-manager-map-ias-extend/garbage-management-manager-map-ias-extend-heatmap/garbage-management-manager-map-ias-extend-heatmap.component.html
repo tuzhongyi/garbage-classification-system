@@ -30,6 +30,17 @@
         </hw-select>
       </div>
     </div>
+    <div class="form-item">
+      <label for="heatmap_textable">
+        显示数量
+        <input
+          id="heatmap_textable"
+          type="checkbox"
+          [(ngModel)]="textable"
+          (change)="on.textable()"
+        />
+      </label>
+    </div>
   </div>
   <div class="garbage-management-manager-map-ias-extend-heatmap-operation">
     <div class="button" (click)="on.close()">

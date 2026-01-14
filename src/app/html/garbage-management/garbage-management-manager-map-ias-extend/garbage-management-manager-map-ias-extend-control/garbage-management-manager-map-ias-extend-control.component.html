@@ -1,26 +1,21 @@
 <div class="garbage-management-manager-map-ias-extend-control">
-  <ias-container-expand-corner
+  <!-- <ias-container-expand-corner
     [icon]="'howell-icon-grid'"
     [top]="top"
     [left]="left"
-  >
-    <div class="garbage-management-manager-map-ias-extend-control-body forms">
-      <div class="form-item">
-        <div class="form-item-text">
-          <label
-            for="garbage-management-manager-map-ias-extend-control-draggable"
-            >事件热力</label
-          >
-        </div>
-        <div class="form-item-value">
-          <input
-            type="checkbox"
-            id="garbage-management-manager-map-ias-extend-control-draggable"
-            [(ngModel)]="heatmap"
-            (change)="on.heatmap()"
-          />
-        </div>
-      </div>
+  > -->
+  <div class="garbage-management-manager-map-ias-extend-control-body forms">
+    <div class="form-item">
+      <label for="garbage-management-manager-map-ias-extend-control-draggable"
+        >事件热力
+        <input
+          type="checkbox"
+          id="garbage-management-manager-map-ias-extend-control-draggable"
+          [(ngModel)]="heatmap"
+          (change)="on.heatmap()"
+        />
+      </label>
     </div>
-  </ias-container-expand-corner>
+  </div>
+  <!-- </ias-container-expand-corner> -->
 </div>

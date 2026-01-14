@@ -27,6 +27,7 @@ export class GarbageManagementChartPieRecordStatisticComponent
   implements OnInit, OnChanges, AfterViewInit, OnDestroy
 {
   @Input() datas: ChartItem[] = [];
+  @Input() colors: string[] = [];
   @Input() option = GarbageManagementChartPieRecordStatisticOption;
   constructor() {
     super();
@@ -56,16 +57,15 @@ export class GarbageManagementChartPieRecordStatisticComponent
   }
 
   private set(datas: ChartItem[]) {
+    if (this.colors.length > 0) {
+      this.option.color = [...this.colors];
+    }
+    this.option.series[0].data = [];
+    this.option.series[1].data = [];
     for (let i = 0; i < datas.length; i++) {
       const item = datas[i];
-
-      let index = this.option.series[0].data.findIndex(
-        (x: ChartItem) => x.id === item.id
-      );
-      if (index >= 0) {
-        this.option.series[0].data[index] = item;
-        this.option.series[1].data[index] = item;
-      }
+      this.option.series[0].data.push(item);
+      this.option.series[1].data.push(item);
     }
   }
 

@@ -71,6 +71,9 @@ export class IasEventServiceCache extends ServiceCache<IasEventRecord> {
     if (args.EventType) {
       datas = datas.filter((x) => x.EventType === args.EventType);
     }
+    if (args.IsTimeout != undefined) {
+      datas = datas.filter((x) => x.IsTimeout == args.IsTimeout);
+    }
     if (args.Ids && args.Ids.length > 0) {
       datas = datas.filter((x) => args.Ids?.includes(x.Id));
     }

@@ -24,12 +24,18 @@ export class GarbageManagementManagerMapIasExtendHeatmapComponent {
     new EventEmitter<GarbageManagementManagerIasHeatmapArgs>();
   @Output() close = new EventEmitter<void>();
 
+  @Input() textable = true;
+  @Output() textableChange = new EventEmitter<boolean>();
+
   on = {
     change: () => {
       this.argsChange.emit(this.args);
     },
     close: () => {
       this.close.emit();
+    },
+    textable: () => {
+      this.textableChange.emit(this.textable);
     },
   };
 }

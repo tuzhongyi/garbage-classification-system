@@ -1,11 +1,18 @@
 import { GeoTool } from '../../../../../../common/tools/geo-tool/geo.tool';
+import { GarbageManagementMapAMapHeatmapMarkerClusterController } from './garbage-management-map-amap-heatmap-marker-cluster.controller';
 
 export class GarbageManagementMapAMapHeatmapController {
-  constructor(private container: Loca.Container) {
+  constructor(private map: AMap.Map, private container: Loca.Container) {
     this.heatmap = this.init();
+    this.cluster = new GarbageManagementMapAMapHeatmapMarkerClusterController(
+      map,
+      this.radius
+    );
   }
 
+  private radius = 20;
   private heatmap: Loca.HeatMapLayer;
+  private cluster: GarbageManagementMapAMapHeatmapMarkerClusterController;
   private opts: Loca.HeatMapLayerStyle = {
     radius: 20,
     unit: 'px',
@@ -19,6 +26,7 @@ export class GarbageManagementMapAMapHeatmapController {
       1.0: 'red',
     },
     value: function (index: number, feature: any) {
+      console.log(feature);
       return feature.properties.count;
     },
     min: 0,
@@ -58,7 +66,7 @@ export class GarbageManagementMapAMapHeatmapController {
         0.8: '#ff8625',
         1: '#ca2828',
       },
-      value: function (index: number, feature: any) {
+      value: (index: number, feature: any) => {
         return feature.properties.count;
       },
       min: 0,
@@ -66,9 +74,20 @@ export class GarbageManagementMapAMapHeatmapController {
       heightBezier: [0.2, 0.4, 0.8, 1],
     });
     this.container.add(this.heatmap);
+    this.cluster.load(points);
   }
 
   clear() {
     this.container.remove(this.heatmap);
   }
+
+  set = {
+    text: (enabled: boolean) => {
+      if (enabled) {
+        this.cluster.show();
+      } else {
+        this.cluster.hide();
+      }
+    },
+  };
 }

@@ -5,6 +5,7 @@ import { GarbageManagementManagerIasHeatmapArgs } from '../../../garbage-managem
 export class GarbageManagementManagerExtendHeatmapState {
   show = false;
   args = new GarbageManagementManagerIasHeatmapArgs();
+  textable = true;
   constructor(private that: GarbageManagementManagerComponent) {}
 
   on = {

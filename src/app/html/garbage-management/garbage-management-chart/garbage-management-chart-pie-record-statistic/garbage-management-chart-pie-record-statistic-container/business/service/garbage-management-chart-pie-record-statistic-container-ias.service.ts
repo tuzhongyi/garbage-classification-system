@@ -10,7 +10,7 @@ import { DateTimeTool } from '../../../../../../../common/tools/date-time-tool/d
 
 export class GarbageManagementChartPieRecordStatisticContainerIasService {
   constructor(private service: IasRequestService) {}
-  load(divisionId: string, unit: TimeUnit) {
+  load(divisionId: string, unit: TimeUnit, timeout?: boolean) {
     let duration = DateTimeTool.TimeUnit(unit, new Date());
     let params = new GetIasEventsParams();
     params.BeginTime = duration.begin;
@@ -18,6 +18,7 @@ export class GarbageManagementChartPieRecordStatisticContainerIasService {
     params.EventType = 103;
     params.PageIndex = 1;
     params.PageSize = 1;
+    params.IsTimeout = timeout;
     return this.service.event.cache.paged(params).catch((x) => {
       let paged = new PagedList<IasEventRecord>();
       paged.Page = Page.create(1, 0);

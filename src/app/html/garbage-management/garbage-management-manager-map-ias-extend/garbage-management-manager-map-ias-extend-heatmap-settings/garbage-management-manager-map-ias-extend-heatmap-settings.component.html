@@ -1,0 +1,28 @@
+<div class="garbage-management-manager-map-ias-extend-heatmap-settings">
+  <ias-container-expand-corner
+    [icon]="'howell-icon-settingoutline'"
+    [top]="top"
+    [left]="left"
+  >
+    <div
+      class="garbage-management-manager-map-ias-extend-heatmap-settings-body forms"
+    >
+      <div class="form-item">
+        <div class="form-item-text">
+          <label
+            for="garbage-management-manager-map-ias-extend-heatmap-settings-draggable"
+            >显示数量</label
+          >
+        </div>
+        <div class="form-item-value">
+          <input
+            type="checkbox"
+            id="garbage-management-manager-map-ias-extend-heatmap-settings-draggable"
+            [(ngModel)]="textable"
+            (change)="on.textable()"
+          />
+        </div>
+      </div>
+    </div>
+  </ias-container-expand-corner>
+</div>

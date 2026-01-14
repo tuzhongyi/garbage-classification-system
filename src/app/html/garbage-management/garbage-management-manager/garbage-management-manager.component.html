@@ -9,6 +9,7 @@
       [exposeds]="data.exposeds"
       [eventables]="data.eventables"
       [heatmap]="data.heatmap"
+      [heatmaptext]="state.extend.heatmap.textable"
       [select]="map.select"
       [move]="map.move"
       [(refresh)]="map.refresh"
@@ -62,7 +63,7 @@
       (selectedChange)="data.on.state($event)"
     ></howell-garbage-management-state-station>
   </div>
-  <div
+  <!-- <div
     class="garbage-management-manager-state-record-ias"
     *ngIf="state.display.ias.record.show"
   >
@@ -73,7 +74,7 @@
       [(timeoutSelected)]="state.display.ias.record.timeout"
       (exposedSelectedChange)="data.on.ias.exposed($event)"
     ></howell-garbage-management-state-record-ias>
-  </div>
+  </div> -->
   <div
     class="garbage-management-manager-ias-extend-control"
     *ngIf="state.extend.control.show"
@@ -90,6 +91,7 @@
     <howell-garbage-management-manager-map-ias-extend-heatmap
       (argsChange)="state.extend.heatmap.on.change($event)"
       (close)="state.extend.heatmap.on.close()"
+      [(textable)]="state.extend.heatmap.textable"
     ></howell-garbage-management-manager-map-ias-extend-heatmap>
   </div>
 

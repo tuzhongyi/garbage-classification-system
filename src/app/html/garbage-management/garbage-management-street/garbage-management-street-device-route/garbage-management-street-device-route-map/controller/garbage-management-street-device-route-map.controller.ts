@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IasDevice } from '../../../../../../common/network/model/ias/ias-device.model';
 import { IasGpsItem } from '../../../../../../common/network/model/ias/ias-gps-item.model';
 import { GeoTool } from '../../../../../../common/tools/geo-tool/geo.tool';
 import { GarbageManagementStreetDeviceRouteAMapPathController } from './amap/garbage-management-street-device-route-amap-path.controller';
@@ -48,8 +49,23 @@ export class GarbageManagementStreetDeviceRouteMapController {
 
   map = {
     destroy: () => {
-      this.amap.destroy();
       this.path.clear();
+      this.amap.destroy();
+    },
+  };
+
+  device = {
+    load: (data: IasDevice) => {
+      this.amap.device.get().then((x) => {
+        x.load(data);
+      });
+    },
+    set: {
+      position: (data: IasGpsItem) => {
+        this.amap.device.get().then((x) => {
+          x.set.position(data);
+        });
+      },
     },
   };
 }

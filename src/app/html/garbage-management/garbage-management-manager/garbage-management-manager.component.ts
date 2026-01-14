@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ContainerPageComponent } from '../../../common/components/container/container-page/container-page.component';
 import { PicturePolygonMultipleComponent } from '../../../common/components/picture/picture-polygon-multiple/picture-polygon-multiple.component';
 import { GlobalStorageService } from '../../../common/storage/global.storage';
@@ -111,11 +112,13 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
   private controller: GarbageManagementManagerController;
 
   constructor(
+    title: Title,
     public window: GarbageManagementManagerWindow,
     public tool: ComponentTool,
     public business: GarbageManagementManagerBusiness,
     public global: GlobalStorageService
   ) {
+    title.setTitle('生活垃圾监管平台');
     this.controller = new GarbageManagementManagerController(this);
     this.panel = new GarbageManagementManagerPanel(this);
   }

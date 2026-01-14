@@ -20,7 +20,9 @@ export class GarbageManagementMapAMapController {
   heatmap = new PromiseValue<GarbageManagementMapAMapHeatmapController>();
   constructor() {
     MapHelper.amap
-      .get('map-container', { showBuildingBlock: false, showLabel: false })
+      .get('map-container', { showBuildingBlock: false, showLabel: false }, [
+        'AMap.MarkerCluster',
+      ])
       .then((map) => {
         this.map.set(map);
         this.regist(map);
@@ -51,7 +53,10 @@ export class GarbageManagementMapAMapController {
         let timeout = new GarbageManagementMapAMapRecordController(map);
         this.timeout.set(timeout);
 
-        let heatmap = new GarbageManagementMapAMapHeatmapController(container);
+        let heatmap = new GarbageManagementMapAMapHeatmapController(
+          map,
+          container
+        );
         this.heatmap.set(heatmap);
       });
   }

@@ -35,7 +35,9 @@ export class GarbageManagementChartPieRecordStatisticContainerComponent
   @Output() itemclick = new EventEmitter<number>();
   constructor(
     private business: GarbageManagementChartPieRecordStatisticContainerBusiness
-  ) {}
+  ) {
+    this.init();
+  }
   private subscription = new Subscription();
   private regist() {
     if (this._load) {
@@ -47,7 +49,7 @@ export class GarbageManagementChartPieRecordStatisticContainerComponent
   }
   ngOnInit(): void {
     this.regist();
-    this.init();
+
     this.load();
   }
   ngOnDestroy(): void {
@@ -57,8 +59,9 @@ export class GarbageManagementChartPieRecordStatisticContainerComponent
   args = new GarbageManagementChartPieRecordStatisticContainerArgs();
   datas: ChartItem[] = [];
   count = 0;
-  colors = new Map();
 
+  colors = new Map();
+  color: string[] = [];
   private init() {
     this.colors.set(EventType.MixedInto, ColorTool.station.state.mixedinto);
     this.colors.set(EventType.GarbageFull, ColorTool.station.state.garbagefull);
@@ -74,6 +77,7 @@ export class GarbageManagementChartPieRecordStatisticContainerComponent
     );
     this.colors.set(103, ColorTool.station.state.garbageexposed);
     this.colors.set(103.5, ColorTool.station.state.iastimeout);
+    this.color = [...this.colors.values()];
   }
 
   private load() {

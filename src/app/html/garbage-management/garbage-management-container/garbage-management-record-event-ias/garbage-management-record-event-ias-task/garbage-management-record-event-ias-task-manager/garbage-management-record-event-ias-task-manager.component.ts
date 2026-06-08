@@ -32,6 +32,7 @@ export class GarbageManagementRecordEventIasTaskManagerComponent
   ngOnInit(): void {
     if (this.data) {
       this.picture.task.init(this.data);
+      this.picture.handle.init(this.data);
     }
   }
 

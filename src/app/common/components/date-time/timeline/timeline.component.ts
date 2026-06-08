@@ -25,7 +25,7 @@ export class TimelineComponent implements OnChanges {
 
   begin?: Date;
   end?: Date;
-  current = new Date();
+  current?: Date;
   index = 0;
   @ViewChild('timelineslider') slider?: ElementRef<HTMLInputElement>;
 

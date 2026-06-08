@@ -1,5 +1,6 @@
 import { EventEmitter } from '@angular/core';
 import { Page } from '../../network/model/page_list.model';
+import { ColorTool } from '../color-tool/color.tool';
 import { Language } from '../language';
 
 export interface IPagedTableArgs {
@@ -35,6 +36,7 @@ export abstract class PagedTableAbstractComponent<T> {
   sticky = false;
 
   Language = Language;
+  Color = ColorTool;
   datas: Array<T | undefined> = [];
   page: Page = new Page();
   loading = false;

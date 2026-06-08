@@ -50,6 +50,7 @@ import {
   SuperviseResult,
   SupervisedState,
 } from '../network/model/garbage-station/garbage-drop-super-vision-data.model';
+import { Assignment } from '../network/model/ias/assignment.model';
 import { DateTimeTool } from './date-time-tool/datetime.tool';
 import { Flags } from './flags';
 import * as language from './language.json';
@@ -1207,6 +1208,22 @@ export class Language {
       default:
         return '未知车辆';
     }
+  }
+
+  static AssignmentState(data?: Assignment) {
+    if (data) {
+      if (data.IsMisInfo) {
+        return '已忽略';
+      }
+      if (data.Handled) {
+        return '已处置';
+      }
+      if (data.Assigned) {
+        return '已确认';
+      }
+      return '未处置';
+    }
+    return '未确认';
   }
 
   static json = language;

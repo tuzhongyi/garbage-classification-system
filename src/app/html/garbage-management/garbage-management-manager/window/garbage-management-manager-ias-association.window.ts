@@ -10,7 +10,7 @@ export class GarbageManagementManagerIasAssociationWindow extends WindowViewMode
 
     zIndex: '2',
   };
-  title = '暴露垃圾事件';
+  title = '高频关联事件';
   args = new GarbageManagementRecordEventIasListTableArgs();
 
   open(args: { duration: Duration; data: IasEventRecord }) {

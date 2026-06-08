@@ -1,3 +1,4 @@
+import { Assignment } from '../../network/model/ias/assignment.model';
 import { ColorChartTool } from './color-chart.tool';
 
 export class ColorTool {
@@ -190,4 +191,20 @@ export class ColorTool {
       },
     },
   };
+
+  static AssignmentState(data?: Assignment) {
+    if (data) {
+      if (data.IsMisInfo) {
+        return '#00f6ff';
+      }
+      if (data.Handled) {
+        return '#21e452';
+      }
+      if (data.Assigned) {
+        return '#ffba00';
+      }
+      return '#ffff00';
+    }
+    return '#ffba00';
+  }
 }

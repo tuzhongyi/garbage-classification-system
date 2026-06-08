@@ -10,22 +10,28 @@
   <div
     class="garbage-management-record-event-ias-task-progress-to"
     [ngClass]="{
-      did: data.Assignment && data.Assignment.AssignmentTime
+      did:
+        data.Assignment &&
+        (data.Assignment.AssignmentTime || data.Assignment.HandledTime)
     }"
   ></div>
   <div
     class="garbage-management-record-event-ias-task-progress-item"
     [ngClass]="{
-      did: data.Assignment && data.Assignment.AssignmentTime
+      did:
+        data.Assignment &&
+        (data.Assignment.AssignmentTime || data.Assignment.HandledTime)
     }"
   >
     <div class="garbage-management-record-event-ias-task-progress-item-name">
       派单时间
     </div>
     <div class="garbage-management-record-event-ias-task-progress-item-time">
-      {{
-        (data.Assignment?.AssignmentTime | date : Language.MMddHHmmss) ?? "-"
-      }}
+      @if(data.Assignment) { @if(data.Assignment.AssignmentTime){
+      {{ (data.Assignment.AssignmentTime | date : Language.MMddHHmmss) ?? "-" }}
+      } @else{ @if(data.Assignment.Handled){
+      {{ data.EventTime | date : Language.MMddHHmmss }}
+      } } }
     </div>
   </div>
   <div
@@ -34,7 +40,12 @@
       did: data.Assignment && data.Assignment.HandledTime
     }"
   ></div>
-  <div class="garbage-management-record-event-ias-task-progress-item">
+  <div
+    class="garbage-management-record-event-ias-task-progress-item"
+    [ngClass]="{
+      did: data.Assignment && data.Assignment.HandledTime
+    }"
+  >
     <div class="garbage-management-record-event-ias-task-progress-item-name">
       接单处置
     </div>

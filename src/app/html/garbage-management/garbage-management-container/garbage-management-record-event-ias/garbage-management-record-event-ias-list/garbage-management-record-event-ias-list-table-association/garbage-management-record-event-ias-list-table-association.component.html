@@ -66,14 +66,11 @@
             }
           </td>
           <td
-            [ngClass]="{
-              'text-green': item && item.Assignment?.Handled,
-              'text-yellow': item && !item.Assignment?.Handled
-            }"
             class="center"
+            [style.color]="Color.AssignmentState(item?.Assignment)"
           >
             @if(item){
-            {{ item.Assignment?.Handled ? "已确认" : "未确认" }}
+            {{ Language.AssignmentState(item.Assignment) }}
             }
           </td>
           <td class="center">

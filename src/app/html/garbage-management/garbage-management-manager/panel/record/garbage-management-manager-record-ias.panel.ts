@@ -55,6 +55,10 @@ export class GarbageManagementManagerRecordIasPanel extends WindowViewModel {
       }
     },
     association: (args: { duration: Duration; data: IasEventRecord }) => {
+      let _args = {
+        ...args,
+      };
+      _args.duration.begin.setMonth(_args.duration.begin.getMonth() - 1);
       this.window.association.open(args);
     },
   };

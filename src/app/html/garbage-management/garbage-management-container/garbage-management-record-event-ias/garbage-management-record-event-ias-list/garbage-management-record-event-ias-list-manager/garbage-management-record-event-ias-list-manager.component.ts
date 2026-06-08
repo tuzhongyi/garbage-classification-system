@@ -86,5 +86,6 @@ export class GarbageManagementRecordEventIasListManagerComponent
     association: (args: { duration: Duration; data: IasEventRecord }) => {
       this.association.emit(args);
     },
+    download: () => {},
   };
 }

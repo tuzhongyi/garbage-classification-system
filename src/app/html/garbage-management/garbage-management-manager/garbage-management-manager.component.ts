@@ -118,7 +118,7 @@ export class GarbageManagementManagerComponent implements OnInit, OnDestroy {
     public business: GarbageManagementManagerBusiness,
     public global: GlobalStorageService
   ) {
-    title.setTitle('生活垃圾监管平台');
+    title.setTitle('垃圾分类智能监管平台');
     this.controller = new GarbageManagementManagerController(this);
     this.panel = new GarbageManagementManagerPanel(this);
   }

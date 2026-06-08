@@ -24,7 +24,7 @@
     />
     <div
       class="timeline-current"
-      *ngIf="mouse.enter || control.playing"
+      *ngIf="current && (mouse.enter || control.playing)"
       [ngStyle]="{
         left: mouse.left + 'px'
       }"

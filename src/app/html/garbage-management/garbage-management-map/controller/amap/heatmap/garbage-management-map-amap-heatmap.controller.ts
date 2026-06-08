@@ -78,6 +78,7 @@ export class GarbageManagementMapAMapHeatmapController {
   }
 
   clear() {
+    this.cluster.clear();
     this.container.remove(this.heatmap);
   }
 
